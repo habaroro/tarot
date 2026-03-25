@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>지니의 호로스코프 벨린 도서관</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
+    <style>
+        :root {
+            --bg-gray: #F0F2F8;
+            --text-dark: #1A202C;
+            --text-gray: #718096;
+            --shadow-soft: 0 8px 30px rgba(20, 30, 80, 0.10);
+            --shadow-card: 0 16px 40px rgba(20, 30, 80, 0.20);
+            --gold: #D4AF37;
+            --gold-light: #F6E89A;
+            --gold-bg: #FFFBEB;
+            --gold-border: #ECC94B;
+            --navy: #1A202C;
+            --navy-mid: #2D3748;
+            --gradient-header: linear-gradient(135deg, #0F1923 0%, #1a3055 50%, #2A4A7F 100%);
+            --gradient-card: linear-gradient(160deg, #0F1923 0%, #1a3055 50%, #243B6E 100%);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'NanumSquareRound', sans-serif;
+            background: var(--bg-gray);
+            color: var(--text-dark);
+            text-align: center;
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ── 헤더 ── */
+        header {
+            background: var(--gradient-header);
+            padding: 16px 20px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 50;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .back-btn {
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.12);
+            border: none; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; backdrop-filter: blur(8px);
+            transition: background 0.2s; text-decoration: none;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.25); }
+        .back-btn svg { width: 22px; height: 22px; fill: white; }
+
+        .app-title {
+            font-size: 1.3rem; font-weight: 800; color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            letter-spacing: -0.3px;
+        }
+     
+        .list-btn {
+            background: rgba(212,175,55,0.2);
+            border: 1px solid rgba(212,175,55,0.5);
+            color: var(--gold-light);
+            padding: 7px 14px; border-radius: 20px; cursor: pointer;
+            font-size: 0.85rem; font-weight: 700;
+            font-family: 'NanumSquareRound', sans-serif;
+            backdrop-filter: blur(8px); transition: 0.2s;
+        }
+        .list-btn:hover { background: rgba(212,175,55,0.35); }
+
+        /* ── 컨테이너 ── */
+        .container {
+            max-width: 500px; margin: 0 auto;
+            padding: 24px 16px 100px;
+        }
+
+        /* ── 카드 (단면) ── */
+        .card-display-area {
+            width: 220px; height: 370px;
+            margin: 0 auto 28px;
+            border-radius: 215x;
+            box-shadow: var(--shadow-card);
+            overflow: hidden; position: relative;
+        }
+        .card-img-view {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            border-radius: 15px;
+            border: 6px solid #ffffff;
+        }
+        .card-fallback {
+            width: 100%; height: 100%;
+            background: var(--gradient-card);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 24px; border-radius: 22px;
+            border: 2px solid rgba(212,175,55,0.3);
+            position: absolute; top: 0; left: 0;
+        }
+        .card-fallback::before {
+            content: ''; position: absolute;
+            width: 160px; height: 160px;
+            background: rgba(212,175,55,0.06);
+            border-radius: 50%; top: -50px; right: -50px;
+        }
+        .card-fallback::after {
+            content: ''; position: absolute;
+            width: 100px; height: 100px;
+            background: rgba(212,175,55,0.04);
+            border-radius: 50%; bottom: -30px; left: -30px;
+        }
+        .fb-no-badge {
+            background: rgba(212,175,55,0.2);
+            border: 1px solid rgba(212,175,55,0.4);
+            color: var(--gold-light);
+            font-size: 0.78rem; font-weight: 800;
+            padding: 4px 12px; border-radius: 20px;
+            letter-spacing: 1px; margin-bottom: 14px; z-index: 1;
+        }
+        .fb-symbol {
+            font-size: 4.5rem; line-height: 1; margin-bottom: 12px;
+            filter: drop-shadow(0 4px 12px rgba(212,175,55,0.4));
+            animation: floatSymbol 3s ease-in-out infinite; z-index: 1;
+        }
+        .fb-name {
+            font-size: 1.1rem; font-weight: 800; color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            white-space: pre-line; text-align: center; line-height: 1.3; z-index: 1;
+        }
+        .fb-grade {
+            font-size: 0.75rem; color: var(--gold-light);
+            font-weight: 700; margin-top: 8px; z-index: 1;
+        }
+        @keyframes floatSymbol {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* ── 카드 정보 바 ── */
+        .card-info-bar {
+            background: white; border-radius: 20px;
+            padding: 18px 20px; margin-bottom: 16px;
+            box-shadow: var(--shadow-soft); text-align: left;
+            border: 1px solid rgba(212,175,55,0.15);
+        }
+        .card-info-top {
+            display: flex; align-items: flex-start;
+            justify-content: space-between; margin-bottom: 12px; gap: 10px;
+        }
+        .card-full-name {
+            font-size: 1.25rem; font-weight: 800;
+            color: var(--text-dark); line-height: 1.25;
+            white-space: pre-line; flex: 1;
+        }
+        .card-full-name .card-no-inline {
+            display: inline-block;
+            font-size: 0.85rem; font-weight: 800;
+            color: var(--gold); margin-right: 4px;
+        }
+
+        /* 등급 뱃지 색상 분기 */
+        .grade-pill {
+            color: white; font-size: 0.72rem; font-weight: 800;
+            padding: 5px 11px; border-radius: 20px;
+            white-space: nowrap; flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        .grade-sun    { background: linear-gradient(135deg,#F6AD55,#ED8936); }
+        .grade-moon   { background: linear-gradient(135deg,#667EEA,#764BA2); }
+        .grade-venus  { background: linear-gradient(135deg,#F687B3,#ED64A6); }
+        .grade-mercury{ background: linear-gradient(135deg,#4FD1C5,#38B2AC); }
+        .grade-mars   { background: linear-gradient(135deg,#FC8181,#E53E3E); }
+        .grade-jupiter{ background: linear-gradient(135deg,#68D391,#38A169); }
+        .grade-saturn { background: linear-gradient(135deg,#A0AEC0,#718096); }
+        .grade-special{ background: linear-gradient(135deg,#D4AF37,#B7791F); }
+        .grade-neutral{ background: linear-gradient(135deg,#90CDF4,#4299E1); }
+
+        .keyword-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .keyword-tag {
+            background: var(--gold-bg); color: #B7791F;
+            font-size: 0.78rem; font-weight: 700;
+            padding: 4px 10px; border-radius: 10px;
+            border: 1px solid var(--gold-border);
+        }
+
+        /* ── 탭 UI ── */
+        .tab-container {
+            background: white; border-radius: 20px;
+            overflow: hidden; box-shadow: var(--shadow-soft);
+            margin-bottom: 16px;
+            border: 1px solid rgba(212,175,55,0.12);
+        }
+        .tab-header {
+            display: flex; border-bottom: 2px solid #F0F2F8;
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .tab-header::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            flex: 1; min-width: 62px; padding: 13px 4px;
+            background: none; border: none;
+            font-family: 'NanumSquareRound', sans-serif;
+            font-size: 0.75rem; font-weight: 700;
+            color: var(--text-gray); cursor: pointer;
+            transition: 0.2s; white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 3px;
+        }
+        .tab-btn .tab-icon { font-size: 1.05rem; }
+        .tab-btn.active { color: #B7791F; border-bottom-color: var(--gold); }
+        .tab-content { display: none; padding: 22px 20px; text-align: left; }
+        .tab-content.active { display: block; animation: fadeIn 0.22s ease; }
+
+        /* ── 텍스트 ── */
+        .detail-text {
+            font-size: 1rem; line-height: 1.85;
+            color: #4A4A6A; word-break: keep-all;
+            white-space: pre-line; margin: 0;
+        }
+        .section-label {
+            display: flex; align-items: center; gap: 7px;
+            font-size: 1rem; font-weight: 800;
+            color: var(--text-gray); letter-spacing: 0.5px; margin-bottom: 12px;
+        }
+        .section-label::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(to right, #ECC94B44, transparent);
+        }
+
+        /* ── 연애 ── */
+        .love-summary {
+            background: linear-gradient(135deg, var(--gold-bg), #FFF3CD);
+            border-radius: 14px; padding: 16px 18px; margin-bottom: 16px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        .love-summary-text {
+            font-size: 1rem; line-height: 1.7;
+            color: #92600A; font-weight: 700; white-space: pre-line;
+        }
+        .love-scenarios { display: flex; flex-direction: column; gap: 12px; }
+        .scenario-card {
+            background: #FAFAFA; border-radius: 14px; padding: 15px;
+            border: 1px solid #EBEBEB;
+            display: flex; gap: 12px; align-items: flex-start;
+        }
+        .scenario-icon-wrap {
+            width: 40px; height: 40px; flex-shrink: 0;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+        .scenario-icon-wrap.some   { background: linear-gradient(135deg,#FFE0EC,#FFB3D0); }
+        .scenario-icon-wrap.couple { background: linear-gradient(135deg,#FFF3C4,#FFD97D); }
+        .scenario-icon-wrap.breakup{ background: linear-gradient(135deg,#D8E8FF,#A8C8FF); }
+        .scenario-body { flex: 1; }
+        .scenario-label {
+            font-size: 0.9rem; font-weight: 800;
+            color: var(--text-gray); margin-bottom: 5px; display: block;
+        }
+        .scenario-text {
+            font-size: 1rem; line-height: 1.65;
+            color: #4A4A6A; word-break: keep-all;
+        }
+
+        /* ── 건강 ── */
+        .health-box {
+            display: flex; gap: 10px; align-items: flex-start;
+            background: linear-gradient(135deg,#E8F8F0,#C8F0E0);
+            border-radius: 14px; padding: 16px;
+            border: 1px solid rgba(0,180,130,0.2);
+        }
+        .health-icon { font-size: 1.8rem; flex-shrink: 0; }
+        .health-text {
+            font-size: 1rem; line-height: 1.7;
+            color: #1A5A40; font-weight: 700; word-break: keep-all;
+        }
+
+        /* ── 사업 박스 ── */
+        .biz-box {
+            background: linear-gradient(135deg, #EBF4FF, #C8E0FF);
+            border-radius: 14px; padding: 16px 18px;
+            border: 1px solid rgba(66,153,225,0.2);
+        }
+        .biz-text {
+            font-size: 1rem; line-height: 1.75;
+            color: #1A365D; font-weight: 700; word-break: keep-all;
+        }
+
+        /* ── 하단 네비 ── */
+        .nav-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(255,255,255,0.97);
+            border-top: 1px solid rgba(212,175,55,0.2);
+            backdrop-filter: blur(16px);
+            display: flex; align-items: center;
+            padding: 0 16px; height: 68px;
+            box-sizing: border-box; z-index: 100;
+            box-shadow: 0 -6px 24px rgba(20,30,80,0.08);
+        }
+        .nav-progress {
+            height: 3px;
+            background: linear-gradient(to right, var(--gold), #F6AD55);
+            position: absolute; top: 0; left: 0;
+            border-radius: 0 3px 3px 0; transition: width 0.4s ease;
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+            border: none; color: var(--gold-light);
+            font-size: 0.9rem; font-weight: 800;
+            cursor: pointer; font-family: 'NanumSquareRound', sans-serif;
+            padding: 10px 20px; border-radius: 14px;
+            transition: 0.2s; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(20,30,80,0.25);
+        }
+        .nav-btn:active { transform: scale(0.96); opacity: 0.85; }
+        .nav-center {
+            flex: 1; text-align: center;
+            font-size: 0.9rem; color: var(--text-gray); font-weight: 700;
+        }
+
+        /* ── 모달 ── */
+        .modal {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10,15,30,0.75);
+            z-index: 200; backdrop-filter: blur(8px);
+        }
+        .modal-content-wrapper {
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 88%; background: white;
+            border-top-left-radius: 28px; border-top-right-radius: 28px;
+            overflow: hidden; display: flex; flex-direction: column;
+            animation: slideUpModal 0.35s cubic-bezier(0.19,1,0.22,1);
+        }
+        .modal-header {
+            padding: 20px 22px 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #F0F2F8; flex-shrink: 0; background: white;
+        }
+        .modal-title-wrap { display: flex; flex-direction: column; gap: 2px; }
+        .modal-title { font-size: 1.15rem; font-weight: 800; color: var(--text-dark); }
+        .modal-subtitle { font-size: 0.8rem; color: var(--text-gray); font-weight: 700; }
+        .close-btn {
+            width: 34px; height: 34px;
+            background: #F0F2F8; border: none; border-radius: 50%;
+            color: #666; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .close-btn:hover { background: var(--gold-bg); }
+
+        .group-header {
+            padding: 10px 20px 6px;
+            font-size: 0.75rem; font-weight: 800; color: #B7791F;
+            letter-spacing: 0.8px; background: #FAFAFA;
+            border-bottom: 1px solid #F0F2F8; text-align: left;
+        }
+        .card-list-scroll { overflow-y: auto; flex: 1; padding-bottom: 30px; }
+        .card-list {
+            padding: 12px 16px;
+            display: grid; grid-template-columns: repeat(2,1fr); gap: 10px;
+        }
+        .list-item {
+            background: #FAFAFA; padding: 13px 10px; border-radius: 14px;
+            text-align: center; cursor: pointer;
+            border: 2px solid transparent; transition: 0.2s;
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        .list-item:active { transform: scale(0.97); }
+        .list-item:hover { border-color: var(--gold); background: var(--gold-bg); }
+        .list-no { font-size: 0.8rem; color: #BBB; font-weight: 700; }
+        .list-name { font-weight: 800; font-size: 0.88rem; color: var(--text-dark); line-height: 1.2; }
+        .list-grade-sm { font-size: 0.72rem; color: #B7791F; font-weight: 700; }
+        .current-mark {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, var(--gold-bg), #FFF3C4);
+        }
+        .current-mark .list-name { color: #92600A; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to   { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="main.html" class="back-btn" aria-label="메인으로 돌아가기">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+    </a>
+    <div class="app-title">호로스코프 벨린 카드</div>
+    <button class="list-btn" onclick="openModal()">☰ 목록</button>
+</header>
+
+<div class="container">
+
+    <!-- ── 카드 이미지 ── -->
+    <div class="card-display-area">
+        <img id="dispImg" class="card-img-view" src="" alt="카드 이미지"
+             onerror="this.style.display='none'; document.getElementById('cardFallback').style.display='flex';">
+        <div id="cardFallback" class="card-fallback" style="display:none;">
+            <div class="fb-no-badge" id="fbNo">No.0</div>
+            <div class="fb-symbol" id="fbSymbol">🌟</div>
+            <div class="fb-name" id="fbName">카드</div>
+            <div class="fb-grade" id="fbGrade">특별 카드</div>
+        </div>
+    </div>
+
+    <!-- ── 카드 정보 바 ── -->
+    <div class="card-info-bar">
+        <div class="card-info-top">
+            <div class="card-full-name" id="infoName"></div>
+            <div class="grade-pill" id="infoGrade"></div>
+        </div>
+        <div class="keyword-tags" id="keywordTags"></div>
+    </div>
+
+    <!-- ── 탭 ── -->
+    <div class="tab-container">
+        <div class="tab-header">
+            <button class="tab-btn active" onclick="switchTab(0,this)">
+                <span class="tab-icon">✨</span>종합
+            </button>
+            <button class="tab-btn" onclick="switchTab(1,this)">
+                <span class="tab-icon">❤️</span>연애
+            </button>
+            <button class="tab-btn" onclick="switchTab(2,this)">
+                <span class="tab-icon">💼</span>사업
+            </button>
+            <button class="tab-btn" onclick="switchTab(3,this)">
+                <span class="tab-icon">🍀</span>건강
+            </button>
+        </div>
+
+        <!-- 탭 0: 종합 -->
+        <div class="tab-content active" id="tab-0">
+            <div class="section-label">✨ 종합 해석</div>
+            <p class="detail-text" id="descTotal"></p>
+        </div>
+
+        <!-- 탭 1: 연애 -->
+        <div class="tab-content" id="tab-1">
+            <div class="section-label">💛 연애 핵심 요약</div>
+            <div class="love-summary">
+                <div class="love-summary-text" id="descLovMain"></div>
+            </div>
+            <div class="section-label">💗 상황별 연애운</div>
+            <div class="love-scenarios">
+                <div class="scenario-card">
+                    <div class="scenario-icon-wrap some">💓</div>
+                    <div class="scenario-body">
+                        <span class="scenario-label">썸 타고 있을 때</span>
+                        <div class="scenario-text" id="lovSome"></div>
+                    </div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon-wrap couple">💑</div>
+                    <div class="scenario-body">
+                        <span class="scenario-label">사귀고 있을 때</span>
+                        <div class="scenario-text" id="lovCouple"></div>
+                    </div>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon-wrap breakup">💔</div>
+                    <div class="scenario-body">
+                        <span class="scenario-label">이별 후 / 재회</span>
+                        <div class="scenario-text" id="lovBreak"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 2: 사업 -->
+        <div class="tab-content" id="tab-2">
+            <div class="section-label">💼 사업 및 금전운</div>
+            <div class="biz-box">
+                <div class="biz-text" id="descBiz"></div>
+            </div>
+        </div>
+
+        <!-- 탭 3: 건강 -->
+        <div class="tab-content" id="tab-3">
+            <div class="section-label">🍀 건강 및 조언</div>
+            <div class="health-box">
+                <span class="health-icon">🔭</span>
+                <div class="health-text" id="descHea"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ── 하단 네비 ── -->
+<div class="nav-bar">
+    <div class="nav-progress" id="navProgress"></div>
+    <button class="nav-btn" onclick="prevCard()">❮ 이전</button>
+    <div class="nav-center" id="navPage">1 / 53</div>
+    <button class="nav-btn" onclick="nextCard()">다음 ❯</button>
+</div>
+
+<!-- ── 목록 모달 ── -->
+<div id="listModal" class="modal" onclick="handleModalClick(event)">
+    <div class="modal-content-wrapper">
+        <div class="modal-header">
+            <div class="modal-title-wrap">
+                <div class="modal-title">📖 53장 전체 목록</div>
+                <div class="modal-subtitle">카드를 선택하여 학습하세요</div>
+            </div>
+            <button class="close-btn" onclick="closeModal()">✕</button>
+        </div>
+        <div class="card-list-scroll">
+            <div id="cardListContainer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+/* ─────────── 등급별 CSS 클래스 & 심볼 매핑 ─────────── */
+function getGradeClass(grade) {
+    if (grade.includes('태양'))    return 'grade-sun';
+    if (grade.includes('달'))      return 'grade-moon';
+    if (grade.includes('금성'))    return 'grade-venus';
+    if (grade.includes('수성'))    return 'grade-mercury';
+    if (grade.includes('화성'))    return 'grade-mars';
+    if (grade.includes('목성'))    return 'grade-jupiter';
+    if (grade.includes('토성'))    return 'grade-saturn';
+    if (grade.includes('공백'))    return 'grade-special';
+    return 'grade-neutral';
+}
+
+/* ─────────── 키워드 자동 추출 ─────────── */
+function extractKeywords(desc) {
+    const first = desc.split('\n')[0];
+    return first.split(/[,，、.]/).map(s => s.trim()).filter(s => s.length > 0 && s.length < 8).slice(0, 5);
+}
+
+/* ─────────── 데이터 ─────────── */
+const studyData = [
+    {
+        no:"0", name:"블루 (La Carte Bleue)", symbol:"💙", grade:"공백 카드", img:"./img_h/00.jpg",
+        desc:"행운, 완벽한 보호, 무한한 긍정, 부정적 기운의 소멸.\n어떤 나쁜 카드가 주변에 있어도 그 악운을 막아주는 강력한 부적과도 같은 카드입니다. 질문에 대해 의심할 여지 없는 강력한 'Yes'를 의미합니다.",
+        loveMain:"최고의 행운이 따르는 연애.\n완벽한 보호와 축복을 받는 관계.\n쏠로연애운♡운명적이고 티 없이 맑은 인연이 나타날 확률 매우 높음",
+        biz:"모든 어려움이 기적처럼 해결됨. 막힘없는 성공과 재물운이 따르며 귀인의 강력한 보호가 있습니다.",
+        lov:{some:"서로에게 완벽히 빠져들며 어떤 장애물 없이 순조롭게 연인으로 발전할 수 있는 긍정적인 마음.",couple:"어떤 위기나 다툼이 있어도 기적처럼 화해하며, 서로를 지켜주는 완벽하고 충만한 사랑.",break:"강력한 운명과 기적의 힘으로 재회에 성공하며, 다시는 헤어지지 않을 굳건한 마음."},
+        hea:"건강의 기적적인 회복, 질병이나 사고로부터의 완벽한 보호."
+    },
+    {
+        no:"1", name:"남자 카드 (Pensée de l'Homme)", symbol:"👨", grade:"중립", img:"./img_h/01.jpg",
+        desc:"남성 에너지, 질문자 본인(남성일 경우), 파트너나 중요한 남성, 주도적, 행동력.\n이 카드는 남성을 직접적으로 상징하며, 상황을 능동적으로 주도하거나 남성적인 에너지가 필요한 시기임을 뜻합니다.",
+        loveMain:"남성이 리드하는 연애, 남성 측의 의지가 매우 중요함.\n쏠로연애운♡적극적이고 듬직하게 다가오는 남성이 나타남",
+        biz:"남성 상사나 조력자의 직접적인 도움, 혹은 본인 스스로 주도적이고 강력한 리더십을 발휘해야 성공하는 시기.",
+        lov:{some:"남성 쪽에서 뚜렷한 호감을 느끼고 적극적으로 리드하여 관계를 확실히 발전시키려는 마음.",couple:"남성이 관계의 중심을 굳건히 잡고 이끌어가며, 듬직하고 책임감 있게 상대를 대하는 상태.",break:"헤어진 남성 측의 결단이 재회의 관건이며, 남성이 먼저 용기를 내어 연락할 가능성이 큼."},
+        hea:"남성성 관련 질환 유의, 체력을 기르기 위해 활동적이고 능동적인 운동이 필요함."
+    },
+    {
+        no:"2", name:"여자 카드 (Pensée de la Femme)", symbol:"👩", grade:"중립", img:"./img_h/02.jpg",
+        desc:"여성 에너지, 질문자 본인(여성일 경우), 파트너나 중요한 여성, 수용성, 섬세함.\n여성을 상징하며, 부드럽고 섬세한 감성이나 여성 조력자의 역할이 현재 상황에 큰 영향을 미침을 뜻합니다.",
+        loveMain:"여성의 역할이 중요한 연애, 감성적이고 부드러운 교감.\n쏠로연애운♡섬세하고 매력적인 여성과의 만남",
+        biz:"여성 파트너, 상사, 또는 주요 고객층이 일의 성패를 좌우함. 꼼꼼하고 포용력 있는 일 처리가 요구됨.",
+        lov:{some:"여성 측에서 섬세하게 분위기를 주도하거나, 상대방이 여성의 부드러운 매력에 끌려 조심스레 다가가는 마음.",couple:"여성의 포용력과 깊은 감수성이 관계를 안정적으로 유지하며, 따뜻하게 서로를 챙겨주는 상태.",break:"여성 측의 의사가 재회에 결정적이며, 감정적으로 상처받아 부드럽고 섬세한 위로가 필요한 마음."},
+        hea:"부인과 등 여성 관련 질환 유의, 감정 기복과 호르몬 불균형 주의."
+    },
+    {
+        no:"3", name:"운명 (Destinée)", symbol:"🗝️", grade:"긍정", img:"./img_h/03.jpg",
+        desc:"인생의 중요한 열쇠, 운명의 전환점, 해결책, 새로운 문이 열림.\n지금 겪고 있는 상황이나 만나고 있는 사람이 당신의 운명에 중요한 전환점이 될 것임을 나타내는 열쇠입니다.",
+        loveMain:"운명적인 인연, 관계의 중요한 전환점.\n결혼이나 깊은 관계로 나아가는 문.\n쏠로연애운♡인생에 중요한 영향을 미칠 인연의 등장",
+        biz:"막혔던 문제의 확실한 돌파구를 찾음. 중요한 계약이 성사되거나 직장에서 핵심적인 역할을 맡게 됨.",
+        lov:{some:"이 사람이야말로 내 운명일지도 모른다는 강한 이끌림과 확신을 서서히 가져가는 마음.",couple:"관계가 다음 단계(결혼 등)로 넘어가는 중요한 기로에 서 있으며, 서로가 인생의 핵심적인 존재라 여김.",break:"재회의 열쇠는 두 사람의 의지에 달려있으며, 정말 운명이라면 반드시 다시 연결될 것이라 믿는 마음."},
+        hea:"원인을 몰랐던 건강 문제의 확실한 치료법이나 해결의 열쇠를 찾게 됨."
+    },
+    {
+        no:"4", name:"꽃 (La Fleur)", symbol:"🌸", grade:"태양 ☀️ / 긍정", img:"./img_h/04.jpg",
+        desc:"새로운 시작, 기쁨, 개화, 번영, 긍정적인 결과.\n꽃이 활짝 피어나듯 상황이 긍정적으로 발전하며, 노력의 결과가 아름답게 만개하는 희망찬 에너지입니다.",
+        loveMain:"가슴 설레고 아름다운 연애의 시작.\n쏠로연애운♡새롭고 풋풋한 사랑이 피어날 확률이 매우 높음",
+        biz:"프로젝트의 순조로운 출발, 성과가 드러나기 시작함, 직장에서 긍정적인 평가를 받음.",
+        lov:{some:"상대방에 대한 마음이 꽃처럼 활짝 피어나며, 순수하고 아름다운 호감을 가지고 다가감.",couple:"연애의 가장 달콤하고 화려한 시기이며, 서로를 소중히 가꾸어가며 기쁨을 만끽하는 상태.",break:"과거의 아픔을 뒤로하고 새로운 만남을 시작하거나, 긍정적인 마음으로 예쁜 재회를 꿈꿈."},
+        hea:"생기가 넘치고 아름다워지는 시기, 외모나 피부 관리에 매우 좋음."
+    },
+    {
+        no:"5", name:"상승 (Élévation)", symbol:"🕊️", grade:"태양 ☀️ / 긍정", img:"./img_h/05.jpg",
+        desc:"발전, 지위 향상, 영적/정신적 성장, 계단 오름, 개선.\n상황이 이전보다 한 단계 업그레이드되며, 더 넓은 시야와 성숙함을 가지게 됨을 뜻합니다.",
+        loveMain:"정신적으로 성숙해지는 연애, 관계의 진전.\n쏠로연애운♡배울 점이 많고 수준이 맞는 사람과의 만남",
+        biz:"점진적인 발전, 지위의 향상, 자신의 가치를 한 단계 높일 수 있는 기회. 긍정적인 자기 계발.",
+        lov:{some:"단순한 호기심을 넘어 정신적으로 교감하며 한 단계 깊은 관계로 발전해 나가는 마음.",couple:"서로에게 긍정적인 영향을 주며 함께 성장하는, 매우 성숙하고 발전적인 연인 상태.",break:"과거의 잘못을 깨닫고 한 단계 성숙해진 마음으로 새롭게 관계를 정립하고 싶은 심리."},
+        hea:"건강 상태가 꾸준히 호전되며, 정신적 스트레스에서 점차 벗어남."
+    },
+    {
+        no:"6", name:"보상 (Récompenses)", symbol:"🏆", grade:"태양 ☀️ / 긍정", img:"./img_h/06.jpg",
+        desc:"목표 달성, 승리, 성취, 긍정적인 결과, 인정받음.\n그동안의 노력에 대한 확실한 보상과 성공을 의미합니다. 어떤 질문이든 매우 긍정적인 결론을 보장합니다.",
+        loveMain:"성공적인 연애, 원하던 사랑을 쟁취함.\n쏠로연애운♡이상형과의 성공적인 만남 및 발전",
+        biz:"승진, 합격, 계약 성사 등 완벽한 성공. 재물운이 크게 상승하고 명예를 얻게 됩니다.",
+        lov:{some:"상대방의 마음을 완전히 사로잡아 성공적으로 연인 관계로 발전할 수 있는 강력한 확신.",couple:"결혼이나 동거 등 두 사람이 목표했던 바를 무난하게 성취하며 행복을 누리는 상태.",break:"상대방의 마음을 돌리는 데 성공하며, 원하던 방향으로 재회가 이루어짐."},
+        hea:"매우 건강한 상태, 지병의 완벽한 극복 및 회복."
+    },
+    {
+        no:"7", name:"신뢰 (Fidélité)", symbol:"🐕", grade:"태양 ☀️ / 긍정", img:"./img_h/07.jpg",
+        desc:"진실한 우정, 깊은 생각, 지지자, 충성심, 따뜻한 마음.\n조건 없는 우정과 순수한 감정을 의미하며, 나를 돕고자 하는 좋은 인연이나 따뜻한 배려를 상징합니다.",
+        loveMain:"친구에서 연인으로, 편안하고 신뢰받는 연애.\n쏠로연애운♡오랜 친구나 지인을 통해 호감을 느낌",
+        biz:"동료들의 전폭적인 지지, 팀워크 최고, 신뢰할 수 있는 파트너나 조력자가 큰 힘이 됨.",
+        lov:{some:"연인으로서의 텐션보다는 마음이 너무 잘 통하는 베스트 프렌드 같은 편안함과 진실된 호감.",couple:"불타는 열정보다는 언제나 내 편이 되어주는 깊은 우정과 굳건한 신뢰가 바탕이 된 사랑.",break:"서로 미워하는 감정은 없으며, 이별 후에도 좋은 친구로 남아 도와주고 걱정하는 따뜻한 마음."},
+        hea:"주변의 보살핌으로 심신의 안정을 찾음, 심리 상담이나 대화가 도움이 됨."
+    },
+    {
+        no:"8", name:"명예 (Distinctions)", symbol:"🎖️", grade:"태양 ☀️ / 긍정", img:"./img_h/08.jpg",
+        desc:"인정, 보상, 자부심, 존경받음, 화려함, 공적.\n자신의 가치와 노력이 타인에게 널리 인정받고 영광스러운 자리에 오르게 됨을 의미합니다.",
+        loveMain:"남들이 부러워하는 화려한 연애, 자랑하고 싶은 파트너.\n쏠로연애운♡주변의 시선을 끄는 매력적인 인연 등장",
+        biz:"명성이 높아짐, 탁월한 리더십 발휘, 명예로운 직책, 사람들의 존경과 부러움을 삼.",
+        lov:{some:"상대방을 자랑스럽게 생각하며, 곁에 두고 타인에게 당당히 보여주고 싶은 높은 호감.",couple:"주변의 축복을 받는 관계이며, 서로에 대한 자부심과 존중이 매우 깊은 상태.",break:"자존심이 강하게 작용하여 먼저 굽히기 어렵지만, 명분만 주어진다면 좋게 재회 가능함."},
+        hea:"활력이 넘치고 외모나 체형 관리에 큰 성과를 보임."
+    },
+    {
+        no:"9", name:"선물 (Cadeaux)", symbol:"🎁", grade:"태양 ☀️ / 긍정", img:"./img_h/09.jpg",
+        desc:"뜻밖의 선물, 관대함, 기쁨, 보상, 호의, 물질적 혜택.\n내가 기대했던 것 이상의 혜택이나 마음이 담긴 선물을 받게 되며, 긍정적인 서프라이즈가 있습니다.",
+        loveMain:"선물과 애정이 넘치는 연애, 기분 좋은 서프라이즈.\n쏠로연애운♡예상치 못한 기분 좋은 고백이나 소개팅",
+        biz:"기대 이상의 수익금, 보너스, 누군가의 대가 없는 재정적 지원이나 유리한 제안.",
+        lov:{some:"나에게 시간과 비용을 아끼지 않고 기쁨을 주려 하며, 마음을 아낌없이 표현하는 호감.",couple:"애정 표현이 활발하고 서로에게 좋은 선물을 주고받으며 물질적/정신적 만족감이 가득함.",break:"선물처럼 갑작스레 재회 요청이 오거나 화해의 제스처(선물)를 통해 마음이 풀릴 수 있음."},
+        hea:"좋은 영양제나 뜻밖의 치료 기회를 얻어 건강이 좋아짐."
+    },
+    {
+        no:"10", name:"휴식 (Repos)", symbol:"🌿", grade:"태양 ☀️ / 긍정&부정", img:"./img_h/10.jpg",
+        desc:"휴식, 평온, 요양, 재충전, 평화로운 시간.\n바쁜 일상이나 스트레스에서 벗어나 몸과 마음을 정화하고 에너지를 되찾는 고요한 시간입니다.",
+        loveMain:"자연스럽고 편안한 데이트, 휴식 같은 연애.\n쏠로연애운♡여유로운 환경이나 여행지에서 스며드는 만남",
+        biz:"잠시 쉬어가야 할 때, 연차나 휴가를 통한 재충전 필요, 업무의 압박이 줄어들고 평온함.",
+        lov:{some:"부담 없이 자연스럽게 만나며 서로에게 안식처가 되어주는 편안함을 느끼는 중.",couple:"열정적이고 자극적인 데이트보다는 소소하고 조용한 일상을 공유하며 안정을 느끼는 상태.",break:"관계에서 온 피로감을 씻어내기 위해 당분간 혼자만의 조용한 휴식이 절실한 마음."},
+        hea:"건강 호전, 자연 치유, 맑은 공기와 휴식이 최고의 보약임."
+    },
+    {
+        no:"11", name:"출발 (Départ)", symbol:"✈️", grade:"달 🌛 / 중립", img:"./img_h/11.jpg",
+        desc:"새로운 시작, 이동, 비행, 여행, 떠남, 새로운 방향성.\n현재의 장소나 낡은 상황에서 벗어나 새로운 목적지를 향해 날아오르거나 이동하게 됨을 상징합니다.",
+        loveMain:"장거리 연애, 관계의 새로운 출발, 혹은 물리적 멀어짐.\n쏠로연애운♡여행이나 출장, 새로운 환경에서의 운명적 만남",
+        biz:"출장, 부서 이동, 이직, 해외 진출. 정체기를 벗어나 새로운 프로젝트나 시장을 향해 나아감.",
+        lov:{some:"다가오기보다는 자꾸 멀어지는 느낌을 받거나, 반대로 함께 여행을 가고 싶은 설레는 마음.",couple:"새로운 단계로 함께 출발하거나, 직장/이사 문제로 물리적인 거리가 생길 수 있는 상태.",break:"미련을 남겨두고 이미 심리적, 물리적으로 멀리 떠나버려 새로운 길을 가려는 마음."},
+        hea:"환경의 변화로 인한 가벼운 멀미, 활동량 증가로 인한 피로."
+    },
+    {
+        no:"12", name:"폭로 (Révélation)", symbol:"🔭", grade:"달 🌛 / 중립", img:"./img_h/12.jpg",
+        desc:"비밀의 폭로, 진실 확인, 깨달음, 탐구, 관찰.\n어둠 속에 감춰져 있던 비밀이나 진실이 망원경을 통해 밝혀지듯 수면 위로 명확하게 드러남을 뜻합니다.",
+        loveMain:"몰랐던 사실을 알게 됨, 속마음 파악, SNS 염탐.\n쏠로연애운♡관심 있는 상대의 뚜렷한 진심이나 비밀을 알게 됨",
+        biz:"조사 및 연구 결과의 발표, 감춰졌던 오류나 꼼수 발견, 치밀한 정보 탐색이 큰 도움이 됨.",
+        lov:{some:"상대방을 유심히 관찰하며 이 사람이 진짜 어떤 사람인지 세밀하게 분석하고 알아보는 과정.",couple:"파트너의 새로운 면모나 숨겨둔 진심(또는 비밀)을 갑작스럽게 발견하고 깨닫게 되는 시기.",break:"상대의 SNS 등을 몰래 염탐하며 동태를 살피거나, 이별의 진짜 원인을 비로소 깨닫게 된 상태."},
+        hea:"정밀 검사를 통해 몰랐던 질환을 초기에 발견함."
+    },
+    {
+        no:"13", name:"웰빙 (Bien-Être)", symbol:"🍇", grade:"금성 ♀️/ 긍정", img:"./img_h/13.jpg",
+        desc:"안락함, 풍요로움, 건강, 미식, 일상의 즐거움, 만족감.\n과일과 와인이 차려진 것처럼, 물질적/육체적으로 매우 안정되고 기분 좋은 일상의 행복을 누립니다.",
+        loveMain:"맛집 탐방 데이트, 즐거운 일상, 편안한 애정.\n쏠로연애운♡즐거운 모임이나 식사 자리에서 자연스럽게 엮임",
+        biz:"근무 환경이 개선됨, 여유로운 업무, 워라밸이 잘 지켜지며 노력에 대한 달콤한 보상을 받음.",
+        lov:{some:"분위기 좋은 곳에서 맛있는 것을 함께 먹으며 즐겁고 편안하게 호감을 키워가는 마음.",couple:"스트레스 없이 소소한 일상의 행복을 즐기며, 육체적/정신적으로 완벽한 포만감을 느끼는 관계.",break:"이별 후에도 아쉬울 것 없이 내 일상을 여유롭게 잘 챙기며 혼자서도 웰빙을 누리는 상태."},
+        hea:"매우 건강하고 생기가 넘침, 다만 과식이나 과음 주의."
+    },
+    {
+        no:"14", name:"악마 (Le Diable)", symbol:"😈", grade:"달 🌛 / 부정", img:"./img_h/14.jpg",
+        desc:"유혹, 원한, 분노, 악의적 방해, 벗어나기 힘든 굴레.\n어두운 본능이 지배하며, 나를 시험에 빠뜨리는 강렬한 유혹이나 누군가의 악의적인 훼방을 경고합니다.",
+        loveMain:"치명적인 매력, 육체적 관계 위주, 악연의 굴레.\n쏠로연애운♡나를 속이거나 상처 줄 수 있는 위험한 유혹",
+        biz:"사기, 구설수, 직장 내 괴롭힘, 부당한 계약. 유혹적인 제안 뒤에 숨겨진 덫을 조심해야 함.",
+        lov:{some:"위험한 걸 알면서도 본능적이고 성적인 매력에 강하게 끌려 이성적 판단을 잃은 상태.",couple:"집착, 질투, 혹은 서로에게 깊은 상처를 주는 말들을 서슴지 않으며 옭아매는 독성 가득한 관계.",break:"배신감과 복수심에 휩싸여 있거나, 미워하면서도 육체적/정신적 미련을 끊지 못하는 마음."},
+        hea:"전염병, 독소, 홧병, 알코올이나 약물 등 나쁜 습관의 중독 주의."
+    },
+    {
+        no:"15", name:"벽난로 (Foyer)", symbol:"🔥", grade:"달 🌛 / 중립", img:"./img_h/15.jpg",
+        desc:"집, 안식처, 따뜻함, 사적인 공간, 피난처, 보호막.\n활활 타오르는 벽난로처럼 가장 사적이고 안전한 공간을 뜻하며, 가족 간의 결속과 내면의 안정을 의미합니다.",
+        loveMain:"집 데이트, 가족 같은 편안함, 동거.\n쏠로연애운♡나의 바운더리 안이나 익숙하고 편안한 곳에서의 만남",
+        biz:"재택근무, 가업, 부동산 관련 이익, 외부 활동보다는 내부 결속력이 탄탄해지는 시기.",
+        lov:{some:"화려한 밖보다는 편안한 나의 공간으로 초대하고 싶거나, 내 바운더리 안에 들이고 싶은 마음.",couple:"서로에게 가장 편안한 안식처가 되어주며, 밖으로 나돌기보단 집에서 둘만의 시간을 즐기는 따뜻한 상태.",break:"외부의 자극을 피하고 자신의 방어막(집) 안에 숨어 상처를 치유하려는 폐쇄적인 마음."},
+        hea:"외부 활동을 줄이고 따뜻한 집에서 푹 쉬는 것이 최고의 회복법."
+    },
+    {
+        no:"16", name:"물 (L'Eau)", symbol:"🌊", grade:"달 🌛 / 중립", img:"./img_h/16.jpg",
+        desc:"감정의 바다, 수용, 무의식, 직관력, 정화, 흐름, 여행.\n바다 위 등대처럼 직관과 감성이 깊어지며, 때로는 정화의 눈물을 흘리거나 물 흐르듯 상황에 순응해야 합니다.",
+        loveMain:"깊고 풍부한 감정 교류, 감수성이 짙은 연애.\n쏠로연애운♡감성적으로 훅 빠져드는 부드러운 인연",
+        biz:"해외나 물과 관련된 사업 길함. 억지로 밀어붙이기보다 상황의 흐름에 유연하게 맡겨야 함.",
+        lov:{some:"이성적인 판단보다는 직관적이고 감성적인 이끌림으로 서로의 마음 깊은 곳에 스며드는 호감.",couple:"바다처럼 넓고 깊은 마음으로 상대를 수용하고 감싸주며 감정적으로 크게 의존하는 상태.",break:"눈물이 마르지 않는 깊은 슬픔의 감정이거나, 시간이 지나며 물 흐르듯 아픔이 정화되길 바람."},
+        hea:"신장, 방광, 체액의 불균형 주의, 부종이나 우울감 관리 필요."
+    },
+    {
+        no:"17", name:"움직임 (Mouvements)", symbol:"⚙️", grade:"수성 ☿ / 중립", img:"./img_h/17.jpg",
+        desc:"회전, 순환, 새로운 사이클, 유연성, 바쁜 일정, 긍정적 변화.\n행성들이 궤도를 돌듯 상황이 빠르게 돌아가며 정체기를 벗어나 긍정적이고 역동적인 변화를 맞이합니다.",
+        loveMain:"관계의 새로운 국면, 분위기 전환, 활동적인 데이트.\n쏠로연애운♡환경이 급변하며 새로운 인연들이 들어오는 시기",
+        biz:"부서 이동, 직무 변경, 유연한 대처. 정체된 상황에서 벗어나 새로운 사이클을 타고 순조롭게 돌아감.",
+        lov:{some:"정체되어 있던 썸에 갑작스런 속도가 붙거나, 잦은 만남을 통해 활발하게 관계가 발전하는 계기.",couple:"권태로움을 벗어나 이색 데이트나 여행 등을 통해 관계에 신선한 에너지를 불어넣는 역동적인 중.",break:"아픔을 극복하고 새로운 삶의 사이클로 넘어가거나, 상대의 마음이 긍정적인 방향으로 돌아설 수 있음."},
+        hea:"신진대사가 원활해지며, 걷기나 스트레칭 등 가벼운 운동이 큰 도움이 됨."
+    },
+    {
+        no:"18", name:"불안 (Dépression)", symbol:"🌧️", grade:"달 🌛 / 부정", img:"./img_h/18.jpg",
+        desc:"무기력증, 스트레스, 심적 고통, 슬픔, 압박감, 질환.\n내면의 깊은 우울함이나 육체적인 기력 저하로 인해 고통받고 지친 시기입니다.",
+        loveMain:"마음고생이 극심한 연애, 상처받고 몹시 지친 관계.\n쏠로연애운♡누군가를 만날 심리적/육체적 여유가 완전히 고갈됨",
+        biz:"프로젝트에 심각한 차질, 과로로 인한 번아웃, 모든 것이 무겁게 느껴지며 심리적 압박이 큼.",
+        lov:{some:"스트레스와 상처에 대한 두려움이 심해 새로운 감정을 받아들이기 벅차고 아픈 상태.",couple:"서로를 갉아먹으며 피로감을 주는 관계이거나, 극심한 우울감으로 인해 서로를 챙길 여력이 없음.",break:"이별의 고통으로 심한 상사병에 걸리거나, 바닥을 치는 자존감으로 인해 깊은 동굴에 빠진 슬픔."},
+        hea:"만성 피로, 극심한 우울증, 즉각적인 요양과 심리 상담 필수."
+    },
+    {
+        no:"19", name:"빛 (Lumière)", symbol:"💡", grade:"수성 ☿ / 긍정", img:"./img_h/19.jpg",
+        desc:"해결책, 깨달음, 지성, 명확함, 긍정적인 희망, 진실.\n어둠을 밝히는 촛불이자 태양처럼, 혼란스러웠던 상황을 명확하게 꿰뚫어보는 지혜와 찬란한 희망을 상징합니다.",
+        loveMain:"오해가 풀리고 밝아진 상황, 지적이고 긍정적인 교감.\n쏠로연애운♡나의 앞길을 밝혀줄 현명하고 따뜻한 인연 등장",
+        biz:"아이디어 번뜩임, 훌륭한 해결책을 찾아냄, 학업이나 연구에서 빛나는 성과를 거두고 인정받음.",
+        lov:{some:"애매했던 상대의 마음을 명확히 깨닫게 되며, 밝고 긍정적인 에너지로 확신을 가지고 다가감.",couple:"갈등이나 오해가 모두 해소되고, 촛불처럼 따뜻하게 서로를 비춰주며 진실된 사랑을 나누는 상태.",break:"어둠 속에서 한 줄기 빛을 찾듯, 서로의 문제를 깨닫고 긍정적인 방향으로 새롭게 시작할 희망."},
+        hea:"안색이 매우 밝아지고 건강을 완전히 회복함, 시력 보호."
+    },
+    {
+        no:"20", name:"번영 (Prospérité)", symbol:"💰", grade:"수성 ☿ / 긍정", img:"./img_h/20.jpg",
+        desc:"풍요, 금전적 여유, 대성공, 물질적인 보상, 행운.\n풍요의 뿔에서 쏟아지는 동전들처럼 당신이 들인 노력 이상의 물질적, 정신적인 거대한 수확을 의미합니다.",
+        loveMain:"금전적으로 여유롭고 풍족한 데이트, 선물을 주고받음.\n쏠로연애운♡능력과 재력을 갖춘 든든한 사람과의 만남",
+        biz:"매출 급상승, 성공적인 투자 수익, 급여 인상, 보너스 획득. 비즈니스에서 최고의 금전적 보상.",
+        lov:{some:"상대방의 넉넉한 여유나 좋은 조건에 강한 매력을 느끼며, 안정적인 미래를 꿈꾸는 마음.",couple:"아낌없이 서로에게 베풀며 물질적/정서적으로 전혀 부족함이 없는 배부르고 행복한 상태.",break:"현실적인 문제나 조건(돈 등)이 원인이었다면, 상황이 풀릴 시 다시 풍요롭게 엮일 가능성이 큼."},
+        hea:"영양 섭취가 매우 훌륭하며, 돈을 투자한 웰빙 치료나 관리가 큰 효과를 발휘함."
+    },
+    {
+        no:"21", name:"꿀벌 (L'Abeille)", symbol:"🐝", grade:"수성 ☿ / 중립", img:"./img_h/21.jpg",
+        desc:"근면, 노동, 저축, 협동, 차곡차곡 쌓아감, 성실함.\n집 아래에서 벌집을 향해 부지런히 일하는 꿀벌처럼 묵묵하고 꾸준한 노력을 통해 탄탄한 기반을 다지는 시기입니다.",
+        loveMain:"성실하게 공들여 쌓아가는 연애, 헌신적인 파트너.\n쏠로연애운♡일터나 공적인 모임에서 자연스럽게 알게 됨",
+        biz:"열심히 일한 만큼 정직한 보상과 수익을 얻음. 조직 내의 훌륭한 팀워크와 꾸준한 성장.",
+        lov:{some:"화려한 이벤트보다는 성실하고 한결같은 태도로 점수를 쌓아가며 조심스레 다가가는 중.",couple:"책임감을 가지고 서로를 위해 헌신하며, 미래(결혼/저축)를 위해 탄탄하게 기반을 다지는 든든함.",break:"충동적인 감정은 없으며, 현실적인 일에 파묻혀 바쁘게 지내느라 연애 감정을 억누르고 있는 상태."},
+        hea:"규칙적인 생활과 꾸준한 운동으로 체력을 기르기에 완벽한 시기."
+    },
+    {
+        no:"22", name:"까치 (La Pie)", symbol:"🐦", grade:"수성 ☿ / 부정", img:"./img_h/22.jpg",
+        desc:"구설수, 소문, 도난, 수다, 험담, 잔머리, 경계 요망.\n주머니를 물고 도망가는 까치처럼, 불필요한 말실수나 뒷담화, 혹은 무언가를 빼앗길 수 있는 성가신 상황을 경고합니다.",
+        loveMain:"가벼운 만남, 말실수로 인한 다툼, 남들의 입에 오르내림.\n쏠로연애운♡진심이 결여된 가벼운 찔러보기 주의",
+        biz:"회사 내의 악의적인 루머, 아이디어 도용, 정보 유출. 입단속과 문서 보안이 철저히 필요함.",
+        lov:{some:"진지한 마음보다는 이리저리 간을 보며 가벼운 수다나 핑계로 호감만 빼먹으려는 얄미운 마음.",couple:"오해를 부를 수 있는 말실수로 다투거나, 타인(제3자)의 험담에 휘말려 관계가 피곤해지는 상태.",break:"이별 후 서로에 대한 안 좋은 소문을 내거나, 진정성 없이 핑계만 대며 회피하려는 태도."},
+        hea:"신경 과민, 호흡기 및 인후통, 스트레스로 인한 이명 현상 주의."
+    },
+    {
+        no:"23", name:"소식 (Message)", symbol:"✉️", grade:"수성 ☿ / 중립", img:"./img_h/23.jpg",
+        desc:"소식, 편지, 문서, 통신, 기다리던 답변, 의사소통.\n물 위를 떠다니는 유리병 속 편지처럼, 조만간 당신의 상황을 바꿔놓을 중요한 소식이나 연락이 도착함을 의미합니다.",
+        loveMain:"활발한 연락, 반가운 안부, 고백의 메시지.\n쏠로연애운♡채팅 앱이나 메신저를 통한 뜻밖의 설레는 연락",
+        biz:"중요한 계약서 도착, 합격 통보, 이메일 회신, 서류 상의 승인 등 문서로 인한 기쁜 소식.",
+        lov:{some:"상대방의 톡 하나하나에 가슴 설레며 긍정적인 고백이나 확실한 답변이 오기를 애타게 기다림.",couple:"떨어져 있어도 메시지와 전화로 자주 소통하며, 감정의 단절 없이 다정하게 교류하는 상태.",break:"전 연인에게서 안부를 묻는 문자나 소식이 전해질 확률이 매우 높은, 재회의 긍정적 신호."},
+        hea:"건강 검진 결과나 진단서를 무사히 받게 됨, 기관지 관리."
+    },
+    {
+        no:"24", name:"비즈니스 (Le Caducée)", symbol:"⚕️", grade:"수성 ☿ / 중립", img:"./img_h/24.jpg",
+        desc:"상업, 거래, 협상, 금전 융통, 치유, 균형 잡힌 교환.\n상업과 의술의 신 헤르메스의 지팡이(카두세우스)처럼, 활발한 무역과 성공적인 협상, 상호 간의 이익을 상징합니다.",
+        loveMain:"기브앤테이크가 확실한 연애, 밀당과 타협, 소개팅.\n쏠로연애운♡조건을 맞춰보는 중매나 현실적인 소개",
+        biz:"세일즈, 유통업 대길. 완벽한 계약 성사, 유리한 조건의 협상 타결, 사업의 순조로운 확장.",
+        lov:{some:"감정에만 휘둘리지 않고 서로의 조건과 가치관을 대화로 타협하며 영리하게 호감을 키워가는 마음.",couple:"내가 이만큼 해주면 상대도 해주는 등 공평한 밸런스가 유지되며, 현실적으로 잘 맞는 파트너 같은 관계.",break:"감정적인 호소보다는 남은 물건을 정리하거나 현실적인 대화를 위해 비즈니스적으로 연락을 취함."},
+        hea:"의학적 치료나 수술 결과가 성공적임, 척추 및 신경계 밸런스 회복."
+    },
+    {
+        no:"25", name:"진정 (Apaisement)", symbol:"🕊️", grade:"토성 ♄ / 긍정", img:"./img_h/25.jpg",
+        desc:"화해, 용서, 안도감, 갈등의 종결, 조화로움, 평온.\n비둘기와 올리브 가지가 상징하듯 모든 투쟁과 스트레스가 끝나고 마침내 찾아온 평화입니다.",
+        loveMain:"다툼 후의 따뜻한 화해, 마음이 아주 편안한 연애.\n쏠로연애운♡내 상처를 보듬어주는 다정하고 부드러운 만남",
+        biz:"노사 갈등이나 부서 간의 불화가 봉합됨. 합의 도출, 소송 취하, 잔잔하고 순조로운 업무 환경.",
+        lov:{some:"자극적이진 않지만 함께 있으면 모든 근심이 사라질 정도로 마음이 편안해져 안정감을 느끼는 호감.",couple:"싸움이 끝나고 서로를 진심으로 용서하며, 어떤 파도도 치지 않는 호수처럼 고요하고 애정 어린 상태.",break:"서로에 대한 원망과 화를 내려놓고 마음의 평화를 찾았으며, 긍정적으로 화해하고 재회할 준비가 됨."},
+        hea:"극심했던 스트레스가 풀리고 심리적인 웰빙을 완전히 되찾음, 숙면."
+    },
+    {
+        no:"26", name:"기쁨 (Joie)", symbol:"🎉", grade:"금성 ♀️/ 긍정", img:"./img_h/26.jpg",
+        desc:"즐거움, 축하, 파티, 유희, 긍정적 에너지, 엔터테인먼트.\n남녀가 함께 신나게 춤을 추고 있는 그림처럼 걱정 없이 즐기고 화합하며 축하할 일이 생기는 밝은 카드입니다.",
+        loveMain:"함께 있으면 항상 웃음이 넘치는 유쾌한 데이트, 스킨십.\n쏠로연애운♡술자리, 클럽, 동호회 등 노는 곳에서의 매력 발산",
+        biz:"성공적인 프로젝트 마감 후의 회식, 축하 파티, 유흥 및 예체능 분야에서의 탁월한 성과.",
+        lov:{some:"이 사람과 함께 있으면 시간 가는 줄 모르고 그저 즐거우며, 유쾌한 텐션으로 강하게 끌리는 상태.",couple:"심각한 고민보다는 핫플을 찾아다니며 유희를 즐기고 육체적/정신적인 행복과 쾌락을 만끽함.",break:"헤어짐의 슬픔을 뒤로하고 친구들과 신나게 놀며 싱글 라이프의 즐거움을 되찾고 있는 쿨한 마음."},
+        hea:"에너지가 솟구치고 가장 건강한 상태, 무리한 밤샘이나 과음만 주의."
+    },
+    {
+        no:"27", name:"큐피트 (Cupidon)", symbol:"💘", grade:"금성 ♀️/ 긍정", img:"./img_h/27.jpg",
+        desc:"사랑, 로맨스, 강렬한 이끌림, 첫눈에 반함, 열정.\n큐피트가 사랑의 화살과 두 개의 하트를 쥐고 있듯, 이성적으로 거부할 수 없는 강력하고 낭만적인 사랑의 시작입니다.",
+        loveMain:"로맨스의 절정, 심장이 터질듯한 열렬한 짝사랑/연애.\n쏠로연애운♡이상형을 만나 운명처럼 첫눈에 강하게 반함",
+        biz:"자신의 일에 대한 주체할 수 없는 열정, 천직을 발견함, 예술적/창조적 영감이 폭발하는 시기.",
+        lov:{some:"다른 조건은 눈에 보이지 않고 오직 상대방에게 마음이 완전히 빼앗겨 맹목적으로 직진하고 싶은 감정.",couple:"눈빛만 봐도 사랑이 넘쳐흐르며, 권태기 없이 매일이 새롭게 로맨틱하고 열정적인 연인 상태.",break:"머리로는 잊어야 한다고 해도 가슴(하트)이 여전히 상대를 강력하게 원하고 있어 재회를 간절히 바람."},
+        hea:"사랑의 호르몬으로 인해 활력이 넘치나 심장 두근거림이나 조바심 주의."
+    },
+    {
+        no:"28", name:"결합 (Union)", symbol:"💍", grade:"금성 ♀️/ 긍정", img:"./img_h/28.jpg",
+        desc:"결혼, 약혼, 완벽한 파트너십, 강한 결속력, 영원함.\n우로보로스 뱀 안에서 남녀가 굳게 손을 잡은 그림으로, 끊어지지 않는 영원하고 굳건한 결합과 인연을 상징합니다.",
+        loveMain:"결혼을 전제로 한 진지한 연애, 천생연분, 영혼의 단짝.\n쏠로연애운♡결혼까지 이어질 수 있는 완벽한 평생의 짝이 나타남",
+        biz:"최고의 동업자를 만남, 합병, 깨지지 않는 강력한 법적 계약 체결, 상호 완벽한 윈윈.",
+        lov:{some:"가벼운 썸을 넘어 이 사람과 평생을 함께하고 싶다는 강렬하고 진지한 소속감을 느끼며 다가가는 마음.",couple:"서로를 소울메이트로 여기며 약혼이나 결혼 등 현실적이고 완벽한 결합을 준비하는 매우 단단한 상태.",break:"두 사람의 인연의 끈이 매우 강하게 묶여 있어, 헤어졌어도 운명처럼 다시 결합하게 됨."},
+        hea:"신체적 밸런스가 완벽하며, 배우자의 간호나 함께하는 생활이 건강에 최고임."
+    },
+    {
+        no:"29", name:"둥지 (Le Nid)", symbol:"🪺", grade:"금성 ♀️/ 중립", img:"./img_h/29.jpg",
+        desc:"가정, 가족, 피난처, 안락함, 출산, 안전한 기반.\n나무 위 튼튼한 둥지 속에 새끼들이 옹기종기 모여 있듯, 따뜻한 가족의 탄생과 완벽히 보호받는 소속감을 뜻합니다.",
+        loveMain:"결혼, 임신/출산, 부모님께 인사, 가족처럼 편안한 연애.\n쏠로연애운♡지인이나 가족의 소개 등 안전한 바운더리 내의 만남",
+        biz:"가족 기업, 사내 분위기가 매우 화목함, 든든한 소속감. 집(재택)에서 일할 때 능률이 오름.",
+        lov:{some:"상대를 내 품에 안아 보살펴 주고 싶거나 반대로 기대어 보호받고 싶은 따뜻한 모성/부성애적 호감.",couple:"연애의 불타는 자극보다는 내 식구라는 확고한 믿음을 가지며, 동거나 결혼을 통해 둥지를 튼 상태.",break:"가족같이 포근했던 정을 잊지 못해 깊은 향수병을 느끼며, 다시 상대를 품어주고 싶은 따뜻한 마음."},
+        hea:"임신 및 출산, 또는 가정의 따뜻한 보살핌을 통해 지병이 완벽히 치유됨."
+    },
+    {
+        no:"30", name:"풍향계 (La Girouette)", symbol:"🐓", grade:"달 🌛 / 부정", img:"./img_h/30.jpg",
+        desc:"상황의 변화, 변덕, 방향을 바꿈, 주위의 소문이나 바람에 흔들림.\n지붕 위의 닭 풍향계처럼, 줏대 없이 이리저리 흔들리며 주변 환경에 매우 민감하게 반응하는 상태를 뜻합니다.",
+        loveMain:"갈대 같은 마음, 불안정한 연애, 이리저리 흔들림.\n쏠로연애운♡호감이 생겼다 금세 식는 변덕스러운 만남 주의",
+        biz:"계획이 자꾸 번복됨, 줏대 없는 결정, 외부 소문에 휩쓸려 갈피를 잡지 못하는 상황.",
+        lov:{some:"확신이 없어서 다가갈까 말까 간을 보거나, 주변의 말에 쉽게 흔들리며 마음을 정하지 못한 상태.",couple:"사소한 일에도 마음이 수시로 변해 갈피를 잡기 힘들거나, 외부 환경 때문에 둘 사이가 삐걱거림.",break:"재회하고 싶다가도 금세 마음이 식어버리는 매우 변덕스럽고 불안정한 심리 상태."},
+        hea:"심한 감정 기복, 조울증, 호르몬 변화로 인한 생리 불순."
+    },
+    {
+        no:"31", name:"마녀 (La Sorcière)", symbol:"🧙", grade:"화성 ♂️/ 부정", img:"./img_h/31.jpg",
+        desc:"숨겨진 악의, 질투, 원한, 방해, 교활한 속임수.\n빗자루를 탄 마녀처럼 뒤에서 당신을 음해하거나 교활하게 상황을 조종하려는 위험한 세력이 있음을 경고합니다.",
+        loveMain:"삼각관계, 의심, 나에게 상처를 주는 치명적인 연애.\n쏠로연애운♡순수하지 않은 불순한 의도로 다가오는 사람 주의",
+        biz:"직장 내 괴롭힘, 음해, 사기, 라이벌의 교활한 방해 공작, 뒤통수를 맞을 수 있는 위험한 시기.",
+        lov:{some:"겉으로는 호감을 보이나 뒤로는 어장관리를 하거나 불순한 의도를 숨기고 있는 께름칙한 마음.",couple:"끊임없는 의심과 질투로 인해 서로를 갉아먹거나, 누군가의 이간질로 관계가 독이 되어가는 중.",break:"서로에게 강한 악감정이 남아있으며, 복수심이나 원망으로 인해 결코 좋게 재회할 수 없는 상태."},
+        hea:"원인 모를 신경증, 홧병, 누군가의 스트레스 제공으로 인한 정신적 피로."
+    },
+    {
+        no:"32", name:"열정 (Passion)", symbol:"🔥", grade:"금성 ♀️/ 중립", img:"./img_h/32.jpg",
+        desc:"타오르는 불길, 강한 추진력, 에너지 폭발, 투지.\n거세게 타오르는 불꽃처럼 긍정적인 추진력과 열정으로 쓰일 수도 있지만, 분노나 충동으로 폭발할 수도 있는 강력한 힘입니다.",
+        loveMain:"물불 안 가리는 직진, 화끈한 데이트, 욱하는 성질.\n쏠로연애운♡순식간에 불타오르는 맹렬한 스파크",
+        biz:"엄청난 추진력으로 일을 밀어붙임. 성과는 빠르나 과도한 번아웃이나 주변과의 감정 충돌 주의.",
+        lov:{some:"상대에게 완전히 꽂혀 무섭게 직진하며, 앞뒤 가리지 않고 적극적으로 마음을 얻어내려는 뜨거운 투지.",couple:"열정적으로 사랑을 나누거나, 반대로 욱하는 성질을 못 이겨 불같이 화를 내며 다투는 극단적인 상태.",break:"아직 감정의 불씨 강하게 남아있어 미련이 깊으며, 감정이 욱하여 충동적으로 연락할 가능성이 큼."},
+        hea:"화상, 고열, 염증 질환, 에너지 폭발로 인한 심박수 급증."
+    },
+    {
+        no:"33", name:"노예 (L'Enchaîné)", symbol:"⛓️", grade:"화성 ♂️/ 부정", img:"./img_h/33.jpg",
+        desc:"구속, 억압, 제한된 자유, 답답한 상황, 헤어나오기 힘든 굴레.\n손발이 묶여 옴짝달싹 못 하는 것처럼, 누군가의 강압이나 환경적 제약에 의해 완전히 희생당하고 갇힌 상태입니다.",
+        loveMain:"구속과 집착, 가스라이팅, 숨 막히는 일방적인 연애.\n쏠로연애운♡나를 통제하려 드는 강압적인 인연 주의",
+        biz:"권위적이고 독재적인 상사, 꼼짝 못 하고 시키는 대로 해야 하는 답답하고 억압된 근무 환경.",
+        lov:{some:"상대방에게 다가가기엔 현실적인 제약이나 부담이 너무 커서 스스로 마음을 가둬두고 있는 상태.",couple:"한쪽이 일방적으로 통제하고 억압하며, 옴짝달싹 못 하고 족쇄에 묶인 듯 숨 막히는 관계.",break:"지독한 굴레와 가스라이팅에서 겨우 벗어났기에 다시는 그 지옥 같은 사슬로 돌아가고 싶지 않은 마음."},
+        hea:"관절 마비, 근육 경직, 억눌린 분노와 스트레스로 인한 호흡 곤란."
+    },
+    {
+        no:"34", name:"정의 (Justice)", symbol:"⚖️", grade:"화성 ♂️/ 중립", img:"./img_h/34.jpg",
+        desc:"공정함, 법적 문제, 균형, 재판, 냉철한 판단과 타협.\n저울과 칼이 상징하듯, 감정을 완전히 배제하고 사실과 이성에 입각하여 시시비비를 가리는 공정하고 단호한 결정입니다.",
+        loveMain:"이성적이고 계산적인 연애, 맺고 끊음이 칼같이 확실함.\n쏠로연애운♡조건을 철저히 따져보고 신중하게 만남을 결정",
+        biz:"소송, 법적 분쟁, 계약의 명확한 체결, 공사 구분이 뚜렷해야 하며 타협점을 찾아야 하는 시기.",
+        lov:{some:"감정적으로 빠지기보다, 저 사람이 내게 맞는 조건인지 차갑게 저울질하며 냉정하게 평가하는 중.",couple:"서로에게 바라는 바가 명확하며, 감정 싸움보다는 논리적으로 시시비비를 가리려는 다소 건조한 상태.",break:"잘잘못을 따져 이별을 냉정하게 결단했으므로, 감정적인 호소로는 절대 재회할 수 없는 확고한 마음."},
+        hea:"신체 불균형, 좌우 대칭을 맞추는 재활 치료, 칼을 대는 수술운."
+    },
+    {
+        no:"35", name:"협상 (Négociations)", symbol:"🤝", grade:"화성 ♂️/ 긍정", img:"./img_h/35.jpg",
+        desc:"대화, 서류, 타협, 비즈니스적 논의, 계약의 진행.\n의견 차이를 좁히기 위해 활발하게 토론하고 대화하며, 조건에 합의하여 서류에 도장을 찍기 위한 과정입니다.",
+        loveMain:"끊임없는 대화와 의견 조율, 잔소리, 비즈니스적 관계.\n쏠로연애운♡조건을 맞춰보는 선자리나 이성적인 소개팅",
+        biz:"회의, 프레젠테이션, 중요한 계약의 체결 전 단계, 문서 작업. 꼼꼼한 조건 협상이 필요함.",
+        lov:{some:"단순한 호감보다는 꼬치꼬치 성향이나 가치관을 물어보며 자신과 맞는지 대화로 탐색하는 마음.",couple:"서로의 차이를 좁히기 위해 긴 대화나 토론을 이어가고 있으며, 자칫 피곤한 잔소리로 느껴질 수 있음.",break:"서로 감정은 식었어도 남은 물건을 정리하거나 현실적인 대화를 위해 비즈니스적으로 연락할 일이 생김."},
+        hea:"의사와의 세밀한 상담 필요, 호흡기 및 인후통 주의."
+    },
+    {
+        no:"36", name:"용 (Le Dragon)", symbol:"🐉", grade:"화성 ♂️/ 부정", img:"./img_h/36.jpg",
+        desc:"강력한 적, 피할 수 없는 대립, 분노, 큰 위험, 극복해야 할 과제.\n불을 뿜는 사나운 용처럼 압도적으로 강력한 적수나 극복하기 벅찬 방해물이 가로막고 있어 매우 위험한 상태입니다.",
+        loveMain:"거센 집안의 반대, 막강한 라이벌 등장, 격렬한 다툼.\n쏠로연애운♡만만치 않은 기가 센 사람이나 위험한 엮임",
+        biz:"규모가 큰 경쟁 업체의 공격, 감당하기 벅찬 거대한 위기, 분노와 스트레스가 폭발하기 직전.",
+        lov:{some:"상대의 기가 너무 세서 다가가기 벅차거나, 나와는 너무 강하게 부딪혀 감당이 안 될 거라 두려워함.",couple:"서로 잡아먹을 듯이 맹렬하게 공격하며 다투는 중이거나, 주변의 거센 반대로 인해 큰 위기에 처함.",break:"완전히 철천지원수나 적으로 돌아서서 분노만 뿜어내고 있으므로 화해나 재회가 몹시 어려움."},
+        hea:"급성 염증, 고열, 화상, 혹은 통제 불가능한 분노 조절 장애."
+    },
+    {
+        no:"37", name:"위험 (Dangers)", symbol:"⚠️", grade:"화성 ♂️/ 부정", img:"./img_h/37.jpg",
+        desc:"붕괴, 갑작스러운 사고, 파탄, 경고, 위태로운 상황.\n부서지는 벽이나 다리처럼, 예기치 않게 기반이 무너져 내리는 매우 충격적이고 위험한 사고를 강력히 경고합니다.",
+        loveMain:"갑작스러운 이별 통보, 관계의 완전한 단절, 충격.\n쏠로연애운♡연애할 정신이 아닐 정도로 돌발 상황 발생",
+        biz:"프로젝트 중단, 부도, 계약 파기. 외부의 갑작스러운 타격으로 인해 공들인 탑이 산산조각 남.",
+        lov:{some:"갑자기 정이 뚝 떨어지는 치명적인 사건이 발생하거나, 예기치 못한 돌발 변수로 인해 썸이 산산조각 남.",couple:"청천벽력 같은 거짓말이나 외도를 들켜 관계가 완전히 파탄 났으며 돌이킬 수 없는 치명적 위기를 겪음.",break:"너무나 큰 배신감과 상처를 입고 심리적으로 완전히 붕괴된 상태라 관계 복구가 절대적으로 불가능함."},
+        hea:"교통사고, 낙상, 골절, 갑작스러운 질병 악화. 절대적인 조심 필요."
+    },
+    {
+        no:"38", name:"정열 (Ardeur)", symbol:"♨️", grade:"화성 ♂️/ 중립", img:"./img_h/38.jpg",
+        desc:"타오르는 불길, 강한 추진력, 에너지 폭발, 투지.\n거세게 타오르는 불꽃처럼 긍정적인 추진력과 열정으로 쓰일 수도 있지만, 분노나 충동으로 폭발할 수도 있는 강력한 힘입니다.",
+        loveMain:"물불 안 가리는 직진, 화끈한 데이트, 욱하는 성질.\n쏠로연애운♡순식간에 불타오르는 맹렬한 스파크",
+        biz:"엄청난 추진력으로 일을 밀어붙임. 성과는 빠르나 과도한 번아웃이나 주변과의 감정 충돌 주의.",
+        lov:{some:"상대에게 완전히 꽂혀 무섭게 직진하며, 앞뒤 가리지 않고 적극적으로 마음을 얻어내려는 뜨거운 투지.",couple:"열정적으로 사랑을 나누거나, 반대로 욱하는 성질을 못 이겨 불같이 화를 내며 다투는 극단적인 상태.",break:"아직 감정의 불씨가 강하게 남아있어 미련이 깊으며, 감정이 욱하여 충동적으로 연락할 가능성이 큼."},
+        hea:"화상, 고열, 염증 질환, 에너지 폭발로 인한 심박수 급증."
+    },
+    {
+        no:"39", name:"이상 (L'Idéal)", symbol:"👸", grade:"목성 ♃ / 긍정", img:"./img_h/39.jpg",
+        desc:"완벽함, 예술적 아름다움, 동경, 꿈꾸던 이상, 미의 추구.\n정신적, 육체적으로 가장 완벽하고 이상적인 미(美)와 낭만을 좇는 순수한 상태입니다.",
+        loveMain:"완벽한 이상형과의 로맨스, 눈부시게 아름다운 연애.\n쏠로연애운♡꿈에 그리던 완벽한 매력을 가진 사람 등장",
+        biz:"예술, 패션, 미용 분야에서의 최고 성취, 높은 이상을 향해 나아가며 대중에게 아름다움을 인정받음.",
+        lov:{some:"상대방을 완벽한 이상형이라 여기며 티 없이 순수하고 아름다운 감정으로 맹목적으로 동경하는 마음.",couple:"나무랄 데 없이 완벽하고 예술적인 로맨스를 즐기고 있으며, 서로를 세상에서 가장 아름답게 여김.",break:"헤어졌음에도 불구하고 상대를 자신의 가장 완벽했던 이상형으로 기억하며 미련을 깊게 두고 있는 상태."},
+        hea:"최고의 젊음과 뷰티, 미용 수술이나 자기 관리의 결과가 극상임."
+    },
+    {
+        no:"40", name:"지원 (Soutien)", symbol:"🌳", grade:"금성 ♀️/ 긍정", img:"./img_h/40.jpg",
+        desc:"든든한 보호, 스폰서, 멘토, 빽, 조력자의 도움.\n기댈 수 있는 튼튼한 나무처럼 당신을 지지하고 보호해주는 조력자가 있음을 의미합니다.",
+        loveMain:"조건 좋고 능력 있는 든든한 파트너, 기댈 수 있는 연애.\n쏠로연애운♡나를 이끌어주고 지원해줄 윗사람과의 만남",
+        biz:"투자 유치 성공, 든든한 백그라운드나 멘토의 조언으로 위기를 쉽게 넘기고 성공 가도를 달림.",
+        lov:{some:"내가 힘들 때 기댈 수 있는 넓은 어깨와 능력을 가졌다고 느껴져 든든한 호감과 신뢰를 품음.",couple:"상대방이 나를 전폭적으로 지지하고 감싸주며, 마치 보호자처럼 모든 것을 챙겨주는 매우 든든한 마음.",break:"나에게 많은 도움을 주었던 상대이기에 여전히 미련이 크고, 연락하면 다시 받아줄 든든한 의향이 있음."},
+        hea:"훌륭한 명의나 좋은 병원을 만나 완치됨, 체력 회복 빠름."
+    },
+    {
+        no:"41", name:"지혜 (Sagesse)", symbol:"🦉", grade:"목성 ♃ / 중립", img:"./img_h/41.jpg",
+        desc:"이성, 분별력, 평정심, 통찰력, 조언자, 현명함.\n감정에 흔들리지 않고 날카로운 통찰력과 차분한 이성으로 최선의 결정을 내리는 현명한 상태입니다.",
+        loveMain:"차분하고 성숙한 연애, 조언을 주고받는 멘토 같은 관계.\n쏠로연애운♡감정보다는 이성적으로 나와 잘 맞는 사람 선택",
+        biz:"노련하고 현명한 판단력으로 위기를 극복함. 전문가나 조언자의 도움이 크게 작용.",
+        lov:{some:"충동적인 감정에 휩싸이지 않고 이 사람의 성품과 가치관을 현명하게 관찰하고 조심스레 평가하는 마음.",couple:"감정 다툼 없이 서로를 이해하고 현명하게 타협하며, 안정적이고 성숙하게 관계를 이끄는 상태.",break:"감정에 치우쳐 억지를 부리지 않고, 이별의 원인을 객관적으로 판단하여 현명한 이별을 수용함."},
+        hea:"심리적 안정을 되찾음, 명상이나 독서가 건강 관리에 좋음."
+    },
+    {
+        no:"42", name:"유산 (Patrimoine)", symbol:"🏛️", grade:"목성 ♃ / 중립", img:"./img_h/42.jpg",
+        desc:"상속, 전통, 유산, 과거로부터 물려받은 것, 오랜 시간의 결과.\n물질적이거나 정신적인 재산, 오랜 시간에 걸쳐 축적된 결과나 끊어낼 수 없는 과거의 인연을 의미합니다.",
+        loveMain:"과거 인연과의 재회, 오랫동안 알고 지낸 사이.\n쏠로연애운♡옛 동창, 전 연인 등 과거에 알던 사람",
+        biz:"유산 상속, 가업 승계, 과거의 노력과 투자에 대한 결실을 이제야 거두어들이는 보상.",
+        lov:{some:"처음 본 사이가 아니라 오랜 시간 지켜봐 오면서 쌓인 감정과 신뢰가 천천히 호감으로 발현됨.",couple:"오랜 시간 함께해 온 역사와 정이 깊어, 가벼운 다툼으로는 절대 끊어지지 않는 깊고 견고한 관계.",break:"과거의 추억(유산)이 너무 강력하여 잊지 못하고 과거의 인연으로 다시 돌아가 재회하게 될 확률이 높음."},
+        hea:"유전적인 가족력 주의, 노인성 질환, 과거에 앓았던 병의 재발."
+    },
+    {
+        no:"43", name:"기회 (Hasard)", symbol:"🎰", grade:"목성 ♃ / 중립", img:"./img_h/43.jpg",
+        desc:"운명의 수레바퀴, 뜻밖의 행운, 기회, 우연성, 도박.\n예상치 못한 타이밍에 뜻밖의 행운이나 기회가 찾아옴을 뜻합니다.",
+        loveMain:"우연한 만남, 운명적인 타이밍, 예기치 않은 로맨스.\n쏠로연애운♡길가다 우연히 번호를 따이거나 뜻밖의 인연",
+        biz:"예상치 못한 투자 대박, 기막힌 타이밍으로 기회를 잡음, 뜻밖의 행운으로 문제가 해결됨.",
+        lov:{some:"정말 우연히 계속 마주치거나 기막힌 타이밍에 엮이면서 '이건 운명이다'라고 강하게 끌리는 마음.",couple:"도박과도 같은 확률을 뚫고 만났다는 강한 인연을 느끼며, 예상치 못한 서프라이즈로 행복한 상태.",break:"다시 만날 확률이 낮다고 생각했으나, 우연한 기회에 마주치거나 뜻밖의 타이밍에 재회가 이루어짐."},
+        hea:"우연히 좋은 의사나 약을 발견하여 극적으로 호전됨."
+    },
+    {
+        no:"44", name:"명성 (Célébrité)", symbol:"📯", grade:"목성 ♃ / 긍정", img:"./img_h/44.jpg",
+        desc:"명성, 유명세, 사람들의 인정, 대중의 주목.\n나팔 소리처럼 당신의 이름이나 능력이 널리 알려지고 대중의 관심과 축하를 받게 됩니다.",
+        loveMain:"자랑하고 싶은 만남, 공개 연애, 주위의 축하를 받음.\n쏠로연애운♡인기가 치솟아 주변에서 소개가 끊이지 않음",
+        biz:"대성공, 유명세 획득, 인플루언서나 마케팅 대박, 승진 소식이 널리 퍼지고 찬사를 받음.",
+        lov:{some:"주변 사람들에게 이 사람과 썸타고 있다는 것을 동네방네 자랑하고 싶을 만큼 우쭐하고 뿌듯한 마음.",couple:"남들의 부러움을 한 몸에 받는 예쁘고 화려한 커플이며, 지인들에게 당당히 공개하며 사랑을 뽐냄.",break:"상대의 소식이 너무 잘 들려와 잊기 힘들며, 체면과 명분 때문에 먼저 나서진 못하지만 재회를 바람."},
+        hea:"활력이 넘쳐 얼굴에 생기가 가득함."
+    },
+    {
+        no:"45", name:"행복 (Félicité)", symbol:"🌠", grade:"목성 ♃ / 긍정", img:"./img_h/45.jpg",
+        desc:"완벽한 기쁨, 성취, 축복, 평온함.\n행운의 별과 월계수처럼 원하던 바를 성취하고 깊은 만족감과 최고의 행복을 누리게 됩니다.",
+        loveMain:"완벽히 충만하고 행복한 연애, 해피 엔딩.\n쏠로연애운♡모든 면에서 부족함 없는 최고의 이상형과 이어짐",
+        biz:"원하는 바를 완벽히 이루고 큰 부와 명예를 얻어 너무나 만족스럽고 행복한 시기.",
+        lov:{some:"상대방을 떠올리기만 해도 입가에 미소가 지어지며, 티 없이 맑고 순수한 행복감에 젖어든 마음.",couple:"더할 나위 없이 사랑받고 아낌을 받으며 갈등 없이 너무나 조화롭고 완벽한 행복을 누리는 상태.",break:"미련이나 원망 없이 지난 시간에 감사하는 마음이며, 재회한다면 이전보다 더 큰 긍정의 힘으로 만남."},
+        hea:"건강, 심신 안녕, 병마를 이겨내고 최상의 컨디션을 유지."
+    },
+    {
+        no:"46", name:"고독 (Solitude)", symbol:"🏝️", grade:"토성 ♄ / 부정", img:"./img_h/46.jpg",
+        desc:"은둔, 고립, 단절, 외로움, 혼자만의 시간.\n넓은 바다 위에 홀로 떠 있는 뗏목처럼 주변과 단절되어 고독감을 느끼거나 스스로 마음을 닫은 상태입니다.",
+        loveMain:"마음을 닫은 철벽, 대화 단절, 잠수 이별.\n쏠로연애운♡방구석 은둔, 연애에 대한 관심 완전 차단",
+        biz:"외부와의 소통 단절, 고립된 환경, 재택 근무, 협업이 안 됨. 답답하지만 때로는 집중을 위한 고립이 필요함.",
+        lov:{some:"내 마음의 문을 아주 굳게 걸어 잠그고 상대가 다가오는 것을 원천 차단하며 방어벽을 치는 상태.",couple:"각자의 동굴에 들어가 대화를 거부하고 단절되어 있으며, 마치 감옥처럼 숨이 막히고 소외된 마음.",break:"이별의 상처로 인해 누구도 만나지 않고 철저히 혼자만의 방에 갇혀 마음을 단절한 우울한 상태."},
+        hea:"폐쇄공포증, 심한 우울증, 대인 기피증."
+    },
+    {
+        no:"47", name:"불운 (Malchance)", symbol:"😔", grade:"토성 ♄ / 부정", img:"./img_h/47.jpg",
+        desc:"쇠퇴, 가난, 시련, 무거운 짐, 악운.\n무거운 나뭇짐을 진 노파처럼 육체적/정신적으로 고달프고 힘겨운 시련이나 불운을 겪는 시기입니다.",
+        loveMain:"비참한 기분, 초라한 연애, 끝이 보이는 시들한 관계.\n쏠로연애운♡외롭고 힘들어서 누굴 만날 처지가 아님",
+        biz:"심각한 자금난, 쇠퇴기, 파산 위기, 모든 상황이 불리하게 돌아가며 뼈저린 고난을 겪음.",
+        lov:{some:"내 현실이 너무 초라하고 위축되어 있어 섣불리 누군가에게 마음을 전할 용기조차 안 나는 비참함.",couple:"애정이 다 식어버린 노부부처럼 의무감으로만 만나며, 서로가 짐처럼 느껴져 우울하고 지친 상태.",break:"세상에 나 홀로 덩그러니 남겨진 듯한 극도의 외로움과 비참함 속에 갇혀 괴로워하는 마음."},
+        hea:"노인성 질환, 만성 통증, 기력 고갈, 골다공증, 극심한 우울증."
+    },
+    {
+        no:"48", name:"보호 (Protection)", symbol:"🛡️", grade:"목성 ♃ / 긍정", img:"./img_h/48.jpg",
+        desc:"완벽한 보호, 영적인 방어, 구원, 은총.\n강력한 에너지가 당신을 감싸 안아 부정적인 기운이나 위험으로부터 안전하게 지켜주고 있음을 의미합니다.",
+        loveMain:"넓은 마음으로 용서함, 영적인 교감, 지켜주는 사랑.\n쏠로연애운♡나를 위험에서 구해줄 든든하고 다정한 인연",
+        biz:"기적적인 도움으로 위기 모면, 선행으로 인한 보상, 외부의 타격으로부터 안전하게 방어됨.",
+        lov:{some:"상대방을 내가 지켜주고 싶거나 반대로 완벽하게 보호받고 싶은 따뜻하고 성숙한 호감.",couple:"서로의 상처나 잘못마저도 넓은 마음으로 감싸 안아주며 어떤 외부의 반대도 이겨내는 단단한 방어막.",break:"원망을 내려놓고 진심으로 상대의 평안을 빌어주는 초월적인 마음의 평화."},
+        hea:"면역력 강화, 질병으로부터 안전하게 보호받는 시기."
+    },
+    {
+        no:"49", name:"죽음 (La Fin)", symbol:"💀", grade:"토성 ♄ / 부정", img:"./img_h/49.jpg",
+        desc:"완전한 끝, 파멸, 강제적인 종료, 죽음.\n낫을 든 사신처럼 한 사이클이 완전히 끝나고 돌이킬 수 없는 결말을 맞이함을 뜻합니다.",
+        loveMain:"처참한 이별, 신뢰의 완벽한 붕괴, 피할 수 없는 관계 종료.\n쏠로연애운♡악연의 고리를 완전히 끊어내야 할 시기",
+        biz:"완전한 파산, 프로젝트 강제 종료, 해고. 고통스럽지만 받아들이고 백지에서 다시 시작해야 함.",
+        lov:{some:"알아가는 과정에서 치명적인 단점을 발견하고 마음을 완벽하게 닫아버린 상태.",couple:"돌이킬 수 없는 잘못이나 배신으로 인해 관계가 완전히 박살 나며 가장 뼈아픈 이별을 겪음.",break:"이 관계는 하늘의 뜻에 의해 완벽히 종결되었으며, 일말의 미련조차 파괴되어 재회 불가능함."},
+        hea:"큰 수술, 질병의 급격한 악화, 한 사이클의 육체적 붕괴 주의."
+    },
+    {
+        no:"50", name:"장애 (Obstacles)", symbol:"🚧", grade:"토성 ♄ / 부정", img:"./img_h/50.jpg",
+        desc:"막힘, 장애물, 방해, 지연, 어려움.\n수레바퀴살에 막대기가 꽂혀 깨진 것처럼, 일이 원활하게 굴러가지 못하고 예상치 못한 방해를 받아 중단되거나 지연되는 답답한 상황입니다.",
+        loveMain:"잦은 다툼, 관계의 단절, 외부의 반대나 장애물.\n쏠로연애운♡나를 방해하는 요소가 많아 연애가 어려움",
+        biz:"프로젝트 중단, 계약 파기, 방해꾼 등장, 일이 자꾸 꼬임.",
+        lov:{some:"다가가려 해도 자꾸 상황이 꼬이거나 방해물이 생겨 진전이 안 되는 마음.",couple:"서로의 관계에 큰 장벽이나 피할 수 없는 현실적 문제가 생겨 몹시 답답한 상태.",break:"외부 상황이나 현실적인 장애물 때문에 절대 다시 이어질 수 없다고 체념한 마음."},
+        hea:"혈액 순환 장애, 관절염, 치료의 지연."
+    },
+    {
+        no:"51", name:"하락 (Déchéance)", symbol:"📉", grade:"토성 ♄ / 부정", img:"./img_h/51.jpg",
+        desc:"붕괴, 실패, 몰락, 산산조각, 심각한 타격.\n건물이 산산이 부서져 내리는 것처럼, 그동안 쌓아온 기반이나 관계가 처참하게 무너지고 돌이킬 수 없는 실패를 겪습니다.",
+        loveMain:"처참한 이별, 신뢰의 완벽한 붕괴, 상처뿐인 파탄.\n쏠로연애운♡위험하고 파괴적인 만남 절대 주의",
+        biz:"파산, 해고, 사업 실패, 공들인 탑이 무너져 막대한 손실을 입음. 복구 불가.",
+        lov:{some:"치명적인 단점이나 충격적인 사건을 겪으며 썸이 완전히 박살 난 상태.",couple:"돌이킬 수 없는 잘못(배신 등)으로 인해 관계의 근간이 무너지며 뼈아픈 이별을 맞이함.",break:"관계가 완전히 산산조각 났기에 일말의 복구 가능성조차 없는 처참한 심경."},
+        hea:"육체적 붕괴, 중증 질환, 낙상 등 심각한 부상 주의."
+    },
+    {
+        no:"52", name:"미로 (Labyrinthe)", symbol:"🌀", grade:"토성 ♄ / 부정", img:"./img_h/52.jpg",
+        desc:"혼란, 헤맴, 길을 잃음, 복잡함, 갇힘, 빠져나오기 힘든 상황.\n출구를 찾을 수 없는 복잡한 미로처럼, 생각과 상황이 꼬여 갈피를 잡지 못하고 방황하는 답답한 시기입니다.",
+        loveMain:"복잡하게 얽힌 관계, 속을 알 수 없음, 갈팡질팡.\n쏠로연애운♡이 사람 저 사람 헷갈리거나 꼬인 인연에 휘말림",
+        biz:"해결책이 보이지 않는 업무, 복잡한 대인관계, 방향성을 잃고 정체됨.",
+        lov:{some:"상대의 진짜 마음이 무엇인지 미로 속을 헤매듯 알 길이 없어 답답하고 혼란스러움.",couple:"오해와 갈등이 꼬리에 꼬리를 물어 어디서부터 풀어야 할지 막막한 상태.",break:"잊지도 못하고 다시 만나지도 못하는, 감정의 미로에 빠져 끝없이 방황하는 마음."},
+        hea:"원인을 알 수 없는 신경성 질환, 정신적 혼란, 복잡한 심경."
+    }
+];
+
+/* ─────────── 상태 ─────────── */
+let currentIndex = 0;
+let currentTab  = 0;
+
+/* ── 탭 전환 ── */
+function switchTab(idx, btnEl) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btnEl.classList.add('active');
+    document.getElementById(`tab-${idx}`).classList.add('active');
+    currentTab = idx;
+}
+
+/* ── 카드 렌더링 ── */
+function renderCard(index) {
+    const data = studyData[index];
+    if (!data) return;
+
+    /* 이미지 */
+    const imgEl = document.getElementById('dispImg');
+    const fallback = document.getElementById('cardFallback');
+    imgEl.style.display = 'block';
+    fallback.style.display = 'none';
+    imgEl.src = data.img;
+
+    /* 폴백 */
+    document.getElementById('fbNo').innerText     = data.no === '0' ? '✦ Special' : `No.${data.no}`;
+    document.getElementById('fbSymbol').innerText = data.symbol || '🌟';
+    document.getElementById('fbName').innerText   = data.name;
+    document.getElementById('fbGrade').innerText  = data.grade;
+
+    /* 정보 바 */
+    const nameEl = document.getElementById('infoName');
+    const noLabel = data.no === '0'
+        ? `<span class="card-no-inline">✦ Special</span>`
+        : `<span class="card-no-inline">No.${data.no}</span>`;
+    nameEl.innerHTML = `${noLabel} ${data.name}`;
+
+    const gradeEl = document.getElementById('infoGrade');
+    gradeEl.textContent = data.grade;
+    gradeEl.className = `grade-pill ${getGradeClass(data.grade)}`;
+
+    /* 키워드 */
+    const tagCont = document.getElementById('keywordTags');
+    tagCont.innerHTML = '';
+    const kws = extractKeywords(data.desc);
+    kws.forEach(kw => {
+        const s = document.createElement('span');
+        s.className = 'keyword-tag';
+        s.textContent = '#' + kw;
+        tagCont.appendChild(s);
+    });
+
+    /* 탭 내용 */
+    document.getElementById('descTotal').innerText   = data.desc      || '-';
+    document.getElementById('descBiz').innerText     = data.biz       || '-';
+    document.getElementById('descLovMain').innerText = data.loveMain  || '-';
+    document.getElementById('lovSome').innerText     = data.lov.some  || '-';
+    document.getElementById('lovCouple').innerText   = data.lov.couple|| '-';
+    document.getElementById('lovBreak').innerText    = data.lov.break || '-';
+    document.getElementById('descHea').innerText     = data.hea       || '-';
+
+    /* 네비 */
+    document.getElementById('navPage').innerText = `${index + 1} / ${studyData.length}`;
+    document.getElementById('navProgress').style.width =
+        ((index + 1) / studyData.length * 100) + '%';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateListActive(index);
+}
+
+/* ── 이전/다음 ── */
+function prevCard() {
+    currentIndex = currentIndex > 0 ? currentIndex - 1 : studyData.length - 1;
+    renderCard(currentIndex);
+}
+function nextCard() {
+    currentIndex = currentIndex < studyData.length - 1 ? currentIndex + 1 : 0;
+    renderCard(currentIndex);
+}
+
+/* ── 목록 ── */
+function makeList() {
+    const container = document.getElementById('cardListContainer');
+    container.innerHTML = '';
+
+    const groups = [
+        { label: '✦ 특별 카드', filter: d => d.no === '0' },
+        { label: '☀️ 태양 카드', filter: d => d.grade.includes('태양') },
+        { label: '♀️ 금성 카드', filter: d => d.grade.includes('금성') },
+        { label: '☿ 수성 카드', filter: d => d.grade.includes('수성') },
+        { label: '♃ 목성 카드', filter: d => d.grade.includes('목성') },
+        { label: '♂️ 화성 카드', filter: d => d.grade.includes('화성') },
+        { label: '🌛 달 카드', filter: d => d.grade.includes('달') },
+        { label: '♄ 토성 카드', filter: d => d.grade.includes('토성') },
+        { label: '◎ 중립 카드', filter: d => d.grade === '중립' || d.grade === '긍정' },
+    ];
+
+    groups.forEach(group => {
+        const items = studyData
+            .map((d, i) => ({ d, i }))
+            .filter(({ d }) => group.filter(d));
+        if (items.length === 0) return;
+
+        const gh = document.createElement('div');
+        gh.className = 'group-header';
+        gh.textContent = group.label;
+        container.appendChild(gh);
+
+        const grid = document.createElement('div');
+        grid.className = 'card-list';
+        items.forEach(({ d, i }) => {
+            const div = document.createElement('div');
+            div.className = 'list-item';
+            div.id = `listItem-${i}`;
+            div.innerHTML = `
+                <span class="list-no">${d.symbol || ''} ${d.no === '0' ? 'Special' : 'No.'+d.no}</span>
+                <span class="list-name">${d.name.split('(')[0].trim()}</span>
+                <span class="list-grade-sm">${d.grade}</span>
+            `;
+            div.onclick = () => { currentIndex = i; renderCard(i); closeModal(); };
+            grid.appendChild(div);
+        });
+        container.appendChild(grid);
+    });
+}
+
+function updateListActive(idx) {
+    document.querySelectorAll('.list-item').forEach(el => el.classList.remove('current-mark'));
+    const cur = document.getElementById(`listItem-${idx}`);
+    if (cur) cur.classList.add('current-mark');
+}
+
+function openModal() {
+    document.getElementById('listModal').style.display = 'block';
+    setTimeout(() => {
+        const cur = document.getElementById(`listItem-${currentIndex}`);
+        if (cur) cur.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }, 150);
+}
+function closeModal() { document.getElementById('listModal').style.display = 'none'; }
+function handleModalClick(e) { if (e.target.id === 'listModal') closeModal(); }
+
+/* ── 초기화 ── */
+window.onload = function () { makeList(); renderCard(0); };
+</script>
+</body>
+</html>

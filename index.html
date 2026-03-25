@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>지니의 주역 타로</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #7F5AFF 0%, #5D3FD3 100%);
+            --bg-gray: #F5F7FA;
+            --text-dark: #191F28;
+            --text-gray: #8B95A1;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; }
+
+        body { 
+            font-family: 'NanumSquareRound', sans-serif; 
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            margin: 0; padding: 0;
+            min-height: 100vh; overflow-x: hidden; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+
+        /* 1. 상단 히어로 영역 */
+        .hero-header {
+            background: var(--bg-gradient);
+            height: 400px; 
+            padding: 40px 30px;
+            color: white;
+            position: relative;
+            border-bottom-left-radius: 0; 
+            border-bottom-right-radius: 0;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0 0 10px 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .sub-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .more-btn {
+            display: inline-block;
+            background: white;
+            color: #5D3FD3;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+        .more-btn:active { transform: scale(0.95); }
+
+        /* 브랜드 캐릭터 */
+        .brand-character {
+            position: absolute;
+            right: 10px; 
+            bottom: 65px; 
+            width: 200px; 
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3)); 
+            animation: floating 3s ease-in-out infinite; 
+            z-index: 10;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* 2. 하단 콘텐츠 영역 */
+        .content-body {
+            background-color: var(--bg-gray);
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: -50px; 
+            padding: 40px 25px 40px 25px; /* 하단 패딩 조정 */
+            position: relative;
+            z-index: 5;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-label {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-label::before {
+            content: ''; display: block; width: 4px; height: 18px;
+            background-color: #7F5AFF; border-radius: 2px;
+        }
+
+        /* 메뉴 카드 그리드 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px; /* 배너와의 간격 */
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 24px;
+            padding: 25px 20px;
+            text-decoration: none;
+            color: var(--text-dark);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card:active { transform: scale(0.98); }
+
+        .icon-circle {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            background: #F3F0FF;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .menu-card:nth-child(2) .icon-circle { background: #E8FDF0; }
+
+        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .card-desc { font-size: 0.85rem; color: var(--text-gray); font-weight: 500; }
+
+        .card-arrow {
+            margin-top: 15px;
+            width: 100%;
+            height: 36px;
+            background: #F8F9FA;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: #ccc;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .menu-card:hover .icon-circle { transform: scale(1.1); }
+        .menu-card:hover .card-arrow { background: #7F5AFF; color: white; }
+        .menu-card:nth-child(2):hover .card-arrow { background: #34C759; }
+
+        /* [추가] 3. 하단 배너 스타일 */
+        .bottom-banner {
+            background: linear-gradient(to right, #9D70FF, #B388FF); /* 살짝 다른 보라톤 */
+            border-radius: 20px;
+            padding: 20px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(157, 112, 255, 0.25);
+            text-decoration: none;
+            margin-bottom: 20px; /* 푸터와의 간격 */
+            transition: transform 0.2s;
+        }
+        .bottom-banner:active { transform: scale(0.98); }
+
+        .banner-text { font-weight: 700; font-size: 1.05rem; }
+        .banner-btn {
+            background: rgba(255,255,255,0.25); 
+            padding: 8px 16px; border-radius: 20px; 
+            font-size: 0.85rem; font-weight: 600;
+        }
+		
+		
+		/* [추가] 3. 하단 배너 스타일 */
+        .bottom-banner2 {
+            background: linear-gradient(to right, #6783ff, #b768ff); /* 살짝 다른 보라톤 */
+            border-radius: 20px;
+            padding: 20px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(157, 112, 255, 0.25);
+            text-decoration: none;
+            margin-bottom: 40px; /* 푸터와의 간격 */
+            transition: transform 0.2s;
+        }
+        .bottom-banner2:active { transform: scale(0.98); }
+
+        .banner-text { font-weight: 700; font-size: 1.05rem; }
+        .banner-btn {
+            background: rgba(255,255,255,0.25); 
+            padding: 8px 16px; border-radius: 20px; 
+            font-size: 0.85rem; font-weight: 600;
+        }
+
+        /* [추가] 4. 카피라이트 (푸터) 스타일 */
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: auto; /* 맨 아래로 밀기 */
+            padding-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="hero-header">
+        <div class="date-badge" id="currentDate">2026년 1월 1일</div>
+
+        <h1 class="main-title">
+            주역으로 보는<br>
+            오늘의 운세
+        </h1>
+        <p class="sub-desc">
+            마법사 지니가 알려주는<br>
+            당신의 하루는 어떨까요?
+        </p>
+
+        <a href="sub01.html" class="more-btn">운세 확인하기</a>
+
+        <img src="./img/cha.png" alt="마법사 지니" class="brand-character">
+    </header>
+
+    <section class="content-body">
+        <div class="section-label">지니의 주역 타로</div>
+
+        <div class="menu-grid">
+            <a href="sub01.html" class="menu-card">
+                <div class="icon-circle">🔮</div>
+                <div class="card-title">오늘의 운세</div>
+                <div class="card-desc">하루의 흐름 읽기</div>
+                <div class="card-arrow">GO ❯</div>
+            </a>
+
+            <a href="sub02.html" class="menu-card">
+                <div class="icon-circle">📖</div>
+                <div class="card-title">타로 도서관</div>
+                <div class="card-desc">64괘 의미 공부</div>
+                <div class="card-arrow">GO ❯</div>
+            </a>
+        </div>
+
+        <a href="uni.html" class="bottom-banner">
+            <div class="banner-text"> 유니버셜 웨이트 타로 카드</div>
+            <div class="banner-btn">전체 보기 ❯</div>
+        </a>
+		
+		 <a href="hor.html" class="bottom-banner2">
+            <div class="banner-text"> 호로스코프 벨린 카드</div>
+            <div class="banner-btn">전체 보기 ❯</div>
+        </a>
+
+        <footer>
+            © 2026 GENIE TAROT. All rights reserved.
+        </footer>
+    </section>
+
+    <script>
+        const dateElement = document.getElementById('currentDate');
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+        dateElement.innerText = now.toLocaleDateString('ko-KR', options);
+    </script>
+
+</body>
+</html>
