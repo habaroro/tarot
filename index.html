@@ -1,298 +1,399 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>지니의 주역 타로</title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
     <style>
-    :root {
-        /* 트렌디한 컬러 팔레트 */
-        --primary:       #4f46e5;
-        --primary-light: #818cf8;
-        --primary-dark:  #3730a3;
-        --secondary:     #ec4899;
-        
-        --glass-bg:      rgba(255, 255, 255, 0.75);
-        --glass-border:  rgba(255, 255, 255, 0.9);
-        --glass-shadow:  0 10px 32px 0 rgba(0, 0, 0, 0.06);
+        :root {
+            /* 트렌디한 컬러 팔레트 */
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --primary-dark: #3730a3;
+            --secondary: #ec4899;
 
-        --text-main:     #0f172a;
-        --text-sub:      #334155;
-        --text-gray:     #64748b;
-        
-        --radius-xl:     32px;
-        --radius-lg:     24px;
-        --radius-md:     16px;
-    }
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.06);
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-gray: #64748b;
 
-    html { font-size: 16px; }
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
 
-    body { 
-        font-family: 'NanumSquareRound', sans-serif; 
-        background-color: #fdfcff;
-        background-image: 
-            radial-gradient(at 80% 0%, hsla(250, 100%, 85%, 0.4) 0px, transparent 50%),
-            radial-gradient(at 0% 50%, hsla(320, 100%, 90%, 0.4) 0px, transparent 50%),
-            radial-gradient(at 80% 100%, hsla(200, 100%, 85%, 0.4) 0px, transparent 50%),
-            radial-gradient(at 0% 0%, hsla(190, 100%, 85%, 0.4) 0px, transparent 50%);
-        background-attachment: fixed;
-        color: var(--text-main);
-        min-height: 100vh; 
-        overflow-x: hidden; 
-        display: flex;
-        flex-direction: column;
-        -webkit-tap-highlight-color: transparent; 
-        line-height: 1.5;
-    }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* 1. 상단 히어로 영역 - 아웃라인 라운드로 트렌디하게 팝아웃 효과 */
-    .hero-header {
-        background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-        padding: 50px 30px 100px 30px;
-        border-radius: 0 0 40px 40px;
-        color: white;
-        position: relative;
-        box-shadow: 0 15px 35px rgba(67, 56, 202, 0.15);
-        z-index: 10;
-        max-width: 540px;
-        width: 100%;
-        margin: 0 auto;
-    }
-    
-    .hero-header::before {
-        content: ''; position: absolute; inset: 0; border-radius: 0 0 40px 40px;
-        background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
-        pointer-events: none;
-    }
+        html {
+            font-size: 16px;
+        }
 
-    .date-badge {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.3);
-        padding: 8px 18px;
-        border-radius: 30px;
-        font-size: 0.95rem;
-        font-weight: 800;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
+        body {
+            font-family: 'NanumSquareRound', sans-serif;
+            background-color: #fdfcff;
+            background-image:
+                radial-gradient(at 80% 0%, hsla(250, 100%, 85%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(320, 100%, 90%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 80% 100%, hsla(200, 100%, 85%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 0% 0%, hsla(190, 100%, 85%, 0.4) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1.5;
+        }
 
-    .main-title {
-        font-size: 2.3rem;
-        font-weight: 800;
-        line-height: 1.35;
-        margin: 0 0 14px 0;
-        text-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        letter-spacing: -0.03em;
-    }
+        /* 1. 상단 히어로 영역 - 아웃라인 라운드로 트렌디하게 팝아웃 효과 */
+        .hero-header {
+            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+            padding: 50px 30px 100px 30px;
+            border-radius: 0 0 40px 40px;
+            color: white;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(67, 56, 202, 0.15);
+            z-index: 10;
+            max-width: 540px;
+            width: 100%;
+            margin: 0 auto;
+        }
 
-    .sub-desc {
-        font-size: 1.15rem;
-        opacity: 0.95;
-        font-weight: 600;
-        line-height: 1.5;
-        margin-bottom: 28px;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0 0 40px 40px;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
 
-    .more-btn {
-        display: inline-block;
-        background: #ffffff;
-        color: var(--primary-dark);
-        padding: 14px 28px;
-        border-radius: 30px;
-        font-weight: 800;
-        font-size: 1.1rem;
-        text-decoration: none;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        z-index: 2;
-    }
-    .more-btn:hover { 
-        transform: translateY(-3px); 
-        box-shadow: 0 12px 25px rgba(0,0,0,0.2); 
-    }
-    .more-btn:active { transform: scale(0.96); }
+        .date-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
 
-    /* 브랜드 캐릭터 - 헤더 아래로 튀어나오게 배치 처리 */
-    .brand-character {
-        position: absolute;
-        right: 5px; 
-        bottom: -30px; 
-        width: 210px; 
-        filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3)); 
-        animation: floating 3.5s ease-in-out infinite; 
-        z-index: 20;
-        pointer-events: none;
-    }
+        .main-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            line-height: 1.35;
+            margin: 0 0 14px 0;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            letter-spacing: -0.03em;
+        }
 
-    @keyframes floating {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-12px) rotate(3deg); }
-    }
+        .sub-desc {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 28px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    /* 2. 하단 콘텐츠 영역 - 글래스 느낌으로 바닥에 띄우기 */
-    .content-body {
-        background: transparent;
-        margin-top: -30px; 
-        padding: 60px 24px 40px 24px;
-        position: relative;
-        z-index: 5;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        max-width: 540px;
-        width: 100%;
-        align-self: center;
-    }
+        .more-btn {
+            display: inline-block;
+            background: #ffffff;
+            color: var(--primary-dark);
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+        }
 
-    .section-label {
-        font-size: 1.3rem;
-        font-weight: 800;
-        color: var(--text-main);
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .section-label::before {
-        content: ''; display: block; width: 6px; height: 22px;
-        background: linear-gradient(180deg, var(--secondary), #f43f5e);
-        border-radius: 3px;
-    }
+        .more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
 
-    /* 메뉴 카드 그리드 */
-    .menu-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-        margin-bottom: 35px; 
-    }
+        .more-btn:active {
+            transform: scale(0.96);
+        }
 
-    .menu-card {
-        background: var(--glass-bg);
-        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-xl);
-        padding: 30px 20px;
-        text-decoration: none;
-        color: var(--text-main);
-        box-shadow: var(--glass-shadow);
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
+        /* 브랜드 캐릭터 - 헤더 아래로 튀어나오게 배치 처리 */
+        .brand-character {
+            position: absolute;
+            right: 5px;
+            bottom: -30px;
+            width: 210px;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
+            animation: floating 3.5s ease-in-out infinite;
+            z-index: 20;
+            pointer-events: none;
+        }
 
-    .menu-card:hover { 
-        transform: translateY(-6px); 
-        box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
-    }
-    .menu-card:active { transform: scale(0.96); }
+        @keyframes floating {
 
-    .icon-circle {
-        width: 76px; height: 76px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 2.8rem;
-        margin-bottom: 18px;
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        box-shadow: inset 0 2px 4px rgba(255,255,255,0.8), 0 4px 10px rgba(0,0,0,0.04);
-        border: 1px solid #fff;
-    }
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
 
-    .menu-card:nth-child(2) .icon-circle { 
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0); 
-    }
+            50% {
+                transform: translateY(-12px) rotate(3deg);
+            }
+        }
 
-    .card-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
-    .card-desc { font-size: 0.95rem; color: var(--text-gray); font-weight: 600; }
+        /* 2. 하단 콘텐츠 영역 - 글래스 느낌으로 바닥에 띄우기 */
+        .content-body {
+            background: transparent;
+            margin-top: -30px;
+            padding: 60px 24px 40px 24px;
+            position: relative;
+            z-index: 5;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 540px;
+            width: 100%;
+            align-self: center;
+        }
 
-    .card-arrow {
-        margin-top: 20px;
-        width: 100%;
-        height: 42px;
-        background: rgba(15, 23, 42, 0.04);
-        border-radius: var(--radius-md);
-        display: flex; align-items: center; justify-content: center;
-        color: var(--text-gray);
-        font-weight: 800;
-        font-size: 1.05rem;
-        transition: all 0.3s;
-    }
-    
-    .menu-card:hover .icon-circle { transform: scale(1.15) rotate(5deg); }
-    .menu-card:hover .card-arrow { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
-    .menu-card:nth-child(2):hover .card-arrow { background: #16a34a; color: white; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
+        .section-label {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    /* 3. 하단 배너 스타일 - 화려한 네온 그라데이션 버튼 모양 */
-    .bottom-banner {
-        background: linear-gradient(135deg, #8b5cf6, #d946ef); 
-        border-radius: var(--radius-lg);
-        padding: 22px 28px;
-        display: flex; justify-content: space-between; align-items: center;
-        color: white;
-        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
-        text-decoration: none;
-        margin-bottom: 20px; 
-        transition: all 0.3s;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-    .bottom-banner:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(139, 92, 246, 0.4); }
-    .bottom-banner:active { transform: scale(0.97); }
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 22px;
+            background: linear-gradient(180deg, var(--secondary), #f43f5e);
+            border-radius: 3px;
+        }
 
-    .bottom-banner2 {
-        background: linear-gradient(135deg, #3b82f6, #06b6d4); 
-        border-radius: var(--radius-lg);
-        padding: 22px 28px;
-        display: flex; justify-content: space-between; align-items: center;
-        color: white;
-        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        text-decoration: none;
-        margin-bottom: 40px; 
-        transition: all 0.3s;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-    .bottom-banner2:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(59, 130, 246, 0.4); }
-    .bottom-banner2:active { transform: scale(0.97); }
+        /* 메뉴 카드 그리드 */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 35px;
+        }
 
-    .banner-text { font-weight: 800; font-size: 1.15rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .banner-btn {
-        background: rgba(255,255,255,0.2); 
-        padding: 10px 18px; border-radius: 20px; 
-        font-size: 0.95rem; font-weight: 800;
-        border: 1px solid rgba(255,255,255,0.3);
-        backdrop-filter: blur(4px);
-    }
+        .menu-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 30px 20px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* 4. 카피라이트 (푸터) 스타일 */
-    footer {
-        text-align: center;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--text-gray);
-        margin-top: auto; 
-        padding-bottom: 30px;
-    }
-    
-    @media (max-width: 360px) {
-        .hero-header { padding: 40px 20px 80px 20px; }
-        .main-title { font-size: 2rem; }
-        .content-body { padding: 60px 16px 40px 16px; }
-        .brand-character { width: 180px; bottom: -20px; }
-        .banner-text { font-size: 1rem; }
-    }
-</style>
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .menu-card:active {
+            transform: scale(0.96);
+        }
+
+        .icon-circle {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin-bottom: 18px;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 4px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #fff;
+        }
+
+        .menu-card:nth-child(2) .icon-circle {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .card-arrow {
+            margin-top: 20px;
+            width: 100%;
+            height: 42px;
+            background: rgba(15, 23, 42, 0.04);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            font-weight: 800;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .menu-card:hover .icon-circle {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .menu-card:hover .card-arrow {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .menu-card:nth-child(2):hover .card-arrow {
+            background: #16a34a;
+            color: white;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+        }
+
+        /* 3. 하단 배너 스타일 - 화려한 네온 그라데이션 버튼 모양 */
+        .bottom-banner {
+            background: linear-gradient(135deg, #8b5cf6, #d946ef);
+            border-radius: var(--radius-lg);
+            padding: 22px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .bottom-banner:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .bottom-banner:active {
+            transform: scale(0.97);
+        }
+
+        .bottom-banner2 {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: var(--radius-lg);
+            padding: 22px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            text-decoration: none;
+            margin-bottom: 40px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .bottom-banner2:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .bottom-banner2:active {
+            transform: scale(0.97);
+        }
+
+        .banner-text {
+            font-weight: 800;
+            font-size: 1.15rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner-btn {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        /* 4. 카피라이트 (푸터) 스타일 */
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-top: auto;
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 360px) {
+            .hero-header {
+                padding: 40px 20px 80px 20px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .content-body {
+                padding: 60px 16px 40px 16px;
+            }
+
+            .brand-character {
+                width: 180px;
+                bottom: -20px;
+            }
+
+            .banner-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
     <header class="hero-header">
@@ -332,11 +433,11 @@
         </div>
 
         <a href="tarot_03.html" class="bottom-banner">
-            <div class="banner-text"> 유니버셜 웨이트 타로 카드</div>
+            <div class="banner-text"> 유니버셜 웨이트 카드</div>
             <div class="banner-btn">전체 보기 ❯</div>
         </a>
-		
-		 <a href="tarot_04.html" class="bottom-banner2">
+
+        <a href="tarot_04.html" class="bottom-banner2">
             <div class="banner-text"> 호로스코프 벨린 카드</div>
             <div class="banner-btn">전체 보기 ❯</div>
         </a>
@@ -354,4 +455,5 @@
     </script>
 
 </body>
+
 </html>
