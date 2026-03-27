@@ -10,18 +10,17 @@
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <style>
     :root {
-      /* 트렌디한 컬러 팔레트 */
-      --primary: #4c1d95;
-      /* Deep Purple/Indigo */
-      --primary-light: #8b5cf6;
-      --primary-dark: #2e1065;
+      /* JIAN TAROT 통합 디자인 시스템 */
+      --primary: #4f46e5;
+      --primary-light: #818cf8;
+      --primary-dark: #3730a3;
       --secondary: #ec4899;
-      /* Pink */
+      --accent: #8b5cf6;
 
       /* 글래스모피즘 변수 */
-      --glass-bg: rgba(255, 255, 255, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.9);
-      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.95);
+      --glass-shadow: 0 8px 32px 0 rgba(79, 70, 229, 0.06);
 
       /* 카드 뒷면(덮개) - 세련된 다크 그라데이션 */
       --card-cover-bg: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
@@ -75,15 +74,15 @@
       top: 0;
       z-index: 50;
       /* 글래스모피즘 헤더 */
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 16px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 4px 24px rgba(79, 70, 229, 0.05);
     }
 
     .back-btn {
@@ -446,7 +445,15 @@
     }
 
     /* 결과 카드 (glass-card 공통 클래스 사용) */
-    .report-card {}
+    .report-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      padding: 28px 20px;
+    }
 
     .report-header {
       display: flex;

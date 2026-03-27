@@ -9,15 +9,16 @@
         href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
     <style>
         :root {
-            /* 트렌디한 컬러 팔레트 */
+            /* JIAN TAROT 통합 디자인 시스템 */
             --primary: #4f46e5;
             --primary-light: #818cf8;
             --primary-dark: #3730a3;
             --secondary: #ec4899;
+            --accent: #8b5cf6;
 
-            --glass-bg: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.9);
-            --glass-shadow: 0 10px 32px 0 rgba(0, 0, 0, 0.06);
+            --glass-bg: rgba(255, 255, 255, 0.80);
+            --glass-border: rgba(255, 255, 255, 0.95);
+            --glass-shadow: 0 10px 32px 0 rgba(79, 70, 229, 0.07);
 
             --text-main: #0f172a;
             --text-sub: #334155;
@@ -60,12 +61,12 @@
 
         /* 1. 상단 히어로 영역 - 아웃라인 라운드로 트렌디하게 팝아웃 효과 */
         .hero-header {
-            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
-            padding: 35px 30px 45px 30px;
-            border-radius: 0 0 40px 40px;
+            background: linear-gradient(135deg, #3730a3 0%, #4f46e5 50%, #8b5cf6 100%);
+            padding: 35px 30px 50px 30px;
+            border-radius: 0 0 44px 44px;
             color: white;
             position: relative;
-            box-shadow: 0 15px 35px rgba(67, 56, 202, 0.15);
+            box-shadow: 0 15px 40px rgba(55, 48, 163, 0.25);
             z-index: 10;
             max-width: 540px;
             width: 100%;
@@ -114,23 +115,25 @@
         }
 
         .more-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: #ffffff;
             color: var(--primary-dark);
-            padding: 14px 28px;
+            padding: 14px 30px;
             border-radius: 30px;
             font-weight: 800;
             font-size: 1.1rem;
             text-decoration: none;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 2;
         }
 
         .more-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
         }
 
         .more-btn:active {
@@ -183,16 +186,17 @@
             margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .section-label::before {
             content: '';
             display: block;
-            width: 6px;
-            height: 22px;
-            background: linear-gradient(180deg, var(--secondary), #f43f5e);
-            border-radius: 3px;
+            width: 5px;
+            height: 24px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            box-shadow: 0 3px 8px rgba(79, 70, 229, 0.35);
         }
 
         /* 메뉴 카드 그리드 */
@@ -235,63 +239,68 @@
             width: 76px;
             height: 76px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            background: linear-gradient(135deg, #ede9fe, #c4b5fd);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.8rem;
             margin-bottom: 18px;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 4px 10px rgba(0, 0, 0, 0.04);
-            border: 1px solid #fff;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 6px 16px rgba(79, 70, 229, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.9);
         }
 
         .menu-card:nth-child(2) .icon-circle {
-            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 6px 16px rgba(236, 72, 153, 0.12);
         }
 
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             margin-bottom: 8px;
             color: var(--text-main);
         }
 
         .card-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-gray);
-            font-weight: 600;
+            font-weight: 700;
+            line-height: 1.4;
         }
 
         .card-arrow {
             margin-top: 20px;
             width: 100%;
             height: 42px;
-            background: rgba(15, 23, 42, 0.04);
+            background: rgba(79, 70, 229, 0.05);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-gray);
+            color: var(--primary);
             font-weight: 800;
-            font-size: 1.05rem;
-            transition: all 0.3s;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 70, 229, 0.1);
         }
 
         .menu-card:hover .icon-circle {
-            transform: scale(1.15) rotate(5deg);
+            transform: scale(1.12) rotate(6deg);
         }
 
         .menu-card:hover .card-arrow {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            border-color: transparent;
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
         }
 
         .menu-card:nth-child(2):hover .card-arrow {
-            background: #16a34a;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: white;
-            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+            border-color: transparent;
+            box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
         }
 
         /* 3. 하단 배너 스타일 - 화려한 네온 그라데이션 버튼 모양 */
@@ -362,11 +371,24 @@
         /* 4. 카피라이트 (푸터) 스타일 */
         footer {
             text-align: center;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.88rem;
+            font-weight: 700;
             color: var(--text-gray);
             margin-top: auto;
-            padding-bottom: 30px;
+            padding-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        footer .footer-brand {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
         }
 
         @media (max-width: 360px) {
@@ -408,7 +430,7 @@
             당신의 하루는 어떨까요?
         </p>
 
-        <a href="tarot_01.html" class="more-btn">운세 확인하기</a>
+        <a href="tarot_01.html" class="more-btn">운세 확인하기 ✨</a>
 
         <img src="./img/cha.png" alt="마법사 지니" class="brand-character">
     </header>
@@ -443,7 +465,8 @@
         </a>
 
         <footer>
-            © 2026 JIAN TAROT. All rights reserved.
+            <span class="footer-brand">JIAN TAROT</span>
+            © 2026 All rights reserved.
         </footer>
     </section>
 
