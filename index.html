@@ -79,6 +79,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            flex-shrink: 0;
         }
 
         .date-badge {
@@ -105,7 +115,7 @@
         }
 
         .hero-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             line-height: 1.45;
             font-weight: 800;
             color: var(--text-main);
@@ -188,9 +198,68 @@
             z-index: -1;
         }
 
+        /* ✨ 반짝이는 별 파티클 */
+        .twinkle-star {
+            position: absolute;
+            border-radius: 50%;
+            background: #ffffff;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle var(--dur, 2s) ease-in-out var(--delay, 0s) infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            30% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            60% {
+                opacity: 0.5;
+                transform: scale(0.7);
+            }
+        }
+
+        /* 수정구슬 주변 글로우 오버레이 */
+        .orb-glow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(160, 130, 255, 0.25) 0%, rgba(80, 60, 200, 0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+            animation: orb-pulse 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes orb-pulse {
+
+            0%,
+            100% {
+                transform: translateY(-50%) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-50%) scale(1.18);
+                opacity: 1;
+            }
+        }
+
+
         .dark-card-title {
             color: #ffffff;
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             font-weight: 700;
             line-height: 1.5;
             z-index: 2;
@@ -331,7 +400,10 @@
 
     <!-- 1. 상단 탑바 영역 -->
     <header class="top-bar">
-        <h1 class="page-title">지안 타로</h1>
+        <h1 class="page-title">
+                <img src="./img/logo.png" alt="로고" class="logo-icon">
+                지안 타로
+            </h1>
         <div class="date-badge" id="currentDate">
             <!-- JS로 동적 할당 -->
             11.10 금요일 🌙 2°
@@ -354,7 +426,9 @@
 
     <!-- 3. 메인 배너 카드 (Dark Theme) -->
     <section class="main-card-wrapper">
-        <div class="dark-card">
+        <div class="dark-card" id="darkCard">
+            <!-- 수정구슬 글로우 오버레이 -->
+            <div class="orb-glow"></div>
             <div class="dark-card-title">
                 오늘 하루,<br>
                 나의 운세 흐름을 확인해봐요!
@@ -427,6 +501,39 @@
 
         // 템플릿: 11.10 금요일 🌙 2°
         dateElement.innerHTML = `${month}.${day} ${week} &nbsp;${randomIcon} ${randomTemp}`;
+
+        // ✨ 반짝이는 별 파티클 생성
+        (function createTwinkleStars() {
+            const card = document.getElementById('darkCard');
+            if (!card) return;
+            const STAR_COUNT = 28;
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const star = document.createElement('div');
+                star.className = 'twinkle-star';
+                // 카드 오른쪽(수정구슬 주변) 위주로 배치, 일부는 전체 분산
+                const rightBias = Math.random() < 0.65; // 65%는 오른쪽에 집중
+                const xPct = rightBias
+                    ? 45 + Math.random() * 52  // 45%~97% 오른쪽 영역
+                    : Math.random() * 45;       // 0%~45% 왼쪽 영역
+                const yPct = 5 + Math.random() * 90;
+                const size = 1.5 + Math.random() * 3;   // 1.5px ~ 4.5px
+                const dur = 1.2 + Math.random() * 2.5; // 1.2s ~ 3.7s
+                const delay = Math.random() * 3;         // 0s ~ 3s
+
+                star.style.cssText = [
+                    `left: ${xPct}%`,
+                    `top: ${yPct}%`,
+                    `width: ${size}px`,
+                    `height: ${size}px`,
+                    `--dur: ${dur.toFixed(2)}s`,
+                    `--delay: ${delay.toFixed(2)}s`,
+                    // 별마다 살짝 다른 색감
+                    `background: hsl(${220 + Math.random() * 80}, 80%, ${85 + Math.random() * 15}%)`,
+                    `box-shadow: 0 0 ${(size * 2).toFixed(1)}px ${size.toFixed(1)}px rgba(200,180,255,0.6)`,
+                ].join(';');
+                card.appendChild(star);
+            }
+        })();
     </script>
 </body>
 
