@@ -3,30 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>타로마스터 지안이 알려주는 타로</title>
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
     <style>
         :root {
-            /* JIAN TAROT 통합 디자인 시스템 */
+            /* 컬러 시스템 (A. 리디자인 스타일 기준) */
+            --bg-color: #f2f4f6;
+            --card-white: #ffffff;
+            --card-dark: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+            --text-main: #191f28;
+            --text-sub: #8b95a1;
             --primary: #4f46e5;
-            --primary-light: #818cf8;
-            --primary-dark: #3730a3;
-            --secondary: #ec4899;
-            --accent: #8b5cf6;
 
-            --glass-bg: rgba(255, 255, 255, 0.80);
-            --glass-border: rgba(255, 255, 255, 0.95);
-            --glass-shadow: 0 10px 32px 0 rgba(79, 70, 229, 0.07);
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-full: 9999px;
 
-            --text-main: #0f172a;
-            --text-sub: #334155;
-            --text-gray: #64748b;
-
-            --radius-xl: 32px;
-            --radius-lg: 24px;
-            --radius-md: 16px;
+            --nav-height: 72px;
         }
 
         *,
@@ -43,13 +40,7 @@
 
         body {
             font-family: 'NanumSquareRound', sans-serif;
-            background-color: #fdfcff;
-            background-image:
-                radial-gradient(at 80% 0%, hsla(250, 100%, 85%, 0.4) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, hsla(320, 100%, 90%, 0.4) 0px, transparent 50%),
-                radial-gradient(at 80% 100%, hsla(200, 100%, 85%, 0.4) 0px, transparent 50%),
-                radial-gradient(at 0% 0%, hsla(190, 100%, 85%, 0.4) 0px, transparent 50%);
-            background-attachment: fixed;
+            background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
@@ -57,427 +48,386 @@
             flex-direction: column;
             -webkit-tap-highlight-color: transparent;
             line-height: 1.5;
-        }
+            padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 20px));
 
-        /* 1. 상단 히어로 영역 - 아웃라인 라운드로 트렌디하게 팝아웃 효과 */
-        .hero-header {
-            background: linear-gradient(135deg, #3730a3 0%, #4f46e5 50%, #8b5cf6 100%);
-            padding: 35px 30px 50px 30px;
-            border-radius: 0 0 44px 44px;
-            color: white;
-            position: relative;
-            box-shadow: 0 15px 40px rgba(55, 48, 163, 0.25);
-            z-index: 10;
-            max-width: 540px;
-            width: 100%;
+            /* 모바일 최적화 레이아웃 */
+            max-width: 500px;
             margin: 0 auto;
+            position: relative;
+            background-image: radial-gradient(at 90% 10%, rgba(200, 210, 230, 0.5) 0%, transparent 40%);
         }
 
-        .hero-header::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 0 0 40px 40px;
-            background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 1. 상단 탑바 (피드 / 날짜 배지) */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 24px 12px 24px;
+            padding-top: max(24px, env(safe-area-inset-top));
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--primary) 0%, #d946ef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .date-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .main-title {
-            font-size: 2.3rem;
-            font-weight: 800;
-            line-height: 1.35;
-            margin: 0 0 14px 0;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            letter-spacing: -0.03em;
-        }
-
-        .sub-desc {
-            font-size: 1.15rem;
-            opacity: 0.95;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 28px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .more-btn {
-            display: inline-flex;
+            background-color: var(--card-white);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            display: flex;
             align-items: center;
-            gap: 8px;
-            background: #ffffff;
-            color: var(--primary-dark);
-            padding: 14px 30px;
-            border-radius: 30px;
+            gap: 6px;
+        }
+
+        /* 2. 히어로 섹션 (메인 카피 + 캐릭터) */
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 24px;
+            margin-bottom: 5px;
+            margin-top: 10px;
+        }
+
+        .hero-text {
+            font-size: 1.5rem;
+            line-height: 1.45;
             font-weight: 800;
-            font-size: 1.1rem;
-            text-decoration: none;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-main);
+            letter-spacing: -0.03em;
+            word-break: keep-all;
+            padding-bottom: 40px;
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            width: 150px;
+            height: 185px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .brand-character {
             position: relative;
             z-index: 2;
-        }
-
-        .more-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
-        }
-
-        .more-btn:active {
-            transform: scale(0.96);
-        }
-
-        /* 브랜드 캐릭터 - 헤더 아래로 튀어나오게 배치 처리 */
-        .brand-character {
-            position: absolute;
-            right: 5px;
-            bottom: -30px;
-            width: 210px;
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.3));
-            animation: floating 3.5s ease-in-out infinite;
-            z-index: 20;
-            pointer-events: none;
+            width: 140px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+            animation: floating 3s ease-in-out infinite;
         }
 
         @keyframes floating {
 
             0%,
             100% {
-                transform: translateY(0px) rotate(0deg);
+                transform: translateY(0);
             }
 
             50% {
-                transform: translateY(-12px) rotate(3deg);
+                transform: translateY(-8px);
             }
         }
 
-        /* 2. 하단 콘텐츠 영역 - 글래스 느낌으로 바닥에 띄우기 */
-        .content-body {
-            background: transparent;
-            margin-top: -30px;
-            padding: 60px 24px 40px 24px;
-            position: relative;
-            z-index: 5;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            max-width: 540px;
-            width: 100%;
-            align-self: center;
-        }
-
-        .section-label {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--text-main);
+        /* 3. 메인 배너 카드 (밤하늘 테마) */
+        .main-card-wrapper {
+            padding: 0 20px;
             margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
-        .section-label::before {
-            content: '';
-            display: block;
-            width: 5px;
-            height: 24px;
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            box-shadow: 0 3px 8px rgba(79, 70, 229, 0.35);
-        }
-
-        /* 메뉴 카드 그리드 */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 35px;
-        }
-
-        .menu-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
+        .dark-card {
+            background-color: #0a1128;
+            background-image: url('./img/star_bg.png');
+            background-size: cover;
+            background-position: center right;
             border-radius: var(--radius-xl);
-            padding: 30px 20px;
-            text-decoration: none;
-            color: var(--text-main);
-            box-shadow: var(--glass-shadow);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            padding: 60px 35px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 180px;
+            gap: 16px;
+            box-shadow: 0 12px 30px rgba(10, 17, 40, 0.3);
+            z-index: 1;
         }
 
-        .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        .dark-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(10, 17, 40, 0.8) 0%, rgba(10, 17, 40, 0.1) 80%, transparent 100%);
+            z-index: -1;
         }
 
-        .menu-card:active {
+        .dark-card-title {
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.5;
+            z-index: 2;
+            max-width: 75%;
+        }
+
+        .dark-card-btn {
+            background: var(--card-white);
+            color: #1e3a8a;
+            padding: 14px 20px;
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            z-index: 2;
+            transition: transform 0.2s;
+        }
+
+        .dark-card-btn:active {
             transform: scale(0.96);
         }
 
-        .icon-circle {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ede9fe, #c4b5fd);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.8rem;
-            margin-bottom: 18px;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 6px 16px rgba(79, 70, 229, 0.12);
-            border: 2px solid rgba(255, 255, 255, 0.9);
-        }
-
-        .menu-card:nth-child(2) .icon-circle {
-            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 6px 16px rgba(236, 72, 153, 0.12);
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        .card-desc {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        .card-arrow {
-            margin-top: 20px;
-            width: 100%;
-            height: 42px;
-            background: rgba(79, 70, 229, 0.05);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(79, 70, 229, 0.1);
-        }
-
-        .menu-card:hover .icon-circle {
-            transform: scale(1.12) rotate(6deg);
-        }
-
-        .menu-card:hover .card-arrow {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
-        }
-
-        .menu-card:nth-child(2):hover .card-arrow {
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
-        }
-
-        /* 3. 하단 배너 스타일 - 화려한 네온 그라데이션 버튼 모양 */
-        .bottom-banner {
-            background: linear-gradient(135deg, #8b5cf6, #d946ef);
-            border-radius: var(--radius-lg);
-            padding: 22px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
-            text-decoration: none;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .bottom-banner:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 30px rgba(139, 92, 246, 0.4);
-        }
-
-        .bottom-banner:active {
-            transform: scale(0.97);
-        }
-
-        .bottom-banner2 {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            border-radius: var(--radius-lg);
-            padding: 22px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-            text-decoration: none;
+        /* 4. 흰색 리스트 카드 (서브 메뉴) */
+        .list-card-wrapper {
+            padding: 0 20px;
             margin-bottom: 40px;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .bottom-banner2:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 30px rgba(59, 130, 246, 0.4);
+        .white-card {
+            background: var(--card-white);
+            border-radius: var(--radius-xl);
+            padding: 24px 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
         }
 
-        .bottom-banner2:active {
-            transform: scale(0.97);
-        }
-
-        .banner-text {
+        .white-card-title {
+            font-size: 1.1rem;
             font-weight: 800;
-            font-size: 1.15rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: var(--text-main);
+            margin-bottom: 16px;
         }
 
-        .banner-btn {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 18px;
-            border-radius: 20px;
+        .list-item {
+            background: var(--bg-color);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .list-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .list-item:active {
+            background: #e5e8eb;
+        }
+
+        .list-icon {
+            font-size: 1.3rem;
+            filter: grayscale(0.8) opacity(0.7);
+        }
+
+        .list-text {
             font-size: 0.95rem;
-            font-weight: 800;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(4px);
+            font-weight: 700;
+            color: var(--text-main);
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* 4. 카피라이트 (푸터) 스타일 */
-        footer {
-            text-align: center;
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text-gray);
-            margin-top: auto;
-            padding-bottom: 32px;
+        /* 5. 하단 네비게이션 바 (Bottom Nav) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
+            height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            z-index: 100;
+        }
+
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             gap: 4px;
+            color: var(--text-sub);
+            width: 20%;
+            height: 100%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: color 0.2s;
         }
 
-        footer .footer-brand {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
+        .nav-item.active {
+            color: var(--text-main);
         }
 
-        @media (max-width: 360px) {
-            .hero-header {
-                padding: 40px 20px 80px 20px;
-            }
+        .nav-icon {
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
 
-            .main-title {
-                font-size: 2rem;
-            }
+        .active .nav-icon {
+            color: #191f28;
+            font-weight: 900;
+            text-shadow: 0 0 1px #191f28;
+        }
 
-            .content-body {
-                padding: 60px 16px 40px 16px;
-            }
-
-            .brand-character {
-                width: 180px;
-                bottom: -20px;
-            }
-
-            .banner-text {
-                font-size: 1rem;
-            }
+        .nav-item span {
+            white-space: nowrap;
+            letter-spacing: -0.5px;
         }
     </style>
 </head>
 
 <body>
 
-    <header class="hero-header">
-        <div class="date-badge" id="currentDate">2026년 1월 1일</div>
-
-        <h1 class="main-title">
-            하루를 준비하는<br>
-            오늘의 운세
-        </h1>
-        <p class="sub-desc">
-            두근두근<br>
-            어떤 일이 생기게 될까?
-        </p>
-
-        <a href="tarot_01.html" class="more-btn">운세 확인하기 ✨</a>
-
-        <img src="./img/cha.png" alt="마법사 지니" class="brand-character">
+    <!-- 1. 상단 탑바 영역 -->
+    <header class="top-bar">
+        <h1 class="page-title">지안 타로</h1>
+        <div class="date-badge" id="currentDate">
+            <!-- JS로 동적 할당 -->
+            11.10 금요일 🌙 2°
+        </div>
     </header>
 
-    <section class="content-body">
-        <div class="section-label">Today's Tarot</div>
-
-        <div class="menu-grid">
-            <a href="tarot_01.html" class="menu-card">
-                <div class="icon-circle">🔮</div>
-                <div class="card-title">오늘의 운세</div>
-                <div class="card-desc">하루의 흐름 읽기</div>
-                <div class="card-arrow">GO ❯</div>
-            </a>
-
-            <a href="tarot_02.html" class="menu-card">
-                <div class="icon-circle">📖</div>
-                <div class="card-title">주역타로 학습</div>
-                <div class="card-desc">64괘 의미 공부</div>
-                <div class="card-arrow">GO ❯</div>
-            </a>
+    <!-- 2. 메인 히어로 섹션 -->
+    <section class="hero-section">
+        <div class="hero-text">
+            두근두근!<br>
+            오늘은 과연<br>
+            어떤 일이 생길까요?
         </div>
-
-        <a href="tarot_03.html" class="bottom-banner">
-            <div class="banner-text"> 유니버셜 웨이트 카드</div>
-            <div class="banner-btn">전체 보기 ❯</div>
-        </a>
-
-        <a href="tarot_04.html" class="bottom-banner2">
-            <div class="banner-text"> 호로스코프 벨린 카드</div>
-            <div class="banner-btn">전체 보기 ❯</div>
-        </a>
-
-        <footer>
-            <span class="footer-brand">JIAN TAROT</span>
-            © 2026 All rights reserved.
-        </footer>
+        <div class="hero-image-wrap">
+            <div class="hero-glow"></div>
+            <img src="./img/cha.png" alt="타로마스터 지안" class="brand-character"
+                onerror="this.src='https://cdn-icons-png.flaticon.com/512/3236/3236307.png'">
+        </div>
     </section>
 
+    <!-- 3. 메인 배너 카드 (Dark Theme) -->
+    <section class="main-card-wrapper">
+        <div class="dark-card">
+            <div class="dark-card-title">
+                오늘 하루,<br>
+                나의 운세 흐름을 확인해봐요!
+            </div>
+            <a href="tarot_01.html" class="dark-card-btn">
+                오늘의 운세 보기 〉
+            </a>
+        </div>
+    </section>
+
+    <!-- 4. 서브 리스트 카드 -->
+    <section class="list-card-wrapper">
+        <div class="white-card">
+            <div class="white-card-title">오늘의 타로 공부</div>
+
+            <a href="tarot_02.html" class="list-item">
+                <span class="list-icon">🗃︎</span>
+                <span class="list-text">주역타로 64괘 한 눈에 공부하기 ></span>
+            </a>
+
+            <a href="tarot_03.html" class="list-item">
+                <span class="list-icon">🧙‍♀️</span>
+                <span class="list-text">유니버셜 웨이트 카드 공부하기 ></span>
+            </a>
+
+            <a href="tarot_04.html" class="list-item">
+                <span class="list-icon">⭐</span>
+                <span class="list-text">호로스코프 벨린 카드 공부하기 ></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 5. 하단 고정 네비게이션 탭바 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+            <div class="nav-icon">☰</div>
+            <span>피드</span>
+        </a>
+        <a href="tarot_01.html" class="nav-item">
+            <div class="nav-icon">🔮</div>
+            <span>오늘의 운세</span>
+        </a>
+        <a href="tarot_02.html" class="nav-item">
+            <div class="nav-icon">🗃︎</div>
+            <span>주역타로</span>
+        </a>
+        <a href="tarot_03.html" class="nav-item">
+            <div class="nav-icon">🧙‍♀️</div>
+            <span>유니버셜</span>
+        </a>
+        <a href="tarot_04.html" class="nav-item">
+            <div class="nav-icon">⭐</div>
+            <span>벨린</span>
+        </a>
+    </nav>
+
     <script>
+        // 현재 날짜 동적 표시 스크립트 (A. 스타일)
         const dateElement = document.getElementById('currentDate');
         const now = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-        dateElement.innerText = now.toLocaleDateString('ko-KR', options);
-    </script>
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        const weekArr = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const week = weekArr[now.getDay()];
 
+        // 날씨 값은 임의의 아이콘/온도로 데코레이션
+        const weatherIcons = ['🌙', '☀️', '☁️', '❄️'];
+        const randomIcon = weatherIcons[Math.floor(Math.random() * weatherIcons.length)];
+        const randomTemp = Math.floor(Math.random() * 20) + '°';
+
+        // 템플릿: 11.10 금요일 🌙 2°
+        dateElement.innerHTML = `${month}.${day} ${week} &nbsp;${randomIcon} ${randomTemp}`;
+    </script>
 </body>
 
 </html>
