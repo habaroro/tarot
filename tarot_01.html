@@ -148,7 +148,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-radius: var(--radius-xl);
-      padding: 2px 30px;
+      padding: 2px 28px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -186,9 +186,12 @@
     }
 
     @keyframes gentle-float {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translateY(0);
       }
+
       50% {
         transform: translateY(-5px) scale(1.02);
       }
