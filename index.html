@@ -117,14 +117,16 @@
             gap: 6px;
         }
 
-        /* 2. 히어로 섹션 (메인 카피 + 캐릭터) */
         .hero-section {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             padding: 0 24px;
-            margin-bottom: 5px;
+            margin-bottom: 0px;
+            /* 겹치지 않고 선이 딱 맞닿게 여백 조정 */
             margin-top: 10px;
+            position: relative;
+            z-index: 10;
         }
 
         .hero-text {
@@ -139,8 +141,8 @@
 
         .hero-image-wrap {
             position: relative;
-            width: 150px;
-            height: 185px;
+            width: 210px;
+            height: 165px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -160,9 +162,9 @@
         .brand-character {
             position: relative;
             z-index: 2;
-            width: 140px;
+            width: 160px;
             filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
-            animation: floating 3s ease-in-out infinite;
+            transform: translateY(0px);
         }
 
         @keyframes floating {
