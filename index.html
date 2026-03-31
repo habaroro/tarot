@@ -11,7 +11,7 @@
     <style>
         :root {
             /* 컬러 시스템 (A. 리디자인 스타일 기준) */
-            --bg-color: #f2f4f6;
+            --bg-color: #fdfcff;
             --card-white: #ffffff;
             --card-dark: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
             --text-main: #191f28;
@@ -40,7 +40,13 @@
 
         body {
             font-family: 'NanumSquareRound', sans-serif;
-            background-color: var(--bg-color);
+            background-color: #fdfcff;
+            background-image:
+                radial-gradient(at 80% 0%,   hsla(250, 100%, 85%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 0%  50%,  hsla(320, 100%, 90%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 80% 100%, hsla(200, 100%, 85%, 0.4) 0px, transparent 50%),
+                radial-gradient(at 0%  0%,   hsla(190, 100%, 85%, 0.4) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
@@ -54,7 +60,14 @@
             max-width: 500px;
             margin: 0 auto;
             position: relative;
-            background-image: radial-gradient(at 90% 10%, rgba(200, 210, 230, 0.5) 0%, transparent 40%);
+        }
+
+        /* 데스크톱: body 에 적절한 padding 조정 */
+        @media (min-width: 640px) {
+            body {
+                max-width: 600px;
+                padding-bottom: 100px;
+            }
         }
 
         a {
@@ -305,58 +318,120 @@
             margin-bottom: 16px;
         }
 
-        .list-item {
-            background: var(--bg-color);
-            border-radius: var(--radius-md);
-            padding: 16px 18px;
+        .study-banner {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 10px;
-            transition: background 0.2s;
+            justify-content: space-between;
+            padding: 18px 20px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 14px;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
         }
 
-        .list-item:last-child {
+        .study-banner:last-child {
             margin-bottom: 0;
         }
 
-        .list-item:active {
-            background: #e5e8eb;
+        .study-banner:active {
+            transform: scale(0.97);
         }
 
-        .list-icon {
-            font-size: 1.3rem;
-            filter: grayscale(0.8) opacity(0.7);
+        /* 개별 배너 배경 그라데이션 */
+        .study-banner-1 {
+            background: linear-gradient(135deg, #f3f6ff 0%, #e6eeff 100%);
+        }
+        .study-banner-2 {
+            background: linear-gradient(135deg, #fcf4ff 0%, #f3e6ff 100%);
+        }
+        .study-banner-3 {
+            background: linear-gradient(135deg, #fff7ee 0%, #ffeed9 100%);
         }
 
-        .list-text {
-            font-size: 0.95rem;
-            font-weight: 700;
+        .banner-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 2;
+        }
+
+        .banner-icon-bg {
+            width: 46px;
+            height: 46px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            flex-shrink: 0;
+        }
+
+        .banner-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .banner-title {
+            font-size: 1.05rem;
+            font-weight: 800;
             color: var(--text-main);
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            letter-spacing: -0.02em;
         }
 
-        /* 5. 하단 네비게이션 바 (Bottom Nav) */
+        .banner-desc {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            font-weight: 700;
+        }
+
+        .banner-arrow {
+            color: #8b95a1;
+            font-weight: 800;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        /* 5. 하단 네비게이션 바 (Bottom Nav) — 반응형 */
         .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 500px;
-            height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+            left: 0;
+            right: 0;
             background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding-bottom: env(safe-area-inset-bottom, 0px);
+            height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
+            padding: 0 8px env(safe-area-inset-bottom, 0px);
             z-index: 100;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 데스크톱: floating pill 스타일 */
+        @media (min-width: 640px) {
+            .bottom-nav {
+                bottom: 24px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                width: auto;
+                min-width: 460px;
+                max-width: 580px;
+                border-radius: 9999px;
+                border-top: none;
+                padding: 0 16px;
+                height: 64px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+            }
         }
 
         .nav-item {
@@ -364,34 +439,55 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 3px;
             color: var(--text-sub);
-            width: 20%;
-            height: 100%;
-            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
             font-weight: 700;
-            transition: color 0.2s;
+            transition: color 0.2s, background 0.2s, transform 0.2s;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .nav-item:active {
+            transform: scale(0.92);
         }
 
         .nav-item.active {
-            color: var(--text-main);
+            color: var(--primary);
+            background: rgba(79, 70, 229, 0.08);
         }
 
         .nav-icon {
-            font-size: 1.4rem;
-            margin-bottom: 2px;
+            font-size: 1.35rem;
             line-height: 1;
+            transition: transform 0.2s;
         }
 
-        .active .nav-icon {
-            color: #191f28;
-            font-weight: 900;
-            text-shadow: 0 0 1px #191f28;
+        .nav-item.active .nav-icon {
+            transform: scale(1.12);
         }
 
         .nav-item span {
             white-space: nowrap;
             letter-spacing: -0.5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        /* 테블릿 이상에서 텍스트 레이블 크기 업 */
+        @media (min-width: 640px) {
+            .nav-item {
+                font-size: 0.78rem;
+                padding: 8px 16px;
+            }
+            .nav-icon {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -444,19 +540,37 @@
         <div class="white-card">
             <div class="white-card-title">오늘의 타로 공부</div>
 
-            <a href="tarot_02.html" class="list-item">
-                <span class="list-icon">🗃︎</span>
-                <span class="list-text">주역타로 64괘 한 눈에 공부하기 ></span>
+            <a href="tarot_02.html" class="study-banner study-banner-1">
+                <div class="banner-content">
+                    <div class="banner-icon-bg">🗃︎</div>
+                    <div class="banner-text-group">
+                        <span class="banner-title">주역타로 시작하기</span>
+                        <span class="banner-desc">64괘 한 눈에 파악하는 법</span>
+                    </div>
+                </div>
+                <div class="banner-arrow">〉</div>
             </a>
 
-            <a href="tarot_03.html" class="list-item">
-                <span class="list-icon">🧙‍♀️</span>
-                <span class="list-text">유니버셜 웨이트 카드 공부하기 ></span>
+            <a href="tarot_03.html" class="study-banner study-banner-2">
+                <div class="banner-content">
+                    <div class="banner-icon-bg">🧙‍♀️</div>
+                    <div class="banner-text-group">
+                        <span class="banner-title">유니버셜 웨이트</span>
+                        <span class="banner-desc">타로카드의 정석 마스터하기</span>
+                    </div>
+                </div>
+                <div class="banner-arrow">〉</div>
             </a>
 
-            <a href="tarot_04.html" class="list-item">
-                <span class="list-icon">⭐</span>
-                <span class="list-text">호로스코프 벨린 카드 공부하기 ></span>
+            <a href="tarot_04.html" class="study-banner study-banner-3">
+                <div class="banner-content">
+                    <div class="banner-icon-bg">⭐</div>
+                    <div class="banner-text-group">
+                        <span class="banner-title">호로스코프 벨린</span>
+                        <span class="banner-desc">직관적인 상징으로 읽어내기</span>
+                    </div>
+                </div>
+                <div class="banner-arrow">〉</div>
             </a>
         </div>
     </section>
