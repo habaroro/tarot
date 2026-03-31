@@ -148,7 +148,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-radius: var(--radius-xl);
-      padding: 24px 28px;
+      padding: 2px 30px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -178,13 +178,17 @@
       animation: gentle-float 4s ease-in-out infinite;
     }
 
-    @keyframes gentle-float {
+    .hero-custom-icon {
+      width: 64px;
+      height: 64px;
+      margin-top: 20px;
+      object-fit: contain;
+    }
 
-      0%,
-      100% {
+    @keyframes gentle-float {
+      0%, 100% {
         transform: translateY(0);
       }
-
       50% {
         transform: translateY(-5px) scale(1.02);
       }
@@ -757,7 +761,8 @@
 
     <!-- 히어로 배너 -->
     <div class="hero-banner">
-      <div class="hero-emoji">🔮</div>
+      <div class="hero-emoji"><img src="./img/icon_crystalball.png" alt="수정구슬" class="hero-custom-icon"
+          onerror="this.outerHTML='🔮'"></div>
       <div class="hero-text">
         <div class="hero-title">오늘 당신의 하루는?</div>
         <div class="hero-sub">카드를 한 장씩 클릭해 뽑아보세요</div>
