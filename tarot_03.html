@@ -563,6 +563,7 @@
             transform: translateY(100%);
             transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .nav-bar.nav-visible {
             transform: translateY(0);
         }
@@ -1111,7 +1112,7 @@
                 lov: { some: "조심스럽게 상대를 관찰하며 마음을 쉽게 열지 않는 상태.", couple: "함께 있어도 외로움을 느끼거나 각자의 시간이 필요한 시기.", break: "자신만의 동굴에 들어가 연락을 끊고 생각을 정리하려는 마음." },
                 hea: "노인성 질환, 시력 저하, 만성 피로.",
                 advice: "외부의 소음에 흔들리지 말고 혼자만의 조용한 시간을 가지며 내면의 해답을 찾으세요.",
-                soul: "자신만의 이상과 철학을 갖춘 학자 스타일의 사람입니다. \n내면의 깊이가 남다르며 속세에 관심이 적고 정신적인 보람을 추구합니다. \n섣불리 연애를 시작하지 않으며 진들한 관계를 선호합니다. \n사람들과의 교류를 꺼리거나 자신만의 생각을 고집하고 잘 타협하지 않는 면도 있습니다."
+                soul: "자신만의 이상과 철학을 갖춘 학자 스타일의 사람입니다. \n내면의 깊이가 남다르며 속세에 관심이 적고 정신적인 보람을 추구합니다. \n섣불리 연애를 시작하지 않으며 진중한 관계를 선호합니다. \n사람들과의 교류를 꺼리거나 자신만의 생각을 고집하고 잘 타협하지 않는 면도 있습니다."
             },
             {
                 name: "운명의 수레바퀴 (Wheel of Fortune)", symbol: "☸️", grade: "메이저 아르카나",
@@ -1417,13 +1418,13 @@
 
         /* ── 이전 / 다음 ── */
         /* ── 스크롤 시 네비바 표시 ── */
-        (function() {
+        (function () {
             const navBar = document.querySelector('.nav-bar');
             let scrollTimer = null;
-            window.addEventListener('scroll', function() {
+            window.addEventListener('scroll', function () {
                 navBar.classList.add('nav-visible');
                 clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(function() {
+                scrollTimer = setTimeout(function () {
                     navBar.classList.remove('nav-visible');
                 }, 1500);
             }, { passive: true });
