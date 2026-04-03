@@ -386,10 +386,10 @@
         }
 
         .custom-icon-nav {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
         .banner-text-group {
@@ -460,12 +460,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 3px;
+            gap: 4px;
             color: var(--text-sub);
-            padding: 6px 12px;
+            padding: 6px 8px;
             border-radius: 9999px;
-            font-size: 0.72rem;
-            font-weight: 700;
+            font-size: 0.82rem;
+            font-weight: 800;
             transition: color 0.2s, background 0.2s, transform 0.2s;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
@@ -483,7 +483,7 @@
         }
 
         .nav-icon {
-            font-size: 1.35rem;
+            font-size: 1.7rem;
             line-height: 1;
             transition: transform 0.2s;
         }
@@ -503,12 +503,17 @@
         /* 테블릿 이상에서 텍스트 레이블 크기 업 */
         @media (min-width: 640px) {
             .nav-item {
-                font-size: 0.78rem;
+                font-size: 0.9rem;
                 padding: 8px 16px;
             }
 
             .nav-icon {
-                font-size: 1.4rem;
+                font-size: 1.9rem;
+            }
+
+            .custom-icon-nav {
+                width: 36px;
+                height: 36px;
             }
         }
     </style>
