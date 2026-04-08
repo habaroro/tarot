@@ -154,23 +154,35 @@ function showScrollHint() {
 function setupFanDrag() {
   const container = document.getElementById('fanContainer');
 
-  // 모바일 기기의 브라우저 엔진에 드래그 판단을 위임 (더 정확한 터치 판정)
-  container.addEventListener('pointerdown', onDragStart);
-  container.addEventListener('pointermove', onDragMove);
-  container.addEventListener('pointerup', onDragEnd);
-  container.addEventListener('pointercancel', onDragEnd);
-  container.addEventListener('pointerleave', onDragEnd);
+  // 모바일 터치 이벤트
+  container.addEventListener('touchstart', onDragStart, { passive: true });
+  container.addEventListener('touchmove', onDragMove, { passive: false });
+  container.addEventListener('touchend', onDragEnd, { passive: true });
+  container.addEventListener('touchcancel', onDragEnd, { passive: true });
+
+  // PC 마우스 이벤트
+  container.addEventListener('mousedown', onDragStart);
+  window.addEventListener('mousemove', onDragMove); // 창 밖으로 나가도 추적
+  window.addEventListener('mouseup', onDragEnd);
 }
+
+function getClientX(e) {
+  return (e.touches && e.touches.length > 0) ? e.touches[0].clientX : e.clientX;
+}
+function getClientY(e) {
+  return (e.touches && e.touches.length > 0) ? e.touches[0].clientY : e.clientY;
+}
+
+let swipeIntent = null; // null | 'x' | 'y'
 
 function onDragStart(e) {
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   isDragging = true;
   wasDragged = false;
+  swipeIntent = null; 
   
-  // 터치 추적 캡쳐 (손가락이 컨테이너를 약간 벗어나도 스와이프 유지)
-  try { e.target.setPointerCapture(e.pointerId); } catch(err) {}
-
-  dragStartX = e.clientX;
+  dragStartX = getClientX(e);
+  dragStartY = getClientY(e);
   lastDragX = dragStartX;
   lastDragTime = Date.now();
   dragStartRotation = fanRotation;
@@ -179,35 +191,60 @@ function onDragStart(e) {
 
 function onDragMove(e) {
   if (!isDragging) return;
-  const currentX = e.clientX;
-  const dx = currentX - dragStartX;
 
-  if (Math.abs(dx) > 3) wasDragged = true;
-
-  const containerWidth = document.getElementById('fanContainer').offsetWidth || 360;
-  const sensitivity = 160 / containerWidth; 
-  let newRotation = dragStartRotation + dx * sensitivity;
-
-  newRotation = Math.max(-FAN_ROTATE_MAX, Math.min(FAN_ROTATE_MAX, newRotation));
-  fanRotation = newRotation;
+  const currentX = getClientX(e);
+  const currentY = getClientY(e);
+  if (currentX === undefined || currentY === undefined) return;
   
-  const now = Date.now();
-  const dt = now - lastDragTime;
-  if (dt > 0) {
-    velocity = ((currentX - lastDragX) * sensitivity) / dt;
-  }
-  lastDragX = currentX;
-  lastDragTime = now;
+  const dx = currentX - dragStartX;
+  const dy = currentY - dragStartY;
 
-  applyFanRotation();
+  // 의도(Intent) 체크 로직 (지속성 보장)
+  if (swipeIntent === null) {
+     if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        swipeIntent = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+     } else {
+        return; // 판단 전까지 무시
+     }
+  }
+
+  // 세로 스크롤 의도면 추적 중지
+  if (swipeIntent === 'y') {
+     isDragging = false;
+     return; 
+  }
+
+  // 가로 스크롤 시
+  if (swipeIntent === 'x') {
+     wasDragged = true;
+     // 브라우저 네이티브 동작(뒤로가기 등) 차단
+     if (e.cancelable && e.type === 'touchmove') {
+        e.preventDefault();
+     }
+
+     const containerWidth = document.getElementById('fanContainer').offsetWidth || 360;
+     const sensitivity = 160 / containerWidth; 
+     let newRotation = dragStartRotation + dx * sensitivity;
+
+     newRotation = Math.max(-FAN_ROTATE_MAX, Math.min(FAN_ROTATE_MAX, newRotation));
+     fanRotation = newRotation;
+     
+     const now = Date.now();
+     const dt = now - lastDragTime;
+     if (dt > 0) {
+       velocity = ((currentX - lastDragX) * sensitivity) / dt;
+     }
+     lastDragX = currentX;
+     lastDragTime = now;
+
+     applyFanRotation();
+  }
 }
 
 function onDragEnd(e) {
   if (!isDragging) return;
   isDragging = false;
   
-  try { e.target.releasePointerCapture(e.pointerId); } catch(err) {}
-
   // 관성(모멘텀) 스크롤 시작
   startMomentum();
 
