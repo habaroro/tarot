@@ -84,6 +84,9 @@ let fanRotation = 0; // current rotation offset in degrees
 const FAN_ROTATE_MAX = 35; // max rotation in each direction
 let isDragging = false;
 let dragStartX = 0;
+let dragStartY = 0;
+let isDragIntentDetermined = false;
+let isHorizontalDrag = false;
 let dragStartRotation = 0;
 let wasDragged = false;
 let velocity = 0;
@@ -155,6 +158,7 @@ function setupFanDrag() {
   container.addEventListener('touchstart', onDragStart, { passive: true });
   container.addEventListener('touchmove', onDragMove, { passive: false });
   container.addEventListener('touchend', onDragEnd, { passive: true });
+  container.addEventListener('touchcancel', onDragEnd, { passive: true });
 
   // 마우스 이벤트
   container.addEventListener('mousedown', onDragStart);
@@ -167,11 +171,18 @@ function getClientX(e) {
   return e.touches ? e.touches[0].clientX : e.clientX;
 }
 
+function getClientY(e) {
+  return e.touches ? e.touches[0].clientY : e.clientY;
+}
+
 function onDragStart(e) {
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   isDragging = true;
   wasDragged = false;
+  isDragIntentDetermined = false;
+  isHorizontalDrag = false;
   dragStartX = getClientX(e);
+  dragStartY = getClientY(e);
   lastDragX = dragStartX;
   lastDragTime = Date.now();
   dragStartRotation = fanRotation;
@@ -181,34 +192,53 @@ function onDragStart(e) {
 function onDragMove(e) {
   if (!isDragging) return;
   const currentX = getClientX(e);
+  const currentY = getClientY(e);
   const dx = currentX - dragStartX;
+  const dy = currentY - dragStartY;
 
-  // 5px 이상 움직이면 드래그로 취급 (클릭 방지)
-  if (Math.abs(dx) > 5) wasDragged = true;
-
-  // dx를 각도로 변환 (화면 폭 대비 민감도 상향 적용)
-  const containerWidth = document.getElementById('fanContainer').offsetWidth;
-  const sensitivity = 150 / containerWidth; // 기존보다 민감도 증가
-  let newRotation = dragStartRotation + dx * sensitivity;
-
-  // 범위 제한
-  newRotation = Math.max(-FAN_ROTATE_MAX, Math.min(FAN_ROTATE_MAX, newRotation));
-  fanRotation = newRotation;
-  
-  // 가속도 계산을 위한 시간/거리 측정
-  const now = Date.now();
-  const dt = now - lastDragTime;
-  if (dt > 0) {
-    velocity = ((currentX - lastDragX) * sensitivity) / dt;
+  // 방향성(의도) 결정
+  if (!isDragIntentDetermined) {
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+      isDragIntentDetermined = true;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        isHorizontalDrag = true;
+        wasDragged = true;
+      } else {
+        // 세로 스크롤 의도로 판명 시 드래그 취소 및 브라우저 네이티브 스크롤 허용
+        isDragging = false;
+        return;
+      }
+    } else {
+      // 아직 5px 이상 안 움직였으면 대기
+      return;
+    }
   }
-  lastDragX = currentX;
-  lastDragTime = now;
 
-  applyFanRotation();
+  // 확실한 가로 스크롤인 경우
+  if (isHorizontalDrag) {
+    // iOS Swipe-back 등 예기치 않은 터치 종료 방지
+    if (e.cancelable && e.touches) e.preventDefault();
 
-  // 일정 이상 가로로 움직였을 때만 스크롤 방지하여 세로 스크롤 가능성 확보
-  if (Math.abs(dx) > 5 && e.cancelable && e.touches) {
-    e.preventDefault();
+    // dx를 각도로 변환 (화면 폭 대비 민감도 상향 적용)
+    const containerWidth = document.getElementById('fanContainer').offsetWidth;
+    // 아이폰 환경을 고려하여 민감도를 약간 더 상향 (150 -> 180)
+    const sensitivity = 180 / containerWidth; 
+    let newRotation = dragStartRotation + dx * sensitivity;
+
+    // 범위 제한
+    newRotation = Math.max(-FAN_ROTATE_MAX, Math.min(FAN_ROTATE_MAX, newRotation));
+    fanRotation = newRotation;
+    
+    // 가속도 계산을 위한 시간/거리 측정
+    const now = Date.now();
+    const dt = now - lastDragTime;
+    if (dt > 0) {
+      velocity = ((currentX - lastDragX) * sensitivity) / dt;
+    }
+    lastDragX = currentX;
+    lastDragTime = now;
+
+    applyFanRotation();
   }
 }
 
