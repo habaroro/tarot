@@ -79,29 +79,14 @@ function shuffle(arr) {
   return a;
 }
 
-/* ── 반원 팬 생성 ── */
-let fanRotation = 0; // current rotation offset in degrees
-const FAN_ROTATE_MAX = 80; // max rotation in each direction
-let isDragging = false;
-let dragStartX = 0;
-let dragStartY = 0;
-let isDragIntentDetermined = false;
-let isHorizontalDrag = false;
-let dragStartRotation = 0;
-let wasDragged = false;
-let velocity = 0;
-let lastDragTime = 0;
-let lastDragX = 0;
-let animationFrameId = null;
+/* ── 스와이프 기능이 제거된 고정형 부채꼴 생성 ── */
 
 function createFan() {
   const pivot = document.getElementById('fanPivot');
   pivot.innerHTML = '';
   shuffledDeck = shuffle(tarotData);
-  fanRotation = 0;
-
   const totalCards = 64;
-  const arcSpan = 140; // degrees
+  const arcSpan = 170; // 170도로 꽉 차게 변경
   const startAngle = -arcSpan / 2;
   const step = arcSpan / (totalCards - 1);
 
@@ -114,169 +99,11 @@ function createFan() {
     card.style.transform = `rotate(${angle}deg)`;
     card.style.zIndex = i;
     card.addEventListener('click', function (e) {
-      if (wasDragged) { e.preventDefault(); return; }
       pickCard(this);
     });
     pivot.appendChild(card);
   }
 
-  applyFanRotation();
-  setupFanDrag();
-
-  // 스크롤 힌트 표시
-  showScrollHint();
-}
-
-function applyFanRotation() {
-  const cards = document.querySelectorAll('.fan-card:not(.picked)');
-  cards.forEach(card => {
-    const base = parseFloat(card.dataset.baseAngle);
-    card.style.transform = `rotate(${base + fanRotation}deg)`;
-  });
-}
-
-function showScrollHint() {
-  const container = document.getElementById('fanContainer');
-  // 기존 힌트 제거
-  const old = container.querySelector('.scroll-hint');
-  if (old) old.remove();
-
-  const hint = document.createElement('div');
-  hint.className = 'scroll-hint';
-  hint.innerHTML = '👆 좌우로 스와이프하여 카드를 탐색하세요';
-  container.appendChild(hint);
-
-  // 3초 후 사라짐
-  setTimeout(() => { hint.classList.add('hint-fade'); }, 2500);
-  setTimeout(() => { hint.remove(); }, 3200);
-}
-
-function setupFanDrag() {
-  const container = document.getElementById('fanContainer');
-
-  // 모바일 터치 이벤트 (Safari 버그를 막기 위해 전부 passive: false)
-  container.addEventListener('touchstart', onDragStart, { passive: false });
-  container.addEventListener('touchmove', onDragMove, { passive: false });
-  container.addEventListener('touchend', onDragEnd, { passive: false });
-  container.addEventListener('touchcancel', onDragEnd, { passive: false });
-
-  // PC 마우스 이벤트
-  container.addEventListener('mousedown', onDragStart);
-  window.addEventListener('mousemove', onDragMove); // 창 밖으로 나가도 추적
-  window.addEventListener('mouseup', onDragEnd);
-}
-
-function getClientX(e) {
-  return (e.touches && e.touches.length > 0) ? e.touches[0].clientX : e.clientX;
-}
-function getClientY(e) {
-  return (e.touches && e.touches.length > 0) ? e.touches[0].clientY : e.clientY;
-}
-
-let swipeIntent = null; // null | 'x' | 'y'
-
-function onDragStart(e) {
-  if (animationFrameId) cancelAnimationFrame(animationFrameId);
-  isDragging = true;
-  wasDragged = false;
-  swipeIntent = null; 
-  
-  dragStartX = getClientX(e);
-  dragStartY = getClientY(e);
-  lastDragX = dragStartX;
-  lastDragTime = Date.now();
-  dragStartRotation = fanRotation;
-  velocity = 0;
-}
-
-function onDragMove(e) {
-  if (!isDragging) return;
-
-  const currentX = getClientX(e);
-  const currentY = getClientY(e);
-  if (currentX === undefined || currentY === undefined) return;
-  
-  const dx = currentX - dragStartX;
-  const dy = currentY - dragStartY;
-
-  // 의도(Intent) 체크 로직 (지속성 보장)
-  if (swipeIntent === null) {
-     if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
-        swipeIntent = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-     } else {
-        return; // 판단 전까지 무시
-     }
-  }
-
-  // 세로 스크롤 의도면 추적 중지
-  if (swipeIntent === 'y') {
-     isDragging = false;
-     return; 
-  }
-
-  // 가로 스크롤 시
-  if (swipeIntent === 'x') {
-     wasDragged = true;
-     // 브라우저 네이티브 동작(뒤로가기 등) 차단
-     if (e.cancelable && e.type === 'touchmove') {
-        e.preventDefault();
-     }
-
-     const containerWidth = document.getElementById('fanContainer').offsetWidth || 360;
-     const sensitivity = 160 / containerWidth; 
-     let newRotation = dragStartRotation + dx * sensitivity;
-
-     newRotation = Math.max(-FAN_ROTATE_MAX, Math.min(FAN_ROTATE_MAX, newRotation));
-     fanRotation = newRotation;
-     
-     const now = Date.now();
-     const dt = now - lastDragTime;
-     if (dt > 0) {
-       velocity = ((currentX - lastDragX) * sensitivity) / dt;
-     }
-     lastDragX = currentX;
-     lastDragTime = now;
-
-     applyFanRotation();
-  }
-}
-
-function onDragEnd(e) {
-  if (!isDragging) return;
-  isDragging = false;
-  
-  // 관성(모멘텀) 스크롤 시작
-  startMomentum();
-
-  // 짧은 딜레이 후 wasDragged 리셋 (클릭 이벤트가 먼저 발생하도록)
-  setTimeout(() => { wasDragged = false; }, 50);
-}
-
-function startMomentum() {
-  if (Math.abs(velocity) < 0.05) return;
-  
-  function update() {
-    if (isDragging) return; 
-    
-    fanRotation += velocity * 16; // 60fps 기준 근사치 
-    velocity *= 0.92; // 마찰력 계수
-    
-    if (fanRotation <= -FAN_ROTATE_MAX) {
-       fanRotation = -FAN_ROTATE_MAX;
-       velocity = 0;
-    } else if (fanRotation >= FAN_ROTATE_MAX) {
-       fanRotation = FAN_ROTATE_MAX;
-       velocity = 0;
-    }
-    
-    applyFanRotation();
-    
-    if (Math.abs(velocity) > 0.01) {
-       animationFrameId = requestAnimationFrame(update);
-    }
-  }
-  
-  animationFrameId = requestAnimationFrame(update);
 }
 
 /* ── 카드 뽑기 ── */

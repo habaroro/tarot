@@ -729,8 +729,8 @@
     .selected-slots {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 224px;
+      gap: 15px;
+      margin-top: 2px;
       flex-wrap: wrap;
     }
 
@@ -742,15 +742,15 @@
     }
 
     .slot-label {
-      font-size: 0.8rem;
+      font-size: 1.0rem;
       font-weight: 800;
       color: var(--text-sub);
     }
 
     .slot-card {
-      width: 60px;
-      height: 92px;
-      border-radius: 8px;
+      width: 85px;
+      height: 136px;
+      border-radius: 10px;
       border: 2px dashed rgba(79, 70, 229, 0.3);
       background: rgba(255, 255, 255, 0.5);
       display: flex;
@@ -797,18 +797,18 @@
       opacity: 0.4;
     }
 
-    /* 반원형 팬 컨테이너 */
+    /* 반원형 팬 컨테이너 (고정형) */
     .fan-container {
       position: relative;
       width: 100%;
-      margin: 0 auto 100px;
+      height: 120px;
+      margin: 0 auto 140px;
       overflow: visible;
-      touch-action: pan-y;
     }
 
     .fan-pivot {
       position: absolute;
-      bottom: -80px;
+      bottom: 0px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
@@ -818,17 +818,17 @@
     .fan-card {
       position: absolute;
       bottom: 0;
-      left: -24px;
-      width: 48px;
-      height: 72px;
+      left: -31px;
+      width: 70px;
+      height: 90px;
       border-radius: 6px;
       background-image: url('./img/card_back.png');
       background-size: cover;
       background-position: center;
-      transform-origin: 24px 240px;
+      transform-origin: 30px 212px;
       cursor: pointer;
-      transition: filter 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+      transition: filter 0.2s, box-shadow 0.2s, transform 0.2s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       z-index: 1;
     }
 
@@ -854,62 +854,23 @@
       margin-bottom: 24px;
     }
 
-    /* 팬 드래그 커서 */
-    .fan-container {
-      cursor: grab;
+    .spread-phase.phase-done .selected-slots {
+      margin-top: 0;
+      margin-bottom: 24px;
     }
 
-    .fan-container:active {
-      cursor: grabbing;
-    }
-
-    /* 스크롤 힌트 */
-    .scroll-hint {
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-light);
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(8px);
-      padding: 6px 16px;
-      border-radius: 20px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      white-space: nowrap;
-      z-index: 200;
-      animation: hintBounce 1.5s ease-in-out infinite;
-      transition: opacity 0.6s ease;
-    }
-
-    .scroll-hint.hint-fade {
-      opacity: 0;
-    }
-
-    @keyframes hintBounce {
-
-      0%,
-      100% {
-        transform: translateX(-50%) translateY(0);
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(-4px);
-      }
-    }
 
     /* 반응형 - 팬 */
     @media (max-width: 360px) {
       .fan-container {
-        height: 170px;
+        height: 160px;
       }
 
       .fan-card {
-        width: 40px;
-        height: 60px;
-        left: -20px;
-        transform-origin: 20px 200px;
+        width: 24px;
+        height: 36px;
+        left: -12px;
+        transform-origin: 12px 140px;
       }
 
       .slot-card {
@@ -974,10 +935,6 @@
 
     <!-- 카드 스프레드 영역 -->
     <div class="cards-section spread-phase" id="spreadPhase">
-      <!-- 반원형 팬 -->
-      <div class="fan-container" id="fanContainer">
-        <div class="fan-pivot" id="fanPivot"></div>
-      </div>
       <!-- 선택된 카드 슬롯 -->
       <div class="selected-slots">
         <div class="slot-item">
@@ -1004,6 +961,10 @@
             <div class="slot-placeholder">?</div>
           </div>
         </div>
+      </div>
+      <!-- 반원형 팬 -->
+      <div class="fan-container" id="fanContainer">
+        <div class="fan-pivot" id="fanPivot"></div>
       </div>
     </div>
 
