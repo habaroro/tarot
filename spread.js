@@ -86,6 +86,10 @@ let isDragging = false;
 let dragStartX = 0;
 let dragStartRotation = 0;
 let wasDragged = false;
+let velocity = 0;
+let lastDragTime = 0;
+let lastDragX = 0;
+let animationFrameId = null;
 
 function createFan() {
   const pivot = document.getElementById('fanPivot');
@@ -164,39 +168,86 @@ function getClientX(e) {
 }
 
 function onDragStart(e) {
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
   isDragging = true;
   wasDragged = false;
   dragStartX = getClientX(e);
+  lastDragX = dragStartX;
+  lastDragTime = Date.now();
   dragStartRotation = fanRotation;
+  velocity = 0;
 }
 
 function onDragMove(e) {
   if (!isDragging) return;
-  const dx = getClientX(e) - dragStartX;
+  const currentX = getClientX(e);
+  const dx = currentX - dragStartX;
 
   // 5px 이상 움직이면 드래그로 취급 (클릭 방지)
   if (Math.abs(dx) > 5) wasDragged = true;
 
-  // dx를 각도로 변환 (화면 폭 대비)
+  // dx를 각도로 변환 (화면 폭 대비 민감도 상향 적용)
   const containerWidth = document.getElementById('fanContainer').offsetWidth;
-  const sensitivity = 80 / containerWidth; // 전체 폭 드래그 = 80도 회전
+  const sensitivity = 150 / containerWidth; // 기존보다 민감도 증가
   let newRotation = dragStartRotation + dx * sensitivity;
 
   // 범위 제한
   newRotation = Math.max(-FAN_ROTATE_MAX, Math.min(FAN_ROTATE_MAX, newRotation));
   fanRotation = newRotation;
+  
+  // 가속도 계산을 위한 시간/거리 측정
+  const now = Date.now();
+  const dt = now - lastDragTime;
+  if (dt > 0) {
+    velocity = ((currentX - lastDragX) * sensitivity) / dt;
+  }
+  lastDragX = currentX;
+  lastDragTime = now;
+
   applyFanRotation();
 
-  // 터치 시 페이지 스크롤 방지
-  if (e.cancelable && e.touches) e.preventDefault();
+  // 일정 이상 가로로 움직였을 때만 스크롤 방지하여 세로 스크롤 가능성 확보
+  if (Math.abs(dx) > 5 && e.cancelable && e.touches) {
+    e.preventDefault();
+  }
 }
 
 function onDragEnd(e) {
   if (!isDragging) return;
   isDragging = false;
 
+  // 관성(모멘텀) 스크롤 시작
+  startMomentum();
+
   // 짧은 딜레이 후 wasDragged 리셋 (클릭 이벤트가 먼저 발생하도록)
   setTimeout(() => { wasDragged = false; }, 50);
+}
+
+function startMomentum() {
+  if (Math.abs(velocity) < 0.05) return;
+  
+  function update() {
+    if (isDragging) return; 
+    
+    fanRotation += velocity * 16; // 60fps 기준 근사치 
+    velocity *= 0.92; // 마찰력 계수
+    
+    if (fanRotation <= -FAN_ROTATE_MAX) {
+       fanRotation = -FAN_ROTATE_MAX;
+       velocity = 0;
+    } else if (fanRotation >= FAN_ROTATE_MAX) {
+       fanRotation = FAN_ROTATE_MAX;
+       velocity = 0;
+    }
+    
+    applyFanRotation();
+    
+    if (Math.abs(velocity) > 0.01) {
+       animationFrameId = requestAnimationFrame(update);
+    }
+  }
+  
+  animationFrameId = requestAnimationFrame(update);
 }
 
 /* ── 카드 뽑기 ── */
