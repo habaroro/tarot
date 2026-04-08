@@ -136,7 +136,7 @@
     .page-wrap {
       max-width: 480px;
       margin: 0 auto;
-      padding: 24px 20px 100px;
+      padding: 24px 20px 140px;
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -148,7 +148,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-radius: var(--radius-xl);
-      padding: 2px 28px;
+      padding: 24px 28px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -172,16 +172,11 @@
     }
 
     .hero-emoji {
-      font-size: 3.5rem;
+      width: 60px;
+      height: 60px;
       flex-shrink: 0;
       filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.1));
       animation: gentle-float 4s ease-in-out infinite;
-    }
-
-    .hero-custom-icon {
-      width: 64px;
-      height: 64px;
-      margin-top: 20px;
       object-fit: contain;
     }
 
@@ -198,7 +193,7 @@
     }
 
     .hero-title {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 800;
       color: var(--text-main);
       margin-bottom: 6px;
@@ -392,13 +387,14 @@
       border: none;
       border-radius: var(--radius-xl);
       font-family: inherit;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.2);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 28px -5px rgba(79, 70, 229, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
       overflow: hidden;
+      letter-spacing: -0.02em;
     }
 
     /* 버튼 스윕(Sweep) 빛 효과 */
@@ -407,25 +403,26 @@
       position: absolute;
       top: 0;
       left: -100%;
-      width: 50%;
+      width: 60%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.6s ease-in-out;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transition: left 0.7s ease-in-out;
     }
 
     .draw-btn:hover::after {
-      left: 100%;
+      left: 120%;
     }
 
     .draw-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px -5px rgba(79, 70, 229, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 18px 38px -5px rgba(79, 70, 229, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
     .draw-btn:active {
-      transform: translateY(1px);
-      scale: 0.98;
+      transform: scale(0.97);
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
     }
+
 
     /* ── 결과 영역 ── */
     #result-area {
@@ -725,6 +722,201 @@
       padding: 28px 20px;
     }
 
+    /* 반원형 카드 스프레드 */
+
+
+    /* 선택된 카드 슬롯 */
+    .selected-slots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 224px;
+      flex-wrap: wrap;
+    }
+
+    .slot-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slot-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-sub);
+    }
+
+    .slot-card {
+      width: 60px;
+      height: 92px;
+      border-radius: 8px;
+      border: 2px dashed rgba(79, 70, 229, 0.3);
+      background: rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slot-card.filled {
+      border: 2px solid var(--primary-light);
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.15);
+    }
+
+    .slot-card.active-slot {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2), 0 0 15px rgba(236, 72, 153, 0.15);
+      animation: slot-pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes slot-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2), 0 0 15px rgba(236, 72, 153, 0.15);
+      }
+
+      50% {
+        box-shadow: 0 0 0 5px rgba(236, 72, 153, 0.3), 0 0 20px rgba(236, 72, 153, 0.25);
+      }
+    }
+
+    .slot-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .slot-placeholder {
+      font-size: 1.2rem;
+      opacity: 0.4;
+    }
+
+    /* 반원형 팬 컨테이너 */
+    .fan-container {
+      position: relative;
+      width: 100%;
+      margin: 0 auto 100px;
+      overflow: visible;
+      touch-action: none;
+    }
+
+    .fan-pivot {
+      position: absolute;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+    }
+
+    .fan-card {
+      position: absolute;
+      bottom: 0;
+      left: -24px;
+      width: 48px;
+      height: 72px;
+      border-radius: 6px;
+      background-image: url('./img/card_back.png');
+      background-size: cover;
+      background-position: center;
+      transform-origin: 24px 240px;
+      cursor: pointer;
+      transition: filter 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+      z-index: 1;
+    }
+
+    .fan-card:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 4px 20px rgba(236, 72, 153, 0.5);
+      z-index: 100 !important;
+    }
+
+    .fan-card.picked {
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    /* 스프레드 완료 후 숨김 처리되지만 슬롯은 남김 */
+    .spread-phase.phase-done .fan-container {
+      display: none;
+    }
+    .spread-phase.phase-done .selected-slots {
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    /* 팬 드래그 커서 */
+    .fan-container {
+      cursor: grab;
+    }
+
+    .fan-container:active {
+      cursor: grabbing;
+    }
+
+    /* 스크롤 힌트 */
+    .scroll-hint {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-light);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 6px 16px;
+      border-radius: 20px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      white-space: nowrap;
+      z-index: 200;
+      animation: hintBounce 1.5s ease-in-out infinite;
+      transition: opacity 0.6s ease;
+    }
+
+    .scroll-hint.hint-fade {
+      opacity: 0;
+    }
+
+    @keyframes hintBounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-4px);
+      }
+    }
+
+    /* 반응형 - 팬 */
+    @media (max-width: 360px) {
+      .fan-container {
+        height: 170px;
+      }
+
+      .fan-card {
+        width: 40px;
+        height: 60px;
+        left: -20px;
+        transform-origin: 20px 200px;
+      }
+
+      .slot-card {
+        width: 50px;
+        height: 77px;
+      }
+    }
+
     /* ── 반응형 ── */
     @media (max-width: 360px) {
       .hero-title {
@@ -764,10 +956,9 @@
 
     <!-- 히어로 배너 -->
     <div class="hero-banner">
-      <div class="hero-emoji"><img src="./img/icon_crystalball.png" alt="수정구슬" class="hero-custom-icon"
-          onerror="this.outerHTML='🔮'"></div>
+      <img class="hero-emoji" src="./img/icon_crystalball.png" alt="크리스탈 볼">
       <div class="hero-text">
-        <div class="hero-title">오늘 당신의 하루는?</div>
+        <div class="hero-title" id="spreadInstruction">✨ 총운 카드를 뽑아주세요</div>
         <div class="hero-sub">카드를 한 장씩 클릭해 뽑아보세요</div>
       </div>
     </div>
@@ -780,60 +971,43 @@
       <div class="dot" id="dot3"></div>
     </div>
 
-    <!-- 카드 섹션 -->
-    <div class="cards-section">
-      <!-- 총운 -->
-      <div class="total-card-wrap">
-        <div class="total-label">✨ 오늘의 총운</div>
-        <div class="card-box total-card-box active-ring" id="cardBox0" onclick="handleCardClick(0)">
-          <div class="card-inner" id="cardInner0">
-            <div class="card-face card-front">
-
-            </div>
-            <div class="card-face card-back"><img id="cardImage0" src="" alt="총운카드"></div>
-          </div>
-        </div>
+    <!-- 카드 스프레드 영역 -->
+    <div class="cards-section spread-phase" id="spreadPhase">
+      <!-- 반원형 팬 -->
+      <div class="fan-container" id="fanContainer">
+        <div class="fan-pivot" id="fanPivot"></div>
       </div>
-      <!-- 시간대 -->
-      <div class="time-cards-grid">
-        <div class="time-card-col">
-          <div class="time-label">☀️ 아침</div>
-          <div class="card-box small-card-box" id="cardBox1" onclick="handleCardClick(1)">
-            <div class="card-inner" id="cardInner1">
-              <div class="card-face card-front">
-
-              </div>
-              <div class="card-face card-back"><img id="cardImage1" src="" alt="아침카드"></div>
-            </div>
+      <!-- 선택된 카드 슬롯 -->
+      <div class="selected-slots">
+        <div class="slot-item">
+          <div class="slot-label">✨ 총운</div>
+          <div class="slot-card active-slot" id="slot0">
+            <div class="slot-placeholder">?</div>
           </div>
         </div>
-        <div class="time-card-col">
-          <div class="time-label">🕛 점심</div>
-          <div class="card-box small-card-box" id="cardBox2" onclick="handleCardClick(2)">
-            <div class="card-inner" id="cardInner2">
-              <div class="card-face card-front">
-
-              </div>
-              <div class="card-face card-back"><img id="cardImage2" src="" alt="점심카드"></div>
-            </div>
+        <div class="slot-item">
+          <div class="slot-label">☀️ 아침</div>
+          <div class="slot-card" id="slot1">
+            <div class="slot-placeholder">?</div>
           </div>
         </div>
-        <div class="time-card-col">
-          <div class="time-label">🌙 저녁</div>
-          <div class="card-box small-card-box" id="cardBox3" onclick="handleCardClick(3)">
-            <div class="card-inner" id="cardInner3">
-              <div class="card-face card-front">
-
-              </div>
-              <div class="card-face card-back"><img id="cardImage3" src="" alt="저녁카드"></div>
-            </div>
+        <div class="slot-item">
+          <div class="slot-label">🕛 점심</div>
+          <div class="slot-card" id="slot2">
+            <div class="slot-placeholder">?</div>
+          </div>
+        </div>
+        <div class="slot-item">
+          <div class="slot-label">🌙 저녁</div>
+          <div class="slot-card" id="slot3">
+            <div class="slot-placeholder">?</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- 메인 버튼 -->
-    <button class="draw-btn" id="mainBtn" onclick="handleMainAction()">🌟 총운 카드 뽑기</button>
+    <button class="draw-btn" id="mainBtn" onclick="handleMainAction()" style="display:none;">🔄 카드 다시 뽑기</button>
 
     <!-- 결과 -->
     <div id="result-area">
@@ -855,15 +1029,8 @@
 
   </div><!-- /page-wrap -->
 
-  <script>
-    /* ── 날짜 ── */
-    (function () {
-      const d = new Date();
-      const days = ['일', '월', '화', '수', '목', '금', '토'];
-      document.getElementById('headerDate').textContent =
-        `${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
-    })();
 
+  <script>
     /* ── 데이터 ── */
     const tarotData = [
       { no: 1, name: "1. 중천건", grade: "소길", isDestiny: false, baseScore: 82, img: "./img/01.png", total: "강력한 창조와 발전의 시기", bus: "리더십을 발휘해 추진할 때", lov: "당당하고 열정적인 관계", hea: "에너지가 넘치나 고혈압 주의" },
@@ -931,194 +1098,8 @@
       { no: 63, name: "63. 수화기제", grade: "소길", isDestiny: false, baseScore: 83, img: "./img/63.png", total: "마침내 완성, 유지에 힘쓸 때", bus: "이미 성취함, 안정 지향적 운영", lov: "안정적인 결합, 초심 유지 관건", hea: "지병의 완치 단계, 재발 주의" },
       { no: 64, name: "64. 화수미제", grade: "소흉", isDestiny: false, baseScore: 38, img: "./img/64.png", total: "새로운 시작을 앞둔 미완성", bus: "재도전 준비, 마지막 고비 주의", lov: "다시 타오르는 감정, 새로운 희망", hea: "활력 회복 중, 끝까지 관리 요망" }
     ];
-
-    /* ── 상태 ── */
-    let flippedCount = 0;
-    let audioCtx;
-
-    /* ── 헬퍼 ── */
-    function getWeather(score) {
-      if (score >= 90) return { icon: '☀️', cls: 'score-high' };
-      if (score >= 70) return { icon: '🌤️', cls: 'score-high' };
-      if (score >= 40) return { icon: '☁️', cls: 'score-mid' };
-      return { icon: '🌧️', cls: 'score-low' };
-    }
-    function calcScore(card) {
-      if (card.isDestiny) return card.baseScore;
-      return Math.min(100, Math.max(0, card.baseScore + Math.floor(Math.random() * 7) - 3));
-    }
-    function getLucky() {
-      const colors = [
-        { name: '골드', code: '#FFD700' }, { name: '실버', code: '#C0C0C0' },
-        { name: '네이비', code: '#001F5B' }, { name: '로얄블루', code: '#4169E1' },
-        { name: '버건디', code: '#800020' }, { name: '에메랄드', code: '#50C878' },
-        { name: '화이트', code: '#F0F0F0' }, { name: '딥퍼플', code: '#5D3FD3' },
-        { name: '라벤더', code: '#B57BEE' }, { name: '코랄', code: '#FF7F50' }
-      ];
-      return {
-        color: colors[Math.floor(Math.random() * colors.length)],
-        number: Math.floor(Math.random() * 9) + 1
-      };
-    }
-
-    /* ── 도트 업데이트 ── */
-    function updateDots(n) {
-      for (let i = 0; i < 4; i++) {
-        const d = document.getElementById(`dot${i}`);
-        d.className = 'dot' + (i < n ? ' done' : '') + (i === n && n < 4 ? ' active' : '');
-      }
-    }
-
-    /* ── 오디오 ── */
-    function initAudio() {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-    }
-    function playSound(idx) {
-      initAudio();
-      const freqs = [392, 494, 587, 659];
-      const f = freqs[idx] || 440;
-      [f, f * 1.25].forEach((freq, i) => {
-        const o = audioCtx.createOscillator();
-        const g = audioCtx.createGain();
-        const t = audioCtx.currentTime + i * 0.06;
-        o.frequency.setValueAtTime(freq, t);
-        o.frequency.exponentialRampToValueAtTime(freq * 1.5, t + 0.4);
-        g.gain.setValueAtTime(i === 0 ? 0.10 : 0.05, t);
-        g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
-        o.connect(g); g.connect(audioCtx.destination);
-        o.start(t); o.stop(t + 0.55);
-      });
-    }
-
-    /* ── 카드 클릭 ── */
-    function handleCardClick(idx) {
-      if (flippedCount === idx) flipCard(idx);
-    }
-    function handleMainAction() {
-      if (flippedCount < 4) flipCard(flippedCount);
-      else drawCard();
-    }
-
-    function flipCard(idx) {
-      const inner = document.getElementById(`cardInner${idx}`);
-      if (inner.classList.contains('flipped')) return;
-      playSound(idx);
-      inner.classList.add('flipped');
-      flippedCount++;
-      updateDots(flippedCount);
-
-      // active-ring 이동
-      document.getElementById(`cardBox${idx}`).classList.remove('active-ring');
-      if (flippedCount < 4) document.getElementById(`cardBox${flippedCount}`).classList.add('active-ring');
-
-      const labels = ['☀️ 아침 카드 뽑기', '🕛 점심 카드 뽑기', '🌙 저녁 카드 뽑기', '🔄 카드 다시 뽑기'];
-      document.getElementById('mainBtn').textContent = labels[flippedCount - 1];
-
-      if (flippedCount === 4) {
-        setTimeout(() => {
-          const ra = document.getElementById('result-area');
-          ra.style.display = 'block';
-          document.getElementById('bottomActions').style.display = 'flex';
-          ra.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 700);
-      }
-    }
-
-    /* ── 카드 뽑기 (초기화) ── */
-    function drawCard() {
-      initAudio();
-      flippedCount = 0;
-      updateDots(0);
-      document.getElementById('result-area').style.display = 'none';
-      document.getElementById('bottomActions').style.display = 'none';
-      document.getElementById('mainBtn').textContent = '🌟 총운 카드 뽑기';
-      document.getElementById('luckyArea').innerHTML = '';
-
-      const ids = ['Total', 'Morning', 'Afternoon', 'Evening'];
-      const labels = ['오늘의 총운', '아침 운세', '점심 운세', '저녁 운세'];
-      const icons = ['✨', '☀️', '🕛', '🌙'];
-
-      for (let i = 0; i < 4; i++) {
-        document.getElementById(`cardInner${i}`).classList.remove('flipped');
-        document.getElementById(`cardBox${i}`).classList.remove('active-ring');
-
-        const card = tarotData[Math.floor(Math.random() * tarotData.length)];
-        const score = calcScore(card);
-        const w = getWeather(score);
-        document.getElementById(`cardImage${i}`).src = card.img;
-        document.getElementById(`report${ids[i]}`).innerHTML = buildCard(card, score, w, labels[i], icons[i]);
-      }
-
-      document.getElementById('cardBox0').classList.add('active-ring');
-
-      const lucky = getLucky();
-      document.getElementById('luckyArea').innerHTML = `
-    <div class="lucky-card">
-      <div class="lucky-title">✨ 오늘의 행운 아이템</div>
-      <div class="lucky-row">
-        <div class="lucky-item">
-          <div class="lucky-item-label">행운의 숫자</div>
-          <div class="lucky-number">${lucky.number}</div>
-        </div>
-        <div class="lucky-sep"></div>
-        <div class="lucky-item">
-          <div class="lucky-item-label">행운의 색상</div>
-          <div class="lucky-color-circle" style="background:${lucky.color.code};"></div>
-          <div class="lucky-color-name">${lucky.color.name}</div>
-        </div>
-      </div>
-    </div>`;
-    }
-
-    function buildCard(card, score, w, label, icon) {
-      return `
-    <div class="report-header">
-      <div class="report-title">
-        <div class="title-chip">${icon}</div>${label}
-      </div>
-      <div class="score-wrap">
-        <div class="score-weather">${w.icon}</div>
-        <div class="score-pill ${w.cls}">${score}점</div>
-      </div>
-    </div>
-    <div class="card-name-row">📜 ${card.name}</div>
-    <div class="highlight-box">💬 ${card.total}</div>
-    <div class="detail-list">
-      <div class="detail-row">
-        <div class="detail-icon">💼</div>
-        <div class="detail-text"><b>사업/직장운</b>${card.bus}</div>
-      </div>
-      <div class="detail-row">
-        <div class="detail-icon">❤️</div>
-        <div class="detail-text"><b>연애운</b>${card.lov}</div>
-      </div>
-      <div class="detail-row">
-        <div class="detail-icon">🍀</div>
-        <div class="detail-text"><b>건강운</b>${card.hea}</div>
-      </div>
-    </div>`;
-    }
-
-    /* ── 저장 & 공유 ── */
-    function saveResult() {
-      html2canvas(document.getElementById('result-area'), {
-        backgroundColor: '#F4F3FF', scale: 2, useCORS: true
-      }).then(c => {
-        const a = document.createElement('a');
-        a.download = '지니의_주역타로_운세.png';
-        a.href = c.toDataURL(); a.click();
-      });
-    }
-    async function shareToFriends() {
-      if (navigator.share) {
-        try { await navigator.share({ title: '지니의 하루 주역 타로', text: '오늘의 운세를 확인해보세요! ✨', url: window.location.href }); }
-        catch (e) { }
-      } else { alert('이 브라우저는 공유를 지원하지 않습니다.'); }
-    }
-
-    window.onload = drawCard;
   </script>
+  <script src="spread.js"></script>
 </body>
 
 </html>
