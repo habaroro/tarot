@@ -81,7 +81,7 @@ function shuffle(arr) {
 
 /* ── 반원 팬 생성 ── */
 let fanRotation = 0; // current rotation offset in degrees
-const FAN_ROTATE_MAX = 35; // max rotation in each direction
+const FAN_ROTATE_MAX = 80; // max rotation in each direction
 let isDragging = false;
 let dragStartX = 0;
 let dragStartY = 0;
@@ -154,11 +154,11 @@ function showScrollHint() {
 function setupFanDrag() {
   const container = document.getElementById('fanContainer');
 
-  // 모바일 터치 이벤트
-  container.addEventListener('touchstart', onDragStart, { passive: true });
+  // 모바일 터치 이벤트 (Safari 버그를 막기 위해 전부 passive: false)
+  container.addEventListener('touchstart', onDragStart, { passive: false });
   container.addEventListener('touchmove', onDragMove, { passive: false });
-  container.addEventListener('touchend', onDragEnd, { passive: true });
-  container.addEventListener('touchcancel', onDragEnd, { passive: true });
+  container.addEventListener('touchend', onDragEnd, { passive: false });
+  container.addEventListener('touchcancel', onDragEnd, { passive: false });
 
   // PC 마우스 이벤트
   container.addEventListener('mousedown', onDragStart);
