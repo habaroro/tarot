@@ -7,7 +7,7 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>타로마스터 지안이 알려주는 타로</title>
     <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquareround.css">
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <style>
         :root {
             /* 컬러 시스템 (A. 리디자인 스타일 기준) */
@@ -38,7 +38,7 @@
         }
 
         body {
-            font-family: 'NanumSquareRound', sans-serif;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: #fdfcff;
             background-image:
                 radial-gradient(at 80% 0%, hsla(250, 100%, 85%, 0.4) 0px, transparent 50%),
@@ -323,14 +323,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 20px;
-            border-radius: var(--radius-lg);
-            margin-bottom: 14px;
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+            padding: 20px;
+            border-radius: var(--radius-xl);
+            margin-bottom: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            background: #ffffff;
         }
 
         .study-banner:last-child {
@@ -341,80 +342,87 @@
             transform: scale(0.97);
         }
 
-        /* 개별 배너 배경 그라데이션 */
-        .study-banner-1 {
-            background: linear-gradient(135deg, #f3f6ff 0%, #e6eeff 100%);
-        }
+        /* 개별 배너 배경 및 보더 (심플하고 세련된 디자인) */
+        .study-banner-1 { background: rgba(79, 70, 229, 0.02); border-color: rgba(79, 70, 229, 0.1); }
+        .study-banner-2 { background: rgba(236, 72, 153, 0.02); border-color: rgba(236, 72, 153, 0.1); }
+        .study-banner-3 { background: rgba(245, 158, 11, 0.02); border-color: rgba(245, 158, 11, 0.1); }
+        .study-banner-4 { background: rgba(16, 185, 129, 0.02); border-color: rgba(16, 185, 129, 0.1); }
 
-        .study-banner-2 {
-            background: linear-gradient(135deg, #fcf4ff 0%, #f3e6ff 100%);
-        }
-
-        .study-banner-3 {
-            background: linear-gradient(135deg, #fff7ee 0%, #ffeed9 100%);
-        }
-
-        .study-banner-4 {
-            background: linear-gradient(135deg, #e8fff5 0%, #d0f5e8 100%);
+        .study-banner:hover {
+            transform: translateY(-2px);
+            background: #ffffff; /* 호버 시 조금 더 선명해 보이도록 */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .banner-content {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 18px;
             z-index: 2;
         }
 
         .banner-icon-bg {
-            width: 46px;
-            height: 46px;
-            background: #ffffff;
-            border-radius: 50%;
+            width: 58px;
+            height: 58px;
+            border-radius: 18px; /* 스퀘어 라운드 스타일 */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            font-size: 1.6rem;
             flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
         }
+
+        .study-banner:hover .banner-icon-bg {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* 아이콘별 고유 배경색 (그라데이션) */
+        .icon-bg-1 { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); color: #4338ca; }
+        .icon-bg-2 { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); color: #db2777; }
+        .icon-bg-3 { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #d97706; }
+        .icon-bg-4 { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: #059669; }
 
         .custom-icon {
-            width: 38px;
-            height: 38px;
+            width: 42px;
+            height: 42px;
             object-fit: contain;
-        }
-
-        .custom-icon-nav {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            margin-bottom: 3px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
         }
 
         .banner-text-group {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
         }
 
         .banner-title {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 800;
             color: var(--text-main);
             letter-spacing: -0.02em;
         }
 
         .banner-desc {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-sub);
-            font-weight: 700;
+            font-weight: 600;
+            opacity: 0.9;
         }
 
         .banner-arrow {
-            color: #8b95a1;
+            color: #d1d5db;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             z-index: 2;
+            transition: transform 0.2s;
+        }
+
+        .study-banner:hover .banner-arrow {
+            transform: translateX(4px);
+            color: var(--text-main);
         }
 
         /* 5. 푸터 (카피라이트) */
@@ -478,7 +486,7 @@
 
             <a href="tarot_02.html" class="study-banner study-banner-1">
                 <div class="banner-content">
-                    <div class="banner-icon-bg"><img src="./img/icon_yinyang.png" class="custom-icon" alt="주역"
+                    <div class="banner-icon-bg icon-bg-1"><img src="./img/icon_yinyang.png" class="custom-icon" alt="주역"
                             onerror="this.outerHTML='🗃︎'"></div>
                     <div class="banner-text-group">
                         <span class="banner-title">주역타로 시작하기</span>
@@ -490,7 +498,7 @@
 
             <a href="tarot_03.html" class="study-banner study-banner-2">
                 <div class="banner-content">
-                    <div class="banner-icon-bg"><img src="./img/icon_magichat.png" class="custom-icon" alt="유니버셜"
+                    <div class="banner-icon-bg icon-bg-2"><img src="./img/icon_magichat.png" class="custom-icon" alt="유니버셜"
                             onerror="this.outerHTML='🧙‍♀️'"></div>
                     <div class="banner-text-group">
                         <span class="banner-title">유니버셜 웨이트</span>
@@ -502,7 +510,7 @@
 
             <a href="tarot_04.html" class="study-banner study-banner-3">
                 <div class="banner-content">
-                    <div class="banner-icon-bg"><img src="./img/icon_moonstar.png" class="custom-icon" alt="벨린"
+                    <div class="banner-icon-bg icon-bg-3"><img src="./img/icon_moonstar.png" class="custom-icon" alt="벨린"
                             onerror="this.outerHTML='⭐'"></div>
                     <div class="banner-text-group">
                         <span class="banner-title">호로스코프 벨린</span>
@@ -514,7 +522,7 @@
 
             <a href="arrange.html" class="study-banner study-banner-4">
                 <div class="banner-content">
-                    <div class="banner-icon-bg"><img src="./img/icon_arrange.png" class="custom-icon" alt="배열법"
+                    <div class="banner-icon-bg icon-bg-4"><img src="./img/icon_arrange.png" class="custom-icon" alt="배열법"
                             onerror="this.outerHTML='🃏'"></div>
                     <div class="banner-text-group">
                         <span class="banner-title">카드 배열법</span>
