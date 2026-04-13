@@ -10,19 +10,24 @@
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <style>
         :root {
-            /* 컬러 시스템 (A. 리디자인 스타일 기준) */
-            --bg-color: #fdfcff;
-            --card-white: #ffffff;
-            --card-dark: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
-            --text-main: #191f28;
-            --text-sub: #8b95a1;
-            --primary: #4f46e5;
-
+            --bg: #f4f2fb;
+            --text-main: #1a1832;
+            --text-sub: #8b8a9e;
+            --text-muted: #bbb8cc;
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --accent-pink: #e84393;
+            --accent-amber: #fdcb6e;
+            --accent-emerald: #00cec9;
+            --accent-blue: #74b9ff;
+            --glass: rgba(255, 255, 255, 0.45);
+            --glass-strong: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px rgba(108, 92, 231, 0.07);
+            --radius-2xl: 32px;
             --radius-xl: 24px;
-            --radius-lg: 16px;
-            --radius-md: 12px;
+            --radius-lg: 20px;
             --radius-full: 9999px;
-
         }
 
         *,
@@ -33,190 +38,397 @@
             padding: 0;
         }
 
-        html {
-            font-size: 16px;
-        }
-
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #fdfcff;
-            background-image:
-                radial-gradient(at 80% 0%, hsla(250, 100%, 85%, 0.4) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, hsla(320, 100%, 90%, 0.4) 0px, transparent 50%),
-                radial-gradient(at 80% 100%, hsla(200, 100%, 85%, 0.4) 0px, transparent 50%),
-                radial-gradient(at 0% 0%, hsla(190, 100%, 85%, 0.4) 0px, transparent 50%);
-            background-attachment: fixed;
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            -webkit-tap-highlight-color: transparent;
-            line-height: 1.5;
-            padding-bottom: max(24px, env(safe-area-inset-bottom, 20px));
-
-            /* 모바일 최적화 레이아웃 */
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* 데스크톱: body 에 적절한 padding 조정 */
-        @media (min-width: 640px) {
-            body {
-                max-width: 600px;
-                padding-bottom: 100px;
-            }
-        }
-
         a {
             text-decoration: none;
             color: inherit;
         }
 
-        /* 1. 상단 탑바 (피드 / 날짜 배지) */
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100dvh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+            line-height: 1.5;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: max(24px, env(safe-area-inset-bottom));
+        }
+
+        /* ── 오로라 메시 배경 (살아 움직이는) ── */
+        .aurora-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: aurora-drift var(--dur) ease-in-out infinite alternate;
+            will-change: transform;
+        }
+
+        .aurora-blob:nth-child(1) {
+            width: 340px;
+            height: 340px;
+            background: rgba(162, 155, 254, 0.5);
+            top: -10%;
+            left: -15%;
+            --dur: 8s;
+        }
+
+        .aurora-blob:nth-child(2) {
+            width: 280px;
+            height: 280px;
+            background: rgba(232, 67, 147, 0.3);
+            top: 20%;
+            right: -20%;
+            --dur: 10s;
+            animation-delay: -3s;
+        }
+
+        .aurora-blob:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: rgba(116, 185, 255, 0.35);
+            bottom: 10%;
+            left: -10%;
+            --dur: 12s;
+            animation-delay: -5s;
+        }
+
+        .aurora-blob:nth-child(4) {
+            width: 200px;
+            height: 200px;
+            background: rgba(253, 203, 110, 0.25);
+            bottom: 30%;
+            right: -5%;
+            --dur: 9s;
+            animation-delay: -2s;
+        }
+
+        @keyframes aurora-drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(30px, -20px) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
+
+            75% {
+                transform: translate(15px, 15px) scale(1.05);
+            }
+
+            100% {
+                transform: translate(-25px, -15px) scale(1);
+            }
+        }
+
+        /* 그레인 노이즈 오버레이 (고급감) */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 180px;
+        }
+
+        /* 모든 콘텐츠를 오로라 위에 */
+        .content-layer {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── 등장 애니메이션 ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px) scale(0.97);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ── 1. 탑바 ── */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 24px 24px 12px 24px;
-            padding-top: max(24px, env(safe-area-inset-top));
-        }
-
-        .page-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, var(--primary) 0%, #d946ef 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding: 18px 22px 10px;
+            padding-top: max(18px, env(safe-area-inset-top));
         }
 
         .logo-icon {
-            height: 38px;
+            height: 34px;
             width: auto;
-            object-fit: contain;
             flex-shrink: 0;
         }
 
-        .date-badge {
-            background-color: var(--card-white);
-            padding: 8px 16px;
-            border-radius: var(--radius-full);
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-main);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .logo-fallback {
+            background: linear-gradient(135deg, var(--primary), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
         }
 
+        /* Liquid Glass 배지 */
+        .liquid-badge {
+            background: var(--glass-strong);
+            backdrop-filter: blur(24px) saturate(1.8);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8);
+            padding: 7px 15px;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 6px rgba(0, 206, 201, 0.5);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.4);
+            }
+        }
+
+        /* ── 2. 히어로 (키네틱 타이포 + 캐릭터) ── */
         .hero-section {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding: 0 34px;
-            margin-bottom: 0px;
-            /* 겹치지 않고 선이 딱 맞닿게 여백 조정 */
-            margin-top: 10px;
+            padding: 10px 26px 0;
             position: relative;
-            z-index: 10;
+            margin-bottom: -1px;
         }
 
         .hero-text {
-            font-size: 1.4rem;
-            line-height: 1.4;
+            font-size: 1.65rem;
             font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.03em;
+            line-height: 1.4;
+            letter-spacing: -0.04em;
             word-break: keep-all;
-            padding-bottom: 35px;
+            padding-bottom: 38px;
+            color: var(--text-main);
         }
 
-        .hero-image-wrap {
+        /* 한 글자씩 등장하는 키네틱 라인 */
+        .kinetic-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: kinetic-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .kinetic-line:nth-child(1) {
+            animation-delay: 0.15s;
+        }
+
+        .kinetic-line:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .kinetic-line:nth-child(3) {
+            animation-delay: 0.45s;
+        }
+
+        @keyframes kinetic-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-img-wrap {
             position: relative;
-            width: 180px;
-            height: 165px;
+            width: 165px;
+            height: 158px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .hero-glow {
             position: absolute;
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-            top: 50%;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.18) 0%, transparent 70%);
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1;
         }
 
-        .brand-character {
+        .brand-char {
             position: relative;
             z-index: 2;
-            width: 160px;
-            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
-            transform: translateY(0px);
+            width: 148px;
+            filter: drop-shadow(0 14px 28px rgba(108, 92, 231, 0.2));
+            display: block;
         }
 
-        @keyframes floating {
+        @keyframes float {
 
             0%,
             100% {
-                transform: translateY(0);
+                transform: translateY(0) rotate(0deg);
             }
 
             50% {
-                transform: translateY(-8px);
+                transform: translateY(-10px) rotate(1deg);
             }
         }
 
-        /* 3. 메인 배너 카드 (밤하늘 테마) */
-        .main-card-wrapper {
-            padding: 0 20px;
-            margin-bottom: 24px;
+        /* ── 3. 메인 CTA — Liquid Glass 히어로 카드 ── */
+        .cta-wrapper {
+            padding: 0 18px;
+            margin-bottom: 28px;
         }
 
-        .dark-card {
+        .cta-card {
+            position: relative;
+            border-radius: var(--radius-2xl);
+            padding: 40px 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            min-height: 220px;
+
+            /* Liquid Glass 위의 딥 레이어 */
             background-color: #0a1128;
             background-image: url('./img/star_bg.png');
             background-size: cover;
             background-position: center right;
-            border-radius: var(--radius-xl);
-            padding: 60px 35px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 180px;
-            gap: 16px;
-            box-shadow: 0 12px 30px rgba(10, 17, 40, 0.3);
-            z-index: 1;
+            box-shadow:
+                0 24px 64px rgba(30, 27, 75, 0.3),
+                0 2px 4px rgba(30, 27, 75, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .dark-card::before {
+        .cta-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, rgba(10, 17, 40, 0.8) 0%, rgba(10, 17, 40, 0.1) 80%, transparent 100%);
-            z-index: -1;
+            background: linear-gradient(91deg, rgba(30, 27, 75, 0.9) 0%, rgba(30, 27, 75, 0.2) 80%, transparent 100%);
+            z-index: 1;
         }
 
-        /* ✨ 반짝이는 별 파티클 */
+        /* 내부 글래스 레이어 (Liquid Glass 효과) */
+        .cta-glass-layer {
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(162, 155, 254, 0.25) 0%,
+                    rgba(232, 67, 147, 0.08) 50%,
+                    transparent 70%);
+            filter: blur(2px);
+            animation: glass-morph 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes glass-morph {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                border-radius: 50%;
+            }
+
+            33% {
+                transform: translate(-20px, 25px) scale(1.15) rotate(60deg);
+                border-radius: 45% 55% 50% 50%;
+            }
+
+            66% {
+                transform: translate(10px, -10px) scale(0.9) rotate(120deg);
+                border-radius: 55% 45% 55% 45%;
+            }
+
+            100% {
+                transform: translate(-10px, 15px) scale(1.05) rotate(180deg);
+                border-radius: 50% 50% 45% 55%;
+            }
+        }
+
+        .cta-glass-layer-2 {
+            position: absolute;
+            bottom: -25%;
+            left: -15%;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(116, 185, 255, 0.15) 0%,
+                    transparent 60%);
+            filter: blur(1px);
+            animation: glass-morph 10s ease-in-out infinite alternate-reverse;
+        }
+
         .twinkle-star {
             position: absolute;
             border-radius: 50%;
-            background: #ffffff;
+            background: #fff;
             pointer-events: none;
             z-index: 0;
             animation: twinkle var(--dur, 2s) ease-in-out var(--delay, 0s) infinite;
@@ -227,398 +439,601 @@
             0%,
             100% {
                 opacity: 0;
-                transform: scale(0.3);
+                transform: scale(0.2);
             }
 
-            30% {
+            40% {
                 opacity: 1;
                 transform: scale(1);
             }
 
-            60% {
-                opacity: 0.5;
-                transform: scale(0.7);
+            70% {
+                opacity: 0.3;
+                transform: scale(0.5);
             }
         }
 
-        /* 수정구슬 주변 글로우 오버레이 */
-        .orb-glow {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(160, 130, 255, 0.25) 0%, rgba(80, 60, 200, 0.1) 50%, transparent 70%);
-            border-radius: 50%;
-            z-index: 1;
-            animation: orb-pulse 3s ease-in-out infinite;
-            pointer-events: none;
+        .cta-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--primary-light);
+            z-index: 3;
         }
 
-        @keyframes orb-pulse {
-
-            0%,
-            100% {
-                transform: translateY(-50%) scale(1);
-                opacity: 0.7;
-            }
-
-            50% {
-                transform: translateY(-50%) scale(1.18);
-                opacity: 1;
-            }
-        }
-
-
-        .dark-card-title {
-            color: #ffffff;
-            font-size: 1.3rem;
+        .cta-title {
+            color: #fff;
+            font-size: 1.35rem;
             font-weight: 700;
             line-height: 1.5;
-            z-index: 2;
-            max-width: 75%;
+            z-index: 3;
+            max-width: 90%;
         }
 
-        .dark-card-btn {
-            background: var(--card-white);
-            color: #1e3a8a;
-            padding: 14px 20px;
-            border-radius: var(--radius-full);
-            font-size: 0.95rem;
-            font-weight: 800;
+        /* Liquid Glass CTA 버튼 */
+        .cta-btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             align-self: flex-start;
-            z-index: 2;
-            transition: transform 0.2s;
+            gap: 10px;
+            padding: 15px 28px;
+            border-radius: var(--radius-full);
+            font-size: 0.93rem;
+            font-weight: 800;
+            z-index: 3;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            /* Liquid Glass 버튼 */
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            color: #fff;
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
         }
 
-        .dark-card-btn:active {
+        .cta-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow:
+                0 12px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cta-btn:active {
             transform: scale(0.96);
         }
 
-        /* 4. 흰색 리스트 카드 (서브 메뉴) */
-        .list-card-wrapper {
-            padding: 0 20px;
-            margin-bottom: 20px;
+        .cta-btn .arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            transition: transform 0.3s;
         }
 
-        .white-card {
-            background: var(--card-white);
-            border-radius: var(--radius-xl);
-            padding: 24px 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+        .cta-btn:hover .arrow {
+            transform: translateX(3px);
         }
 
-        .white-card-title {
-            font-size: 1.1rem;
+        /* ── 4. 벤토 그리드 — Liquid Glass 카드 ── */
+        .bento-wrapper {
+            padding: 0 18px;
+            margin-bottom: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding: 0 4px;
+        }
+
+        .section-title {
+            font-size: 1.12rem;
             font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 16px;
+            letter-spacing: -0.03em;
         }
 
-        .study-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px;
-            border-radius: var(--radius-xl);
-            margin-bottom: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .section-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 14px;
+        }
+
+        /* 첫 번째 카드: 2열 전체 (와이드 카드) */
+        .bento-card {
             position: relative;
+            border-radius: var(--radius-xl);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            /* Liquid Glass */
+            background: var(--glass-strong);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border: 1px solid var(--glass-border);
+            box-shadow:
+                var(--glass-shadow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.02);
         }
 
-        .study-banner:last-child {
-            margin-bottom: 0;
+        .bento-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow:
+                0 20px 48px rgba(108, 92, 231, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border-color: rgba(255, 255, 255, 0.85);
         }
 
-        .study-banner:active {
+        .bento-card:active {
             transform: scale(0.97);
+            transition-duration: 0.15s;
         }
 
-        /* 개별 배너 배경 및 보더 (심플하고 세련된 디자인) */
-        .study-banner-1 {
-            background: rgba(79, 70, 229, 0.02);
-            border-color: rgba(79, 70, 229, 0.1);
-        }
-
-        .study-banner-2 {
-            background: rgba(236, 72, 153, 0.02);
-            border-color: rgba(236, 72, 153, 0.1);
-        }
-
-        .study-banner-3 {
-            background: rgba(245, 158, 11, 0.02);
-            border-color: rgba(245, 158, 11, 0.1);
-        }
-
-        .study-banner-4 {
-            background: rgba(16, 185, 129, 0.02);
-            border-color: rgba(16, 185, 129, 0.1);
-        }
-
-        .study-banner:hover {
-            transform: translateY(-2px);
-            background: #ffffff;
-            /* 호버 시 조금 더 선명해 보이도록 */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .banner-content {
+        /* 카드 내부 레이아웃 */
+        .bento-inner {
+            padding: 24px 20px;
             display: flex;
-            align-items: center;
-            gap: 18px;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
             z-index: 2;
         }
 
-        .banner-icon-bg {
-            width: 58px;
-            height: 58px;
-            border-radius: 18px;
-            /* 스퀘어 라운드 스타일 */
+        /* 카드별 배경 컬러 액센트 */
+        .bento-accent {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            z-index: 0;
+            transition: opacity 0.4s;
+        }
+
+        .bento-card:hover .bento-accent {
+            opacity: 0.5;
+        }
+
+        .accent-violet {
+            background: var(--primary);
+            bottom: -20px;
+            right: -20px;
+        }
+
+        .accent-pink {
+            background: var(--accent-pink);
+            bottom: -20px;
+            right: -20px;
+        }
+
+        .accent-amber {
+            background: var(--accent-amber);
+            bottom: -20px;
+            right: -20px;
+        }
+
+        .accent-emerald {
+            background: var(--accent-emerald);
+            bottom: -20px;
+            right: -20px;
+        }
+
+        .bento-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
-            flex-shrink: 0;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+            font-size: 1.4rem;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+
+            /* 아이콘 내부도 글래스 */
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
-        .study-banner:hover .banner-icon-bg {
-            transform: scale(1.1) rotate(5deg);
+        .bento-card:hover .bento-icon {
+            transform: scale(1.12) rotate(6deg);
         }
 
-        /* 아이콘별 고유 배경색 (그라데이션) */
-        .icon-bg-1 {
-            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-            color: #4338ca;
+        /* 아이콘 내부 컬러 힌트 */
+        .icon-hint {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0.25;
+            z-index: 0;
         }
 
-        .icon-bg-2 {
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-            color: #db2777;
+        .hint-violet {
+            background: linear-gradient(135deg, #ede9fe, #ddd6fe);
         }
 
-        .icon-bg-3 {
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-            color: #d97706;
+        .hint-pink {
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
         }
 
-        .icon-bg-4 {
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-            color: #059669;
+        .hint-amber {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+        }
+
+        .hint-emerald {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
         }
 
         .custom-icon {
-            width: 42px;
-            height: 42px;
+            width: 28px;
+            height: 28px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+            position: relative;
+            z-index: 1;
         }
 
-        .banner-text-group {
+        .bento-text {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
 
-        .banner-title {
-            font-size: 1.1rem;
+        .bento-title {
+            font-size: 1.05rem;
             font-weight: 800;
             color: var(--text-main);
             letter-spacing: -0.02em;
+            line-height: 1.35;
         }
 
-        .banner-desc {
-            font-size: 0.85rem;
+        .bento-desc {
+            font-size: 0.82rem;
             color: var(--text-sub);
             font-weight: 600;
-            opacity: 0.9;
         }
 
-        .banner-arrow {
-            color: #d1d5db;
-            font-weight: 800;
-            font-size: 1.2rem;
-            z-index: 2;
-            transition: transform 0.2s;
+        /* 와이드 카드 */
+        .bento-wide {
+            grid-column: 1 / -1;
         }
 
-        .study-banner:hover .banner-arrow {
+        .bento-wide .bento-inner {
+            flex-direction: row;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 24px;
+        }
+
+        .bento-wide .bento-text {
+            flex: 1;
+        }
+
+        .bento-wide .bento-arrow {
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .bento-wide:hover .bento-arrow {
+            color: var(--primary);
             transform: translateX(4px);
-            color: var(--text-main);
         }
 
-        /* 5. 푸터 (카피라이트) */
-        .footer-section {
+        /* ── 5. 하단 제스처 힌트 ── */
+        .gesture-hint {
+            display: flex;
+            justify-content: center;
+            padding: 12px 0 6px;
+        }
+
+        .gesture-pill {
+            width: 36px;
+            height: 5px;
+            border-radius: 3px;
+            background: var(--text-muted);
+            opacity: 0.3;
+        }
+
+        /* ── 6. 푸터 ── */
+        .footer {
             text-align: center;
-            padding: 10px 20px 40px;
-            color: var(--text-sub);
-            font-size: 0.8rem;
-            font-weight: 700;
-            line-height: 1.6;
+            padding: 12px 20px 36px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── 리플 이펙트 ── */
+        .has-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(108, 92, 231, 0.06);
+            transform: scale(0);
+            animation: ripple 0.65s ease-out;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .cta-card .ripple-circle {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ── 스크롤바 숨김 ── */
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        html {
+            scrollbar-width: none;
+        }
+
+        @media (min-width: 640px) {
+            body {
+                max-width: 520px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- 1. 상단 탑바 영역 -->
-    <header class="top-bar">
-        <h1 class="page-title">
-            <img src="./img/logo_jian.png" alt="로고" class="logo-icon">
-        </h1>
-        <div class="date-badge" id="currentDate">
-            <!-- JS로 동적 할당 -->
-            11.10 금요일 🌙 2°
-        </div>
-    </header>
+    <!-- 오로라 메시 배경 -->
+    <div class="aurora-bg" aria-hidden="true">
+        <div class="aurora-blob"></div>
+        <div class="aurora-blob"></div>
+        <div class="aurora-blob"></div>
+        <div class="aurora-blob"></div>
+    </div>
 
-    <!-- 2. 메인 히어로 섹션 -->
-    <section class="hero-section">
-        <div class="hero-text">
-            타로 지안이<br>
-            당신의 운세를<br>
-            읽어 드릴게요.
-        </div>
-        <div class="hero-image-wrap">
-            <div class="hero-glow"></div>
-            <img src="./img/cha.png" alt="타로마스터 지안" class="brand-character"
-                onerror="this.src='https://cdn-icons-png.flaticon.com/512/3236/3236307.png'">
-        </div>
-    </section>
+    <!-- 그레인 노이즈 -->
+    <div class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- 3. 메인 배너 카드 (Dark Theme) -->
-    <section class="main-card-wrapper">
-        <div class="dark-card" id="darkCard">
-            <!-- 수정구슬 글로우 오버레이 -->
-            <div class="orb-glow"></div>
-            <div class="dark-card-title">
-                오늘 하루,<br>
-                나의 운세 흐름을 확인해 보세요!
+    <!-- 콘텐츠 레이어 -->
+    <div class="content-layer">
+
+        <!-- 1. 탑바 -->
+        <header class="top-bar reveal">
+            <h1 class="page-title">
+                <img src="./img/logo_jian.png" alt="타로 지안" class="logo-icon"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <span class="logo-fallback" style="display:none;">타로 지안</span>
+            </h1>
+            <div class="liquid-badge">
+                <span class="live-dot"></span>
+                <span id="badgeText">4.13 일요일 · 성찰</span>
             </div>
-            <a href="tarot_01.html" class="dark-card-btn">
-                오늘의 운세 보기 →
-            </a>
+        </header>
+
+        <!-- 2. 히어로 -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <span class="kinetic-line"><span class="text-gradient">타로 지안</span>이</span>
+                <span class="kinetic-line">당신의 운세를</span>
+                <span class="kinetic-line">읽어 드릴게요.</span>
+            </div>
+            <div class="hero-img-wrap">
+                <div class="hero-glow"></div>
+                <img src="./img/cha.png" alt="타로마스터 지안" class="brand-char"
+                    onerror="this.src='https://cdn-icons-png.flaticon.com/512/3236/3236307.png'">
+            </div>
+        </section>
+
+        <!-- 3. 메인 CTA -->
+        <section class="cta-wrapper reveal" style="transition-delay:.1s">
+            <div class="cta-card has-ripple" id="ctaCard">
+                <div class="cta-glass-layer"></div>
+                <div class="cta-glass-layer-2"></div>
+                <span class="cta-label">✦ Today's Reading</span>
+                <div class="cta-title">오늘 하루,<br>나의 운세 흐름을 확인해 보세요</div>
+                <a href="tarot_01.html" class="cta-btn">
+                    오늘의 운세 보기
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 4. 벤토 그리드 -->
+        <section class="bento-wrapper reveal" style="transition-delay:.18s">
+            <div class="section-header">
+                <span class="section-title">타로 공부</span>
+                <span class="section-tag">STUDY GUIDE</span>
+            </div>
+            <div class="bento-grid">
+
+                <!-- 와이드 카드: 주역 -->
+                <a href="tarot_02.html" class="bento-card bento-wide has-ripple">
+                    <div class="bento-accent accent-violet"></div>
+                    <div class="bento-inner">
+                        <div class="bento-icon">
+                            <div class="icon-hint hint-violet"></div>
+                            <img src="./img/icon_yinyang.png" class="custom-icon" alt="주역"
+                                onerror="this.outerHTML='☯️'">
+                        </div>
+                        <div class="bento-text">
+                            <span class="bento-title">주역타로 시작하기</span>
+                            <span class="bento-desc">64괘 한 눈에 파악하는 법</span>
+                        </div>
+                        <span class="bento-arrow">→</span>
+                    </div>
+                </a>
+
+                <!-- 2×1 카드: 유니버셜 -->
+                <a href="tarot_03.html" class="bento-card has-ripple">
+                    <div class="bento-accent accent-pink"></div>
+                    <div class="bento-inner">
+                        <div class="bento-icon">
+                            <div class="icon-hint hint-pink"></div>
+                            <img src="./img/icon_magichat.png" class="custom-icon" alt="유니버셜"
+                                onerror="this.outerHTML='🔮'">
+                        </div>
+                        <div class="bento-text">
+                            <span class="bento-title">유니버셜<br>웨이트</span>
+                            <span class="bento-desc">타로카드의 정석</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 2×1 카드: 벨린 -->
+                <a href="tarot_04.html" class="bento-card has-ripple">
+                    <div class="bento-accent accent-amber"></div>
+                    <div class="bento-inner">
+                        <div class="bento-icon">
+                            <div class="icon-hint hint-amber"></div>
+                            <img src="./img/icon_moonstar.png" class="custom-icon" alt="벨린"
+                                onerror="this.outerHTML='🌟'">
+                        </div>
+                        <div class="bento-text">
+                            <span class="bento-title">호로스코프<br>벨린</span>
+                            <span class="bento-desc">직관적 상징 읽기</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 와이드 카드: 배열법 -->
+                <a href="arrange.html" class="bento-card bento-wide has-ripple">
+                    <div class="bento-accent accent-emerald"></div>
+                    <div class="bento-inner">
+                        <div class="bento-icon">
+                            <div class="icon-hint hint-emerald"></div>
+                            <img src="./img/icon_arrange.png" class="custom-icon" alt="배열법"
+                                onerror="this.outerHTML='🃏'">
+                        </div>
+                        <div class="bento-text">
+                            <span class="bento-title">카드 배열법</span>
+                            <span class="bento-desc">다양한 스프레드 배열 한눈에 보기</span>
+                        </div>
+                        <span class="bento-arrow">→</span>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- 제스처 힌트 -->
+        <div class="gesture-hint reveal" style="transition-delay:.22s">
+            <div class="gesture-pill"></div>
         </div>
-    </section>
 
-    <!-- 4. 서브 리스트 카드 -->
-    <section class="list-card-wrapper">
-        <div class="white-card">
-            <div class="white-card-title">오늘의 타로 공부</div>
+        <footer class="footer reveal" style="transition-delay:.25s">
+            © 2026 Taro JIAN. All Rights Reserved.
+        </footer>
 
-            <a href="tarot_02.html" class="study-banner study-banner-1">
-                <div class="banner-content">
-                    <div class="banner-icon-bg icon-bg-1"><img src="./img/icon_yinyang.png" class="custom-icon" alt="주역"
-                            onerror="this.outerHTML='🗃︎'"></div>
-                    <div class="banner-text-group">
-                        <span class="banner-title">주역타로 시작하기</span>
-                        <span class="banner-desc">64괘 한 눈에 파악하는 법</span>
-                    </div>
-                </div>
-                <div class="banner-arrow">→</div>
-            </a>
-
-            <a href="tarot_03.html" class="study-banner study-banner-2">
-                <div class="banner-content">
-                    <div class="banner-icon-bg icon-bg-2"><img src="./img/icon_magichat.png" class="custom-icon"
-                            alt="유니버셜" onerror="this.outerHTML='🧙‍♀️'"></div>
-                    <div class="banner-text-group">
-                        <span class="banner-title">유니버셜 웨이트</span>
-                        <span class="banner-desc">타로카드의 정석 마스터하기</span>
-                    </div>
-                </div>
-                <div class="banner-arrow">→</div>
-            </a>
-
-            <a href="tarot_04.html" class="study-banner study-banner-3">
-                <div class="banner-content">
-                    <div class="banner-icon-bg icon-bg-3"><img src="./img/icon_moonstar.png" class="custom-icon"
-                            alt="벨린" onerror="this.outerHTML='⭐'"></div>
-                    <div class="banner-text-group">
-                        <span class="banner-title">호로스코프 벨린</span>
-                        <span class="banner-desc">직관적인 상징으로 읽어내기</span>
-                    </div>
-                </div>
-                <div class="banner-arrow">→</div>
-            </a>
-
-            <a href="arrange.html" class="study-banner study-banner-4">
-                <div class="banner-content">
-                    <div class="banner-icon-bg icon-bg-4"><img src="./img/icon_arrange.png" class="custom-icon"
-                            alt="배열법" onerror="this.outerHTML='🃏'"></div>
-                    <div class="banner-text-group">
-                        <span class="banner-title">카드 배열법</span>
-                        <span class="banner-desc">다양한 스프레드 배열 한눈에 보기</span>
-                    </div>
-                </div>
-                <div class="banner-arrow">→</div>
-            </a>
-        </div>
-    </section>
-
-    <footer class="footer-section">
-        © 2026 Taro JIAN, All Rights Reserved.
-    </footer>
+    </div>
 
     <script>
-        // 현재 날짜 동적 표시 스크립트 (A. 스타일)
-        const dateElement = document.getElementById('currentDate');
-        const now = new Date();
-        const month = now.getMonth() + 1;
-        const day = now.getDate();
-        const weekArr = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-        const week = weekArr[now.getDay()];
+        // ── 날짜 + 타로 키워드 ──
+        (() => {
+            const el = document.getElementById('badgeText');
+            const d = new Date();
+            const weeks = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const keys = ['성찰', '직관', '변화', '균형', '용기', '사랑', '기다림'];
+            el.textContent = `${d.getMonth() + 1}.${d.getDate()} ${weeks[d.getDay()]} · ${keys[d.getDay()]}`;
+        })();
 
-        // 날씨 값은 임의의 아이콘/온도로 데코레이션
-        const weatherIcons = ['🌙', '☀️', '☁️', '❄️'];
-        const randomIcon = weatherIcons[Math.floor(Math.random() * weatherIcons.length)];
-        const randomTemp = Math.floor(Math.random() * 20) + '°';
-
-        // 템플릿: 11.10 금요일 🌙 2°
-        dateElement.innerHTML = `${month}.${day} ${week} &nbsp;${randomIcon} ${randomTemp}`;
-
-        // ✨ 반짝이는 별 파티클 생성
-        (function createTwinkleStars() {
-            const card = document.getElementById('darkCard');
+        // ── 별 파티클 ──
+        (() => {
+            const card = document.getElementById('ctaCard');
             if (!card) return;
-            const STAR_COUNT = 28;
-            for (let i = 0; i < STAR_COUNT; i++) {
-                const star = document.createElement('div');
-                star.className = 'twinkle-star';
-                // 카드 오른쪽(수정구슬 주변) 위주로 배치, 일부는 전체 분산
-                const rightBias = Math.random() < 0.65; // 65%는 오른쪽에 집중
-                const xPct = rightBias
-                    ? 45 + Math.random() * 52  // 45%~97% 오른쪽 영역
-                    : Math.random() * 45;       // 0%~45% 왼쪽 영역
-                const yPct = 5 + Math.random() * 90;
-                const size = 1.5 + Math.random() * 3;   // 1.5px ~ 4.5px
-                const dur = 1.2 + Math.random() * 2.5; // 1.2s ~ 3.7s
-                const delay = Math.random() * 3;         // 0s ~ 3s
-
-                star.style.cssText = [
-                    `left: ${xPct}%`,
-                    `top: ${yPct}%`,
-                    `width: ${size}px`,
-                    `height: ${size}px`,
-                    `--dur: ${dur.toFixed(2)}s`,
-                    `--delay: ${delay.toFixed(2)}s`,
-                    // 별마다 살짝 다른 색감
-                    `background: hsl(${220 + Math.random() * 80}, 80%, ${85 + Math.random() * 15}%)`,
-                    `box-shadow: 0 0 ${(size * 2).toFixed(1)}px ${size.toFixed(1)}px rgba(200,180,255,0.6)`,
-                ].join(';');
-                card.appendChild(star);
+            for (let i = 0; i < 35; i++) {
+                const s = document.createElement('div');
+                s.className = 'twinkle-star';
+                const sz = 1 + Math.random() * 2.5;
+                s.style.cssText = `
+                    left:${Math.random() * 100}%;top:${Math.random() * 100}%;
+                    width:${sz}px;height:${sz}px;
+                    --dur:${(1.5 + Math.random() * 3).toFixed(2)}s;
+                    --delay:${(Math.random() * 3).toFixed(2)}s;
+                    background:hsl(${220 + Math.random() * 70},70%,${80 + Math.random() * 20}%);
+                    box-shadow:0 0 ${(sz * 3).toFixed(1)}px ${sz.toFixed(1)}px rgba(180,165,255,0.45);
+                `;
+                card.appendChild(s);
             }
         })();
+
+        // ── Intersection Observer 등장 ──
+        (() => {
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        })();
+
+        // ── 리플 이펙트 ──
+        document.querySelectorAll('.has-ripple').forEach(c => {
+            c.addEventListener('pointerdown', e => {
+                const r = document.createElement('span');
+                r.className = 'ripple-circle';
+                const rect = c.getBoundingClientRect();
+                const sz = Math.max(rect.width, rect.height) * 1.4;
+                Object.assign(r.style, {
+                    width: sz + 'px', height: sz + 'px',
+                    left: (e.clientX - rect.left - sz / 2) + 'px',
+                    top: (e.clientY - rect.top - sz / 2) + 'px'
+                });
+                c.appendChild(r);
+                r.addEventListener('animationend', () => r.remove());
+            });
+        });
+
+        // ── 패럴랙스 틸트 on 벤토 카드 (터치/마우스) ──
+        document.querySelectorAll('.bento-card:not(.bento-wide)').forEach(card => {
+            card.addEventListener('pointermove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px) scale(1.01)`;
+            });
+            card.addEventListener('pointerleave', () => {
+                card.style.transform = '';
+                card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                setTimeout(() => card.style.transition = '', 500);
+            });
+        });
     </script>
 </body>
 
