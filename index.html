@@ -527,274 +527,247 @@
             transform: translateX(3px);
         }
 
-        /* ── 4. 벤토 그리드 — Liquid Glass 카드 ── */
-        .bento-wrapper {
-            padding: 0 18px;
-            margin-bottom: 28px;
+        /* ── 4. 타로 공부 — 수평 스와이프 캐러셀 ── */
+        .study-section {
+            margin-bottom: 32px;
         }
 
-        .section-header {
+        .study-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            padding: 0 28px;
             margin-bottom: 18px;
-            padding: 0 4px;
         }
 
-        .section-title {
-            font-size: 1.12rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.03em;
-        }
-
-        .section-tag {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto auto auto;
-            gap: 14px;
-        }
-
-        /* 첫 번째 카드: 2열 전체 (와이드 카드) */
-        .bento-card {
-            position: relative;
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-            /* Liquid Glass */
-            background: var(--glass-strong);
-            backdrop-filter: blur(24px) saturate(1.6);
-            -webkit-backdrop-filter: blur(24px) saturate(1.6);
-            border: 1px solid var(--glass-border);
-            box-shadow:
-                var(--glass-shadow),
-                inset 0 1px 0 rgba(255, 255, 255, 0.7),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.02);
-        }
-
-        .bento-card:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow:
-                0 20px 48px rgba(108, 92, 231, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            border-color: rgba(255, 255, 255, 0.85);
-        }
-
-        .bento-card:active {
-            transform: scale(0.97);
-            transition-duration: 0.15s;
-        }
-
-        /* 카드 내부 레이아웃 */
-        .bento-inner {
-            padding: 24px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* 카드별 배경 컬러 액센트 */
-        .bento-accent {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            z-index: 0;
-            transition: opacity 0.4s;
-        }
-
-        .bento-card:hover .bento-accent {
-            opacity: 0.5;
-        }
-
-        .accent-violet {
-            background: var(--primary);
-            bottom: -20px;
-            right: -20px;
-        }
-
-        .accent-pink {
-            background: var(--accent-pink);
-            bottom: -20px;
-            right: -20px;
-        }
-
-        .accent-amber {
-            background: var(--accent-amber);
-            bottom: -20px;
-            right: -20px;
-        }
-
-        .accent-emerald {
-            background: var(--accent-emerald);
-            bottom: -20px;
-            right: -20px;
-        }
-
-        .bento-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-
-            /* 아이콘 내부도 글래스 */
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-        }
-
-        .bento-card:hover .bento-icon {
-            transform: scale(1.12) rotate(6deg);
-        }
-
-        /* 아이콘 내부 컬러 힌트 */
-        .icon-hint {
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            opacity: 0.25;
-            z-index: 0;
-        }
-
-        .hint-violet {
-            background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-        }
-
-        .hint-pink {
-            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
-        }
-
-        .hint-amber {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-        }
-
-        .hint-emerald {
-            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-        }
-
-        .custom-icon {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-            position: relative;
-            z-index: 1;
-        }
-
-        .bento-text {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .bento-title {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.02em;
+        .study-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -.04em;
             line-height: 1.35;
         }
 
-        .bento-desc {
-            font-size: 0.82rem;
-            color: var(--text-sub);
-            font-weight: 600;
-        }
-
-        /* 와이드 카드 */
-        .bento-wide {
-            grid-column: 1 / -1;
-        }
-
-        .bento-wide .bento-inner {
-            flex-direction: row;
-            align-items: center;
-            gap: 18px;
-            padding: 20px 24px;
-        }
-
-        .bento-wide .bento-text {
-            flex: 1;
-        }
-
-        .bento-wide .bento-arrow {
-            font-size: 1rem;
+        .study-tag {
+            font-size: .68rem;
+            font-weight: 700;
             color: var(--text-muted);
-            transition: all 0.3s;
-            flex-shrink: 0;
+            letter-spacing: .08em;
+            text-transform: uppercase;
         }
 
-        .bento-wide:hover .bento-arrow {
-            color: var(--primary);
-            transform: translateX(4px);
-        }
-
-        /* ── 5. 하단 제스처 힌트 ── */
-        .gesture-hint {
+        .carousel {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
             display: flex;
-            justify-content: center;
-            padding: 12px 0 6px;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 8px 28px 20px;
+            scrollbar-width: none;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
-        .gesture-pill {
-            width: 36px;
-            height: 5px;
-            border-radius: 3px;
-            background: var(--text-muted);
-            opacity: 0.3;
+        .carousel.grabbing {
+            scroll-snap-type: none;
+            cursor: grabbing;
         }
 
-        /* ── 6. 푸터 ── */
-        .footer {
-            text-align: center;
-            padding: 12px 20px 36px;
-            color: var(--text-muted);
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
+        .carousel::-webkit-scrollbar {
+            display: none;
         }
 
-        /* ── 리플 이펙트 ── */
-        .has-ripple {
+        .carousel a {
+            -webkit-user-drag: none;
+        }
+
+        .s-card {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 250px;
+            height: 330px;
+            border-radius: var(--radius-xl);
             position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
+            background: var(--glass);
+            backdrop-filter: blur(24px) saturate(1.5);
+            -webkit-backdrop-filter: blur(24px) saturate(1.5);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(108, 92, 231, .06), inset 0 1px 0 rgba(255, 255, 255, .7);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        .s-card:hover {
+            transform: translateY(0);
+            box-shadow: 0 12px 48px rgba(108, 92, 231, .12), inset 0 1px 0 rgba(255, 255, 255, .8);
+        }
+
+        .s-card:active {
+            transform: scale(.97);
+        }
+
+        /* 상단 비주얼 */
+        .sc-vis {
+            height: 150px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
 
+        .sc-vis-bg {
+            position: absolute;
+            inset: 0;
+            opacity: .15;
+            z-index: 0;
+        }
+
+        .sc-vis-bg-1 { background: linear-gradient(135deg, var(--primary), var(--accent-blue)); }
+        .sc-vis-bg-2 { background: linear-gradient(135deg, var(--accent-pink), #ff6b6b); }
+        .sc-vis-bg-3 { background: linear-gradient(135deg, var(--accent-amber), #ff8f00); }
+        .sc-vis-bg-4 { background: linear-gradient(135deg, var(--accent-emerald), #00e5ff); }
+
+        .sc-float {
+            z-index: 1;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .08));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .sc-float img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .sc-num {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, .6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 900;
+            color: var(--text-main);
+            z-index: 2;
+        }
+
+        /* 하단 텍스트 */
+        .sc-body {
+            padding: 20px 22px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            justify-content: flex-start;
+        }
+
+        .sc-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            color: var(--text-main);
+        }
+
+        .sc-desc {
+            font-size: .78rem;
+            color: var(--text-sub);
+            font-weight: 600;
+            line-height: 1.55;
+        }
+
+        .sc-foot {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sc-pills {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sc-pill {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: .63rem;
+            font-weight: 700;
+        }
+
+        .sc-pill-1 { background: rgba(108, 92, 231, .08); color: var(--primary); }
+        .sc-pill-2 { background: rgba(232, 67, 147, .08); color: var(--accent-pink); }
+        .sc-pill-3 { background: rgba(249, 168, 37, .1); color: #e67e00; }
+        .sc-pill-4 { background: rgba(0, 191, 165, .08); color: var(--accent-emerald); }
+
+        .sc-arrow {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--text-main);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 800;
+            transition: transform .3s;
+        }
+
+        .s-card:hover .sc-arrow {
+            transform: translateX(3px);
+        }
+
+        /* 캐러셀 도트 */
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 28px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: .3;
+            transition: all .3s;
+        }
+
+        .dot.on {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--primary);
+            opacity: 1;
+        }
+
+        /* ── 리플 효과 ── */
         .ripple-circle {
             position: absolute;
+            background: rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            background: rgba(108, 92, 231, 0.06);
             transform: scale(0);
-            animation: ripple 0.65s ease-out;
+            animation: ripple-anim 0.6s linear;
             pointer-events: none;
-            z-index: 20;
+            z-index: 5;
         }
 
-        .cta-card .ripple-circle {
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        @keyframes ripple {
+        @keyframes ripple-anim {
             to {
                 transform: scale(4);
                 opacity: 0;
@@ -806,8 +779,15 @@
             width: 0;
         }
 
-        html {
-            scrollbar-width: none;
+        /* ── 푸터 ── */
+        .footer {
+            text-align: center;
+            padding: 16px 20px 48px;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            line-height: 1.6;
         }
 
         @media (min-width: 640px) {
@@ -875,80 +855,110 @@
             </div>
         </section>
 
-        <!-- 4. 벤토 그리드 -->
-        <section class="bento-wrapper reveal" style="transition-delay:.18s">
-            <div class="section-header">
-                <span class="section-title">타로 공부</span>
-                <span class="section-tag">STUDY GUIDE</span>
+        <!-- 4. 타로 공부 캐러셀 -->
+        <section class="study-section reveal" style="transition-delay:.18s">
+            <div class="study-header">
+                <h2 class="study-title">타로 공부,<br>어디서부터?</h2>
+                <span class="study-tag">Swipe →</span>
             </div>
-            <div class="bento-grid">
 
-                <!-- 와이드 카드: 주역 -->
-                <a href="tarot_02.html" class="bento-card bento-wide has-ripple">
-                    <div class="bento-accent accent-violet"></div>
-                    <div class="bento-inner">
-                        <div class="bento-icon">
-                            <div class="icon-hint hint-violet"></div>
-                            <img src="./img/icon_yinyang.png" class="custom-icon" alt="주역"
-                                onerror="this.outerHTML='☯️'">
+            <div class="carousel" id="carousel">
+
+                <a href="tarot_02.html" class="s-card has-ripple">
+                    <div class="sc-vis">
+                        <div class="sc-vis-bg sc-vis-bg-1"></div>
+                        <div class="sc-num">01</div>
+                        <div class="sc-float">
+                            <img src="./img/icon_yinyang.png" alt="주역"
+                                onerror="this.outerHTML='<span style=font-size:3.2rem>☯️</span>'">
                         </div>
-                        <div class="bento-text">
-                            <span class="bento-title">주역타로 시작하기</span>
-                            <span class="bento-desc">64괘 한 눈에 파악하는 법</span>
-                        </div>
-                        <span class="bento-arrow">→</span>
                     </div>
-                </a>
-
-                <!-- 2×1 카드: 유니버셜 -->
-                <a href="tarot_03.html" class="bento-card has-ripple">
-                    <div class="bento-accent accent-pink"></div>
-                    <div class="bento-inner">
-                        <div class="bento-icon">
-                            <div class="icon-hint hint-pink"></div>
-                            <img src="./img/icon_magichat.png" class="custom-icon" alt="유니버셜"
-                                onerror="this.outerHTML='🔮'">
-                        </div>
-                        <div class="bento-text">
-                            <span class="bento-title">유니버셜<br>웨이트</span>
-                            <span class="bento-desc">타로카드의 정석</span>
+                    <div class="sc-body">
+                        <div class="sc-title">주역타로 시작하기</div>
+                        <div class="sc-desc">64괘의 심오한 세계를<br>한 눈에 파악하는 법</div>
+                        <div class="sc-foot">
+                            <div class="sc-pills">
+                                <span class="sc-pill sc-pill-1">입문</span>
+                                <span class="sc-pill sc-pill-1">64괘</span>
+                            </div>
+                            <div class="sc-arrow">→</div>
                         </div>
                     </div>
                 </a>
 
-                <!-- 2×1 카드: 벨린 -->
-                <a href="tarot_04.html" class="bento-card has-ripple">
-                    <div class="bento-accent accent-amber"></div>
-                    <div class="bento-inner">
-                        <div class="bento-icon">
-                            <div class="icon-hint hint-amber"></div>
-                            <img src="./img/icon_moonstar.png" class="custom-icon" alt="벨린"
-                                onerror="this.outerHTML='🌟'">
+                <a href="tarot_03.html" class="s-card has-ripple">
+                    <div class="sc-vis">
+                        <div class="sc-vis-bg sc-vis-bg-2"></div>
+                        <div class="sc-num">02</div>
+                        <div class="sc-float">
+                            <img src="./img/icon_magichat.png" alt="유니버셜"
+                                onerror="this.outerHTML='<span style=font-size:3.2rem>🔮</span>'">
                         </div>
-                        <div class="bento-text">
-                            <span class="bento-title">호로스코프<br>벨린</span>
-                            <span class="bento-desc">직관적 상징 읽기</span>
+                    </div>
+                    <div class="sc-body">
+                        <div class="sc-title">유니버셜 웨이트</div>
+                        <div class="sc-desc">타로카드의 정석,<br>78장 마스터하기</div>
+                        <div class="sc-foot">
+                            <div class="sc-pills">
+                                <span class="sc-pill sc-pill-2">정석</span>
+                                <span class="sc-pill sc-pill-2">78장</span>
+                            </div>
+                            <div class="sc-arrow">→</div>
                         </div>
                     </div>
                 </a>
 
-                <!-- 와이드 카드: 배열법 -->
-                <a href="arrange.html" class="bento-card bento-wide has-ripple">
-                    <div class="bento-accent accent-emerald"></div>
-                    <div class="bento-inner">
-                        <div class="bento-icon">
-                            <div class="icon-hint hint-emerald"></div>
-                            <img src="./img/icon_arrange.png" class="custom-icon" alt="배열법"
-                                onerror="this.outerHTML='🃏'">
+                <a href="tarot_04.html" class="s-card has-ripple">
+                    <div class="sc-vis">
+                        <div class="sc-vis-bg sc-vis-bg-3"></div>
+                        <div class="sc-num">03</div>
+                        <div class="sc-float">
+                            <img src="./img/icon_moonstar.png" alt="벨린"
+                                onerror="this.outerHTML='<span style=font-size:3.2rem>🌟</span>'">
                         </div>
-                        <div class="bento-text">
-                            <span class="bento-title">카드 배열법</span>
-                            <span class="bento-desc">다양한 스프레드 배열 한눈에 보기</span>
+                    </div>
+                    <div class="sc-body">
+                        <div class="sc-title">호로스코프 벨린</div>
+                        <div class="sc-desc">직관적인 상징과<br>별자리로 읽어내기</div>
+                        <div class="sc-foot">
+                            <div class="sc-pills">
+                                <span class="sc-pill sc-pill-3">직관</span>
+                                <span class="sc-pill sc-pill-3">상징</span>
+                            </div>
+                            <div class="sc-arrow">→</div>
                         </div>
-                        <span class="bento-arrow">→</span>
                     </div>
                 </a>
 
+                <a href="arrange.html" class="s-card has-ripple">
+                    <div class="sc-vis">
+                        <div class="sc-vis-bg sc-vis-bg-4"></div>
+                        <div class="sc-num">04</div>
+                        <div class="sc-float">
+                            <img src="./img/icon_arrange.png" alt="배열법"
+                                onerror="this.outerHTML='<span style=font-size:3.2rem>🃏</span>'">
+                        </div>
+                    </div>
+                    <div class="sc-body">
+                        <div class="sc-title">카드 배열법</div>
+                        <div class="sc-desc">다양한 스프레드를<br>상황에 맞게 활용하기</div>
+                        <div class="sc-foot">
+                            <div class="sc-pills">
+                                <span class="sc-pill sc-pill-4">실전</span>
+                                <span class="sc-pill sc-pill-4">스프레드</span>
+                            </div>
+                            <div class="sc-arrow">→</div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+            <div class="dots" id="dots">
+                <div class="dot on"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
         </section>
 
@@ -1020,20 +1030,63 @@
             });
         });
 
-        // ── 패럴랙스 틸트 on 벤토 카드 (터치/마우스) ──
-        document.querySelectorAll('.bento-card:not(.bento-wide)').forEach(card => {
-            card.addEventListener('pointermove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                card.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px) scale(1.01)`;
+        // ── 캐러셀 도트 & 마우스 드래그 ──
+        (() => {
+            const wrap = document.getElementById('carousel');
+            const dots = document.querySelectorAll('.dot');
+            const cards = wrap.querySelectorAll('.s-card');
+            if (!wrap || dots.length === 0) return;
+
+            // 1. 도트 연동 (스크롤 이벤트)
+            wrap.addEventListener('scroll', () => {
+                const cw = cards[0].offsetWidth + 16;
+                const idx = Math.round(wrap.scrollLeft / cw);
+                dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+            }, { passive: true });
+
+            // 2. 마우스 드래그 스와이프 구현
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let moved = false;
+
+            wrap.addEventListener('mousedown', (e) => {
+                isDown = true;
+                wrap.classList.add('grabbing');
+                startX = e.pageX - wrap.offsetLeft;
+                scrollLeft = wrap.scrollLeft;
+                moved = false;
             });
-            card.addEventListener('pointerleave', () => {
-                card.style.transform = '';
-                card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                setTimeout(() => card.style.transition = '', 500);
+
+            wrap.addEventListener('mouseleave', () => {
+                isDown = false;
+                wrap.classList.remove('grabbing');
             });
-        });
+
+            wrap.addEventListener('mouseup', () => {
+                isDown = false;
+                wrap.classList.remove('grabbing');
+            });
+
+            wrap.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - wrap.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                if (Math.abs(walk) > 5) moved = true;
+                wrap.scrollLeft = scrollLeft - walk;
+            });
+
+            // 드래그 중 클릭 방지
+            wrap.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (moved) {
+                        e.preventDefault();
+                        moved = false;
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 
