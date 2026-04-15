@@ -226,12 +226,17 @@ function buildCard(card, score, w, label, icon) {
 
 /* ── 저장 & 공유 ── */
 function saveResult() {
+  const scale = (window.devicePixelRatio || 1) * 2; // 고해상도 캡처
   html2canvas(document.getElementById('result-area'), {
-    backgroundColor: '#F4F3FF', scale: 2, useCORS: true
+    backgroundColor: '#fdfcff', 
+    scale: scale > 3 ? scale : 3, // 최소 3배 이상 확대 캡처
+    useCORS: true,
+    scrollY: -window.scrollY // 캡처 시 스크롤 어긋남 방지
   }).then(c => {
     const a = document.createElement('a');
     a.download = '지니의_주역타로_운세.png';
-    a.href = c.toDataURL(); a.click();
+    a.href = c.toDataURL('image/png'); 
+    a.click();
   });
 }
 async function shareToFriends() {
