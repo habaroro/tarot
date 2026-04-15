@@ -903,6 +903,58 @@
         font-size: 1.1rem;
       }
     }
+
+    /* ── 캡처 모드: 이미지 저장 시 불투명 배경 강제 적용 ── */
+    .capture-mode,
+    .capture-mode * {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .capture-mode {
+      background: #fdfcff !important;
+    }
+
+    .capture-mode .report-card,
+    .capture-mode .lucky-card,
+    .capture-mode .glass-card,
+    .capture-mode .cards-section {
+      background: #ffffff !important;
+      border: 1px solid #e8e8ef !important;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .capture-mode .highlight-box {
+      background: #f1f5f9 !important;
+    }
+
+    .capture-mode .title-chip {
+      background: #f8fafc !important;
+    }
+
+    .capture-mode .detail-icon {
+      background: #f8fafc !important;
+    }
+
+    .capture-mode .score-pill {
+      box-shadow: none !important;
+    }
+
+    .capture-mode .sub-btn {
+      background: #f8fafc !important;
+    }
+
+    .capture-mode .lucky-number {
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
+    }
+
+    .capture-mode .lucky-color-circle {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .capture-mode .bottom-actions {
+      display: none !important;
+    }
   </style>
 </head>
 

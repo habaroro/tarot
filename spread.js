@@ -226,39 +226,33 @@ function buildCard(card, score, w, label, icon) {
 
 /* ── 저장 & 공유 ── */
 function saveResult() {
-  const scale = (window.devicePixelRatio || 1) * 2; // 고해상도 캡처
-  html2canvas(document.getElementById('result-area'), {
-    backgroundColor: '#fdfcff', 
-    scale: scale > 3 ? scale : 3, // 최소 3배 이상 확대 캡처
+  const target = document.getElementById('result-area');
+  
+  // 1) 캡처 전: 모든 글래스모피즘/반투명 요소에 불투명 배경 강제 적용
+  target.classList.add('capture-mode');
+  
+  // 2) 캡처 실행
+  const scale = Math.max(3, (window.devicePixelRatio || 1) * 2);
+  html2canvas(target, {
+    backgroundColor: '#fdfcff',
+    scale: scale,
     useCORS: true,
-    scrollY: -window.scrollY, // 캡처 시 스크롤 어긋남 방지
-    onclone: function(clonedDoc) {
-      // html2canvas의 backdrop-filter 렌더링 버그(글자 흐려짐 현상) 해결을 위해 
-      // 캡처용 DOM에서만 블러 필터를 제거하고 불투명한 배경을 적용
-      const style = clonedDoc.createElement('style');
-      style.innerHTML = `
-        * {
-          backdrop-filter: none !important;
-          -webkit-backdrop-filter: none !important;
-        }
-        .report-card, .lucky-card, .glass-card, .hero-banner {
-          background: #ffffff !important;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
-        }
-        .title-chip, .sub-btn {
-          background: #ffffff !important;
-        }
-        .highlight-box {
-          background: #f8fafc !important;
-        }
-      `;
-      clonedDoc.head.appendChild(style);
-    }
-  }).then(c => {
-    const a = document.createElement('a');
-    a.download = '지니의_주역타로_운세.png';
-    a.href = c.toDataURL('image/png'); 
-    a.click();
+    scrollY: -window.scrollY,
+    scrollX: 0,
+    windowWidth: target.scrollWidth,
+    windowHeight: target.scrollHeight,
+    logging: false
+  }).then(function(canvas) {
+    // 3) 캡처 완료 후 원래 스타일로 복원
+    target.classList.remove('capture-mode');
+    
+    const link = document.createElement('a');
+    link.download = '지니의_주역타로_운세.png';
+    link.href = canvas.toDataURL('image/png', 1.0);
+    link.click();
+  }).catch(function(err) {
+    target.classList.remove('capture-mode');
+    console.error('캡처 실패:', err);
   });
 }
 async function shareToFriends() {
