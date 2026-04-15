@@ -227,32 +227,38 @@ function buildCard(card, score, w, label, icon) {
 /* ── 저장 & 공유 ── */
 function saveResult() {
   const target = document.getElementById('result-area');
+  const actions = document.getElementById('bottomActions');
   
-  // 1) 캡처 전: 모든 글래스모피즘/반투명 요소에 불투명 배경 강제 적용
-  target.classList.add('capture-mode');
+  // 캡처 전: 버튼 영역 숨기기
+  actions.style.display = 'none';
   
-  // 2) 캡처 실행
-  const scale = Math.max(3, (window.devicePixelRatio || 1) * 2);
-  html2canvas(target, {
-    backgroundColor: '#fdfcff',
-    scale: scale,
-    useCORS: true,
-    scrollY: -window.scrollY,
-    scrollX: 0,
-    windowWidth: target.scrollWidth,
-    windowHeight: target.scrollHeight,
-    logging: false
-  }).then(function(canvas) {
-    // 3) 캡처 완료 후 원래 스타일로 복원
-    target.classList.remove('capture-mode');
+  const scale = Math.max(3, window.devicePixelRatio || 1);
+  const width = target.offsetWidth;
+  const height = target.offsetHeight;
+  
+  domtoimage.toPng(target, {
+    width: width * scale,
+    height: height * scale,
+    bgcolor: '#fdfcff',
+    style: {
+      transform: 'scale(' + scale + ')',
+      transformOrigin: 'top left',
+      width: width + 'px',
+      height: height + 'px'
+    }
+  }).then(function(dataUrl) {
+    // 캡처 완료 후 버튼 복원
+    actions.style.display = 'flex';
     
     const link = document.createElement('a');
     link.download = '지니의_주역타로_운세.png';
-    link.href = canvas.toDataURL('image/png', 1.0);
+    link.href = dataUrl;
     link.click();
   }).catch(function(err) {
-    target.classList.remove('capture-mode');
+    actions.style.display = 'flex';
     console.error('캡처 실패:', err);
+    // 폴백: 캡처 실패 시 안내
+    alert('이미지 저장에 실패했습니다. 스크린샷을 이용해주세요.');
   });
 }
 async function shareToFriends() {
