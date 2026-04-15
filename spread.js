@@ -231,7 +231,29 @@ function saveResult() {
     backgroundColor: '#fdfcff', 
     scale: scale > 3 ? scale : 3, // 최소 3배 이상 확대 캡처
     useCORS: true,
-    scrollY: -window.scrollY // 캡처 시 스크롤 어긋남 방지
+    scrollY: -window.scrollY, // 캡처 시 스크롤 어긋남 방지
+    onclone: function(clonedDoc) {
+      // html2canvas의 backdrop-filter 렌더링 버그(글자 흐려짐 현상) 해결을 위해 
+      // 캡처용 DOM에서만 블러 필터를 제거하고 불투명한 배경을 적용
+      const style = clonedDoc.createElement('style');
+      style.innerHTML = `
+        * {
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+        }
+        .report-card, .lucky-card, .glass-card, .hero-banner {
+          background: #ffffff !important;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+        }
+        .title-chip, .sub-btn {
+          background: #ffffff !important;
+        }
+        .highlight-box {
+          background: #f8fafc !important;
+        }
+      `;
+      clonedDoc.head.appendChild(style);
+    }
   }).then(c => {
     const a = document.createElement('a');
     a.download = '지니의_주역타로_운세.png';
