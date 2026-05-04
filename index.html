@@ -5,30 +5,155 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>타로마스터 지안이 알려주는 타로</title>
+    <meta name="theme-color" content="#f4f2fb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0d0a1f" media="(prefers-color-scheme: dark)">
+    <title>타로마스터 지안 — 오늘의 카드</title>
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
     <style>
         :root {
+            /* Light Theme */
             --bg: #f4f2fb;
+            --bg-elev: #ffffff;
             --text-main: #1a1832;
-            --text-sub: #8b8a9e;
-            --text-muted: #bbb8cc;
+            --text-sub: #6e6c85;
+            --text-muted: #b0adc4;
             --primary: #6c5ce7;
             --primary-light: #a29bfe;
             --accent-pink: #e84393;
             --accent-amber: #fdcb6e;
             --accent-emerald: #00cec9;
             --accent-blue: #74b9ff;
-            --glass: rgba(255, 255, 255, 0.45);
-            --glass-strong: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-shadow: 0 8px 32px rgba(108, 92, 231, 0.07);
+            --glass: rgba(255, 255, 255, 0.55);
+            --glass-strong: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: 0 8px 32px rgba(108, 92, 231, 0.08);
+            --card-shadow: 0 12px 40px rgba(108, 92, 231, 0.10);
+            --hairline: rgba(26, 24, 50, 0.06);
             --radius-2xl: 32px;
             --radius-xl: 24px;
             --radius-lg: 20px;
+            --radius-md: 14px;
             --radius-full: 9999px;
         }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0d0a1f;
+                --bg-elev: #1a1735;
+                --text-main: #f0eef9;
+                --text-sub: #9c98b8;
+                --text-muted: #5e5b7a;
+                --primary: #a29bfe;
+                --primary-light: #c8c2ff;
+                --glass: rgba(40, 35, 75, 0.55);
+                --glass-strong: rgba(40, 35, 75, 0.75);
+                --glass-border: rgba(255, 255, 255, 0.08);
+                --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+                --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+                --hairline: rgba(255, 255, 255, 0.08);
+            }
+        }
+
+        :root {
+            /* Light Theme (기본) */
+            --bg: #f4f2fb;
+            --bg-elev: #ffffff;
+            --text-main: #1a1832;
+            --text-sub: #6e6c85;
+            --text-muted: #b0adc4;
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --accent-pink: #e84393;
+            --accent-amber: #fdcb6e;
+            --accent-emerald: #00cec9;
+            --accent-blue: #74b9ff;
+            --glass: rgba(255, 255, 255, 0.55);
+            --glass-strong: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-shadow: 0 8px 32px rgba(108, 92, 231, 0.08);
+            --card-shadow: 0 12px 40px rgba(108, 92, 231, 0.10);
+            --hairline: rgba(26, 24, 50, 0.06);
+            --radius-2xl: 32px;
+            --radius-xl: 24px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-full: 9999px;
+        }
+
+        /* 다크 테마 변수 (공통 정의) */
+        .dark-vars {
+            --bg: #0d0a1f;
+            --bg-elev: #1a1735;
+            --text-main: #f0eef9;
+            --text-sub: #9c98b8;
+            --text-muted: #5e5b7a;
+            --primary: #a29bfe;
+            --primary-light: #c8c2ff;
+            --glass: rgba(40, 35, 75, 0.55);
+            --glass-strong: rgba(40, 35, 75, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            --hairline: rgba(255, 255, 255, 0.08);
+        }
+
+        /* 1) 시스템이 다크인데 사용자가 라이트로 강제하지 않은 경우 */
+        @media (prefers-color-scheme: dark) {
+            body:not([data-theme="light"]) {
+                --bg: #0d0a1f;
+                --bg-elev: #1a1735;
+                --text-main: #f0eef9;
+                --text-sub: #9c98b8;
+                --text-muted: #5e5b7a;
+                --primary: #a29bfe;
+                --primary-light: #c8c2ff;
+                --glass: rgba(40, 35, 75, 0.55);
+                --glass-strong: rgba(40, 35, 75, 0.75);
+                --glass-border: rgba(255, 255, 255, 0.08);
+                --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+                --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+                --hairline: rgba(255, 255, 255, 0.08);
+            }
+
+            body:not([data-theme="light"]) .aurora-blob {
+                opacity: .35;
+            }
+        }
+
+        /* 2) 사용자가 명시적으로 다크 선택 (시스템 무관) */
+        body[data-theme="dark"] {
+            --bg: #0d0a1f;
+            --bg-elev: #1a1735;
+            --text-main: #f0eef9;
+            --text-sub: #9c98b8;
+            --text-muted: #5e5b7a;
+            --primary: #a29bfe;
+            --primary-light: #c8c2ff;
+            --glass: rgba(40, 35, 75, 0.55);
+            --glass-strong: rgba(40, 35, 75, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            --hairline: rgba(255, 255, 255, 0.08);
+        }
+
+        body[data-theme="dark"] .aurora-blob {
+            opacity: .35;
+        }
+
+        /* 다크모드에서 로고 흰색 처리 */
+        body[data-theme="dark"] .logo-icon,
+        body:not([data-theme="light"]) .logo-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body:not([data-theme="light"]) .logo-icon {
+                filter: brightness(0) invert(1);
+            }
+        }
+
 
         *,
         *::before,
@@ -47,6 +172,14 @@
             font-size: 16px;
         }
 
+        button {
+            font-family: inherit;
+            border: 0;
+            background: none;
+            cursor: pointer;
+            color: inherit;
+        }
+
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
@@ -57,13 +190,14 @@
             flex-direction: column;
             -webkit-tap-highlight-color: transparent;
             line-height: 1.5;
-            max-width: 500px;
+            max-width: 520px;
             margin: 0 auto;
             position: relative;
-            padding-bottom: max(24px, env(safe-area-inset-bottom));
+            padding-bottom: calc(96px + env(safe-area-inset-bottom));
+            transition: background .4s ease, color .4s ease;
         }
 
-        /* ── 오로라 메시 배경 (살아 움직이는) ── */
+        /* ── 오로라 배경 ── */
         .aurora-bg {
             position: fixed;
             inset: 0;
@@ -75,8 +209,8 @@
         .aurora-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
+            filter: blur(90px);
+            opacity: .5;
             animation: aurora-drift var(--dur) ease-in-out infinite alternate;
             will-change: transform;
         }
@@ -84,7 +218,7 @@
         .aurora-blob:nth-child(1) {
             width: 340px;
             height: 340px;
-            background: rgba(162, 155, 254, 0.5);
+            background: rgba(162, 155, 254, .5);
             top: -10%;
             left: -15%;
             --dur: 8s;
@@ -93,8 +227,8 @@
         .aurora-blob:nth-child(2) {
             width: 280px;
             height: 280px;
-            background: rgba(232, 67, 147, 0.3);
-            top: 20%;
+            background: rgba(232, 67, 147, .3);
+            top: 18%;
             right: -20%;
             --dur: 10s;
             animation-delay: -3s;
@@ -103,21 +237,27 @@
         .aurora-blob:nth-child(3) {
             width: 300px;
             height: 300px;
-            background: rgba(116, 185, 255, 0.35);
-            bottom: 10%;
+            background: rgba(116, 185, 255, .35);
+            bottom: 8%;
             left: -10%;
             --dur: 12s;
             animation-delay: -5s;
         }
 
         .aurora-blob:nth-child(4) {
-            width: 200px;
-            height: 200px;
-            background: rgba(253, 203, 110, 0.25);
+            width: 220px;
+            height: 220px;
+            background: rgba(253, 203, 110, .28);
             bottom: 30%;
             right: -5%;
             --dur: 9s;
             animation-delay: -2s;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .aurora-blob {
+                opacity: .35;
+            }
         }
 
         @keyframes aurora-drift {
@@ -142,19 +282,17 @@
             }
         }
 
-        /* 그레인 노이즈 오버레이 (고급감) */
         .noise-overlay {
             position: fixed;
             inset: 0;
             z-index: 1;
-            opacity: 0.03;
+            opacity: .04;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
             background-repeat: repeat;
             background-size: 180px;
         }
 
-        /* 모든 콘텐츠를 오로라 위에 */
         .content-layer {
             position: relative;
             z-index: 2;
@@ -162,12 +300,11 @@
             flex-direction: column;
         }
 
-        /* ── 등장 애니메이션 ── */
+        /* 등장 애니메이션 */
         .reveal {
             opacity: 0;
             transform: translateY(28px) scale(0.97);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
         }
 
         .reveal.visible {
@@ -180,12 +317,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 22px 10px;
+            padding: 18px 22px 8px;
             padding-top: max(18px, env(safe-area-inset-top));
         }
 
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .logo-icon {
-            height: 34px;
+            height: 32px;
             width: auto;
             flex-shrink: 0;
         }
@@ -194,25 +337,53 @@
             background: linear-gradient(135deg, var(--primary), var(--accent-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
             letter-spacing: -0.04em;
         }
 
-        /* Liquid Glass 배지 */
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--glass-strong);
+            backdrop-filter: blur(20px) saturate(1.6);
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1rem;
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: transform .25s, background .25s;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .icon-btn:active {
+            transform: scale(.92);
+        }
+
         .liquid-badge {
             background: var(--glass-strong);
             backdrop-filter: blur(24px) saturate(1.8);
             -webkit-backdrop-filter: blur(24px) saturate(1.8);
-            padding: 7px 15px;
+            padding: 8px 14px;
             border-radius: var(--radius-full);
-            font-size: 0.78rem;
+            font-size: .76rem;
             font-weight: 700;
             color: var(--text-sub);
             border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.7);
             display: flex;
             align-items: center;
             gap: 7px;
@@ -223,7 +394,7 @@
             height: 6px;
             border-radius: 50%;
             background: var(--accent-emerald);
-            box-shadow: 0 0 6px rgba(0, 206, 201, 0.5);
+            box-shadow: 0 0 8px rgba(0, 206, 201, .6);
             animation: pulse-dot 2s ease-in-out infinite;
         }
 
@@ -231,7 +402,7 @@
 
             0%,
             100% {
-                opacity: 0.5;
+                opacity: .5;
                 transform: scale(1);
             }
 
@@ -241,44 +412,42 @@
             }
         }
 
-        /* ── 2. 히어로 (키네틱 타이포 + 캐릭터) ── */
+        /* ── 2. 히어로 (Massive Typography) ── */
         .hero-section {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding: 10px 26px 0;
+            padding: 12px 26px 0;
             position: relative;
-            margin-bottom: -1px;
         }
 
         .hero-text {
-            font-size: 1.65rem;
+            font-size: 1.85rem;
             font-weight: 800;
-            line-height: 1.4;
-            letter-spacing: -0.04em;
+            line-height: 1.32;
+            letter-spacing: -0.045em;
             word-break: keep-all;
-            padding-bottom: 38px;
+            padding-bottom: 32px;
             color: var(--text-main);
         }
 
-        /* 한 글자씩 등장하는 키네틱 라인 */
         .kinetic-line {
             display: block;
             opacity: 0;
-            transform: translateY(12px);
-            animation: kinetic-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateY(14px);
+            animation: kinetic-in .65s cubic-bezier(.16, 1, .3, 1) forwards;
         }
 
         .kinetic-line:nth-child(1) {
-            animation-delay: 0.15s;
+            animation-delay: .15s;
         }
 
         .kinetic-line:nth-child(2) {
-            animation-delay: 0.3s;
+            animation-delay: .3s;
         }
 
         .kinetic-line:nth-child(3) {
-            animation-delay: 0.45s;
+            animation-delay: .45s;
         }
 
         @keyframes kinetic-in {
@@ -306,9 +475,9 @@
 
         .hero-glow {
             position: absolute;
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, rgba(108, 92, 231, 0.18) 0%, transparent 70%);
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(108, 92, 231, .22) 0%, transparent 70%);
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -318,62 +487,109 @@
             position: relative;
             z-index: 2;
             width: 148px;
-            filter: drop-shadow(0 14px 28px rgba(108, 92, 231, 0.2));
+            filter: drop-shadow(0 14px 28px rgba(108, 92, 231, .22));
             display: block;
+            animation: float-char 5s ease-in-out infinite;
         }
 
-        @keyframes float {
+        @keyframes float-char {
 
             0%,
             100% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0);
             }
 
             50% {
-                transform: translateY(-10px) rotate(1deg);
+                transform: translateY(-8px) rotate(1.5deg);
             }
         }
 
-        /* ── 3. 메인 CTA — Liquid Glass 히어로 카드 ── */
+        /* ── 3. 키워드 칩 (오늘의 빠른 인사이트, Zero-click) ── */
+        .keyword-strip {
+            display: flex;
+            gap: 8px;
+            padding: 4px 22px 18px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .keyword-strip::-webkit-scrollbar {
+            display: none;
+        }
+
+        .kw-chip {
+            flex-shrink: 0;
+            padding: 9px 16px;
+            border-radius: var(--radius-full);
+            background: var(--glass);
+            backdrop-filter: blur(16px) saturate(1.5);
+            -webkit-backdrop-filter: blur(16px) saturate(1.5);
+            border: 1px solid var(--glass-border);
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .25s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .kw-chip.active {
+            background: var(--text-main);
+            color: var(--bg);
+            border-color: transparent;
+        }
+
+        .kw-chip .kw-emoji {
+            font-size: .9rem;
+        }
+
+        /* ── 4. 메인 CTA (Today's Reading) ── */
         .cta-wrapper {
             padding: 0 18px;
-            margin-bottom: 28px;
+            margin-bottom: 18px;
         }
 
         .cta-card {
             position: relative;
             border-radius: var(--radius-2xl);
-            padding: 40px 30px;
+            padding: 38px 30px 34px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             min-height: 220px;
-
-            /* Liquid Glass 위의 딥 레이어 */
             background-color: #0a1128;
             background-image: url('./img/star_bg.png');
             background-size: cover;
             background-position: center right;
-            box-shadow:
-                0 24px 64px rgba(30, 27, 75, 0.3),
-                0 2px 4px rgba(30, 27, 75, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 24px 64px rgba(30, 27, 75, .32),
+                0 2px 4px rgba(30, 27, 75, .1),
+                inset 0 1px 0 rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .06);
+            cursor: pointer;
+            transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), box-shadow .4s;
+        }
+
+        .cta-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 32px 72px rgba(30, 27, 75, .4);
+        }
+
+        .cta-card:active {
+            transform: scale(.985);
         }
 
         .cta-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(91deg, rgba(30, 27, 75, 0.9) 0%, rgba(30, 27, 75, 0.2) 80%, transparent 100%);
+            inset: 0;
+            background: linear-gradient(91deg, rgba(30, 27, 75, .92) 0%, rgba(30, 27, 75, .3) 75%, transparent 100%);
             z-index: 1;
         }
 
-        /* 내부 글래스 레이어 (Liquid Glass 효과) */
         .cta-glass-layer {
             position: absolute;
             top: -30%;
@@ -382,33 +598,9 @@
             height: 250px;
             border-radius: 50%;
             background: radial-gradient(circle,
-                    rgba(162, 155, 254, 0.25) 0%,
-                    rgba(232, 67, 147, 0.08) 50%,
-                    transparent 70%);
+                    rgba(162, 155, 254, .28) 0%, rgba(232, 67, 147, .1) 50%, transparent 70%);
             filter: blur(2px);
             animation: glass-morph 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes glass-morph {
-            0% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-                border-radius: 50%;
-            }
-
-            33% {
-                transform: translate(-20px, 25px) scale(1.15) rotate(60deg);
-                border-radius: 45% 55% 50% 50%;
-            }
-
-            66% {
-                transform: translate(10px, -10px) scale(0.9) rotate(120deg);
-                border-radius: 55% 45% 55% 45%;
-            }
-
-            100% {
-                transform: translate(-10px, 15px) scale(1.05) rotate(180deg);
-                border-radius: 50% 50% 45% 55%;
-            }
         }
 
         .cta-glass-layer-2 {
@@ -418,11 +610,30 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: radial-gradient(circle,
-                    rgba(116, 185, 255, 0.15) 0%,
-                    transparent 60%);
-            filter: blur(1px);
+            background: radial-gradient(circle, rgba(116, 185, 255, .18) 0%, transparent 60%);
             animation: glass-morph 10s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes glass-morph {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0);
+                border-radius: 50%;
+            }
+
+            33% {
+                transform: translate(-20px, 25px) scale(1.15) rotate(60deg);
+                border-radius: 45% 55% 50% 50%;
+            }
+
+            66% {
+                transform: translate(10px, -10px) scale(.9) rotate(120deg);
+                border-radius: 55% 45% 55% 45%;
+            }
+
+            100% {
+                transform: translate(-10px, 15px) scale(1.05) rotate(180deg);
+                border-radius: 50% 50% 45% 55%;
+            }
         }
 
         .twinkle-star {
@@ -439,7 +650,7 @@
             0%,
             100% {
                 opacity: 0;
-                transform: scale(0.2);
+                transform: scale(.2);
             }
 
             40% {
@@ -448,67 +659,63 @@
             }
 
             70% {
-                opacity: 0.3;
-                transform: scale(0.5);
+                opacity: .3;
+                transform: scale(.5);
             }
         }
 
         .cta-label {
-            font-size: 0.7rem;
+            font-size: .7rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: .15em;
             color: var(--primary-light);
             z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .cta-title {
             color: #fff;
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            line-height: 1.5;
+            line-height: 1.45;
             z-index: 3;
             max-width: 90%;
+            letter-spacing: -.02em;
         }
 
-        /* Liquid Glass CTA 버튼 */
         .cta-btn {
             display: inline-flex;
             align-items: center;
             align-self: flex-start;
             gap: 10px;
-            padding: 15px 28px;
+            padding: 14px 26px;
             border-radius: var(--radius-full);
-            font-size: 0.93rem;
+            font-size: .92rem;
             font-weight: 800;
             z-index: 3;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-            /* Liquid Glass 버튼 */
-            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, .25);
+            background: rgba(255, 255, 255, .15);
             backdrop-filter: blur(16px) saturate(1.4);
             -webkit-backdrop-filter: blur(16px) saturate(1.4);
             color: #fff;
-            box-shadow:
-                0 8px 24px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .18),
+                inset 0 1px 0 rgba(255, 255, 255, .3),
+                inset 0 -1px 0 rgba(0, 0, 0, .05);
+            transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+            cursor: pointer;
         }
 
         .cta-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow:
-                0 12px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, .28);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .4);
             transform: translateY(-2px);
         }
 
         .cta-btn:active {
-            transform: scale(0.96);
+            transform: scale(.96);
         }
 
         .cta-btn .arrow {
@@ -518,16 +725,90 @@
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            font-size: 0.8rem;
-            transition: transform 0.3s;
+            background: rgba(255, 255, 255, .22);
+            font-size: .8rem;
+            transition: transform .3s;
         }
 
         .cta-btn:hover .arrow {
             transform: translateX(3px);
         }
 
-        /* ── 4. 타로 공부 — 수평 스와이프 캐러셀 ── */
+        /* ── 5. 빠른 액션 미니 그리드 (Bento, 2개) ── */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 18px;
+            margin-bottom: 28px;
+        }
+
+        .q-card {
+            position: relative;
+            padding: 18px 18px 20px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(1.6);
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, .6);
+            transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-height: 110px;
+        }
+
+        .q-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(108, 92, 231, .14);
+        }
+
+        .q-card:active {
+            transform: scale(.97);
+        }
+
+        .q-emoji {
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+
+        .q-title {
+            font-size: .92rem;
+            font-weight: 800;
+            letter-spacing: -.02em;
+            color: var(--text-main);
+        }
+
+        .q-desc {
+            font-size: .72rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .q-arrow {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--text-main);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 800;
+            transition: transform .3s;
+        }
+
+        .q-card:hover .q-arrow {
+            transform: rotate(-45deg);
+        }
+
+        /* ── 6. 타로 공부 — 캐러셀 (개선) ── */
         .study-section {
             margin-bottom: 32px;
         }
@@ -536,15 +817,19 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding: 0 30px;
-            margin-bottom: 18px;
+            padding: 0 26px;
+            margin-bottom: 16px;
         }
 
         .study-title {
-            font-size: 1.3rem;
+            font-size: 1.45rem;
             font-weight: 900;
-            letter-spacing: -.04em;
-            line-height: 1.35;
+            letter-spacing: -.045em;
+            line-height: 1.3;
+        }
+
+        .study-title .accent {
+            color: var(--primary);
         }
 
         .study-tag {
@@ -553,6 +838,9 @@
             color: var(--text-muted);
             letter-spacing: .08em;
             text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .carousel {
@@ -562,7 +850,7 @@
             -webkit-overflow-scrolling: touch;
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 14px;
             padding: 8px 18px 20px;
             scrollbar-width: none;
             cursor: grab;
@@ -587,7 +875,7 @@
             scroll-snap-align: start;
             flex-shrink: 0;
             width: 230px;
-            height: 275px;
+            height: 280px;
             border-radius: var(--radius-xl);
             position: relative;
             overflow: hidden;
@@ -599,23 +887,22 @@
             backdrop-filter: blur(24px) saturate(1.5);
             -webkit-backdrop-filter: blur(24px) saturate(1.5);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px rgba(108, 92, 231, .06), inset 0 1px 0 rgba(255, 255, 255, .7);
+            box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, .65);
             transform: translateZ(0);
             backface-visibility: hidden;
         }
 
         .s-card:hover {
-            transform: translateY(0);
-            box-shadow: 0 12px 48px rgba(108, 92, 231, .12), inset 0 1px 0 rgba(255, 255, 255, .8);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(108, 92, 231, .16), inset 0 1px 0 rgba(255, 255, 255, .8);
         }
 
         .s-card:active {
             transform: scale(.97);
         }
 
-        /* 상단 비주얼 */
         .sc-vis {
-            height: 120px;
+            height: 130px;
             position: relative;
             padding-top: 19px;
             display: flex;
@@ -627,7 +914,7 @@
         .sc-vis-bg {
             position: absolute;
             inset: 0;
-            opacity: .15;
+            opacity: .18;
             z-index: 0;
         }
 
@@ -649,13 +936,25 @@
 
         .sc-float {
             z-index: 1;
-            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .08));
-            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .1));
+            animation: float-icon 4s ease-in-out infinite;
+        }
+
+        @keyframes float-icon {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0);
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(2deg);
+            }
         }
 
         .sc-float img {
-            width: 80px;
-            height: 80px;
+            width: 84px;
+            height: 84px;
             object-fit: contain;
         }
 
@@ -663,13 +962,13 @@
             position: absolute;
             top: 14px;
             left: 16px;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .55);
+            background: var(--glass-strong);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, .6);
+            border: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -679,18 +978,17 @@
             z-index: 2;
         }
 
-        /* 하단 텍스트 */
         .sc-body {
-            padding: 16px 20px 18px;
+            padding: 18px 20px 20px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
             flex: 1;
             justify-content: flex-start;
         }
 
         .sc-title {
-            font-size: 1.05rem;
+            font-size: 1.08rem;
             font-weight: 800;
             letter-spacing: -.02em;
             color: var(--text-main);
@@ -713,6 +1011,7 @@
         .sc-pills {
             display: flex;
             gap: 6px;
+            flex-wrap: wrap;
         }
 
         .sc-pill {
@@ -723,44 +1022,43 @@
         }
 
         .sc-pill-1 {
-            background: rgba(108, 92, 231, .08);
+            background: rgba(108, 92, 231, .12);
             color: var(--primary);
         }
 
         .sc-pill-2 {
-            background: rgba(232, 67, 147, .08);
+            background: rgba(232, 67, 147, .12);
             color: var(--accent-pink);
         }
 
         .sc-pill-3 {
-            background: rgba(249, 168, 37, .1);
-            color: #e67e00;
+            background: rgba(249, 168, 37, .14);
+            color: #d97500;
         }
 
         .sc-pill-4 {
-            background: rgba(0, 191, 165, .08);
-            color: var(--accent-emerald);
+            background: rgba(0, 191, 165, .12);
+            color: #009e96;
         }
 
         .sc-arrow {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: var(--text-main);
-            color: #fff;
+            color: var(--bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: .7rem;
+            font-size: .72rem;
             font-weight: 800;
             transition: transform .3s;
         }
 
         .s-card:hover .sc-arrow {
-            transform: translateX(3px);
+            transform: translateX(4px);
         }
 
-        /* 캐러셀 도트 */
         .dots {
             display: flex;
             justify-content: center;
@@ -773,24 +1071,24 @@
             height: 8px;
             border-radius: 50%;
             background: var(--text-muted);
-            opacity: .3;
+            opacity: .35;
             transition: all .3s;
         }
 
         .dot.on {
-            width: 24px;
+            width: 26px;
             border-radius: 4px;
             background: var(--primary);
             opacity: 1;
         }
 
-        /* ── 리플 효과 ── */
+        /* ── 리플 ── */
         .ripple-circle {
             position: absolute;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, .4);
             border-radius: 50%;
             transform: scale(0);
-            animation: ripple-anim 0.6s linear;
+            animation: ripple-anim .6s linear;
             pointer-events: none;
             z-index: 5;
         }
@@ -802,25 +1100,110 @@
             }
         }
 
-        /* ── 스크롤바 숨김 ── */
-        ::-webkit-scrollbar {
-            width: 0;
-        }
-
         /* ── 푸터 ── */
         .footer {
             text-align: center;
-            padding: 16px 20px 48px;
+            padding: 16px 20px 24px;
             color: var(--text-muted);
-            font-size: 0.65rem;
+            font-size: .65rem;
             font-weight: 600;
-            letter-spacing: 0.03em;
+            letter-spacing: .03em;
             line-height: 1.6;
+        }
+
+        /* ── 7. Floating Dock (하단 빠른 진입) ── */
+        .dock {
+            position: fixed;
+            bottom: max(16px, env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            padding: 8px;
+            background: var(--glass-strong);
+            backdrop-filter: blur(28px) saturate(1.8);
+            -webkit-backdrop-filter: blur(28px) saturate(1.8);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-full);
+            box-shadow: 0 12px 40px rgba(108, 92, 231, .18),
+                inset 0 1px 0 rgba(255, 255, 255, .7);
+            z-index: 50;
+            opacity: 0;
+            transform: translate(-50%, 20px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+
+        .dock.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .dock-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            transition: all .3s;
+            position: relative;
+        }
+
+        .dock-btn.active {
+            background: var(--text-main);
+            color: var(--bg);
+            transform: scale(1.05);
+        }
+
+        .dock-btn:hover:not(.active) {
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .dock-tip {
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-main);
+            color: var(--bg);
+            font-size: .68rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s;
+        }
+
+        .dock-btn:hover .dock-tip {
+            opacity: 1;
+        }
+
+        /* 모션 줄임 모드 */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .15s !important;
+            }
+
+            .aurora-blob,
+            .twinkle-star,
+            .brand-char,
+            .sc-float {
+                animation: none !important;
+            }
         }
 
         @media (min-width: 640px) {
             body {
-                max-width: 520px;
+                max-width: 540px;
             }
         }
     </style>
@@ -828,30 +1211,30 @@
 
 <body>
 
-    <!-- 오로라 메시 배경 -->
+    <!-- 오로라 -->
     <div class="aurora-bg" aria-hidden="true">
         <div class="aurora-blob"></div>
         <div class="aurora-blob"></div>
         <div class="aurora-blob"></div>
         <div class="aurora-blob"></div>
     </div>
-
-    <!-- 그레인 노이즈 -->
     <div class="noise-overlay" aria-hidden="true"></div>
 
-    <!-- 콘텐츠 레이어 -->
     <div class="content-layer">
 
         <!-- 1. 탑바 -->
         <header class="top-bar reveal">
-            <h1 class="page-title">
+            <h1 class="brand-wrap">
                 <img src="./img/logo_jian.png" alt="타로 지안" class="logo-icon"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
                 <span class="logo-fallback" style="display:none;">타로 지안</span>
             </h1>
-            <div class="liquid-badge">
-                <span class="live-dot"></span>
-                <span id="badgeText">4.13 일요일 · 성찰</span>
+            <div class="top-actions">
+                <div class="liquid-badge">
+                    <span class="live-dot"></span>
+                    <span id="badgeText">오늘 · 성찰</span>
+                </div>
+                <button class="icon-btn" id="themeToggle" aria-label="테마 전환">🌙</button>
             </div>
         </header>
 
@@ -869,35 +1252,62 @@
             </div>
         </section>
 
-        <!-- 3. 메인 CTA -->
-        <section class="cta-wrapper reveal" style="transition-delay:.1s">
-            <div class="cta-card has-ripple" id="ctaCard">
+        <!-- 3. 오늘의 카테고리 칩 -->
+        <nav class="keyword-strip reveal" style="transition-delay:.06s" aria-label="오늘의 카테고리">
+            <a class="kw-chip active" href="tarot_01.html"><span class="kw-emoji">✨</span> 전체</a>
+            <a class="kw-chip" href="tarot_01.html?category=love"><span class="kw-emoji">💗</span> 연애</a>
+            <a class="kw-chip" href="tarot_01.html?category=work"><span class="kw-emoji">💼</span> 직장</a>
+            <a class="kw-chip" href="tarot_01.html?category=money"><span class="kw-emoji">💰</span> 금전</a>
+            <a class="kw-chip" href="tarot_01.html?category=health"><span class="kw-emoji">🌿</span> 건강</a>
+            <a class="kw-chip" href="tarot_01.html?category=goal"><span class="kw-emoji">🎯</span> 목표</a>
+        </nav>
+
+
+        <!-- 4. 메인 CTA -->
+        <section class="cta-wrapper reveal" style="transition-delay:.12s">
+            <a href="tarot_01.html" class="cta-card has-ripple" id="ctaCard">
                 <div class="cta-glass-layer"></div>
                 <div class="cta-glass-layer-2"></div>
                 <span class="cta-label">✦ Today's Reading</span>
                 <div class="cta-title">오늘 하루,<br>나의 운세 흐름을 확인해 보세요</div>
-                <a href="tarot_01.html" class="cta-btn">
+                <span class="cta-btn">
                     오늘의 운세 보기
                     <span class="arrow">→</span>
-                </a>
-            </div>
+                </span>
+            </a>
         </section>
 
-        <!-- 4. 타로 공부 캐러셀 -->
-        <section class="study-section reveal" style="transition-delay:.18s">
+        <!-- 5. 빠른 진입 그리드 -->
+        <section class="quick-grid reveal" style="transition-delay:.18s">
+            <a href="tarot_01.html" class="q-card has-ripple">
+                <div class="q-emoji">🔮</div>
+                <div class="q-title">한 장 뽑기</div>
+                <div class="q-desc">간단한 데일리 카드</div>
+                <div class="q-arrow">↗</div>
+            </a>
+            <a href="arrange.html" class="q-card has-ripple">
+                <div class="q-emoji">🃏</div>
+                <div class="q-title">스프레드</div>
+                <div class="q-desc">상황별 배열법</div>
+                <div class="q-arrow">↗</div>
+            </a>
+        </section>
+
+        <!-- 6. 타로 공부 캐러셀 -->
+        <section class="study-section reveal" style="transition-delay:.22s">
             <div class="study-header">
-                <h2 class="study-title">타로 공부,시작하기!</h2>
+                <h2 class="study-title">타로 공부, <span class="accent">시작하기</span></h2>
                 <span class="study-tag">Swipe →</span>
             </div>
 
-            <div class="carousel" id="carousel">
+            <div class="carousel" id="carousel" role="list">
 
-                <a href="tarot_02.html" class="s-card has-ripple">
+                <a href="tarot_02.html" class="s-card has-ripple" role="listitem">
                     <div class="sc-vis">
                         <div class="sc-vis-bg sc-vis-bg-1"></div>
                         <div class="sc-num">01</div>
                         <div class="sc-float">
-                            <img src="./img/icon_yinyang.png" alt="주역"
+                            <img src="./img/icon_yinyang.png" alt="주역" loading="lazy"
                                 onerror="this.outerHTML='<span style=font-size:3.2rem>☯️</span>'">
                         </div>
                     </div>
@@ -914,12 +1324,12 @@
                     </div>
                 </a>
 
-                <a href="tarot_03.html" class="s-card has-ripple">
+                <a href="tarot_03.html" class="s-card has-ripple" role="listitem">
                     <div class="sc-vis">
                         <div class="sc-vis-bg sc-vis-bg-2"></div>
                         <div class="sc-num">02</div>
                         <div class="sc-float">
-                            <img src="./img/icon_magichat.png" alt="유니버셜"
+                            <img src="./img/icon_magichat.png" alt="유니버셜" loading="lazy"
                                 onerror="this.outerHTML='<span style=font-size:3.2rem>🔮</span>'">
                         </div>
                     </div>
@@ -936,12 +1346,12 @@
                     </div>
                 </a>
 
-                <a href="tarot_04.html" class="s-card has-ripple">
+                <a href="tarot_04.html" class="s-card has-ripple" role="listitem">
                     <div class="sc-vis">
                         <div class="sc-vis-bg sc-vis-bg-3"></div>
                         <div class="sc-num">03</div>
                         <div class="sc-float">
-                            <img src="./img/icon_moonstar.png" alt="벨린"
+                            <img src="./img/icon_moonstar.png" alt="벨린" loading="lazy"
                                 onerror="this.outerHTML='<span style=font-size:3.2rem>🌟</span>'">
                         </div>
                     </div>
@@ -958,12 +1368,12 @@
                     </div>
                 </a>
 
-                <a href="arrange.html" class="s-card has-ripple">
+                <a href="arrange.html" class="s-card has-ripple" role="listitem">
                     <div class="sc-vis">
                         <div class="sc-vis-bg sc-vis-bg-4"></div>
                         <div class="sc-num">04</div>
                         <div class="sc-float">
-                            <img src="./img/icon_arrange.png" alt="배열법"
+                            <img src="./img/icon_arrange.png" alt="배열법" loading="lazy"
                                 onerror="this.outerHTML='<span style=font-size:3.2rem>🃏</span>'">
                         </div>
                     </div>
@@ -982,7 +1392,7 @@
 
             </div>
 
-            <div class="dots" id="dots">
+            <div class="dots" id="dots" aria-hidden="true">
                 <div class="dot on"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
@@ -990,28 +1400,31 @@
             </div>
         </section>
 
-        <!-- 제스처 힌트 -->
-        <div class="gesture-hint reveal" style="transition-delay:.22s">
-            <div class="gesture-pill"></div>
-        </div>
-
-        <footer class="footer reveal" style="transition-delay:.25s">
+        <footer class="footer reveal" style="transition-delay:.28s">
             © 2026 Taro JIAN. All Rights Reserved.
         </footer>
 
     </div>
 
+    <!-- Floating Dock -->
+    <nav class="dock" id="dock" aria-label="빠른 메뉴">
+        <a href="./" class="dock-btn active" aria-label="홈"><span>🏠</span><span class="dock-tip">홈</span></a>
+        <a href="tarot_01.html" class="dock-btn" aria-label="오늘의 운세"><span>✨</span><span class="dock-tip">오늘</span></a>
+        <a href="tarot_02.html" class="dock-btn" aria-label="공부"><span>📖</span><span class="dock-tip">공부</span></a>
+        <a href="arrange.html" class="dock-btn" aria-label="배열법"><span>🃏</span><span class="dock-tip">배열</span></a>
+    </nav>
+
     <script>
-        // ── 날짜 + 타로 키워드 ──
+        // 날짜 + 키워드
         (() => {
             const el = document.getElementById('badgeText');
             const d = new Date();
-            const weeks = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const weeks = ['일', '월', '화', '수', '목', '금', '토'];
             const keys = ['성찰', '직관', '변화', '균형', '용기', '사랑', '기다림'];
             el.textContent = `${d.getMonth() + 1}.${d.getDate()} ${weeks[d.getDay()]} · ${keys[d.getDay()]}`;
         })();
 
-        // ── 별 파티클 ──
+        // 별 파티클
         (() => {
             const card = document.getElementById('ctaCard');
             if (!card) return;
@@ -1020,28 +1433,28 @@
                 s.className = 'twinkle-star';
                 const sz = 1 + Math.random() * 2.5;
                 s.style.cssText = `
-                    left:${Math.random() * 100}%;top:${Math.random() * 100}%;
-                    width:${sz}px;height:${sz}px;
-                    --dur:${(1.5 + Math.random() * 3).toFixed(2)}s;
-                    --delay:${(Math.random() * 3).toFixed(2)}s;
-                    background:hsl(${220 + Math.random() * 70},70%,${80 + Math.random() * 20}%);
-                    box-shadow:0 0 ${(sz * 3).toFixed(1)}px ${sz.toFixed(1)}px rgba(180,165,255,0.45);
-                `;
+          left:${Math.random() * 100}%;top:${Math.random() * 100}%;
+          width:${sz}px;height:${sz}px;
+          --dur:${(1.5 + Math.random() * 3).toFixed(2)}s;
+          --delay:${(Math.random() * 3).toFixed(2)}s;
+          background:hsl(${220 + Math.random() * 70},70%,${80 + Math.random() * 20}%);
+          box-shadow:0 0 ${(sz * 3).toFixed(1)}px ${sz.toFixed(1)}px rgba(180,165,255,.45);
+        `;
                 card.appendChild(s);
             }
         })();
 
-        // ── Intersection Observer 등장 ──
+        // 등장 애니메이션
         (() => {
             const obs = new IntersectionObserver(entries => {
                 entries.forEach(e => {
                     if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: .1 });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         })();
 
-        // ── 리플 이펙트 ──
+        // 리플
         document.querySelectorAll('.has-ripple').forEach(c => {
             c.addEventListener('pointerdown', e => {
                 const r = document.createElement('span');
@@ -1058,45 +1471,28 @@
             });
         });
 
-        // ── 캐러셀 도트 & 마우스 드래그 ──
+        // 캐러셀 도트 + 드래그
         (() => {
             const wrap = document.getElementById('carousel');
             const dots = document.querySelectorAll('.dot');
             const cards = wrap.querySelectorAll('.s-card');
             if (!wrap || dots.length === 0) return;
 
-            // 1. 도트 연동 (스크롤 이벤트)
             wrap.addEventListener('scroll', () => {
-                const cw = cards[0].offsetWidth + 16;
+                const cw = cards[0].offsetWidth + 14;
                 const idx = Math.round(wrap.scrollLeft / cw);
                 dots.forEach((d, i) => d.classList.toggle('on', i === idx));
             }, { passive: true });
 
-            // 2. 마우스 드래그 스와이프 구현
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let moved = false;
-
-            wrap.addEventListener('mousedown', (e) => {
-                isDown = true;
-                wrap.classList.add('grabbing');
+            let isDown = false, startX, scrollLeft, moved = false;
+            wrap.addEventListener('mousedown', e => {
+                isDown = true; wrap.classList.add('grabbing');
                 startX = e.pageX - wrap.offsetLeft;
-                scrollLeft = wrap.scrollLeft;
-                moved = false;
+                scrollLeft = wrap.scrollLeft; moved = false;
             });
-
-            wrap.addEventListener('mouseleave', () => {
-                isDown = false;
-                wrap.classList.remove('grabbing');
-            });
-
-            wrap.addEventListener('mouseup', () => {
-                isDown = false;
-                wrap.classList.remove('grabbing');
-            });
-
-            wrap.addEventListener('mousemove', (e) => {
+            wrap.addEventListener('mouseleave', () => { isDown = false; wrap.classList.remove('grabbing'); });
+            wrap.addEventListener('mouseup', () => { isDown = false; wrap.classList.remove('grabbing'); });
+            wrap.addEventListener('mousemove', e => {
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - wrap.offsetLeft;
@@ -1104,17 +1500,64 @@
                 if (Math.abs(walk) > 5) moved = true;
                 wrap.scrollLeft = scrollLeft - walk;
             });
-
-            // 드래그 중 클릭 방지
             wrap.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    if (moved) {
-                        e.preventDefault();
-                        moved = false;
-                    }
+                link.addEventListener('click', e => {
+                    if (moved) { e.preventDefault(); moved = false; }
                 });
             });
         })();
+
+
+        // Floating Dock — 약간 스크롤 후 등장
+        (() => {
+            const dock = document.getElementById('dock');
+            const showDock = () => {
+                if (window.scrollY > 60) dock.classList.add('show');
+                else dock.classList.remove('show');
+            };
+            window.addEventListener('scroll', showDock, { passive: true });
+            setTimeout(() => dock.classList.add('show'), 800);
+        })();
+
+        // 다크/라이트 테마 토글
+        (() => {
+            const btn = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // 현재 실제 보이는 모드 확인
+            const getCurrentMode = () => {
+                if (body.dataset.theme) return body.dataset.theme; // 사용자가 명시 선택
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+
+            // 아이콘 업데이트
+            const updateIcon = () => {
+                btn.textContent = getCurrentMode() === 'dark' ? '☀️' : '🌙';
+            };
+
+            // 저장된 설정 복원
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark' || saved === 'light') {
+                body.dataset.theme = saved;
+            }
+            updateIcon();
+
+            // 토글: 현재 보이는 모드의 반대로 전환
+            btn.addEventListener('click', () => {
+                const next = getCurrentMode() === 'dark' ? 'light' : 'dark';
+                body.dataset.theme = next;
+                localStorage.setItem('theme', next);
+                updateIcon();
+            });
+
+            // 시스템 설정 변경 시 아이콘 동기화 (사용자가 명시 선택 안 했을 때)
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                if (!body.dataset.theme) updateIcon();
+            });
+        })();
+
+
+
     </script>
 </body>
 

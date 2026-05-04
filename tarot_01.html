@@ -1119,6 +1119,108 @@
     ];
   </script>
   <script src="spread.js"></script>
+  <!-- ─── 카테고리 강조 모듈 (메인페이지에서 ?category=xxx로 진입 시 작동) ─── -->
+  <script>
+    (() => {
+      // 1. URL 파라미터 읽기
+      const params = new URLSearchParams(location.search);
+      const category = params.get('category');
+      if (!category) return; // 전체(파라미터 없음)면 아무것도 안 함
+
+      // 2. 카테고리 메타 정보
+      const META = {
+        love: { emoji: '💗', label: '연애운', color: '#ec4899', focusKey: 'lov', focusLabel: '연애' },
+        work: { emoji: '💼', label: '직장운', color: '#4f46e5', focusKey: 'bus', focusLabel: '직장/사업' },
+        money: { emoji: '💰', label: '금전운', color: '#d97706', focusKey: 'bus', focusLabel: '재물' },
+        health: { emoji: '🌿', label: '건강운', color: '#059669', focusKey: 'hea', focusLabel: '건강' },
+        goal: { emoji: '🎯', label: '목표운', color: '#7c3aed', focusKey: 'total', focusLabel: '오늘의 목표' }
+      };
+      const meta = META[category];
+      if (!meta) return;
+
+      // 3. 헤더 타이틀 변경 + 카테고리 배지 추가
+      const headerTitle = document.querySelector('.header-title');
+      if (headerTitle) {
+        headerTitle.innerHTML = `${meta.emoji} 오늘의 ${meta.label}`;
+      }
+
+      // 4. 히어로 배너에 카테고리 안내 라인 추가
+      const heroSub = document.querySelector('.hero-sub');
+      if (heroSub) {
+        heroSub.innerHTML = `<b style="color:${meta.color}">${meta.label}</b>에 집중해서 풀이해드릴게요`;
+      }
+
+      // 5. 카테고리 배지 스타일 주입
+      const style = document.createElement('style');
+      style.textContent = `
+    .category-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 20px;
+      background: ${meta.color}15;
+      color: ${meta.color};
+      font-size: 0.85rem; font-weight: 800;
+      border: 1px solid ${meta.color}30;
+      margin-left: 8px;
+    }
+    .focus-highlight {
+      background: linear-gradient(135deg, ${meta.color}10, ${meta.color}05) !important;
+      border-left: 4px solid ${meta.color} !important;
+      box-shadow: 0 4px 16px ${meta.color}15 !important;
+      position: relative;
+    }
+    .focus-highlight::before {
+      content: '⭐ ${meta.focusLabel} 포커스';
+      position: absolute; top: -10px; right: 12px;
+      font-size: 0.7rem; font-weight: 800;
+      background: ${meta.color}; color: #fff;
+      padding: 3px 10px; border-radius: 12px;
+      letter-spacing: 0.02em;
+    }
+    .focus-highlight .detail-text b {
+      color: ${meta.color} !important;
+    }
+  `;
+      document.head.appendChild(style);
+
+      // 6. 결과가 그려지면 해당 카테고리 항목을 강조 (DOM 변화 감지)
+      const resultArea = document.getElementById('result-area');
+      if (!resultArea) return;
+
+      const KEYWORD_MAP = {
+        lov: ['연애', '사랑', '인연', '러브', '관계', '결혼'],
+        bus: ['사업', '직장', '업무', '비즈니스', '자금', '계약', '투자', '금전', '재물', '커리어'],
+        hea: ['건강', '컨디션', '체력', '질환', '질병', '관리'],
+        total: ['총운', '총평', '오늘', '하루']
+      };
+
+      const highlightCategoryRows = () => {
+        const targetKeywords = KEYWORD_MAP[meta.focusKey] || [];
+        document.querySelectorAll('.report-card').forEach(card => {
+          // 기존 강조 제거
+          card.querySelectorAll('.detail-row').forEach(row => {
+            row.classList.remove('focus-highlight');
+          });
+          // 키워드 매칭으로 해당 행 찾기
+          card.querySelectorAll('.detail-row').forEach(row => {
+            const text = (row.querySelector('.detail-text b')?.textContent || '').trim();
+            if (targetKeywords.some(k => text.includes(k))) {
+              row.classList.add('focus-highlight');
+            }
+          });
+        });
+      };
+
+      // 결과 영역이 보이게 되면 강조 적용 (MutationObserver)
+      const observer = new MutationObserver(() => {
+        if (resultArea.style.display !== 'none' && resultArea.children.length > 0) {
+          // 약간의 딜레이로 렌더링 후 강조
+          setTimeout(highlightCategoryRows, 100);
+        }
+      });
+      observer.observe(resultArea, { childList: true, subtree: true, attributes: true, attributeFilter: ['style'] });
+    })();
+  </script>
+
 </body>
 
 </html>
