@@ -733,53 +733,77 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* ── 하단 플로팅 독 (Floating Dock) ── */
-    .bottom-dock {
+    /* ── 7. Floating Dock (메인과 동일한 하단 빠른 메뉴) ── */
+    .dock {
       position: fixed;
-      bottom: 20px;
+      bottom: max(16px, env(safe-area-inset-bottom));
       left: 50%;
-      transform: translateX(-50%);
-      z-index: 40;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 10px 32px rgba(79, 70, 229, 0.15);
-      border-radius: var(--radius-full);
-      padding: 6px 10px;
+      transform: translate(-50%, 20px);
       display: flex;
-      align-items: center;
       gap: 6px;
+      padding: 8px;
+      background: var(--glass-card);
+      backdrop-filter: blur(28px) saturate(1.8);
+      -webkit-backdrop-filter: blur(28px) saturate(1.8);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-full);
+      box-shadow: 0 12px 40px rgba(108, 92, 231, .18),
+        inset 0 1px 0 rgba(255, 255, 255, .7);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s ease, transform .5s ease;
     }
 
-    .dock-link {
+    .dock.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+      pointer-events: auto;
+    }
+
+    .dock-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 1.1rem;
       color: var(--text-sub);
-      gap: 2px;
-      transition: all 0.2s ease;
+      transition: all .3s;
+      position: relative;
     }
 
-    .dock-link .dock-icon {
-      font-size: 1.15rem;
+    .dock-btn.active {
+      background: var(--text-main);
+      color: #ffffff;
+      transform: scale(1.05);
     }
 
-    .dock-link:hover {
-      background: rgba(79, 70, 229, 0.08);
-      color: var(--primary);
+    .dock-btn:hover:not(.active) {
+      color: var(--text-main);
       transform: translateY(-2px);
     }
 
-    .dock-link.active {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+    .dock-tip {
+      position: absolute;
+      top: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-main);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+    }
+
+    .dock-btn:hover .dock-tip {
+      opacity: 1;
     }
 
     /* 애니메이션 */
@@ -927,32 +951,13 @@
 
   </main>
 
-  <!-- 하단 플로팅 독 바 (네비게이션) -->
-  <nav class="bottom-dock" aria-label="하단 네비게이션">
-    <a href="index.html" class="dock-link" aria-label="홈">
-      <span class="dock-icon">🏠</span>
-      <span>홈</span>
-    </a>
-    <a href="tarot_01.html" class="dock-link" aria-label="오늘의 운세">
-      <span class="dock-icon">✨</span>
-      <span>오늘의 운세</span>
-    </a>
-    <a href="soulnum.html" class="dock-link active" aria-label="생일수">
-      <span class="dock-icon">🔮</span>
-      <span>생일수</span>
-    </a>
-    <a href="tarot_02.html" class="dock-link" aria-label="주역 타로">
-      <span class="dock-icon">☯️</span>
-      <span>주역</span>
-    </a>
-    <a href="tarot_03.html" class="dock-link" aria-label="웨이트 타로">
-      <span class="dock-icon">📖</span>
-      <span>웨이트</span>
-    </a>
-    <a href="arrange.html" class="dock-link" aria-label="배열법">
-      <span class="dock-icon">🃏</span>
-      <span>배열법</span>
-    </a>
+  <!-- Floating Dock (메인과 동일한 하단 빠른 메뉴) -->
+  <nav class="dock" id="dock" aria-label="빠른 메뉴">
+    <a href="index.html" class="dock-btn" aria-label="홈"><span>🏠</span><span class="dock-tip">홈</span></a>
+    <a href="tarot_01.html" class="dock-btn" aria-label="오늘의 운세"><span>✨</span><span class="dock-tip">오늘</span></a>
+    <a href="soulnum.html" class="dock-btn active" aria-label="생일수 타로"><span>🔮</span><span class="dock-tip">생일수</span></a>
+    <a href="tarot_02.html" class="dock-btn" aria-label="공부"><span>📖</span><span class="dock-tip">공부</span></a>
+    <a href="arrange.html" class="dock-btn" aria-label="배열법"><span>🃏</span><span class="dock-tip">배열</span></a>
   </nav>
 
   <!-- 복사 완료 토스트 알림 -->
@@ -1393,12 +1398,25 @@
     // 토스트 알림 표시
     function showToast(msg) {
       const toast = document.getElementById('toast');
+      if (!toast) return;
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
       }, 2500);
     }
+
+    // Floating Dock — 약간 스크롤 후 등장
+    (() => {
+      const dock = document.getElementById('dock');
+      if (!dock) return;
+      const showDock = () => {
+        if (window.scrollY > 60) dock.classList.add('show');
+        else dock.classList.remove('show');
+      };
+      window.addEventListener('scroll', showDock, { passive: true });
+      showDock();
+    })();
   </script>
 </body>
 
