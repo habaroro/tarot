@@ -171,8 +171,21 @@ img {
 
   table.card {
     font-size: 13px;
+    display: table;
+    table-layout: fixed;
+    white-space: normal;
+    overflow-wrap: anywhere;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+  }
+
+  table.card .card-name {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  table.card th:first-child[style*="6%"] {
+    width: 3em !important;
   }
 
   table.card th,
