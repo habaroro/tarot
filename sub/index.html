@@ -1,1 +1,349 @@
-.
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>레드썬 컬러타로 — 22색 스터디 노트</title>
+<style>
+  :root{
+    --ink:#1d1d1f; --muted:#6b6b6f; --line:#e6e2dc; --gold:#b8860b;
+    --bg:#faf8f5; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  .top-header{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:16px;
+    padding:10px max(20px,calc((100% - 1180px)/2 + 24px));
+    background:rgba(255,255,255,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(230,226,220,.8);box-shadow:0 4px 24px rgba(29,29,31,.05);
+  }
+  .back-btn{
+    display:flex;align-items:center;justify-content:center;flex:0 0 42px;width:42px;height:42px;
+    background:rgba(255,255,255,.9);border:1px solid rgba(230,226,220,.9);border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,.03);transition:transform .2s,box-shadow .2s,background .2s;
+  }
+  .back-btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,.08)}
+  .back-btn svg{width:22px;height:22px;fill:var(--ink)}
+  .header-title{margin:0;font-size:17px;font-weight:700;color:var(--ink)}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Serif KR","Nanum Myeongjo","Apple SD Gothic Neo","Malgun Gothic",serif;
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 80px}
+
+  /* ===== 커버 ===== */
+  .cover{
+    position:relative; overflow:hidden; border-radius:18px; padding:54px 40px 46px;
+    text-align:center; color:#fff; margin-bottom:26px;
+    background:linear-gradient(120deg,#c62828 0%,#f57c00 14%,#f2c400 27%,#2e8b57 40%,
+      #1e88e5 53%,#4b0082 66%,#8e24aa 79%,#212121 100%);
+    box-shadow:0 14px 40px rgba(0,0,0,.22);
+  }
+  .cover::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 120%,rgba(0,0,0,.45),transparent 70%);
+  }
+  .cover > *{position:relative;z-index:1}
+  .cover .series{font-size:13px;letter-spacing:5px;opacity:.9;margin:0 0 12px}
+  .cover h1{font-size:42px;margin:0 0 10px;letter-spacing:3px;text-shadow:0 2px 8px rgba(0,0,0,.35)}
+  .cover .sub{font-size:16px;margin:0;opacity:.95;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+  .cover .badge{
+    display:inline-block;margin-top:20px;padding:7px 22px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.7);background:rgba(0,0,0,.18);
+    font-size:14px;letter-spacing:2px;
+  }
+
+  /* ===== 컨트롤 ===== */
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 20px}
+  .search{
+    flex:1 1 240px;min-width:200px;padding:10px 16px;font-size:14px;font-family:inherit;
+    border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);outline:none;
+  }
+  .search:focus{border-color:var(--gold)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    padding:7px 16px;font-size:13px;font-family:inherit;cursor:pointer;
+    border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);
+  }
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .count{font-size:13px;color:var(--muted);margin-left:auto}
+
+  /* ===== 그리드 ===== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;cursor:pointer;transition:transform .16s,box-shadow .16s;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 10px 26px rgba(0,0,0,.13)}
+  .card .swatch{height:86px;flex:0 0 auto;position:relative;display:flex;align-items:flex-end;padding:10px 14px}
+  .card .ch{
+    font-size:11px;letter-spacing:2px;color:#fff;background:rgba(0,0,0,.35);
+    padding:2px 9px;border-radius:999px;
+  }
+  .card .body{padding:14px 16px 16px;flex:1 0 auto;display:flex;flex-direction:column}
+  .card h3{margin:0 0 2px;font-size:19px}
+  .card .en{font-size:12px;letter-spacing:2px;color:var(--muted);margin:0 0 8px}
+  .card .tag{
+    font-size:13px;margin:0 0 10px;padding:5px 0 9px;border-bottom:1px dotted var(--line);
+    font-style:italic;color:#444;
+  }
+  .card .kw{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+  .card .kw span{font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .card .pages{margin-top:auto;font-size:11.5px;color:var(--muted)}
+  .card .done{
+    position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.75);background:rgba(0,0,0,.28);color:#fff;
+    font-size:14px;line-height:24px;text-align:center;cursor:pointer;z-index:2;
+  }
+  .card.read .done{background:#2e7d32;border-color:#2e7d32}
+  .card.read::after{content:"";position:absolute;inset:0;border:2px solid #2e7d32;border-radius:14px;pointer-events:none}
+
+  /* ===== 뷰어 ===== */
+  .viewer{position:fixed;inset:0;height:100vh;height:100dvh;background:#fff;z-index:100;display:none;flex-direction:column}
+  .viewer.on{display:flex}
+  .vbar{
+    display:flex;align-items:center;gap:8px;flex-wrap:nowrap;flex:0 0 auto;  /* 항상 한 줄 */
+    padding:10px 14px;border-bottom:1px solid var(--line);background:#fafafa;
+    padding-top:calc(10px + env(safe-area-inset-top));             /* 노치 대응 */
+  }
+  .vbar .dot{width:14px;height:14px;border-radius:50%;flex:0 0 auto}
+  .vbar .vtitle{
+    font-size:15px;font-weight:700;flex:1 1 auto;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;     /* 길면 말줄임 */
+  }
+  .btn{
+    flex:0 0 auto;padding:7px 14px;font-size:13px;font-family:inherit;cursor:pointer;
+    white-space:nowrap;border:1px solid var(--line);border-radius:8px;
+    background:#fff;color:var(--ink);
+  }
+  .btn:hover{background:#f1efec}
+  .btn.close{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn .full{display:inline}
+  .btn .mini{display:none}
+  .viewer iframe{flex:1 1 auto;min-height:0;width:100%;border:0}
+  .fallback{padding:40px 24px;text-align:center;color:var(--muted);font-size:14px;display:none}
+  .fallback a{color:var(--gold)}
+
+  .foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);text-align:center}
+
+  @media(max-width:720px){
+    .wrap{padding:18px 14px 100px}
+    .top-header{padding:8px 14px}
+    .header-title{font-size:15px}
+    .grid{gap:12px}
+    .cover{padding:38px 22px 34px}
+    .cover h1{font-size:30px}
+    .count{width:100%;margin:4px 0 0}
+    .vbar{gap:6px;padding-left:10px;padding-right:10px}
+    .vbar .vtitle{font-size:14px}
+    .btn{padding:8px 11px;font-size:12.5px}
+    .btn .full{display:none}
+    .btn .mini{display:inline}                                     /* 짧은 라벨로 교체 */
+  }
+  @media(max-width:360px){
+    .vbar .dot{display:none}
+    .btn{padding:8px 9px;font-size:12px}
+  }
+</style>
+</head>
+<body>
+<header class="top-header">
+  <a href="../index.html" class="back-btn" aria-label="상위 페이지로 이동" title="상위 페이지로 이동">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+    </svg>
+  </a>
+  <h1 class="header-title">컬러타로 22색 스터디 노트</h1>
+</header>
+<div class="wrap">
+
+  <div class="cover">
+    <p class="series">REDSUN COLOR TAROT · STUDY NOTES</p>
+    <h1>컬러타로 22색 스터디 노트</h1>
+    <p class="sub">쉽고 재미있는 레드썬의 컬러타로 — 챕터 1 ~ 22 통합본</p>
+    <span class="badge">읽고 싶은 컬러를 선택하세요</span>
+  </div>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="컬러명 · 표어 · 키워드로 검색 (예: 행운, 인내, 재회)" />
+    <div class="chips" id="chips">
+      <button class="chip on" data-g="all">전체 22</button>
+      <button class="chip" data-g="basic">기본 유채색 7</button>
+      <button class="chip" data-g="derive">파생 컬러 7</button>
+      <button class="chip" data-g="mono">무채색 3</button>
+      <button class="chip" data-g="special">메탈 · 특수 5</button>
+    </div>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="foot">파일들을 이 페이지와 같은 폴더에 두면 바로 열립니다 · 학습 체크는 브라우저에 저장됩니다</div>
+</div>
+
+<!-- 뷰어 -->
+<div class="viewer" id="viewer">
+  <div class="vbar">
+    <span class="dot" id="vdot"></span>
+    <span class="vtitle" id="vtitle"></span>
+    <button class="btn" id="prev"><span class="full">‹ 이전 컬러</span><span class="mini">‹ 이전</span></button>
+    <button class="btn" id="next"><span class="full">다음 컬러 ›</span><span class="mini">다음 ›</span></button>
+    <button class="btn close" id="close">닫기</button>
+  </div>
+  <iframe id="frame" title="컬러타로 노트"></iframe>
+  <div class="fallback" id="fallback">
+    내용이 보이지 않으면 해당 파일이 이 페이지와 같은 폴더에 있는지 확인해 주세요.
+    <br /><a id="direct" href="#" target="_blank" rel="noopener">파일 직접 열기</a>
+  </div>
+</div>
+
+<script>
+const DATA = [
+ {ch:1, ko:"빨간색", en:"Red", f:"red-tarot-study.html", g:"basic", c:"#c62828", c2:"#8e0000",
+  tag:"열정과 증오 사이", p:"12~33쪽", kw:["열정","권력","다툼","생명력","위험"]},
+ {ch:2, ko:"오렌지색", en:"Orange", f:"orange-tarot-study.html", g:"basic", c:"#f57c00", c2:"#e65100",
+  tag:"인생은 즐겁게…", p:"34~53쪽", kw:["행복","즐거움","욕망","식욕","사교성"]},
+ {ch:3, ko:"노란색", en:"Yellow", f:"yellow-tarot-study.html", g:"basic", c:"#f2c400", c2:"#a88600",
+  tag:"똑똑한 현실주의자", p:"54~73쪽", kw:["지혜","현실","질투","배신","풍요"]},
+ {ch:4, ko:"녹색", en:"Green", f:"green-tarot-study.html", g:"basic", c:"#2e8b57", c2:"#1b5e20",
+  tag:"내 마음의 산소호흡기", p:"73~88쪽", kw:["자연","조화","힐링","성장","인간관계"]},
+ {ch:5, ko:"파랑", en:"Blue", f:"blue-tarot-study.html", g:"basic", c:"#1e88e5", c2:"#0d47a1",
+  tag:"냉정한 책임감", p:"89~104쪽", kw:["자유","신뢰","정절","책임감","냉정"]},
+ {ch:6, ko:"남색", en:"Indigo", f:"indigo-tarot-study.html", g:"basic", c:"#4b0082", c2:"#2a004f",
+  tag:"오늘도 참는다", p:"105~118쪽", kw:["인내","희생","통찰","영적","마음고생"]},
+ {ch:7, ko:"보라색", en:"Violet", f:"violet-tarot-study.html", g:"basic", c:"#8e24aa", c2:"#4a148c",
+  tag:"고상한 불만투성이", p:"119~134쪽", kw:["불안","권력","신비","예술","정신세계"]},
+ {ch:8, ko:"하늘색", en:"Sky", f:"sky-tarot-study.html", g:"derive", c:"#29b6f6", c2:"#0d47a1",
+  tag:"하늘은 알고 있다", p:"135~148쪽", kw:["진실","운명","명예","희망","자유"]},
+ {ch:9, ko:"핑크색", en:"Pink", f:"pink-tarot-study.html", g:"derive", c:"#ec407a", c2:"#ad1457",
+  tag:"사랑받고 싶어요", p:"149~161쪽", kw:["순수한 사랑","여성성","보호","귀인","다른 것"]},
+ {ch:10, ko:"흰색", en:"White", f:"white-tarot-study.html", g:"mono", c:"#cfd8dc", c2:"#90a4ae",
+  tag:"하얀 도화지 같은 만남", p:"162~172쪽", kw:["순수","시작","청결","희생","완벽"]},
+ {ch:11, ko:"검은색", en:"Black", f:"black-tarot-study.html", g:"mono", c:"#424242", c2:"#000000",
+  tag:"난 휴식이 필요해", p:"173~183쪽", kw:["절대권력","휴식","죽음","중단","재충전"]},
+ {ch:12, ko:"회색", en:"Grey", f:"grey-tarot-study.html", g:"mono", c:"#9e9e9e", c2:"#424242",
+  tag:"너 정체가 뭐니?", p:"184~193쪽", kw:["중립","안개","은폐","이론","답답함"]},
+ {ch:13, ko:"무지개색", en:"Rainbow", f:"rainbow-tarot-study.html", g:"special", c:"#e53935", c2:"#8e24aa",
+  tag:"기분좋은 날의 약속", p:"194~206쪽", kw:["신의 약속","극복","조화","행운","차크라"], rainbow:true},
+ {ch:14, ko:"다채색", en:"Various", f:"various-tarot-study.html", g:"special", c:"#7e57c2", c2:"#4527a0",
+  tag:"호기심 천국", p:"207~214쪽", kw:["다양성","호기심","산만","흩어짐","미완성"]},
+ {ch:15, ko:"황토색", en:"Ocher", f:"ocher-tarot-study.html", g:"derive", c:"#a67c52", c2:"#5d4037",
+  tag:"평안한 안정감", p:"215~222쪽", kw:["안정감","땅","원리원칙","부동산","빠른 전환"]},
+ {ch:16, ko:"구리색", en:"Copper", f:"copper-tarot-study.html", g:"derive", c:"#a0522d", c2:"#6d3b16",
+  tag:"나는 교류한다", p:"223~229쪽", kw:["교류","소통","전도체","유통","해외"]},
+ {ch:17, ko:"고동색", en:"Old Copper", f:"oldcopper-tarot-study.html", g:"derive", c:"#8d5524", c2:"#3e2723",
+  tag:"길고긴 오랜 기다림", p:"230~237쪽", kw:["오랜 기다림","고집","전통","인내","큰 결과"]},
+ {ch:18, ko:"빈티지색", en:"Vintage", f:"vintage-tarot-study.html", g:"derive", c:"#8b7355", c2:"#4a3c28",
+  tag:"넌 결코 올드하지 않아", p:"246~252쪽", kw:["향수","재회","재발견","희소성","특별함"]},
+ {ch:19, ko:"터키옥색", en:"Turquoise", f:"turquoise-tarot-study.html", g:"derive", c:"#26c6da", c2:"#00695c",
+  tag:"너랑 나랑… 행운을", p:"238~245쪽", kw:["행운","보호부적","낭만","가족","해외"]},
+ {ch:20, ko:"금색", en:"Gold", f:"gold-tarot-study.html", g:"special", c:"#d4af37", c2:"#8a6a10",
+  tag:"풍요로운 삶", p:"260~267쪽", kw:["태양","부","최종 완성","불변성","엘리트"]},
+ {ch:21, ko:"반투명색", en:"Translucence", f:"translucence-tarot-study.html", g:"special", c:"#7fbfb6", c2:"#2f5d57",
+  tag:"밧줄로 꽁꽁~", p:"253~259쪽", kw:["연결","인연","운명","가족","조직"]},
+ {ch:22, ko:"은색", en:"Silver", f:"silver-tarot-study.html", g:"special", c:"#9aa7b0", c2:"#46545e",
+  tag:"내 그리운 사람아", p:"268~275쪽", kw:["그리움","2인자","달","어머니","추억"]},
+];
+
+const KEY = "colortarot-read";
+let read = {};
+try{ read = JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ read = {}; }
+
+const grid = document.getElementById("grid");
+const count = document.getElementById("count");
+let filtered = DATA.slice();
+
+function bg(d){
+  return d.rainbow
+    ? "linear-gradient(90deg,#e53935,#fb8c00,#fdd835,#43a047,#1e88e5,#3949ab,#8e24aa)"
+    : `linear-gradient(135deg,${d.c} 0%,${d.c2} 100%)`;
+}
+
+function render(list){
+  filtered = list;
+  grid.innerHTML = list.map((d,i)=>`
+    <article class="card ${read[d.en]?"read":""}" data-i="${i}">
+      <div class="done" title="학습 완료 표시">✓</div>
+      <div class="swatch" style="background:${bg(d)}">
+        <span class="ch">CHAPTER ${String(d.ch).padStart(2,"0")}</span>
+      </div>
+      <div class="body">
+        <h3>${d.ko}</h3>
+        <p class="en">${d.en.toUpperCase()}</p>
+        <p class="tag">“ ${d.tag} ”</p>
+        <div class="kw">${d.kw.map(k=>`<span>${k}</span>`).join("")}</div>
+        <p class="pages">📖 ${d.p}</p>
+      </div>
+    </article>`).join("");
+  count.textContent = `${list.length}개 표시 · 학습완료 ${Object.values(read).filter(Boolean).length} / 22`;
+}
+
+function apply(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const g = document.querySelector(".chip.on").dataset.g;
+  render(DATA.filter(d=>{
+    const okG = (g==="all") || d.g===g;
+    const hay = (d.ko+d.en+d.tag+d.kw.join("")+d.p).toLowerCase();
+    return okG && (!q || hay.includes(q));
+  }));
+}
+
+document.getElementById("q").addEventListener("input", apply);
+document.getElementById("chips").addEventListener("click", e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("on"));
+  b.classList.add("on"); apply();
+});
+
+/* ===== 뷰어 ===== */
+const viewer=document.getElementById("viewer"), frame=document.getElementById("frame");
+const vtitle=document.getElementById("vtitle"), vdot=document.getElementById("vdot");
+let cur = 0;
+
+function openView(i){
+  cur = (i + filtered.length) % filtered.length;
+  const d = filtered[cur];
+  vtitle.textContent = `${d.ko} ${d.en}`;
+  vdot.style.background = bg(d);
+  frame.src = d.f;
+  document.getElementById("direct").href = d.f;
+  viewer.classList.add("on");
+  document.body.style.overflow = "hidden";
+  document.getElementById("fallback").style.display = "none";
+}
+function closeView(){
+  viewer.classList.remove("on"); frame.src="about:blank";
+  document.body.style.overflow="";
+}
+
+grid.addEventListener("click", e=>{
+  const card = e.target.closest(".card"); if(!card) return;
+  const i = +card.dataset.i, d = filtered[i];
+  if(e.target.classList.contains("done")){
+    read[d.en] = !read[d.en];
+    localStorage.setItem(KEY, JSON.stringify(read));
+    apply(); return;
+  }
+  openView(i);
+});
+
+document.getElementById("close").onclick = closeView;
+document.getElementById("prev").onclick = ()=>openView(cur-1);
+document.getElementById("next").onclick = ()=>openView(cur+1);
+frame.addEventListener("error", ()=>{document.getElementById("fallback").style.display="block";});
+
+document.addEventListener("keydown", e=>{
+  if(!viewer.classList.contains("on")) return;
+  if(e.key==="Escape") closeView();
+  if(e.key==="ArrowLeft") openView(cur-1);
+  if(e.key==="ArrowRight") openView(cur+1);
+});
+
+apply();
+</script>
+</body>
+</html>
