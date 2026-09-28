@@ -68,9 +68,14 @@ body {
 }
 
 h2.sec {
-  font-size: 21px;
-  padding-bottom: 7px;
-  margin: 34px 0 14px;
+  font-size: 18px;
+  padding-bottom: 6px;
+  margin: 30px 0 12px;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 22px 0 8px;
 }
 
 .keyword-box,
@@ -144,8 +149,13 @@ img {
   }
 
   h2.sec {
-    font-size: 19px;
-    margin: 28px 0 12px;
+    font-size: 17px;
+    margin: 24px 0 10px;
+  }
+
+  h3 {
+    font-size: 15px;
+    margin: 18px 0 7px;
   }
 
   .keyword-box,
@@ -155,5 +165,16 @@ img {
 
   .card-table-wrap {
     max-width: 100%;
+  }
+
+  table.card {
+    font-size: 13px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  table.card th,
+  table.card td {
+    font-size: 13px;
   }
 }
