@@ -293,6 +293,10 @@
       background: rgba(79, 70, 229, 0.12);
     }
 
+    .date-input-row:focus-within .date-picker-btn {
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+    }
+
     .date-picker-btn svg {
       width: 22px;
       height: 22px;
@@ -301,12 +305,14 @@
 
     .native-date-picker {
       position: absolute;
-      right: 4px;
-      bottom: 4px;
-      width: 1px;
-      height: 1px;
+      top: 0;
+      right: 0;
+      width: 52px;
+      height: 52px;
       opacity: 0;
-      pointer-events: none;
+      z-index: 1;
+      margin: 0;
+      cursor: pointer;
       -webkit-appearance: none;
       appearance: none;
     }
@@ -929,14 +935,13 @@
         <div class="date-input-row">
           <input id="manualDateInput" type="text" inputmode="numeric" autocomplete="bday" maxlength="10"
             aria-label="생년월일 직접 입력" placeholder="YYYYMMDD (예: 19900101)" class="custom-input">
-          <button type="button" class="date-picker-btn" aria-label="달력에서 생년월일 선택"
-            onclick="openDatePicker()">
+          <span class="date-picker-btn" aria-hidden="true">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15H5V9h14v10zM7 11h3v3H7zm5 0h3v3h-3z" />
             </svg>
-          </button>
+          </span>
           <input id="dateInput" type="date" min="1900-01-01" max="2050-12-31"
-            class="native-date-picker" aria-label="달력에서 생년월일 선택" tabindex="-1">
+            class="native-date-picker" aria-label="달력에서 생년월일 선택">
         </div>
       </div>
 
@@ -1431,26 +1436,17 @@
       return document.getElementById('manualDateInput').value;
     }
 
-    function openDatePicker() {
-      const dateInput = document.getElementById('dateInput');
-      const manualDateInput = document.getElementById('manualDateInput');
-      const dateParts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(manualDateInput.value);
-      if (dateParts) dateInput.value = manualDateInput.value;
-
-      if (typeof dateInput.showPicker === 'function') {
-        dateInput.showPicker();
-      } else {
-        dateInput.focus();
-        dateInput.click();
-      }
-    }
-
     document.getElementById('manualDateInput').addEventListener('input', (event) => {
       const input = event.currentTarget;
       const digits = input.value.replace(/\D/g, '').slice(0, 8);
       input.value = digits.length > 4
         ? `${digits.slice(0, 4)}-${digits.slice(4, 6)}${digits.length > 6 ? `-${digits.slice(6)}` : ''}`
         : digits;
+    });
+
+    document.getElementById('dateInput').addEventListener('pointerdown', (event) => {
+      const manualDate = document.getElementById('manualDateInput').value;
+      if (/^\d{4}-\d{2}-\d{2}$/.test(manualDate)) event.currentTarget.value = manualDate;
     });
 
     document.getElementById('dateInput').addEventListener('change', (event) => {
