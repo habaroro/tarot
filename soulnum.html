@@ -301,12 +301,12 @@
 
     .native-date-picker {
       position: absolute;
-      right: 0;
-      width: 52px;
-      height: 52px;
+      right: 4px;
+      bottom: 4px;
+      width: 1px;
+      height: 1px;
       opacity: 0;
-      z-index: 1;
-      cursor: pointer;
+      pointer-events: none;
       -webkit-appearance: none;
       appearance: none;
     }
@@ -1437,8 +1437,9 @@
       const dateParts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(manualDateInput.value);
       if (dateParts) dateInput.value = manualDateInput.value;
 
-      if (typeof dateInput.showPicker === 'function') dateInput.showPicker();
-      else {
+      if (typeof dateInput.showPicker === 'function') {
+        dateInput.showPicker();
+      } else {
         dateInput.focus();
         dateInput.click();
       }
