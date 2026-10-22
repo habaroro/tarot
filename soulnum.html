@@ -264,37 +264,50 @@
       appearance: none;
     }
 
-    .custom-input[hidden] {
-      display: none;
-    }
-
-    /* iOS Safari / WebKit 날짜 인풋 모바일 오버플로우 방지 대응 */
-    input[type="date"].custom-input {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
+    .date-input-row {
       position: relative;
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 0 16px;
-      line-height: 52px;
-      min-height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    input[type="date"].custom-input::-webkit-date-and-time-value {
-      text-align: left;
-      min-height: 1.5em;
+    .date-input-row .custom-input {
+      flex: 1;
     }
 
-    input[type="date"].custom-input::-webkit-calendar-picker-indicator {
+    .date-picker-btn {
+      flex: 0 0 52px;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      background: rgba(79, 70, 229, 0.07);
+      border: 1px solid rgba(79, 70, 229, 0.16);
+      border-radius: var(--radius-md);
       cursor: pointer;
-      opacity: 0.65;
-      transition: opacity 0.2s ease;
-      padding: 4px;
-      margin-right: -4px;
     }
 
-    input[type="date"].custom-input::-webkit-calendar-picker-indicator:hover {
-      opacity: 1;
+    .date-picker-btn:hover {
+      background: rgba(79, 70, 229, 0.12);
+    }
+
+    .date-picker-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .native-date-picker {
+      position: absolute;
+      right: 0;
+      width: 52px;
+      height: 52px;
+      opacity: 0;
+      pointer-events: none;
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     .custom-input:focus {
@@ -306,23 +319,6 @@
     .custom-input::placeholder {
       color: var(--text-light);
       font-size: 0.92rem;
-    }
-
-    .date-input-toggle {
-      align-self: flex-start;
-      padding: 7px 12px;
-      color: var(--primary);
-      background: rgba(79, 70, 229, 0.07);
-      border: 1px solid rgba(79, 70, 229, 0.16);
-      border-radius: var(--radius-full);
-      font: inherit;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .date-input-toggle:hover {
-      background: rgba(79, 70, 229, 0.12);
     }
 
     /* 역법 선택 세그먼트 컨트롤 */
@@ -925,17 +921,22 @@
 
       <!-- 생년월일 선택 -->
       <div class="form-group">
-        <label class="form-label" for="dateInput">
+        <label class="form-label" for="manualDateInput">
           <span>📅 생년월일</span>
           <span class="sub-hint">(1900년 ~ 2050년)</span>
         </label>
-        <input id="dateInput" type="date" min="1900-01-01" max="2050-12-31" class="custom-input">
-        <input id="manualDateInput" type="text" inputmode="numeric" autocomplete="bday" maxlength="10"
-          aria-label="생년월일 직접 입력"
-          placeholder="YYYYMMDD (예: 19900101)" class="custom-input" hidden>
-        <button type="button" id="dateInputToggle" class="date-input-toggle" onclick="toggleDateInputMode()">
-          직접 입력
-        </button>
+        <div class="date-input-row">
+          <input id="manualDateInput" type="text" inputmode="numeric" autocomplete="bday" maxlength="10"
+            aria-label="생년월일 직접 입력" placeholder="YYYYMMDD (예: 19900101)" class="custom-input">
+          <button type="button" class="date-picker-btn" aria-label="달력에서 생년월일 선택"
+            onclick="openDatePicker()">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15H5V9h14v10zM7 11h3v3H7zm5 0h3v3h-3z" />
+            </svg>
+          </button>
+          <input id="dateInput" type="date" min="1900-01-01" max="2050-12-31"
+            class="native-date-picker" aria-label="달력에서 생년월일 선택" tabindex="-1">
+        </div>
       </div>
 
       <!-- 역법 선택 -->
@@ -1426,28 +1427,19 @@
     }
 
     function getDateInputValue() {
-      const dateInput = document.getElementById('dateInput');
-      const manualDateInput = document.getElementById('manualDateInput');
-      return manualDateInput.hidden ? dateInput.value : manualDateInput.value;
+      return document.getElementById('manualDateInput').value;
     }
 
-    function toggleDateInputMode() {
+    function openDatePicker() {
       const dateInput = document.getElementById('dateInput');
       const manualDateInput = document.getElementById('manualDateInput');
-      const toggle = document.getElementById('dateInputToggle');
+      const dateParts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(manualDateInput.value);
+      if (dateParts) dateInput.value = manualDateInput.value;
 
-      if (manualDateInput.hidden) {
-        manualDateInput.value = dateInput.value;
-        dateInput.hidden = true;
-        manualDateInput.hidden = false;
-        toggle.textContent = '달력에서 선택';
-        manualDateInput.focus();
-      } else {
-        const dateParts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(manualDateInput.value);
-        if (dateParts) dateInput.value = manualDateInput.value;
-        manualDateInput.hidden = true;
-        dateInput.hidden = false;
-        toggle.textContent = '직접 입력';
+      if (typeof dateInput.showPicker === 'function') dateInput.showPicker();
+      else {
+        dateInput.focus();
+        dateInput.click();
       }
     }
 
@@ -1459,11 +1451,15 @@
         : digits;
     });
 
+    document.getElementById('dateInput').addEventListener('change', (event) => {
+      const input = event.currentTarget;
+      if (input.value) document.getElementById('manualDateInput').value = input.value;
+    });
+
     // 폼 초기화
     function resetForm() {
       document.getElementById('dateInput').value = '';
       document.getElementById('manualDateInput').value = '';
-      if (!document.getElementById('manualDateInput').hidden) toggleDateInputMode();
       document.getElementById('nameInput').value = '';
       document.getElementById('resultSection').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
