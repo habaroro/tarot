@@ -1,0 +1,42 @@
+/* Navigation matches the color tarot viewer toolbar. */
+.arcana-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center;
+  gap: 8px; flex-wrap: nowrap; width: 100%; margin: 0;
+  margin-bottom: 22px; padding: 10px 14px;
+  padding-top: calc(10px + env(safe-area-inset-top));
+  border-bottom: 1px solid #e6e2dc; background: #fafafa;
+  color: #1d1d1f; font-family: 'Noto Sans KR', sans-serif; line-height: 1.5;
+}
+.arcana-nav-start { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.arcana-nav > .arcana-btn { margin-left: auto; }
+.arcana-nav-title {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  max-width: calc(100% - 300px); min-width: 0; font-size: 15px; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;
+}
+.arcana-nav .arcana-btn {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  height: 38px; padding: 7px 14px; font-size: 13px; font-family: inherit;
+  white-space: nowrap; border: 1px solid #e6e2dc; border-radius: 8px;
+  background: #fff; color: #1d1d1f; text-decoration: none;
+}
+.arcana-nav a:hover { background: #f1efec; }
+.arcana-nav a:focus-visible { outline: 2px solid #a8842c; outline-offset: 3px; }
+.arcana-nav .arcana-back { width: 38px; padding: 0; }
+.arcana-back svg { width: 21px; height: 21px; fill: currentColor; }
+.arcana-nav [aria-disabled] { opacity: .4; }
+@media (max-width: 480px) {
+  .arcana-nav-title { max-width: calc(100% - 240px); font-size: 13px; }
+  .arcana-nav .arcana-btn { padding: 7px 10px; }
+  .arcana-nav .arcana-back { padding: 0; }
+}
+@media print { .arcana-nav { display: none; } }
+
+/* Reserve space for the fixed toolbar without an empty strip above it. */
+body.has-arcana-nav { padding-top: calc(90px + env(safe-area-inset-top)); }
+html { scroll-padding-top: calc(80px + env(safe-area-inset-top)); }
+.arcana-index-nav .arcana-nav-title { max-width: calc(100% - 120px); }
+@media (max-width: 720px) {
+  body.has-arcana-nav { padding-top: calc(78px + env(safe-area-inset-top)); }
+}
+@media print { body.has-arcana-nav { padding-top: 0; } }
