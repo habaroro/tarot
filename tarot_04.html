@@ -1091,17 +1091,53 @@ function renderCard(index) {
 }
 
 /* ── 이전/다음 ── */
-/* ── 스크롤 시 네비바 표시 ── */
+/* ── 스크롤 및 하단 접근 시 네비바 표시 ── */
 (function() {
     const navBar = document.querySelector('.nav-bar');
     let scrollTimer = null;
-    window.addEventListener('scroll', function() {
-        navBar.classList.add('nav-visible');
+    let pointerInBar = false;
+    let pointerNearBottom = false;
+
+    function scheduleHide() {
         clearTimeout(scrollTimer);
+        if (pointerInBar || pointerNearBottom || navBar.contains(document.activeElement)) return;
         scrollTimer = setTimeout(function() {
             navBar.classList.remove('nav-visible');
-        }, 1500);
+        }, 3000);
+    }
+
+    function showNav() {
+        navBar.classList.add('nav-visible');
+        scheduleHide();
+    }
+
+    window.addEventListener('scroll', showNav, { passive: true });
+    window.addEventListener('pointermove', function(event) {
+        if (event.pointerType === 'touch') return;
+        pointerNearBottom = event.clientY >= window.innerHeight - navBar.offsetHeight - 32;
+        if (pointerNearBottom) showNav();
+        else scheduleHide();
     }, { passive: true });
+    navBar.addEventListener('pointerenter', function(event) {
+        if (event.pointerType === 'touch') return;
+        pointerInBar = true;
+        showNav();
+    });
+    navBar.addEventListener('pointerleave', function() {
+        pointerInBar = false;
+        scheduleHide();
+    });
+    navBar.addEventListener('pointerdown', showNav);
+    navBar.addEventListener('focusin', showNav);
+    navBar.addEventListener('focusout', function() {
+        // 포커스가 다음 버튼으로 이동한 뒤 숨김 여부를 확인합니다.
+        setTimeout(scheduleHide, 0);
+    });
+    document.addEventListener('pointerleave', function() {
+        pointerInBar = false;
+        pointerNearBottom = false;
+        scheduleHide();
+    });
 })();
 
 function prevCard() {
