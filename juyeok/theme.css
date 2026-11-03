@@ -1,0 +1,55 @@
+/* Visual foundations shared with the Horoscope Belline collection. */
+:root{--ink:#2b2418;--ink2:#514b3e;--night:#1e1c30;--gold:#a8842c;--gold-soft:#d9c48a;--paper:#faf6ec;--paper2:#f3eddf;--line:#e4dac4;--line2:#eae2d1;--muted:#6c6250;--vermilion:#a8842c}
+body{background:var(--paper);color:var(--ink);font:15px/1.8 'Noto Sans KR',sans-serif;letter-spacing:normal}
+button,input{font:inherit}
+.cover{text-align:center;padding:28px 12px 30px;margin-bottom:28px;border-bottom:1px solid var(--gold-soft)}
+.cover .eyebrow{font:600 12px/1.8 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:var(--gold);margin:0 0 14px}
+.cover h1{font:700 clamp(24px,3vw,32px)/1.5 'Noto Sans KR',sans-serif;letter-spacing:-.04em;color:var(--night);margin:0 0 14px}
+.cover .lede{font:14px/1.9 'Noto Serif KR',serif;color:var(--muted);margin:0 auto;max-width:760px;word-break:keep-all}
+.actions{justify-content:center}.action{font-size:13px;border-color:var(--gold-soft);color:var(--gold);background:#fffdf8}.action:hover{background:#f4eedf}
+.tools{border-radius:14px;margin:20px 0 28px;background:#fffdf8;padding:20px}
+.tools label{font-size:13px;font-weight:600;margin-bottom:9px}
+.tools input{font-size:14px;border-color:#d8ccb0;background:#fff;padding:12px;color:var(--ink)}
+.filters{gap:8px;margin:16px 0}.filters button{font-size:13px;padding:9px 16px;border-color:#ded4bf;background:#fffdf8}.filters button:hover{background:#f5efdf}.filters button[aria-pressed=true]{background:var(--night);border-color:var(--night);color:#fff}
+#result-count{font-size:12px}.collection{gap:20px 18px}
+.entry{border-color:var(--gold-soft);background:#fffdf6;transition:transform .18s,box-shadow .18s}
+.entry:hover{transform:translateY(-4px);box-shadow:0 8px 24px #4a39121a}
+.entry figure{padding:12px 12px 0;background:#f3eddf}.entry-info{padding:12px 14px 16px}
+.entry .cno{font:600 20px/1.4 'Noto Serif KR',serif;color:var(--gold);letter-spacing:normal}
+.entry .badge{font:11px/1.5 'Noto Sans KR',sans-serif;border-radius:20px;padding:2px 9px;letter-spacing:normal}
+.entry h2{font:700 15px/1.5 'Noto Sans KR',sans-serif;color:var(--night);margin:8px 0 0}
+.entry p{font-size:11px;line-height:1.7;color:var(--muted);margin:10px 0 0}
+.juyeok-detail .wrap{max-width:1000px}
+body.juyeok-detail .card{background:#fffdf8;border:1px solid var(--line);border-radius:16px;margin-top:20px;padding:30px}
+.card-head{align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:24px}
+.card-head .cno{font:600 22px/1.5 'Noto Serif KR',serif;color:var(--gold);width:50px;height:50px;display:grid;place-items:center;background:#f3eddf;border-radius:10px;letter-spacing:normal;flex-shrink:0}
+.card-head .card-name{font:700 clamp(22px,3vw,30px)/1.5 'Noto Sans KR',sans-serif;color:var(--night);flex:1;min-width:0}
+.badge{font-family:'Noto Sans KR',sans-serif;border-radius:20px;letter-spacing:normal}
+.card-body{gap:36px;margin-top:28px}.card figure{padding:0;border:0;background:transparent}.card figure img{border-radius:8px;box-shadow:0 8px 24px #4a39121a;mix-blend-mode:normal}
+.content .lead{font:600 17px/1.8 'Noto Serif KR',serif;color:var(--night)}
+.desc,.kw,.rtext,.hv{font:14px/1.9 'Noto Serif KR',serif;color:var(--ink2);word-break:keep-all;overflow-wrap:anywhere}
+.kw{border:1px solid var(--line);border-radius:10px;background:#f5f0e5;padding:18px}
+.heart{border-color:var(--line);border-radius:10px;background:#f5f0e5;padding:18px}
+.rlabel,.read dt{font:700 12px/1.8 'Noto Sans KR',sans-serif;color:var(--gold);letter-spacing:.04em;margin-bottom:8px}
+.hk{font:12px/1.8 'Noto Sans KR',sans-serif;color:var(--muted)}
+.juyeok-guide section{padding:40px 0 32px;margin-top:0;border-bottom:1px solid var(--line);scroll-margin-top:85px}
+.juyeok-guide .wrap>section:first-of-type{margin-top:0;padding-top:20px}
+.sec-head{align-items:flex-start;gap:14px;border:0;padding:0;margin-bottom:24px}
+.sec-head .snum{font:600 16px/1.5 'Noto Serif KR',serif;color:var(--gold);padding-top:5px;letter-spacing:normal}
+.sec-head h2{font:700 clamp(21px,2.5vw,26px)/1.5 'Noto Sans KR',sans-serif;color:var(--night);letter-spacing:-.03em}
+.grade-table,.trig-table{background:#fffdf8;border:1px solid var(--line);border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:13px;line-height:1.8}
+.grade-table th,.grade-table td,.trig-table th,.trig-table td{border-color:var(--line2);padding:13px 16px}
+.trig-table th{background:#f3eddf;color:var(--muted);font-size:12px;text-align:left}
+.grade-table .gn{font-family:'Noto Sans KR',sans-serif}.grade-table .gn img,.idx-thumb img{border-color:var(--line);border-radius:6px}
+.idx{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:24px}
+.idx-name{font:600 13px/1.6 'Noto Sans KR',sans-serif;color:var(--ink)}.idx-no,.idx-grade{font:11px/1.6 'Noto Sans KR',sans-serif;letter-spacing:normal}
+@media(max-width:720px){
+ .collection{gap:20px 12px}.entry-info{padding:12px 10px 16px}
+ body.juyeok-detail .card{margin-top:20px;padding:18px}.card-head{gap:10px;padding-bottom:18px}.card-head .badges{margin-left:0}.card-body{gap:24px;margin-top:24px}
+ .juyeok-guide section{padding:30px 0 24px}.sec-head{gap:10px}
+ .grade-table tr{padding:18px 12px}.grade-table th,.grade-table td{padding:0}
+ .trig-table th,.trig-table td{padding:10px 8px}.trig-table .trigram-image{width:48px}.trig-table .tg-name{min-width:64px}
+ .idx{padding:12px;gap:18px 10px}
+}
+@media(prefers-reduced-motion:reduce){.entry{transition:none}.entry:hover{transform:none}}
+@media print{body.juyeok-detail .card{box-shadow:none;margin-top:0}}
