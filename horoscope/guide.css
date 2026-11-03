@@ -1,0 +1,84 @@
+/* Guide uses the same foundations and fixed navigation as the card collection. */
+.guide-page{--ink-soft:#514b3e;--ink-mute:#6c6250;--paper-2:#fffdf8;--line-soft:#eae2d1;--terracotta:#a8842c;--teal:#236b59;--shadow:0 4px 20px #4a391209;--maxw:1180px}
+body.guide-page.has-arcana-nav{padding-top:calc(90px + env(safe-area-inset-top))}
+.guide-title{max-width:1100px;margin:0 auto 24px;padding-top:28px}
+.guide-toc{max-width:1100px;margin:0 auto 12px;display:flex;flex-wrap:wrap;gap:8px;padding:18px 20px;background:#fffdf8;border:1px solid var(--line);border-radius:14px}
+.guide-toc a{display:block;padding:8px 14px;border:1px solid var(--line);border-radius:24px;font-size:13px;text-decoration:none;line-height:1.5;color:var(--ink);background:#fffdf8}
+.guide-toc a:hover{background:var(--night);color:#fff;border-color:var(--night)}
+.guide-page main{padding-bottom:60px}.guide-page .wrap{padding:0;max-width:none}.guide-page section{padding:40px 0 32px;scroll-margin-top:85px;border-bottom:1px solid var(--line)}
+.guide-page .sec-head{align-items:flex-start;gap:14px;margin-bottom:24px}.guide-page .sec-num{font:600 16px/1.5 'Noto Serif KR',serif;color:var(--gold);padding-top:5px}.guide-page .sec-head h2{font:700 clamp(21px,2.5vw,26px)/1.5 'Noto Sans KR',sans-serif;color:var(--night);letter-spacing:-.03em}.guide-page .sec-head .sub{font-size:13px;line-height:1.8;margin-top:6px}.guide-page .lead-2{font:15px/1.95 'Noto Serif KR',serif;max-width:900px;word-break:keep-all}.guide-page h3{font:600 18px/1.6 'Noto Sans KR',sans-serif;margin:30px 0 16px;color:var(--night)}
+.guide-page .panel,.guide-page .spread,.guide-page .polcol{border-color:var(--line);background:#fffdf8;box-shadow:none;padding:22px;border-radius:12px}.guide-page .panel h4,.guide-page .spread h4,.guide-page .polcol h4{font-family:'Noto Sans KR',sans-serif}.guide-page .panel p{font-size:14px}.guide-page .steps li{border-color:var(--line);background:#fffdf8}.guide-page .steps li::before{color:var(--gold)}.guide-page .note,.guide-page .quote{background:#f4eedf;border-color:var(--gold-soft);color:var(--ink-soft)}.guide-page .quote{padding:16px 20px;font-size:15px}.guide-page .note{padding:18px 20px}.guide-page .tbl-wrap{box-shadow:none;border-color:var(--line);border-radius:12px}.guide-page table{font-size:13px;line-height:1.8}.guide-page thead th{position:static;background:#f3eddf;color:var(--muted)}.guide-page th,.guide-page td{padding:13px 16px;border-color:var(--line-soft)}.guide-page .combo-item{border-color:var(--line);background:#fffdf8;font-size:13px}.guide-page .combo-item .cn{color:var(--gold)}.guide-page .gallery{grid-template-columns:repeat(8,minmax(0,1fr));gap:20px 14px;margin-top:24px;padding:20px;background:#fffdf8;border-color:var(--line);border-radius:12px}.guide-page .gitem img{border-color:var(--line);border-radius:6px;box-shadow:none}.guide-page .gitem span{font-size:11px;line-height:1.6;margin-top:9px;color:var(--muted)}.guide-page .gitem:hover img{border-color:var(--gold);box-shadow:0 6px 18px #4a391215}.guide-page .gitem:hover span{color:var(--gold)}.guide-action{display:inline-block;font-size:13px;padding:9px 16px;border:1px solid var(--gold-soft);border-radius:8px;background:#fffdf8;color:var(--gold);text-decoration:none}.guide-action:hover{background:#f4eedf}
+@media(max-width:1180px){.guide-title,.guide-toc{margin-left:40px;margin-right:40px}}
+@media(max-width:900px){.guide-page .grid-2,.guide-page .grid-3,.guide-page .polmap,.guide-page .combo-list{grid-template-columns:1fr}.guide-page .gallery{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:720px){body.guide-page.has-arcana-nav{padding-top:calc(78px + env(safe-area-inset-top))}.guide-title,.guide-toc{margin-left:16px;margin-right:16px}.guide-title{padding-top:24px}.guide-toc{padding:14px;gap:7px}.guide-toc a{font-size:12px;padding:8px 12px}.guide-page section{padding:30px 0 24px}.guide-page .sec-head{gap:10px}.guide-page .sec-head .sub{font-size:12px}.guide-page .lead-2{font-size:14px}.guide-page .gallery{grid-template-columns:repeat(4,minmax(0,1fr));padding:12px;gap:18px 10px}.guide-page .gitem span{font-size:10px}.guide-page .panel,.guide-page .spread,.guide-page .polcol{padding:18px}.guide-page .combo-item{gap:10px;padding:12px}.guide-page th,.guide-page td{padding:10px 12px}.guide-page .steps li{padding-right:16px}.guide-page main{padding-bottom:30px}}
+@media(prefers-reduced-motion:reduce){.guide-page .gitem img{transition:none}}
+@media print{.guide-toc,.guide-action{display:none}body.guide-page.has-arcana-nav{padding-top:0}.guide-page section{break-inside:avoid}}
+
+/* Keep readable column widths instead of squeezing tables into a phone screen. */
+.table-scroll-hint{display:none}
+.guide-page .tbl-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.guide-page .tbl-wrap:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+@media(max-width:900px){
+  .guide-page .table-scroll-hint{display:block;font-size:11px;color:var(--muted);margin:14px 0 8px}
+  .guide-page .tbl-wrap table{table-layout:fixed;font-size:13px;line-height:1.85}
+  .guide-page .tbl-wrap th,.guide-page .tbl-wrap td{padding:13px 16px;word-break:keep-all;overflow-wrap:break-word;vertical-align:top}
+  .guide-page .planet-table table{min-width:1020px}
+  .guide-page .planet-table th:nth-child(1){width:110px!important}
+  .guide-page .planet-table th:nth-child(2){width:230px!important}
+  .guide-page .planet-table th:nth-child(3){width:280px}
+  .guide-page .planet-table th:nth-child(4){width:300px!important}
+  .guide-page .planet-table th:nth-child(5){width:100px!important}
+  .guide-page .polarity-table table{min-width:610px}
+  .guide-page .polarity-table th:nth-child(1){width:190px}
+  .guide-page .polarity-table th:nth-child(2){width:80px}
+  .guide-page .polarity-table th:nth-child(3){width:340px}
+  .guide-page .combo-table table{min-width:680px}
+  .guide-page .combo-table th:nth-child(1){width:100px!important}
+  .guide-page .combo-table th:nth-child(2){width:490px}
+  .guide-page .combo-table th:nth-child(3){width:90px!important}
+  .guide-page .tbl-wrap th,.guide-page .polarity-table td:nth-child(-n+2),.guide-page .combo-table td:first-child{white-space:nowrap}
+}
+@media print{.guide-page .table-scroll-hint{display:none}.guide-page .tbl-wrap{overflow:visible}.guide-page .tbl-wrap table{min-width:0;width:100%;table-layout:auto}}
+
+/* Show each combination in reading order with its original card artwork. */
+.guide-page .combo-item{flex-direction:column;align-items:stretch;gap:12px}
+.guide-page .combo-item .cn{min-width:0;white-space:normal}
+.guide-page .combo-numbers{display:block;font-variant-numeric:tabular-nums;color:var(--gold);margin-bottom:8px}
+.guide-page .combo-cards{display:flex;flex-wrap:wrap;gap:8px}
+.guide-page .combo-card{display:block;flex:0 0 64px;border-radius:5px;line-height:0}
+.guide-page .combo-card img{display:block;width:64px;height:auto;border:1px solid var(--line);border-radius:5px;background:#fff}
+.guide-page .combo-card:hover img{border-color:var(--gold)}
+.guide-page .combo-card:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.guide-page .combo-table th:first-child{width:180px!important}
+.guide-page .combo-cell{white-space:normal;vertical-align:top}
+@media(max-width:900px){
+  .guide-page .combo-table table{min-width:760px}
+  .guide-page .combo-table th:nth-child(1){width:180px!important}
+}
+
+/* Stack combination rows on phones so interpretations use the full width. */
+@media screen and (max-width:720px){
+  .guide-page .combo-scroll-hint{display:none}
+  .guide-page .combo-table{overflow-x:visible}
+  .guide-page .combo-table table{display:block;min-width:0;width:100%}
+  .guide-page .combo-table thead{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .guide-page .combo-table tbody{display:block}
+  .guide-page .combo-table tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 12px;padding:18px 16px;border-bottom:1px solid var(--line-soft)}
+  .guide-page .combo-table tbody tr:last-child{border-bottom:0}
+  .guide-page .combo-table td{display:block;min-width:0;padding:0;border:0;white-space:normal}
+  .guide-page .combo-table td:first-child{grid-column:1;grid-row:1;white-space:normal}
+  .guide-page .combo-table td:nth-child(2){grid-column:1/-1;grid-row:2;font-size:14px;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere}
+  .guide-page .combo-table td:nth-child(3){grid-column:2;grid-row:1;align-self:start}
+  .guide-page .combo-table .field{display:inline-block;margin-left:0}
+}
+
+/* Card artwork for polarity groups and memorization examples. */
+.guide-page .polarity-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:16px 10px;margin:14px 0 18px}
+.guide-page .polarity-card{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;color:var(--ink-soft);text-decoration:none;text-align:center}
+.guide-page .polarity-card img{display:block;width:100%;max-width:96px;height:auto;border:1px solid var(--line);border-radius:5px;background:#fff}
+.guide-page .polarity-card span{padding:0;background:none;font-size:11px;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+.guide-page .polarity-card:hover{color:var(--gold)}
+.guide-page .polarity-card:hover img{border-color:var(--gold)}
+.guide-page .polarity-card:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:5px}
+.guide-page #polarity .panel .polarity-cards{display:flex;flex-wrap:wrap;gap:16px}
+.guide-page #polarity .panel .polarity-card{width:96px}

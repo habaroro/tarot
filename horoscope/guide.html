@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<title>호로스코프벨린 52장 스터디 노트</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>:root{
+  --ink:#181a1d; --ink-soft:#3c4046; --ink-mute:#6c7178;
+  --paper:#f7f4ee; --paper-2:#fffdf8; --line:#ddd6c8; --line-soft:#e9e3d7;
+  --terracotta:#b04a33; --teal:#1f6a60; --gold:#a67c33;
+  --pos:#1f6a60; --mid:#8a7635; --neg:#b04a33;
+  --shadow:0 1px 2px rgba(24,26,29,.05),0 12px 28px -18px rgba(24,26,29,.35);
+  --maxw:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Pretendard","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:"Noto Serif KR",Georgia,"Nanum Myeongjo",serif}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+
+/* ---------- hero ---------- */
+.hero{
+  background:
+    radial-gradient(1200px 420px at 82% -10%, rgba(176,74,51,.35), transparent 62%),
+    radial-gradient(900px 380px at 6% 110%, rgba(31,106,96,.28), transparent 60%),
+    #14161a;
+  color:#f3ede1; padding:74px 0 62px; position:relative; overflow:hidden;
+  border-bottom:1px solid #000;
+}
+.hero::after{
+  content:""; position:absolute; inset:0;
+  background-image:radial-gradient(rgba(243,237,225,.10) 1px, transparent 1px);
+  background-size:22px 22px; opacity:.35; pointer-events:none;
+}
+.hero .eyebrow{
+  font-size:12px; letter-spacing:.34em; text-transform:uppercase; color:#c9a869; margin:0 0 20px;
+}
+.hero h1{
+  font-family:"Noto Serif KR",Georgia,serif;
+  font-size:clamp(30px,4.4vw,54px); line-height:1.24; margin:0 0 18px; font-weight:600;
+  letter-spacing:-.01em;
+}
+.hero h1 em{font-style:normal; color:#e0b877}
+.hero p.lead{max-width:640px; margin:0; color:#cfc7b7; font-size:16.5px}
+.hero .meta{
+  display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:32px; padding-top:22px;
+  border-top:1px solid rgba(243,237,225,.16); font-size:13px; color:#a9a294; letter-spacing:.02em;
+}
+.hero .meta b{color:#efe8db; font-weight:600}
+
+/* ---------- toolbar ---------- */
+.toolbar{
+  position:sticky; top:0; z-index:40; background:rgba(247,244,238,.93);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+}
+.toolbar .inner{
+  max-width:var(--maxw); margin:0 auto; padding:11px 28px;
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+}
+.search{position:relative; flex:1 1 240px; min-width:200px}
+.search input{
+  width:100%; padding:9px 14px 9px 36px; border:1px solid var(--line); border-radius:999px;
+  background:var(--paper-2); font:inherit; font-size:14px; color:var(--ink); outline:none;
+}
+.search input:focus{border-color:var(--teal); box-shadow:0 0 0 3px rgba(31,106,96,.12)}
+.search svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); width:15px; height:15px; stroke:var(--ink-mute); fill:none; stroke-width:1.8}
+.chips{display:flex; gap:6px}
+.chip{
+  border:1px solid var(--line); background:var(--paper-2); color:var(--ink-soft);
+  padding:6px 13px; border-radius:999px; font-size:12.5px; cursor:pointer; line-height:1.5;
+  transition:.15s; white-space:nowrap;
+}
+.chip:hover{border-color:var(--ink-mute)}
+.chip.on{background:var(--ink); color:#f7f4ee; border-color:var(--ink)}
+.chip.on.pos{background:var(--pos); border-color:var(--pos)}
+.chip.on.mid{background:var(--mid); border-color:var(--mid)}
+.chip.on.neg{background:var(--neg); border-color:var(--neg)}
+.tbtn{
+  border:1px solid var(--line); background:var(--paper-2); color:var(--ink-soft);
+  padding:6px 12px; border-radius:8px; font-size:12.5px; cursor:pointer; white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--ink)}
+.count{font-size:12.5px; color:var(--ink-mute); font-variant-numeric:tabular-nums}
+
+/* ---------- sections ---------- */
+main{padding-bottom:80px}
+section{padding:64px 0 8px; border-bottom:1px solid var(--line-soft)}
+section:last-of-type{border-bottom:none}
+.sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:26px}
+.sec-num{
+  font-family:"Noto Serif KR",Georgia,serif; font-size:13px; letter-spacing:.2em;
+  color:var(--terracotta); font-weight:600; padding-top:6px; white-space:nowrap;
+}
+.sec-head h2{
+  font-family:"Noto Serif KR",Georgia,serif; font-size:clamp(22px,2.6vw,31px);
+  margin:0; font-weight:600; letter-spacing:-.01em; line-height:1.35;
+}
+.sec-head .sub{color:var(--ink-mute); font-size:14px; margin:6px 0 0}
+h3{font-family:"Noto Serif KR",Georgia,serif; font-size:19px; margin:34px 0 12px; font-weight:600}
+p{margin:0 0 14px}
+.lead-2{font-size:17px; color:var(--ink-soft); max-width:760px}
+.small{font-size:13.5px; color:var(--ink-mute)}
+
+/* ---------- intro blocks ---------- */
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.panel{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:24px 26px;
+  box-shadow:var(--shadow);
+}
+.panel h4{margin:0 0 10px; font-size:15.5px; font-family:"Noto Serif KR",Georgia,serif}
+.panel p:last-child{margin-bottom:0}
+.panel .num{font-family:"Noto Serif KR",Georgia,serif; font-size:12px; color:var(--gold); letter-spacing:.18em; display:block; margin-bottom:8px}
+
+.steps{counter-reset:step; list-style:none; padding:0; margin:18px 0 0; display:grid; gap:12px}
+.steps li{
+  counter-increment:step; position:relative; padding:16px 20px 16px 62px;
+  background:var(--paper-2); border:1px solid var(--line); border-radius:12px;
+}
+.steps li::before{
+  content:counter(step,decimal-leading-zero); position:absolute; left:20px; top:15px;
+  font-family:"Noto Serif KR",Georgia,serif; font-size:19px; color:var(--terracotta); opacity:.85;
+}
+.steps li b{display:block; font-size:15px; margin-bottom:2px}
+.steps li span{font-size:14px; color:var(--ink-mute)}
+
+.quote{
+  border-left:3px solid var(--gold); padding:6px 0 6px 20px; margin:26px 0;
+  font-family:"Noto Serif KR",Georgia,serif; font-size:17px; color:var(--ink-soft);
+}
+.note{
+  background:#f0ece0; border:1px solid var(--line); border-radius:12px; padding:16px 20px;
+  font-size:14px; color:var(--ink-soft); margin:22px 0;
+}
+.note b{color:var(--ink)}
+
+/* ---------- planet table ---------- */
+.tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:14px; background:var(--paper-2); box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th,td{padding:13px 16px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line-soft)}
+thead th{
+  background:#efe9dc; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:600; position:sticky; top:52px;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#faf7f0}
+td.planet{font-family:"Noto Serif KR",Georgia,serif; font-weight:600; white-space:nowrap}
+td.planet span{font-size:17px; margin-right:8px; color:var(--terracotta)}
+td.kw{color:var(--ink-soft); font-size:13.5px}
+td.zodiac{white-space:nowrap; color:var(--ink-mute); font-size:13px}
+
+/* ---------- card dex ---------- */
+.dex-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:26px}
+.card-sheet{
+  background:var(--paper-2); border:1px solid var(--line); border-radius:14px;
+  padding:0; overflow:hidden; position:relative; box-shadow:var(--shadow);
+  display:flex; flex-direction:column;
+}
+.card-top{
+  display:flex; align-items:flex-start; gap:14px; padding:20px 22px 14px;
+  border-bottom:1px solid var(--line-soft); background:linear-gradient(180deg,#fffdf8,#fbf8f1);
+}
+.cnum{
+  flex:0 0 auto; width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
+  background:var(--ink); color:#f7f4ee; font-family:"Noto Serif KR",Georgia,serif; font-size:16px;
+  font-weight:600; font-variant-numeric:tabular-nums;
+}
+.card-sheet.pos .cnum{background:var(--pos)}
+.card-sheet.mid .cnum{background:var(--mid)}
+.card-sheet.neg .cnum{background:var(--neg)}
+.ctitle{flex:1 1 auto; min-width:0}
+.cname{font-family:"Noto Serif KR",Georgia,serif; font-size:18px; font-weight:600; line-height:1.35; margin:0}
+.cen{font-size:12px; letter-spacing:.06em; color:var(--ink-mute); text-transform:uppercase; margin-top:2px; display:block}
+.pol{
+  flex:0 0 auto; font-size:11.5px; letter-spacing:.06em; padding:4px 9px; border-radius:999px;
+  border:1px solid currentColor; line-height:1.4;
+}
+.pol.pos{color:var(--pos)} .card-sheet.pos .card-top{background:linear-gradient(180deg,#fbfdfc,#f5f9f7)}
+.pol.mid{color:var(--mid)} .card-sheet.mid .card-top{background:linear-gradient(180deg,#fdfcf6,#f9f6ea)}
+.pol.neg{color:var(--neg)} .card-sheet.neg .card-top{background:linear-gradient(180deg,#fdf9f7,#faf1ec)}
+
+.kwrow{display:flex; flex-wrap:wrap; gap:6px; padding:14px 22px 4px}
+.tag{
+  font-size:12px; color:var(--ink-soft); background:#f1ece0; border:1px solid var(--line-soft);
+  border-radius:6px; padding:2px 8px; line-height:1.6;
+}
+.card-body{padding:8px 22px 22px; flex:1 1 auto}
+.blk{margin-top:14px}
+.blk-t{
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+  margin-bottom:5px; font-weight:600;
+}
+.blk p{margin:0 0 4px; font-size:14px; color:var(--ink-soft); line-height:1.7}
+.blk ul{margin:0; padding-left:0; list-style:none}
+.blk ul li{
+  font-size:14px; color:var(--ink-soft); line-height:1.68; padding-left:12px; position:relative; margin-bottom:3px;
+}
+.blk ul li::before{content:"–"; position:absolute; left:0; color:var(--ink-mute)}
+.blk.talk p{font-size:13px; color:var(--ink-mute)}
+.blk.combo p{font-size:13px; color:var(--neg); background:#fbf2ec; border-left:2px solid #e2c3b4; padding:8px 10px; border-radius:0 6px 6px 0}
+
+/* flash (study) mode */
+body.flash .card-body{display:none}
+body.flash .kwrow{display:none}
+body.flash .card-sheet{cursor:pointer}
+body.flash .card-sheet.open .card-body,
+body.flash .card-sheet.open .kwrow{display:block}
+body.flash .card-sheet::after{
+  content:"탭하여 펼치기"; position:absolute; right:16px; bottom:10px; font-size:11px; color:var(--ink-mute);
+}
+body.flash .card-sheet.open::after{content:"탭하여 접기"}
+
+/* ---------- polarity map ---------- */
+.polmap{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px}
+.polcol{background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:20px 22px}
+.polcol h4{margin:0 0 4px; font-family:"Noto Serif KR",Georgia,serif; font-size:16px}
+.polcol .n{font-family:"Noto Serif KR",Georgia,serif; font-size:28px; line-height:1.1; margin-bottom:10px}
+.polcol.pos .n{color:var(--pos)} .polcol.mid .n{color:var(--mid)} .polcol.neg .n{color:var(--neg)}
+.mini{display:flex; flex-wrap:wrap; gap:5px}
+.mini span{font-size:11.5px; color:var(--ink-soft); background:#f4efe3; border-radius:5px; padding:2px 7px}
+.polcol .hint{font-size:12.5px; color:var(--ink-mute); margin-top:12px; border-top:1px dashed var(--line); padding-top:10px}
+
+/* ---------- spreads ---------- */
+.spread{background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow)}
+.spread h4{margin:0 0 6px; font-family:"Noto Serif KR",Georgia,serif; font-size:16px}
+.spread .desc{font-size:13.5px; color:var(--ink-mute); margin:0 0 14px}
+.diagram{display:flex; gap:10px; align-items:flex-end; margin:6px 0 12px; flex-wrap:wrap}
+.slot{
+  width:56px; height:84px; border:1px solid var(--line); border-radius:8px; background:#fff;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  font-size:10px; color:var(--ink-mute); text-align:center; line-height:1.3; box-shadow:0 2px 0 #e7e0d2;
+}
+.slot b{font-family:"Noto Serif KR",Georgia,serif; font-size:12px; color:var(--terracotta)}
+.slot.dark{background:#1b1d21; border-color:#1b1d21; color:#cfc7b7}
+.slot.dark b{color:#e0b877}
+.rules{list-style:none; padding:0; margin:10px 0 0; font-size:13.5px}
+.rules li{padding:6px 0 6px 22px; position:relative; border-top:1px dashed var(--line-soft); color:var(--ink-soft)}
+.rules li:first-child{border-top:none}
+.rules li::before{content:"→"; position:absolute; left:0; color:var(--gold)}
+
+/* ---------- combos ---------- */
+.combo-list{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:20px}
+.combo-item{
+  display:flex; gap:14px; padding:12px 16px; background:var(--paper-2); border:1px solid var(--line-soft);
+  border-radius:10px; font-size:14px; align-items:baseline;
+}
+.combo-item .cn{
+  font-family:"Noto Serif KR",Georgia,serif; font-size:13px; color:var(--terracotta); white-space:nowrap;
+  font-variant-numeric:tabular-nums; flex:0 0 auto; min-width:76px;
+}
+.combo-item .cr{color:var(--ink-soft); line-height:1.6}
+.field{
+  font-size:10.5px; padding:2px 7px; border-radius:4px; background:#efe9dc; color:var(--ink-soft);
+  white-space:nowrap; margin-left:auto; flex:0 0 auto;
+}
+.empty{padding:40px; text-align:center; color:var(--ink-mute); font-size:14px}
+
+footer{
+  background:#14161a; color:#a9a294; padding:46px 0 54px; font-size:13px; line-height:1.8;
+}
+footer .wrap{display:flex; justify-content:space-between; gap:30px; flex-wrap:wrap}
+footer b{color:#efe8db; font-family:"Noto Serif KR",Georgia,serif; font-size:15px; display:block; margin-bottom:6px}
+footer a{color:#c9a869; text-decoration:none}
+footer .sig{font-family:"Noto Serif KR",Georgia,serif; font-style:italic; color:#e0b877}
+
+@media (max-width:900px){
+  .grid-2,.grid-3,.dex-grid,.polmap,.combo-list{grid-template-columns:1fr}
+  .wrap{padding:0 18px}
+  .toolbar .inner{padding:9px 18px}
+  .hero{padding:52px 0 44px}
+  section{padding:46px 0 4px}
+}
+
+/* ---------- card figures ---------- */
+.figrow{display:flex; gap:16px; padding:16px 22px 2px; align-items:flex-start}
+.cardimg{
+  flex:0 0 auto; width:96px; border-radius:6px; border:1px solid var(--line);
+  box-shadow:0 6px 14px -8px rgba(24,26,29,.45); background:#fff; display:block;
+}
+.figrow .blk{flex:1 1 auto; min-width:0}
+
+/* ---------- gallery ---------- */
+.gallery{
+  display:grid; grid-template-columns:repeat(9,1fr); gap:12px 14px; margin:16px 0 8px;
+  padding:16px; background:var(--paper-2); border:1px solid var(--line); border-radius:14px;
+}
+.gitem{display:flex; flex-direction:column; text-decoration:none; color:var(--ink-soft); text-align:center; min-width:0}
+.gitem img{
+  width:100%; aspect-ratio:3/5; object-fit:contain; background:#fff;
+  border-radius:4px; border:1px solid var(--line-soft);
+  box-shadow:0 4px 10px -8px rgba(24,26,29,.5); transition:.16s; background:#fff;
+}
+.gitem:hover img{border-color:var(--terracotta); transform:translateY(-2px); box-shadow:0 8px 16px -10px rgba(176,74,51,.6)}
+.gitem span{display:block; font-size:10.5px; line-height:1.35; margin-top:4px; color:var(--ink-mute); word-break:keep-all}
+.gitem:hover span{color:var(--terracotta)}
+
+/* flash mode: keep the image, hide the rest */
+body.flash .figrow{justify-content:center; padding:20px 22px 6px; background:#1b1d21; margin:0}
+body.flash .figrow .blk{display:none}
+body.flash .cardimg{width:132px; border-color:#2c2f35}
+
+@media (max-width:900px){
+  .gallery{grid-template-columns:repeat(4,1fr)}
+  .figrow{padding:14px 18px 2px}
+  .cardimg{width:78px}
+}
+
+.diagram.grid3{display:grid; grid-template-columns:repeat(3,56px); gap:10px; justify-content:start}
+</style>
+<link rel="stylesheet" href="../uni/study-nav.css"><style>body.has-arcana-nav{padding-top:calc(58px + env(safe-area-inset-top))}.toolbar{top:calc(58px + env(safe-area-inset-top))}</style><link rel="stylesheet" href="study.css"><link rel="stylesheet" href="guide.css"></head>
+<body class="has-arcana-nav guide-page"><nav class="arcana-nav " aria-label="페이지 이동"><div class="arcana-nav-start"><a class="arcana-btn arcana-back" href="index.html" aria-label="카드 목록으로 돌아가기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></a></div><span class="arcana-nav-title">호로스코프벨린 학습 가이드</span><a class="arcana-btn" href="index.html">전체 카드</a></nav>
+
+<header class="study-title guide-title"><p class="kicker">HOROSCOPE BELLINE · LEARNING GUIDE</p><h1>호로스코프벨린 학습 가이드</h1><p>카드를 읽는 순서부터 행성의 의미와 조합까지.<br>52장의 이야기를 이해하고 나만의 리딩으로 연결해 보세요.</p><span class="title-rule" aria-hidden="true"></span></header>
+
+<nav class="guide-toc" aria-label="학습 가이드 목차"><a href="#how">학습 순서</a><a href="#basic">기본 이해</a><a href="#planet">7행성</a><a href="#dex">카드 도감</a><a href="#polarity">극성</a><a href="#spread">배열법</a><a href="#combo">카드 조합</a></nav>
+<main>
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">00</div>
+      <div><h2>이 노트를 쓰는 법</h2>
+      <p class="sub">카드를 '외우는' 순서보다 '읽는' 순서가 먼저입니다.</p></div>
+    </div>
+    <p class="lead-2">원문이 제안하는 카드 학습 순서는 여섯 단계입니다. 이 노트는 그 순서를 그대로 따라가도록 카드마다
+    <b>핵심 내용 → 그림 읽기 → 주요 메시지 → 실생활 적용 → 학습 노트 → 조합 메모</b> 순으로 배열했습니다.
+    같은 순서로 읽으면 카드 한 장이 5분 안에 정리됩니다.</p>
+
+    <h3>카드 한 장을 읽는 6단계</h3>
+    <ol class="steps">
+      <li><b>카드 이미지를 집중해서 본다</b><span>그림을 보며 개인적인 느낌을 먼저 적어봅니다. 정답보다 인상이 중요합니다.</span></li>
+      <li><b>카드 이름을 확인한다</b><span>그림에서 느낀 이미지와 이름이 어떻게 연결되는지 비교합니다.</span></li>
+      <li><b>카드의 내용을 읽는다</b><span>해설을 읽으며 그 카드만의 스토리텔링을 따라갑니다.</span></li>
+      <li><b>키워드 핵심 내용을 읽는다</b><span>전체 내용을 한 줄로 압축한 문장으로 정리합니다.</span></li>
+      <li><b>핵심 키워드를 읽는다</b><span>내가 적어둔 느낌과 키워드를 비교하며 카드 전체를 이해합니다.</span></li>
+      <li><b>긍정 / 부정 / 중립을 확인한다</b><span>앞의 과정이 끝나면 극성은 자연스럽게 연결됩니다.</span></li>
+    </ol>
+
+    <div class="grid-3" style="margin-top:26px">
+      <div class="panel"><span class="num">STEP 1</span><h4>하루 한 장</h4>
+        <p>아침에 한 장을 뽑아 그날의 기분·상황과 연결해 봅니다. 일상과 카드를 붙이는 순간 의미가 오래 남습니다.</p></div>
+      <div class="panel"><span class="num">STEP 2</span><h4>내 이야기로 풀기</h4>
+        <p>"이 문제를 어떻게 풀까" 같은 실제 질문을 던지고 카드를 뽑아, 이 노트의 해설과 내 상황을 대조합니다.</p></div>
+      <div class="panel"><span class="num">STEP 3</span><h4>3카드 배열로 확장</h4>
+        <p>과거·현재·미래(또는 원인·과정·결과)로 넘어갑니다. 익숙해지면 나만의 배열법을 만듭니다.</p></div>
+    </div>
+
+    <div class="quote">"Believe in magic inside you" — 원문 표지에 적힌 문장</div>
+  </div>
+</section>
+
+<section id="basic">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div><h2>호로스코프벨린이란</h2>
+      <p class="sub">심리학과 점성학을 융합한 52장 오라클 · 전신은 19세기의 오라클벨린</p></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <span class="num">구성</span>
+        <h4>52장 = 1년 52주</h4>
+        <p>원래 오라클벨린의 전통을 따르며, 1년 52주와 연결해 생각합니다. 각 카드는 독립적인 의미를 가지면서
+        서로 연관되며, 점성술의 시간·공간 맥락과 결합해 해석의 폭을 넓힙니다.</p>
+        <p>52장 중 <b>1번 남자의 생각 · 2번 여자의 생각 · 3번 운명의 문</b>은 행성에 속하지 않는 3장입니다.
+        나머지 49장은 7개 행성 계열로 묶여 읽힙니다.</p>
+      </div>
+      <div class="panel">
+        <span class="num">차이</span>
+        <h4>오라클벨린과 무엇이 다른가</h4>
+        <p>오라클벨린은 19세기에 에드먼드가 제작하고, 후에 마르셀 벨린이 재발견해 자신의 이름을 붙인 카드입니다.
+        현대적 색채를 입은 호로스코프벨린은 <b>행성 기호가 생략</b>되어 있고, 번호와 키워드의 배치도 조금 다릅니다.</p>
+        <p>덕분에 <b>점성학 배경 지식 없이도</b> 카드를 쓸 수 있습니다. 벨린은 1950~80년대 파리에서 심리학과 점성학을
+        결합한 상담 방식을 발전시켰고, 그래서 이 카드는 단순한 점술을 넘어 상담 도구로 쓰입니다.</p>
+      </div>
+    </div>
+
+    <h3>세 가지 장점</h3>
+    <div class="grid-3">
+      <div class="panel"><h4>1. 나를 찾아가는 과정</h4><p>각 카드의 상징을 통해 감정·성격·현재 상황을 더 깊이 이해하고, 장점과 약점을 명확히 파악합니다.</p></div>
+      <div class="panel"><h4>2. 영감과 통찰력</h4><p>문제를 새 시각에서 보게 합니다. 막힌 상황에서 새로운 아이디어나 접근 방식을 떠올리는 데 효과적입니다.</p></div>
+      <div class="panel"><h4>3. 명확한 결정</h4><p>복잡한 문제 앞에서 자기 선택에 확신을 갖게 합니다. 타인의 의견에 휘둘리지 않고 직관을 따르도록 돕습니다.</p></div>
+    </div>
+
+    <h3>타인을 읽을 때의 4원칙</h3>
+    <div class="grid-2">
+      <div class="panel"><h4>① 결과에 집착하지 않기</h4><p>카드는 가능성을 제시하고 통찰을 줄 뿐, 미래를 확정하지 않습니다. 정답을 맞히는 것이 목적이 아닙니다.</p></div>
+      <div class="panel"><h4>② 진정한 태도 유지</h4><p>질문을 판단하지 않고 공감합니다. 평온한 대화와 안정감이 내담자의 내면 목소리를 열어 줍니다.</p></div>
+      <div class="panel"><h4>③ 질문 정리와 추려내기</h4><p>뒤섞인 질문은 정확도를 떨어뜨립니다. 핵심 주제 하나에 초점을 맞춥니다.</p></div>
+      <div class="panel"><h4>④ 진짜 의도 이해하기</h4><p>리딩은 내담자가 몰랐던 내면의 갈등과 욕구를 드러내는 과정입니다. 의도에 맞는 조언을 고릅니다.</p></div>
+    </div>
+
+    <h3>상담사의 6가지 기본 소양</h3>
+    <div class="grid-3">
+      <div class="panel"><h4>직관력</h4><p>복잡한 상징을 빠르고 정확하게 이해</p></div>
+      <div class="panel"><h4>객관성</h4><p>개인적 감정을 빼고 공정하게 해석</p></div>
+      <div class="panel"><h4>비판적 사고</h4><p>여러 가능성 중 최선을 선택</p></div>
+      <div class="panel"><h4>자기계발</h4><p>지속적인 학습으로 상담 스킬 향상</p></div>
+      <div class="panel"><h4>공감능력</h4><p>상담자의 감정을 이해하고 반영</p></div>
+      <div class="panel"><h4>스트레스 관리</h4><p>명상과 '나 보기'로 스스로를 돌봄</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="planet">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div><h2>행성 7계열로 묶어 읽기</h2>
+      <p class="sub">카드에 행성 기호는 없지만, 행성의 성향을 알면 해석이 풍성해집니다</p></div>
+    </div>
+    <p class="lead-2">원문은 카드를 행성별로 묶어 소개합니다. 행성의 키워드를 먼저 익히고, 같은 계열 카드의 의미와 비교하면
+    카드의 '기운과 역할'이 훨씬 선명해집니다. 예를 들어 <b>태양 계열(4~10번)</b>은 개화·상승·보상·신뢰·명예·선물·휴식으로,
+    모두 '중심에서 밖으로 뻗어 나가는' 성취의 결이 공통됩니다.</p>
+
+    <p class="table-scroll-hint">← 좌우로 밀어 표 전체를 확인하세요 →</p><div class="tbl-wrap planet-table" role="region" aria-label="7행성 특성표 · 가로 스크롤" tabindex="0">
+      <table>
+        <thead><tr><th style="width:110px">행성</th><th style="width:210px">상징 카드</th><th>행성 키워드</th><th style="width:300px">성격과 내용</th><th style="width:86px">별자리</th></tr></thead>
+        <tbody>
+    <tr><td class='planet'>☉ 태양</td><td>4~10번 (개화·상승·보상·신뢰·명예·선물·휴식)</td><td class='kw'>중심적 / 관대함 / 거만함 / 생명력 / 창조 / 활기찬 / 발산적 에너지 / 과시욕 / 신뢰</td><td class='kw'>모든 생명의 근원, 만물의 중심이자 에너지원. 자기표현의 상징, 남성성, 초자아.</td><td class='zodiac'>사자자리</td></tr><tr><td class='planet'>☽ 달</td><td>상현달</td><td class='kw'>모성애 / 수용적 / 공감적 / 종속적 / 외로움 / 직관적 / 민감함 / 심리적 동요 / 여성적 / 습관적</td><td class='kw'>인간의 감정. 정해진 틀이 없고, 감정의 이중성으로 인해 불안정하며 양면성이 공존.</td><td class='zodiac'>게자리</td></tr><tr><td class='planet'>♂ 화성</td><td>아레스의 창과 방패</td><td class='kw'>열정 / 도전 / 공격적 / 용맹스러움 / 개척정신 / 무모함 / 충동적 / 인내심 부족 / 자기중심적</td><td class='kw'>개척정신의 상징으로 과감하고 실천적. 남성의 분출하는 힘과 리더십.</td><td class='zodiac'>양자리</td></tr><tr><td class='planet'>☿ 수성</td><td>헤르메스의 모자와 지팡이</td><td class='kw'>계획적 / 사고와 분석 / 풍부한 상상력 / 논리적 / 객관적 / 화술 뛰어남 / 신경질적 / 잔머리</td><td class='kw'>양성과 음성을 모두 가진 중성적 성격. 두뇌가 명석하고 다재다능하며 임기응변이 뛰어남(소통).</td><td class='zodiac'>처녀자리</td></tr><tr><td class='planet'>♀ 금성</td><td>아프로디테의 손거울</td><td class='kw'>물질적 안정성 / 구체성 / 아름다움 / 풍요로움 / 향락 / 허영 / 모던함 / 연애 / 쾌락</td><td class='kw'>사랑과 예의, 살아있는 생명력과 긍정적 성격. 구체적인 물질적 안정과 평화를 상징.</td><td class='zodiac'>천칭자리</td></tr><tr><td class='planet'>♃ 목성</td><td>제우스의 번개 or 독수리</td><td class='kw'>확대 / 정의 / 박애주의 / 높은 이상 / 지나친 자신감 / 교육 / 믿음 / 호탕함 / 자비 / 종교</td><td class='kw'>성장과 확장으로 진보의 긍정적 행성, 굳건한 믿음이 바탕. 정의와 책임감으로 남성적·영적인 면을 상징.</td><td class='zodiac'>사수자리</td></tr><tr><td class='planet'>♄ 토성</td><td>크로노스의 낫</td><td class='kw'>신중함 / 과묵함 / 인내와 절제 / 의심 / 소심함 / 불평 / 제약 / 노년기 / 질투심 / 통제력</td><td class='kw'>현실성과 질서, 정신세계의 엄격함. 자기통제와 인내심, 느린 시간을 상징.</td><td class='zodiac'>염소자리</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><b>활용법 —</b> ① 해당 행성의 카드를 눈으로 읽는다 ② 행성 키워드를 숙지한다 ③ 카드와 행성 키워드를 비교한다
+    ④ 행성의 기운에 따라 카드 의미를 연결해 반복해 읽는다. 1번·2번·3번 카드는 어느 행성에도 속하지 않습니다.</div>
+  </div>
+</section>
+
+<section id="dex"><div class="wrap"><div class="sec-head"><div class="sec-num">03</div><div><h2>52장 카드 도감</h2><p class="sub">카드를 선택하면 상세 해설로 이동합니다.</p></div></div><p class="lead-2">카드의 그림을 먼저 살펴보고, 이름과 키워드를 떠올려 보세요. 각 카드의 그림 해설·주요 메시지·실생활 적용은 상세 페이지에서 읽을 수 있습니다.</p><a class="guide-action" href="index.html">이름·키워드로 카드 찾기 ↗</a><div class="gallery"><a class="gitem" href="card-01.html" title="남자의 생각"><img src="../img_h/01.jpg" loading="lazy" alt="남자의 생각"><span>1. 남자의 생각</span></a><a class="gitem" href="card-02.html" title="여자의 생각"><img src="../img_h/02.jpg" loading="lazy" alt="여자의 생각"><span>2. 여자의 생각</span></a><a class="gitem" href="card-03.html" title="운명의 문"><img src="../img_h/03.jpg" loading="lazy" alt="운명의 문"><span>3. 운명의 문</span></a><a class="gitem" href="card-04.html" title="개화(꽃)"><img src="../img_h/04.jpg" loading="lazy" alt="개화(꽃)"><span>4. 개화(꽃)</span></a><a class="gitem" href="card-05.html" title="상승"><img src="../img_h/05.jpg" loading="lazy" alt="상승"><span>5. 상승</span></a><a class="gitem" href="card-06.html" title="보상"><img src="../img_h/06.jpg" loading="lazy" alt="보상"><span>6. 보상</span></a><a class="gitem" href="card-07.html" title="신뢰(충실)"><img src="../img_h/07.jpg" loading="lazy" alt="신뢰(충실)"><span>7. 신뢰(충실)</span></a><a class="gitem" href="card-08.html" title="명예"><img src="../img_h/08.jpg" loading="lazy" alt="명예"><span>8. 명예</span></a><a class="gitem" href="card-09.html" title="선물"><img src="../img_h/09.jpg" loading="lazy" alt="선물"><span>9. 선물</span></a><a class="gitem" href="card-10.html" title="휴식(평화)"><img src="../img_h/10.jpg" loading="lazy" alt="휴식(평화)"><span>10. 휴식(평화)</span></a><a class="gitem" href="card-11.html" title="출발"><img src="../img_h/11.jpg" loading="lazy" alt="출발"><span>11. 출발</span></a><a class="gitem" href="card-12.html" title="발견(폭로)"><img src="../img_h/12.jpg" loading="lazy" alt="발견(폭로)"><span>12. 발견(폭로)</span></a><a class="gitem" href="card-13.html" title="웰빙"><img src="../img_h/13.jpg" loading="lazy" alt="웰빙"><span>13. 웰빙</span></a><a class="gitem" href="card-14.html" title="악마"><img src="../img_h/14.jpg" loading="lazy" alt="악마"><span>14. 악마</span></a><a class="gitem" href="card-15.html" title="가정"><img src="../img_h/15.jpg" loading="lazy" alt="가정"><span>15. 가정</span></a><a class="gitem" href="card-16.html" title="물"><img src="../img_h/16.jpg" loading="lazy" alt="물"><span>16. 물</span></a><a class="gitem" href="card-17.html" title="이동"><img src="../img_h/17.jpg" loading="lazy" alt="이동"><span>17. 이동</span></a><a class="gitem" href="card-18.html" title="우울"><img src="../img_h/18.jpg" loading="lazy" alt="우울"><span>18. 우울</span></a><a class="gitem" href="card-19.html" title="빛"><img src="../img_h/19.jpg" loading="lazy" alt="빛"><span>19. 빛</span></a><a class="gitem" href="card-20.html" title="번영(번성)"><img src="../img_h/20.jpg" loading="lazy" alt="번영(번성)"><span>20. 번영(번성)</span></a><a class="gitem" href="card-21.html" title="벌"><img src="../img_h/21.jpg" loading="lazy" alt="벌"><span>21. 벌</span></a><a class="gitem" href="card-22.html" title="까치"><img src="../img_h/22.jpg" loading="lazy" alt="까치"><span>22. 까치</span></a><a class="gitem" href="card-23.html" title="메시지"><img src="../img_h/23.jpg" loading="lazy" alt="메시지"><span>23. 메시지</span></a><a class="gitem" href="card-24.html" title="사업"><img src="../img_h/24.jpg" loading="lazy" alt="사업"><span>24. 사업</span></a><a class="gitem" href="card-25.html" title="진정"><img src="../img_h/25.jpg" loading="lazy" alt="진정"><span>25. 진정</span></a><a class="gitem" href="card-26.html" title="기쁨(즐거움)"><img src="../img_h/26.jpg" loading="lazy" alt="기쁨(즐거움)"><span>26. 기쁨(즐거움)</span></a><a class="gitem" href="card-27.html" title="큐피드"><img src="../img_h/27.jpg" loading="lazy" alt="큐피드"><span>27. 큐피드</span></a><a class="gitem" href="card-28.html" title="결합"><img src="../img_h/28.jpg" loading="lazy" alt="결합"><span>28. 결합</span></a><a class="gitem" href="card-29.html" title="가정(둥지)"><img src="../img_h/29.jpg" loading="lazy" alt="가정(둥지)"><span>29. 가정(둥지)</span></a><a class="gitem" href="card-30.html" title="풍향계"><img src="../img_h/30.jpg" loading="lazy" alt="풍향계"><span>30. 풍향계</span></a><a class="gitem" href="card-31.html" title="마녀"><img src="../img_h/31.jpg" loading="lazy" alt="마녀"><span>31. 마녀</span></a><a class="gitem" href="card-32.html" title="열정"><img src="../img_h/32.jpg" loading="lazy" alt="열정"><span>32. 열정</span></a><a class="gitem" href="card-33.html" title="노예"><img src="../img_h/33.jpg" loading="lazy" alt="노예"><span>33. 노예</span></a><a class="gitem" href="card-34.html" title="정의"><img src="../img_h/34.jpg" loading="lazy" alt="정의"><span>34. 정의</span></a><a class="gitem" href="card-35.html" title="협상"><img src="../img_h/35.jpg" loading="lazy" alt="협상"><span>35. 협상</span></a><a class="gitem" href="card-36.html" title="용"><img src="../img_h/36.jpg" loading="lazy" alt="용"><span>36. 용</span></a><a class="gitem" href="card-37.html" title="위험"><img src="../img_h/37.jpg" loading="lazy" alt="위험"><span>37. 위험</span></a><a class="gitem" href="card-38.html" title="정열"><img src="../img_h/38.jpg" loading="lazy" alt="정열"><span>38. 정열</span></a><a class="gitem" href="card-39.html" title="이상"><img src="../img_h/39.jpg" loading="lazy" alt="이상"><span>39. 이상</span></a><a class="gitem" href="card-40.html" title="지원"><img src="../img_h/40.jpg" loading="lazy" alt="지원"><span>40. 지원</span></a><a class="gitem" href="card-41.html" title="지혜"><img src="../img_h/41.jpg" loading="lazy" alt="지혜"><span>41. 지혜</span></a><a class="gitem" href="card-42.html" title="유산"><img src="../img_h/42.jpg" loading="lazy" alt="유산"><span>42. 유산</span></a><a class="gitem" href="card-43.html" title="기회"><img src="../img_h/43.jpg" loading="lazy" alt="기회"><span>43. 기회</span></a><a class="gitem" href="card-44.html" title="명성"><img src="../img_h/44.jpg" loading="lazy" alt="명성"><span>44. 명성</span></a><a class="gitem" href="card-45.html" title="행복"><img src="../img_h/45.jpg" loading="lazy" alt="행복"><span>45. 행복</span></a><a class="gitem" href="card-46.html" title="고독"><img src="../img_h/46.jpg" loading="lazy" alt="고독"><span>46. 고독</span></a><a class="gitem" href="card-47.html" title="불행(불운)"><img src="../img_h/47.jpg" loading="lazy" alt="불행(불운)"><span>47. 불행(불운)</span></a><a class="gitem" href="card-48.html" title="보호"><img src="../img_h/48.jpg" loading="lazy" alt="보호"><span>48. 보호</span></a><a class="gitem" href="card-49.html" title="죽음(끝)"><img src="../img_h/49.jpg" loading="lazy" alt="죽음(끝)"><span>49. 죽음(끝)</span></a><a class="gitem" href="card-50.html" title="장애"><img src="../img_h/50.jpg" loading="lazy" alt="장애"><span>50. 장애</span></a><a class="gitem" href="card-51.html" title="몰락"><img src="../img_h/51.jpg" loading="lazy" alt="몰락"><span>51. 몰락</span></a><a class="gitem" href="card-52.html" title="미로"><img src="../img_h/52.jpg" loading="lazy" alt="미로"><span>52. 미로</span></a></div></div></section>
+
+<section id="polarity">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div><h2>극성 지도와 암기 포인트</h2>
+      <p class="sub">52장 = 긍정 20 · 중립 18 · 부정 14</p></div>
+    </div>
+    <p class="lead-2">리딩에서 가장 먼저 하는 일은 카드의 극성을 확인하는 것입니다. 긍정·부정의 개수를 먼저 외워 두면
+    배열 전체의 기운을 빠르게 판정할 수 있습니다.</p>
+    <div class="polmap">
+<div class="polcol pos"><h4>긍정</h4><div class="n">20장</div>
+        <div class="mini polarity-cards"><a class="polarity-card" href="card-03.html"><img src="../img_h/03.jpg" loading="lazy" alt="3. 운명의 문 상세 해설"><span>3. 운명의 문</span></a><a class="polarity-card" href="card-04.html"><img src="../img_h/04.jpg" loading="lazy" alt="4. 개화(꽃) 상세 해설"><span>4. 개화(꽃)</span></a><a class="polarity-card" href="card-05.html"><img src="../img_h/05.jpg" loading="lazy" alt="5. 상승 상세 해설"><span>5. 상승</span></a><a class="polarity-card" href="card-06.html"><img src="../img_h/06.jpg" loading="lazy" alt="6. 보상 상세 해설"><span>6. 보상</span></a><a class="polarity-card" href="card-07.html"><img src="../img_h/07.jpg" loading="lazy" alt="7. 신뢰(충실) 상세 해설"><span>7. 신뢰(충실)</span></a><a class="polarity-card" href="card-08.html"><img src="../img_h/08.jpg" loading="lazy" alt="8. 명예 상세 해설"><span>8. 명예</span></a><a class="polarity-card" href="card-09.html"><img src="../img_h/09.jpg" loading="lazy" alt="9. 선물 상세 해설"><span>9. 선물</span></a><a class="polarity-card" href="card-19.html"><img src="../img_h/19.jpg" loading="lazy" alt="19. 빛 상세 해설"><span>19. 빛</span></a><a class="polarity-card" href="card-20.html"><img src="../img_h/20.jpg" loading="lazy" alt="20. 번영(번성) 상세 해설"><span>20. 번영(번성)</span></a><a class="polarity-card" href="card-25.html"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정 상세 해설"><span>25. 진정</span></a><a class="polarity-card" href="card-26.html"><img src="../img_h/26.jpg" loading="lazy" alt="26. 기쁨(즐거움) 상세 해설"><span>26. 기쁨(즐거움)</span></a><a class="polarity-card" href="card-27.html"><img src="../img_h/27.jpg" loading="lazy" alt="27. 큐피드 상세 해설"><span>27. 큐피드</span></a><a class="polarity-card" href="card-28.html"><img src="../img_h/28.jpg" loading="lazy" alt="28. 결합 상세 해설"><span>28. 결합</span></a><a class="polarity-card" href="card-39.html"><img src="../img_h/39.jpg" loading="lazy" alt="39. 이상 상세 해설"><span>39. 이상</span></a><a class="polarity-card" href="card-40.html"><img src="../img_h/40.jpg" loading="lazy" alt="지원"><span>40. 지원</span></a><a class="polarity-card" href="card-41.html"><img src="../img_h/41.jpg" loading="lazy" alt="41. 지혜 상세 해설"><span>41. 지혜</span></a><a class="polarity-card" href="card-43.html"><img src="../img_h/43.jpg" loading="lazy" alt="43. 기회 상세 해설"><span>43. 기회</span></a><a class="polarity-card" href="card-44.html"><img src="../img_h/44.jpg" loading="lazy" alt="44. 명성 상세 해설"><span>44. 명성</span></a><a class="polarity-card" href="card-45.html"><img src="../img_h/45.jpg" loading="lazy" alt="45. 행복 상세 해설"><span>45. 행복</span></a><a class="polarity-card" href="card-48.html"><img src="../img_h/48.jpg" loading="lazy" alt="48. 보호 상세 해설"><span>48. 보호</span></a></div><div class="hint">기운이 열려 있는 카드. 결론을 밀어주는 힘으로 읽습니다.</div></div><div class="polcol mid"><h4>중립</h4><div class="n">18장</div>
+        <div class="mini polarity-cards"><a class="polarity-card" href="card-01.html"><img src="../img_h/01.jpg" loading="lazy" alt="1. 남자의 생각 상세 해설"><span>1. 남자의 생각</span></a><a class="polarity-card" href="card-02.html"><img src="../img_h/02.jpg" loading="lazy" alt="2. 여자의 생각 상세 해설"><span>2. 여자의 생각</span></a><a class="polarity-card" href="card-10.html"><img src="../img_h/10.jpg" loading="lazy" alt="10. 휴식(평화) 상세 해설"><span>10. 휴식(평화)</span></a><a class="polarity-card" href="card-11.html"><img src="../img_h/11.jpg" loading="lazy" alt="11. 출발 상세 해설"><span>11. 출발</span></a><a class="polarity-card" href="card-12.html"><img src="../img_h/12.jpg" loading="lazy" alt="12. 발견(폭로) 상세 해설"><span>12. 발견(폭로)</span></a><a class="polarity-card" href="card-13.html"><img src="../img_h/13.jpg" loading="lazy" alt="13. 웰빙 상세 해설"><span>13. 웰빙</span></a><a class="polarity-card" href="card-15.html"><img src="../img_h/15.jpg" loading="lazy" alt="15. 가정 상세 해설"><span>15. 가정</span></a><a class="polarity-card" href="card-16.html"><img src="../img_h/16.jpg" loading="lazy" alt="16. 물 상세 해설"><span>16. 물</span></a><a class="polarity-card" href="card-17.html"><img src="../img_h/17.jpg" loading="lazy" alt="17. 이동 상세 해설"><span>17. 이동</span></a><a class="polarity-card" href="card-21.html"><img src="../img_h/21.jpg" loading="lazy" alt="21. 벌 상세 해설"><span>21. 벌</span></a><a class="polarity-card" href="card-23.html"><img src="../img_h/23.jpg" loading="lazy" alt="23. 메시지 상세 해설"><span>23. 메시지</span></a><a class="polarity-card" href="card-24.html"><img src="../img_h/24.jpg" loading="lazy" alt="24. 사업 상세 해설"><span>24. 사업</span></a><a class="polarity-card" href="card-29.html"><img src="../img_h/29.jpg" loading="lazy" alt="가정(둥지)"><span>29. 가정(둥지)</span></a><a class="polarity-card" href="card-32.html"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정 상세 해설"><span>32. 열정</span></a><a class="polarity-card" href="card-34.html"><img src="../img_h/34.jpg" loading="lazy" alt="34. 정의 상세 해설"><span>34. 정의</span></a><a class="polarity-card" href="card-35.html"><img src="../img_h/35.jpg" loading="lazy" alt="35. 협상 상세 해설"><span>35. 협상</span></a><a class="polarity-card" href="card-38.html"><img src="../img_h/38.jpg" loading="lazy" alt="정열"><span>38. 정열</span></a><a class="polarity-card" href="card-42.html"><img src="../img_h/42.jpg" loading="lazy" alt="42. 유산 상세 해설"><span>42. 유산</span></a></div><div class="hint">방향이 정해지지 않은 카드. 함께 나온 카드에 따라 성격이 바뀝니다.</div></div><div class="polcol neg"><h4>부정</h4><div class="n">14장</div>
+        <div class="mini polarity-cards"><a class="polarity-card" href="card-14.html"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마 상세 해설"><span>14. 악마</span></a><a class="polarity-card" href="card-18.html"><img src="../img_h/18.jpg" loading="lazy" alt="18. 우울 상세 해설"><span>18. 우울</span></a><a class="polarity-card" href="card-22.html"><img src="../img_h/22.jpg" loading="lazy" alt="22. 까치 상세 해설"><span>22. 까치</span></a><a class="polarity-card" href="card-30.html"><img src="../img_h/30.jpg" loading="lazy" alt="30. 풍향계 상세 해설"><span>30. 풍향계</span></a><a class="polarity-card" href="card-31.html"><img src="../img_h/31.jpg" loading="lazy" alt="31. 마녀 상세 해설"><span>31. 마녀</span></a><a class="polarity-card" href="card-33.html"><img src="../img_h/33.jpg" loading="lazy" alt="33. 노예 상세 해설"><span>33. 노예</span></a><a class="polarity-card" href="card-36.html"><img src="../img_h/36.jpg" loading="lazy" alt="36. 용 상세 해설"><span>36. 용</span></a><a class="polarity-card" href="card-37.html"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험 상세 해설"><span>37. 위험</span></a><a class="polarity-card" href="card-46.html"><img src="../img_h/46.jpg" loading="lazy" alt="46. 고독 상세 해설"><span>46. 고독</span></a><a class="polarity-card" href="card-47.html"><img src="../img_h/47.jpg" loading="lazy" alt="47. 불행(불운) 상세 해설"><span>47. 불행(불운)</span></a><a class="polarity-card" href="card-49.html"><img src="../img_h/49.jpg" loading="lazy" alt="49. 죽음(끝) 상세 해설"><span>49. 죽음(끝)</span></a><a class="polarity-card" href="card-50.html"><img src="../img_h/50.jpg" loading="lazy" alt="50. 장애 상세 해설"><span>50. 장애</span></a><a class="polarity-card" href="card-51.html"><img src="../img_h/51.jpg" loading="lazy" alt="51. 몰락 상세 해설"><span>51. 몰락</span></a><a class="polarity-card" href="card-52.html"><img src="../img_h/52.jpg" loading="lazy" alt="52. 미로 상세 해설"><span>52. 미로</span></a></div><div class="hint">막힘·경고의 카드. '나쁜 일'이 아니라 '점검할 지점'으로 읽습니다.</div></div>
+    </div>
+
+    <h3>꼭 외워야 할 세 장 — '중화 카드'</h3>
+    <div class="grid-3">
+      <div class="panel"><span class="num">45번</span><div class="polarity-cards"><a class="polarity-card" href="card-45.html"><img src="../img_h/45.jpg" loading="lazy" alt="45. 행복 상세 해설"><span>45. 45. 행복 상세 해설</span></a></div><h4>행복 Felicity</h4><p>전체 카드 중 기운이 가장 좋은 카드.
+      부정 카드를 중화시키는 최고의 카드로, 육각형 별은 '창조의 별'이라 불립니다.</p></div>
+      <div class="panel"><span class="num">48번</span><div class="polarity-cards"><a class="polarity-card" href="card-48.html"><img src="../img_h/48.jpg" loading="lazy" alt="48. 보호 상세 해설"><span>48. 48. 보호 상세 해설</span></a></div><h4>보호 Protection</h4><p>신의 은총과 보호. 부정 카드가 나와도 그 기운을 중화시키는 강력한 방어 카드입니다.</p></div>
+      <div class="panel"><span class="num">25번</span><div class="polarity-cards"><a class="polarity-card" href="card-25.html"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정 상세 해설"><span>25. 25. 진정 상세 해설</span></a></div><div style="font-family:'Noto Serif KR',serif;font-size:15px;margin:0 0 6px">진정 Appeasement</div>
+      <p>토성 계열 7장 중 유일하게 긍정 기운을 가진 카드. 부정 카드를 억누르고 중화시킵니다.</p></div>
+    </div>
+
+    <h3>부정 14장 — 한 묶음으로 외우기</h3>
+    <div class="note" style="font-size:14.5px">
+<div class="polarity-cards"><a class="polarity-card" href="card-14.html"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마 상세 해설"><span>14. 14. 악마 상세 해설</span></a><a class="polarity-card" href="card-18.html"><img src="../img_h/18.jpg" loading="lazy" alt="18. 우울 상세 해설"><span>18. 18. 우울 상세 해설</span></a><a class="polarity-card" href="card-22.html"><img src="../img_h/22.jpg" loading="lazy" alt="22. 까치 상세 해설"><span>22. 22. 까치 상세 해설</span></a><a class="polarity-card" href="card-30.html"><img src="../img_h/30.jpg" loading="lazy" alt="30. 풍향계 상세 해설"><span>30. 30. 풍향계 상세 해설</span></a><a class="polarity-card" href="card-31.html"><img src="../img_h/31.jpg" loading="lazy" alt="31. 마녀 상세 해설"><span>31. 31. 마녀 상세 해설</span></a><a class="polarity-card" href="card-33.html"><img src="../img_h/33.jpg" loading="lazy" alt="33. 노예 상세 해설"><span>33. 33. 노예 상세 해설</span></a><a class="polarity-card" href="card-36.html"><img src="../img_h/36.jpg" loading="lazy" alt="36. 용 상세 해설"><span>36. 36. 용 상세 해설</span></a><a class="polarity-card" href="card-37.html"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험 상세 해설"><span>37. 37. 위험 상세 해설</span></a><a class="polarity-card" href="card-46.html"><img src="../img_h/46.jpg" loading="lazy" alt="46. 고독 상세 해설"><span>46. 46. 고독 상세 해설</span></a><a class="polarity-card" href="card-47.html"><img src="../img_h/47.jpg" loading="lazy" alt="47. 불행(불운) 상세 해설"><span>47. 47. 불행(불운) 상세 해설</span></a><a class="polarity-card" href="card-49.html"><img src="../img_h/49.jpg" loading="lazy" alt="49. 죽음(끝) 상세 해설"><span>49. 49. 죽음(끝) 상세 해설</span></a><a class="polarity-card" href="card-50.html"><img src="../img_h/50.jpg" loading="lazy" alt="50. 장애 상세 해설"><span>50. 50. 장애 상세 해설</span></a><a class="polarity-card" href="card-51.html"><img src="../img_h/51.jpg" loading="lazy" alt="51. 몰락 상세 해설"><span>51. 51. 몰락 상세 해설</span></a><a class="polarity-card" href="card-52.html"><img src="../img_h/52.jpg" loading="lazy" alt="52. 미로 상세 해설"><span>52. 52. 미로 상세 해설</span></a></div><span class="small">부정 카드는 '나쁜 결과'가 아니라 <b>점검해야 할 지점</b>입니다. 원문도 "결과에 집착하지 말 것"을 첫 번째 원칙으로 둡니다.</span>
+    </div>
+
+    <h3>헷갈리기 쉬운 짝</h3>
+    <div class="grid-2">
+      <div class="panel"><h4>15 가정 ↔ 29 가정(둥지)</h4><div class="polarity-cards"><a class="polarity-card" href="card-15.html"><img src="../img_h/15.jpg" loading="lazy" alt="15. 가정 상세 해설"><span>15. 15. 가정 상세 해설</span></a><a class="polarity-card" href="card-29.html"><img src="../img_h/29.jpg" loading="lazy" alt="가정(둥지)"><span>29. 가정(둥지)</span></a></div><p>15번은 <b>공간·주거</b>(집·벽난로·부동산), 29번은 <b>관계·소속</b>(가족·조직·둥지)입니다. 15+17은 '이사·이직', 29는 가족·모임 중심으로 읽습니다.</p></div>
+      <div class="panel"><h4>37 위험 ↔ 50 장애</h4><div class="polarity-cards"><a class="polarity-card" href="card-37.html"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험 상세 해설"><span>37. 37. 위험 상세 해설</span></a><a class="polarity-card" href="card-50.html"><img src="../img_h/50.jpg" loading="lazy" alt="50. 장애 상세 해설"><span>50. 50. 장애 상세 해설</span></a></div><p>37은 <b>붕괴</b>(무너진 다리, 총체적 난국), 50은 <b>일시 정지</b>(부서진 바퀴, 고치면 다시 굴러감)입니다. 원문도 "위험과는 다름"이라고 구분합니다.</p></div>
+      <div class="panel"><h4>1 남자의 생각 ↔ 2 여자의 생각</h4><div class="polarity-cards"><a class="polarity-card" href="card-01.html"><img src="../img_h/01.jpg" loading="lazy" alt="1. 남자의 생각 상세 해설"><span>1. 1. 남자의 생각 상세 해설</span></a><a class="polarity-card" href="card-02.html"><img src="../img_h/02.jpg" loading="lazy" alt="2. 여자의 생각 상세 해설"><span>2. 2. 여자의 생각 상세 해설</span></a></div><p>둘 다 <b>중립</b>. 남성/여성 에너지와 '그 사람의 생각'을 가리키며, 3번과 함께 행성에 속하지 않는 3장입니다.</p></div>
+      <div class="panel"><h4>38 정열 ↔ 32 열정</h4><div class="polarity-cards"><a class="polarity-card" href="card-38.html"><img src="../img_h/38.jpg" loading="lazy" alt="정열"><span>38. 정열</span></a><a class="polarity-card" href="card-32.html"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정 상세 해설"><span>32. 32. 열정 상세 해설</span></a></div><p>32는 <b>욕망·유혹·집착</b>(색채만 있는 카드), 38은 <b>즉흥·속전속결·지속성 없음</b>(불꽃)입니다. 둘 다 주변 카드에 따라 극단적으로 달라집니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="spread">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div><h2>카드 배열법</h2>
+      <p class="sub">초보자는 원카드 → 투카드 → 쓰리카드 순으로</p></div>
+    </div>
+    <p class="lead-2">모든 배열법을 외울 필요는 없습니다. 질문의 종류에 따라 배열을 고르고, 익숙해지면 나만의 스프레드를
+    만들어 씁니다. 원문은 초보자에게 원카드·투카드·쓰리카드를 권합니다.</p>
+
+    <div class="grid-3">
+      <div class="spread">
+        <h4>원카드</h4>
+        <p class="desc">한 장으로 답하는 가장 단순한 배열. 단순한 질문, 일일 카드에 적합합니다.</p>
+        <div class="diagram"><div class="slot dark"><b>1</b><span>답</span></div></div>
+        <ul class="rules"><li>카드의 기운으로 바로 읽기</li><li>예/아니오 질문에도 사용</li></ul>
+      </div>
+      <div class="spread">
+        <h4>투카드</h4>
+        <p class="desc">원인–결과, 오전–오후, 긍정–부정의 두 가지 축으로 읽습니다.</p>
+        <div class="diagram"><div class="slot"><b>1</b><span>원인</span></div><div class="slot"><b>2</b><span>결과</span></div></div>
+        <ul class="rules"><li>시간 흐름(오전/오후)으로도 해석</li><li>두 장의 극성 대비를 먼저 확인</li></ul>
+      </div>
+      <div class="spread">
+        <h4>쓰리카드</h4>
+        <p class="desc">과거–현재–미래, 또는 원인–과정–결과. 가장 많이 쓰는 기본형입니다.</p>
+        <div class="diagram"><div class="slot"><b>1</b><span>과거<br>원인</span></div><div class="slot"><b>2</b><span>현재<br>과정</span></div><div class="slot"><b>3</b><span>미래<br>결과</span></div></div>
+        <ul class="rules"><li>세 장의 기운을 합산해 결론 판정</li><li>긍정·부정·중립 배치를 함께 읽기</li></ul>
+      </div>
+    </div>
+
+    <h3>세 장의 기운을 합치는 규칙</h3>
+    <p class="table-scroll-hint">← 좌우로 밀어 표 전체를 확인하세요 →</p><div class="tbl-wrap polarity-table" style="max-width:720px" role="region" aria-label="카드 조합 극성 판정표 · 가로 스크롤" tabindex="0">
+      <table>
+        <thead><tr><th>조합</th><th>판정</th><th>메모</th></tr></thead>
+        <tbody>
+          <tr><td>부정 + 부정 + 긍정</td><td><b>부정</b></td><td>막힘이 우세. 마지막 긍정은 탈출구 정도로</td></tr>
+          <tr><td>긍정 + 부정 + 긍정</td><td><b>긍정</b></td><td>중간의 걸림을 통과하면 열림</td></tr>
+          <tr><td>중립 + 긍정 + 긍정</td><td><b>긍정</b></td><td>중립이 긍정으로 기움</td></tr>
+          <tr><td>중립 + 부정 + 부정</td><td><b>부정</b></td><td>중립이 부정으로 기움</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">카드의 기운에 따라 결과가 달라집니다. 같은 조합이라도 질문과 상황이 다르면 리딩이 달라진다는 점을 항상 전제로 둡니다.</div>
+
+    <h3>픽시타로가 가장 많이 쓰는 세 가지 스프레드</h3>
+    <div class="grid-3">
+      <div class="spread">
+        <h4>① 호로스코프벨린 단독</h4>
+        <p class="desc">3장을 뽑아 과거–현재–미래(원인–과정–결과)로 읽습니다. 카드의 <b>기운</b>으로 읽는 방식.</p>
+        <div class="diagram"><div class="slot"><b>1</b></div><div class="slot"><b>2</b></div><div class="slot"><b>3</b></div></div>
+        <ul class="rules"><li>세 장의 극성 합산으로 결론</li><li>가장 빠르게 익히는 기본 구조</li></ul>
+      </div>
+      <div class="spread">
+        <h4>② 유니버설웨이트 보조덱</h4>
+        <p class="desc">유니버설웨이트 3장으로 흐름을 읽고, 호로스코프벨린 1장을 <b>결론/솔루션/예·아니오</b>로 뽑습니다.</p>
+        <div class="diagram"><div class="slot"><b>1</b></div><div class="slot"><b>2</b></div><div class="slot"><b>3</b></div><div class="slot dark"><b>4</b><span>결론<br>솔루션</span></div></div>
+        <ul class="rules"><li>웨이트 = 카드의 흐름으로 읽기</li><li>호로스코프 = 마무리 한 장</li></ul>
+      </div>
+      <div class="spread">
+        <h4>③ 6장 교차 리딩</h4>
+        <p class="desc">유니버설웨이트 3장 + 호로스코프벨린 3장, 총 6장. 두 덱을 교차로 읽습니다.</p>
+        <div class="diagram grid3"><div class="slot"><b>1</b><span>과거</span></div><div class="slot"><b>2</b><span>현재</span></div><div class="slot"><b>3</b><span>미래</span></div>
+        <div class="slot dark"><b>1</b><span>결론</span></div><div class="slot dark"><b>2</b><span>솔루션</span></div><div class="slot dark"><b>3</b><span>마무리</span></div></div>
+        <ul class="rules"><li>웨이트로 큰 그림</li><li>호로스코프로 결론·솔루션 마무리</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="combo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <div><h2>실전 조합 해석</h2>
+      <p class="sub">원문의 실전 예시 37가지 + 조합 해석표 42가지</p></div>
+    </div>
+    <p class="lead-2">카드는 한 장보다 <b>두 장의 충돌</b>에서 더 많은 정보를 줍니다. 아래는 원문에 실린 조합 예시입니다.
+    숫자만 보고 카드 이름이 떠오르지 않으면, 위 카드 도감에서 번호로 검색해 확인하세요.</p>
+
+    <h3>실전 예시 — 두 장·세 장 조합</h3>
+    <div class="combo-list">
+<div class="combo-item"><span class="cn"><span class="combo-numbers">4 · 1 · 3</span><span class="combo-cards"><a class="combo-card" href="card-04.html" title="4. 개화(꽃) 상세 해설"><img src="../img_h/04.jpg" loading="lazy" alt="4. 개화(꽃)"></a><a class="combo-card" href="card-01.html" title="1. 남자의 생각 상세 해설"><img src="../img_h/01.jpg" loading="lazy" alt="1. 남자의 생각"></a><a class="combo-card" href="card-03.html" title="3. 운명의 문 상세 해설"><img src="../img_h/03.jpg" loading="lazy" alt="3. 운명의 문"></a></span></span><span class="cr">원하던 일을 시작하기 딱 좋은 시기. 결정해야 할 시기</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">4 · 2 · 14</span><span class="combo-cards"><a class="combo-card" href="card-04.html" title="4. 개화(꽃) 상세 해설"><img src="../img_h/04.jpg" loading="lazy" alt="4. 개화(꽃)"></a><a class="combo-card" href="card-02.html" title="2. 여자의 생각 상세 해설"><img src="../img_h/02.jpg" loading="lazy" alt="2. 여자의 생각"></a><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a></span></span><span class="cr">의심스럽고 강력한 유혹의 시작</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">5 · 27 · 3</span><span class="combo-cards"><a class="combo-card" href="card-05.html" title="5. 상승 상세 해설"><img src="../img_h/05.jpg" loading="lazy" alt="5. 상승"></a><a class="combo-card" href="card-27.html" title="27. 큐피드 상세 해설"><img src="../img_h/27.jpg" loading="lazy" alt="27. 큐피드"></a><a class="combo-card" href="card-03.html" title="3. 운명의 문 상세 해설"><img src="../img_h/03.jpg" loading="lazy" alt="3. 운명의 문"></a></span></span><span class="cr">사랑이 급격하게 진행됨. 애정이 폭발하고 사랑이 시작됨</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">6 + 1 (또는 2)</span><span class="combo-cards"><a class="combo-card" href="card-06.html" title="6. 보상 상세 해설"><img src="../img_h/06.jpg" loading="lazy" alt="6. 보상"></a><a class="combo-card" href="card-01.html" title="1. 남자의 생각 상세 해설"><img src="../img_h/01.jpg" loading="lazy" alt="1. 남자의 생각"></a><a class="combo-card" href="card-02.html" title="2. 여자의 생각 상세 해설"><img src="../img_h/02.jpg" loading="lazy" alt="2. 여자의 생각"></a></span></span><span class="cr">본인의 소망이 현실화되고 만족함</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">10 · 4 · 25</span><span class="combo-cards"><a class="combo-card" href="card-10.html" title="10. 휴식(평화) 상세 해설"><img src="../img_h/10.jpg" loading="lazy" alt="10. 휴식(평화)"></a><a class="combo-card" href="card-04.html" title="4. 개화(꽃) 상세 해설"><img src="../img_h/04.jpg" loading="lazy" alt="4. 개화(꽃)"></a><a class="combo-card" href="card-25.html" title="25. 진정 상세 해설"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정"></a></span></span><span class="cr">삶의 부활, 균형 잡힌 평화로운 행복으로 복귀함</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">7 · 12 · 27</span><span class="combo-cards"><a class="combo-card" href="card-07.html" title="7. 신뢰(충실) 상세 해설"><img src="../img_h/07.jpg" loading="lazy" alt="7. 신뢰(충실)"></a><a class="combo-card" href="card-12.html" title="12. 발견(폭로) 상세 해설"><img src="../img_h/12.jpg" loading="lazy" alt="12. 발견(폭로)"></a><a class="combo-card" href="card-27.html" title="27. 큐피드 상세 해설"><img src="../img_h/27.jpg" loading="lazy" alt="27. 큐피드"></a></span></span><span class="cr">깊은 사랑이나 믿을 만한 우정의 대상을 찾음</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">7 + 51</span><span class="combo-cards"><a class="combo-card" href="card-07.html" title="7. 신뢰(충실) 상세 해설"><img src="../img_h/07.jpg" loading="lazy" alt="7. 신뢰(충실)"></a><a class="combo-card" href="card-51.html" title="51. 몰락 상세 해설"><img src="../img_h/51.jpg" loading="lazy" alt="51. 몰락"></a></span></span><span class="cr">구설이나 오해로 관계가 틀어짐</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">7 + 37</span><span class="combo-cards"><a class="combo-card" href="card-07.html" title="7. 신뢰(충실) 상세 해설"><img src="../img_h/07.jpg" loading="lazy" alt="7. 신뢰(충실)"></a><a class="combo-card" href="card-37.html" title="37. 위험 상세 해설"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험"></a></span></span><span class="cr">오해나 비방으로 친구·믿었던 사이가 틀어짐</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">8 + 14</span><span class="combo-cards"><a class="combo-card" href="card-08.html" title="8. 명예 상세 해설"><img src="../img_h/08.jpg" loading="lazy" alt="8. 명예"></a><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a></span></span><span class="cr">과대망상, 과도한 자존심으로 명예의 추락</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">16 + 10</span><span class="combo-cards"><a class="combo-card" href="card-16.html" title="16. 물 상세 해설"><img src="../img_h/16.jpg" loading="lazy" alt="16. 물"></a><a class="combo-card" href="card-10.html" title="10. 휴식(평화) 상세 해설"><img src="../img_h/10.jpg" loading="lazy" alt="10. 휴식(평화)"></a></span></span><span class="cr">여행 중이거나 해외 체류, 또는 충분한 휴식이 필요함</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">10 + 18</span><span class="combo-cards"><a class="combo-card" href="card-10.html" title="10. 휴식(평화) 상세 해설"><img src="../img_h/10.jpg" loading="lazy" alt="10. 휴식(평화)"></a><a class="combo-card" href="card-18.html" title="18. 우울 상세 해설"><img src="../img_h/18.jpg" loading="lazy" alt="18. 우울"></a></span></span><span class="cr">건강상의 이유로 휴가 또는 퇴직을 뜻함</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">11 + 27</span><span class="combo-cards"><a class="combo-card" href="card-11.html" title="11. 출발 상세 해설"><img src="../img_h/11.jpg" loading="lazy" alt="11. 출발"></a><a class="combo-card" href="card-27.html" title="27. 큐피드 상세 해설"><img src="../img_h/27.jpg" loading="lazy" alt="27. 큐피드"></a></span></span><span class="cr">신혼여행, 또는 결혼·사랑을 이룰 수 있는 여행</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">12 + 14</span><span class="combo-cards"><a class="combo-card" href="card-12.html" title="12. 발견(폭로) 상세 해설"><img src="../img_h/12.jpg" loading="lazy" alt="12. 발견(폭로)"></a><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a></span></span><span class="cr">스파이, 또는 상대방의 배신</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">13 + 14</span><span class="combo-cards"><a class="combo-card" href="card-13.html" title="13. 웰빙 상세 해설"><img src="../img_h/13.jpg" loading="lazy" alt="13. 웰빙"></a><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a></span></span><span class="cr">중독성이 강한 것들 — 폭식, 식중독, 장염, 알콜중독 등</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">8 + 37</span><span class="combo-cards"><a class="combo-card" href="card-08.html" title="8. 명예 상세 해설"><img src="../img_h/08.jpg" loading="lazy" alt="8. 명예"></a><a class="combo-card" href="card-37.html" title="37. 위험 상세 해설"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험"></a></span></span><span class="cr">명예의 추락 및 경력 단절, 퇴직</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">15 + 17</span><span class="combo-cards"><a class="combo-card" href="card-15.html" title="15. 가정 상세 해설"><img src="../img_h/15.jpg" loading="lazy" alt="15. 가정"></a><a class="combo-card" href="card-17.html" title="17. 이동 상세 해설"><img src="../img_h/17.jpg" loading="lazy" alt="17. 이동"></a></span></span><span class="cr">가정의 이사 또는 이직</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">46 + 49</span><span class="combo-cards"><a class="combo-card" href="card-46.html" title="46. 고독 상세 해설"><img src="../img_h/46.jpg" loading="lazy" alt="46. 고독"></a><a class="combo-card" href="card-49.html" title="49. 죽음(끝) 상세 해설"><img src="../img_h/49.jpg" loading="lazy" alt="49. 죽음(끝)"></a></span></span><span class="cr">죽음의 위기, 독단적인 행동</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">19 + 5</span><span class="combo-cards"><a class="combo-card" href="card-19.html" title="19. 빛 상세 해설"><img src="../img_h/19.jpg" loading="lazy" alt="19. 빛"></a><a class="combo-card" href="card-05.html" title="5. 상승 상세 해설"><img src="../img_h/05.jpg" loading="lazy" alt="5. 상승"></a></span></span><span class="cr">기획하고 있는 일의 성공 — 작가·연구원 등 고도의 노력이 필요한 일이 실현됨</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">20 + 22</span><span class="combo-cards"><a class="combo-card" href="card-20.html" title="20. 번영(번성) 상세 해설"><img src="../img_h/20.jpg" loading="lazy" alt="20. 번영(번성)"></a><a class="combo-card" href="card-22.html" title="22. 까치 상세 해설"><img src="../img_h/22.jpg" loading="lazy" alt="22. 까치"></a></span></span><span class="cr">금전적 손실, 예상했던 것과 다르게 돈이 들어오지 않음</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">20 · 17 · 5</span><span class="combo-cards"><a class="combo-card" href="card-20.html" title="20. 번영(번성) 상세 해설"><img src="../img_h/20.jpg" loading="lazy" alt="20. 번영(번성)"></a><a class="combo-card" href="card-17.html" title="17. 이동 상세 해설"><img src="../img_h/17.jpg" loading="lazy" alt="17. 이동"></a><a class="combo-card" href="card-05.html" title="5. 상승 상세 해설"><img src="../img_h/05.jpg" loading="lazy" alt="5. 상승"></a></span></span><span class="cr">현금 유통으로 금전 흐름이 상승함. 투자할 시기</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">21 + 18</span><span class="combo-cards"><a class="combo-card" href="card-21.html" title="21. 벌 상세 해설"><img src="../img_h/21.jpg" loading="lazy" alt="21. 벌"></a><a class="combo-card" href="card-18.html" title="18. 우울 상세 해설"><img src="../img_h/18.jpg" loading="lazy" alt="18. 우울"></a></span></span><span class="cr">집단 따돌림·왕따 등 상황에 짓눌림, 조직에서 주눅이 든 상태</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">21 + 22</span><span class="combo-cards"><a class="combo-card" href="card-21.html" title="21. 벌 상세 해설"><img src="../img_h/21.jpg" loading="lazy" alt="21. 벌"></a><a class="combo-card" href="card-22.html" title="22. 까치 상세 해설"><img src="../img_h/22.jpg" loading="lazy" alt="22. 까치"></a></span></span><span class="cr">해로운 음모가 진행됨, 건전하지 않은 계획, 믿어서는 안 될 정보를 옮기는 사람</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">22 + 51</span><span class="combo-cards"><a class="combo-card" href="card-22.html" title="22. 까치 상세 해설"><img src="../img_h/22.jpg" loading="lazy" alt="22. 까치"></a><a class="combo-card" href="card-51.html" title="51. 몰락 상세 해설"><img src="../img_h/51.jpg" loading="lazy" alt="51. 몰락"></a></span></span><span class="cr">사기를 당함, 재정적 파산, 경솔함과 부주의로 인한 배신</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">35 · 23 · 37</span><span class="combo-cards"><a class="combo-card" href="card-35.html" title="35. 협상 상세 해설"><img src="../img_h/35.jpg" loading="lazy" alt="35. 협상"></a><a class="combo-card" href="card-23.html" title="23. 메시지 상세 해설"><img src="../img_h/23.jpg" loading="lazy" alt="23. 메시지"></a><a class="combo-card" href="card-37.html" title="37. 위험 상세 해설"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험"></a></span></span><span class="cr">시험의 실패, 좋지 않은 정보가 전해짐, 이혼 및 파혼</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">27 + 5</span><span class="combo-cards"><a class="combo-card" href="card-27.html" title="27. 큐피드 상세 해설"><img src="../img_h/27.jpg" loading="lazy" alt="27. 큐피드"></a><a class="combo-card" href="card-05.html" title="5. 상승 상세 해설"><img src="../img_h/05.jpg" loading="lazy" alt="5. 상승"></a></span></span><span class="cr">첫눈에 반함, 열정적인 사랑, 관계가 급속도로 빨라짐</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">28 + 51</span><span class="combo-cards"><a class="combo-card" href="card-28.html" title="28. 결합 상세 해설"><img src="../img_h/28.jpg" loading="lazy" alt="28. 결합"></a><a class="combo-card" href="card-51.html" title="51. 몰락 상세 해설"><img src="../img_h/51.jpg" loading="lazy" alt="51. 몰락"></a></span></span><span class="cr">관계가 틀어짐, 불화가 생김</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">37 · 3 · 44</span><span class="combo-cards"><a class="combo-card" href="card-37.html" title="37. 위험 상세 해설"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험"></a><a class="combo-card" href="card-03.html" title="3. 운명의 문 상세 해설"><img src="../img_h/03.jpg" loading="lazy" alt="3. 운명의 문"></a><a class="combo-card" href="card-44.html" title="44. 명성 상세 해설"><img src="../img_h/44.jpg" loading="lazy" alt="44. 명성"></a></span></span><span class="cr">나의 의지대로 단절한 후 새로운 희망 속에 행복함</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">14 · 31 · 32</span><span class="combo-cards"><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a><a class="combo-card" href="card-31.html" title="31. 마녀 상세 해설"><img src="../img_h/31.jpg" loading="lazy" alt="31. 마녀"></a><a class="combo-card" href="card-32.html" title="32. 열정 상세 해설"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정"></a></span></span><span class="cr">위험하고 해로운 인물로 인한 배신, 물질과 정신을 빼앗김</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">33 + 1</span><span class="combo-cards"><a class="combo-card" href="card-33.html" title="33. 노예 상세 해설"><img src="../img_h/33.jpg" loading="lazy" alt="33. 노예"></a><a class="combo-card" href="card-01.html" title="1. 남자의 생각 상세 해설"><img src="../img_h/01.jpg" loading="lazy" alt="1. 남자의 생각"></a></span></span><span class="cr">정신적·육체적 감금 및 속박, 그에 따른 위험</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">26 · 33 · 43</span><span class="combo-cards"><a class="combo-card" href="card-26.html" title="26. 기쁨(즐거움) 상세 해설"><img src="../img_h/26.jpg" loading="lazy" alt="26. 기쁨(즐거움)"></a><a class="combo-card" href="card-33.html" title="33. 노예 상세 해설"><img src="../img_h/33.jpg" loading="lazy" alt="33. 노예"></a><a class="combo-card" href="card-43.html" title="43. 기회 상세 해설"><img src="../img_h/43.jpg" loading="lazy" alt="43. 기회"></a></span></span><span class="cr">유혹과 속박에서의 회복, 해방과 자유</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">35 + 14</span><span class="combo-cards"><a class="combo-card" href="card-35.html" title="35. 협상 상세 해설"><img src="../img_h/35.jpg" loading="lazy" alt="35. 협상"></a><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a></span></span><span class="cr">사기의 위험, 위험한 인물의 접근</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">37 + 35</span><span class="combo-cards"><a class="combo-card" href="card-37.html" title="37. 위험 상세 해설"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험"></a><a class="combo-card" href="card-35.html" title="35. 협상 상세 해설"><img src="../img_h/35.jpg" loading="lazy" alt="35. 협상"></a></span></span><span class="cr">화재의 위험, 폭발, 대형 사고</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">37 · 28 · 49</span><span class="combo-cards"><a class="combo-card" href="card-37.html" title="37. 위험 상세 해설"><img src="../img_h/37.jpg" loading="lazy" alt="37. 위험"></a><a class="combo-card" href="card-28.html" title="28. 결합 상세 해설"><img src="../img_h/28.jpg" loading="lazy" alt="28. 결합"></a><a class="combo-card" href="card-49.html" title="49. 죽음(끝) 상세 해설"><img src="../img_h/49.jpg" loading="lazy" alt="49. 죽음(끝)"></a></span></span><span class="cr">이혼, 과부·홀아비 신세</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">6 + 44</span><span class="combo-cards"><a class="combo-card" href="card-06.html" title="6. 보상 상세 해설"><img src="../img_h/06.jpg" loading="lazy" alt="6. 보상"></a><a class="combo-card" href="card-44.html" title="44. 명성 상세 해설"><img src="../img_h/44.jpg" loading="lazy" alt="44. 명성"></a></span></span><span class="cr">재능을 인정받아 큰 보상을 받음</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">19 + 32</span><span class="combo-cards"><a class="combo-card" href="card-19.html" title="19. 빛 상세 해설"><img src="../img_h/19.jpg" loading="lazy" alt="19. 빛"></a><a class="combo-card" href="card-32.html" title="32. 열정 상세 해설"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정"></a></span></span><span class="cr">집중과 탐구의 시간, 에너지의 발견</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">43 + 24</span><span class="combo-cards"><a class="combo-card" href="card-43.html" title="43. 기회 상세 해설"><img src="../img_h/43.jpg" loading="lazy" alt="43. 기회"></a><a class="combo-card" href="card-24.html" title="24. 사업 상세 해설"><img src="../img_h/24.jpg" loading="lazy" alt="24. 사업"></a></span></span><span class="cr">상업적인 일에 행운이 있음, 궁합이 좋은 인연을 만남</span></div><div class="combo-item"><span class="cn"><span class="combo-numbers">47 + 45</span><span class="combo-cards"><a class="combo-card" href="card-47.html" title="47. 불행(불운) 상세 해설"><img src="../img_h/47.jpg" loading="lazy" alt="47. 불행(불운)"></a><a class="combo-card" href="card-45.html" title="45. 행복 상세 해설"><img src="../img_h/45.jpg" loading="lazy" alt="45. 행복"></a></span></span><span class="cr">비참함에서 자유로워짐, 그동안 고생했던 일이 풀린다</span></div>
+    </div>
+
+    <h3 style="margin-top:44px">조합 해석표 — 분야별 42가지</h3>
+    <p class="table-scroll-hint combo-scroll-hint">← 좌우로 밀어 표 전체를 확인하세요 →</p><div class="tbl-wrap combo-table" role="region" aria-label="분야별 카드 조합 해석표" tabindex="0">
+      <table>
+        <thead><tr><th style="width:110px">조합</th><th>해석</th><th style="width:96px">분야</th></tr></thead>
+        <tbody>
+<tr><td class="combo-cell"><span class="combo-numbers">1 + 12</span><span class="combo-cards"><a class="combo-card" href="card-01.html" title="1. 남자의 생각 상세 해설"><img src="../img_h/01.jpg" loading="lazy" alt="1. 남자의 생각"></a><a class="combo-card" href="card-12.html" title="12. 발견(폭로) 상세 해설"><img src="../img_h/12.jpg" loading="lazy" alt="12. 발견(폭로)"></a></span></td><td>새로운 아이디어가 현실화되는 단계. 혁신적인 발상으로 직장에서 인정받음</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">3 + 13</span><span class="combo-cards"><a class="combo-card" href="card-03.html" title="3. 운명의 문 상세 해설"><img src="../img_h/03.jpg" loading="lazy" alt="3. 운명의 문"></a><a class="combo-card" href="card-13.html" title="13. 웰빙 상세 해설"><img src="../img_h/13.jpg" loading="lazy" alt="13. 웰빙"></a></span></td><td>운명적인 만남을 통해 직업적 안정과 행복을 찾음</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">6 + 8</span><span class="combo-cards"><a class="combo-card" href="card-06.html" title="6. 보상 상세 해설"><img src="../img_h/06.jpg" loading="lazy" alt="6. 보상"></a><a class="combo-card" href="card-08.html" title="8. 명예 상세 해설"><img src="../img_h/08.jpg" loading="lazy" alt="8. 명예"></a></span></td><td>노력이 결실을 맺어 승진이나 상을 받을 가능성이 큼</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">7 + 14</span><span class="combo-cards"><a class="combo-card" href="card-07.html" title="7. 신뢰(충실) 상세 해설"><img src="../img_h/07.jpg" loading="lazy" alt="7. 신뢰(충실)"></a><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a></span></td><td>충성도 높은 환경에서 강한 도전과 시험에 직면함</td><td><span class='field'>진로</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">15 + 17</span><span class="combo-cards"><a class="combo-card" href="card-15.html" title="15. 가정 상세 해설"><img src="../img_h/15.jpg" loading="lazy" alt="15. 가정"></a><a class="combo-card" href="card-17.html" title="17. 이동 상세 해설"><img src="../img_h/17.jpg" loading="lazy" alt="17. 이동"></a></span></td><td>가정적 안정을 추구하며 새로운 이동이나 이직이 예상됨</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">18 + 19</span><span class="combo-cards"><a class="combo-card" href="card-18.html" title="18. 우울 상세 해설"><img src="../img_h/18.jpg" loading="lazy" alt="18. 우울"></a><a class="combo-card" href="card-19.html" title="19. 빛 상세 해설"><img src="../img_h/19.jpg" loading="lazy" alt="19. 빛"></a></span></td><td>어려움을 겪었지만 새로운 희망과 기회가 밝혀짐</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">11 + 23</span><span class="combo-cards"><a class="combo-card" href="card-11.html" title="11. 출발 상세 해설"><img src="../img_h/11.jpg" loading="lazy" alt="11. 출발"></a><a class="combo-card" href="card-23.html" title="23. 메시지 상세 해설"><img src="../img_h/23.jpg" loading="lazy" alt="23. 메시지"></a></span></td><td>새로운 시작과 중요한 소식이 직업 전환의 기회를 줌</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">24 + 25</span><span class="combo-cards"><a class="combo-card" href="card-24.html" title="24. 사업 상세 해설"><img src="../img_h/24.jpg" loading="lazy" alt="24. 사업"></a><a class="combo-card" href="card-25.html" title="25. 진정 상세 해설"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정"></a></span></td><td>비즈니스 협상에서 긍정적인 해결을 찾고 화해를 이끌어냄</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">26 + 30</span><span class="combo-cards"><a class="combo-card" href="card-26.html" title="26. 기쁨(즐거움) 상세 해설"><img src="../img_h/26.jpg" loading="lazy" alt="26. 기쁨(즐거움)"></a><a class="combo-card" href="card-30.html" title="30. 풍향계 상세 해설"><img src="../img_h/30.jpg" loading="lazy" alt="30. 풍향계"></a></span></td><td>변덕스러운 상황이지만 즐거움과 만족이 따름</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">27 + 28</span><span class="combo-cards"><a class="combo-card" href="card-27.html" title="27. 큐피드 상세 해설"><img src="../img_h/27.jpg" loading="lazy" alt="27. 큐피드"></a><a class="combo-card" href="card-28.html" title="28. 결합 상세 해설"><img src="../img_h/28.jpg" loading="lazy" alt="28. 결합"></a></span></td><td>협력과 파트너십을 통해 개인적 성장과 직업적 발전을 경험함</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">32 + 33</span><span class="combo-cards"><a class="combo-card" href="card-32.html" title="32. 열정 상세 해설"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정"></a><a class="combo-card" href="card-33.html" title="33. 노예 상세 해설"><img src="../img_h/33.jpg" loading="lazy" alt="33. 노예"></a></span></td><td>과도한 열정에 의한 무기력과 체념</td><td><span class='field'>진로</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">34 + 36</span><span class="combo-cards"><a class="combo-card" href="card-34.html" title="34. 정의 상세 해설"><img src="../img_h/34.jpg" loading="lazy" alt="34. 정의"></a><a class="combo-card" href="card-36.html" title="36. 용 상세 해설"><img src="../img_h/36.jpg" loading="lazy" alt="36. 용"></a></span></td><td>과한 자존심과 권력을 바탕으로 리더십을 발휘함</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">39 + 41</span><span class="combo-cards"><a class="combo-card" href="card-39.html" title="39. 이상 상세 해설"><img src="../img_h/39.jpg" loading="lazy" alt="39. 이상"></a><a class="combo-card" href="card-41.html" title="41. 지혜 상세 해설"><img src="../img_h/41.jpg" loading="lazy" alt="41. 지혜"></a></span></td><td>이상적인 가치와 지혜로운 결정이 경력 발전을 가져옴</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">42 + 44</span><span class="combo-cards"><a class="combo-card" href="card-42.html" title="42. 유산 상세 해설"><img src="../img_h/42.jpg" loading="lazy" alt="42. 유산"></a><a class="combo-card" href="card-44.html" title="44. 명성 상세 해설"><img src="../img_h/44.jpg" loading="lazy" alt="44. 명성"></a></span></td><td>명성과 유산을 통해 큰 성공을 거두지만 주의가 필요함</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">44 + 47</span><span class="combo-cards"><a class="combo-card" href="card-44.html" title="44. 명성 상세 해설"><img src="../img_h/44.jpg" loading="lazy" alt="44. 명성"></a><a class="combo-card" href="card-47.html" title="47. 불행(불운) 상세 해설"><img src="../img_h/47.jpg" loading="lazy" alt="47. 불행(불운)"></a></span></td><td>높은 인기와 명성에도 불구하고 예기치 않은 문제에 직면함</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">48 + 50</span><span class="combo-cards"><a class="combo-card" href="card-48.html" title="48. 보호 상세 해설"><img src="../img_h/48.jpg" loading="lazy" alt="48. 보호"></a><a class="combo-card" href="card-50.html" title="50. 장애 상세 해설"><img src="../img_h/50.jpg" loading="lazy" alt="50. 장애"></a></span></td><td>보호와 안전에 중점을 둔 직업 환경에서 장애물을 극복함</td><td><span class='field'>커리어</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">49 + 4</span><span class="combo-cards"><a class="combo-card" href="card-49.html" title="49. 죽음(끝) 상세 해설"><img src="../img_h/49.jpg" loading="lazy" alt="49. 죽음(끝)"></a><a class="combo-card" href="card-04.html" title="4. 개화(꽃) 상세 해설"><img src="../img_h/04.jpg" loading="lazy" alt="4. 개화(꽃)"></a></span></td><td>종결과 새로운 시작의 기회를 제공하는 큰 변화가 일어남</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">9 + 10</span><span class="combo-cards"><a class="combo-card" href="card-09.html" title="9. 선물 상세 해설"><img src="../img_h/09.jpg" loading="lazy" alt="9. 선물"></a><a class="combo-card" href="card-10.html" title="10. 휴식(평화) 상세 해설"><img src="../img_h/10.jpg" loading="lazy" alt="10. 휴식(평화)"></a></span></td><td>장기적인 안정과 평화를 가져다주는 기회가 제공됨</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">3 + 6</span><span class="combo-cards"><a class="combo-card" href="card-03.html" title="3. 운명의 문 상세 해설"><img src="../img_h/03.jpg" loading="lazy" alt="3. 운명의 문"></a><a class="combo-card" href="card-06.html" title="6. 보상 상세 해설"><img src="../img_h/06.jpg" loading="lazy" alt="6. 보상"></a></span></td><td>운명적 만남이 서로에게 보상으로 작용함</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">7 + 12</span><span class="combo-cards"><a class="combo-card" href="card-07.html" title="7. 신뢰(충실) 상세 해설"><img src="../img_h/07.jpg" loading="lazy" alt="7. 신뢰(충실)"></a><a class="combo-card" href="card-12.html" title="12. 발견(폭로) 상세 해설"><img src="../img_h/12.jpg" loading="lazy" alt="12. 발견(폭로)"></a></span></td><td>충실함이 중요한 진실을 밝혀내는 열쇠임</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">8 + 26</span><span class="combo-cards"><a class="combo-card" href="card-08.html" title="8. 명예 상세 해설"><img src="../img_h/08.jpg" loading="lazy" alt="8. 명예"></a><a class="combo-card" href="card-26.html" title="26. 기쁨(즐거움) 상세 해설"><img src="../img_h/26.jpg" loading="lazy" alt="26. 기쁨(즐거움)"></a></span></td><td>존경과 기쁨이 조화로운 관계를 형성함</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">10 + 15</span><span class="combo-cards"><a class="combo-card" href="card-10.html" title="10. 휴식(평화) 상세 해설"><img src="../img_h/10.jpg" loading="lazy" alt="10. 휴식(평화)"></a><a class="combo-card" href="card-15.html" title="15. 가정 상세 해설"><img src="../img_h/15.jpg" loading="lazy" alt="15. 가정"></a></span></td><td>평화와 가정적 안정이 사랑을 강화함</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">13 + 19</span><span class="combo-cards"><a class="combo-card" href="card-13.html" title="13. 웰빙 상세 해설"><img src="../img_h/13.jpg" loading="lazy" alt="13. 웰빙"></a><a class="combo-card" href="card-19.html" title="19. 빛 상세 해설"><img src="../img_h/19.jpg" loading="lazy" alt="19. 빛"></a></span></td><td>안녕과 밝은 미래가 함께할 것을 약속함</td><td><span class='field'>연애</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">11 + 30</span><span class="combo-cards"><a class="combo-card" href="card-11.html" title="11. 출발 상세 해설"><img src="../img_h/11.jpg" loading="lazy" alt="11. 출발"></a><a class="combo-card" href="card-30.html" title="30. 풍향계 상세 해설"><img src="../img_h/30.jpg" loading="lazy" alt="30. 풍향계"></a></span></td><td>새로운 시작과 변화하는 감정이 중요함</td><td><span class='field'>연애</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">25 + 32</span><span class="combo-cards"><a class="combo-card" href="card-25.html" title="25. 진정 상세 해설"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정"></a><a class="combo-card" href="card-32.html" title="32. 열정 상세 해설"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정"></a></span></td><td>화해와 열정이 강한 유대감을 형성함</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">28 + 33</span><span class="combo-cards"><a class="combo-card" href="card-28.html" title="28. 결합 상세 해설"><img src="../img_h/28.jpg" loading="lazy" alt="28. 결합"></a><a class="combo-card" href="card-33.html" title="33. 노예 상세 해설"><img src="../img_h/33.jpg" loading="lazy" alt="33. 노예"></a></span></td><td>결합이 강화된 관계, 집착 또는 구속으로</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">34 + 39</span><span class="combo-cards"><a class="combo-card" href="card-34.html" title="34. 정의 상세 해설"><img src="../img_h/34.jpg" loading="lazy" alt="34. 정의"></a><a class="combo-card" href="card-39.html" title="39. 이상 상세 해설"><img src="../img_h/39.jpg" loading="lazy" alt="39. 이상"></a></span></td><td>공정함과 이상적인 가치가 관계를 굳건히 함</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">36 + 41</span><span class="combo-cards"><a class="combo-card" href="card-36.html" title="36. 용 상세 해설"><img src="../img_h/36.jpg" loading="lazy" alt="36. 용"></a><a class="combo-card" href="card-41.html" title="41. 지혜 상세 해설"><img src="../img_h/41.jpg" loading="lazy" alt="41. 지혜"></a></span></td><td>힘과 지혜가 어려움을 극복하는 데 도움을 줌</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">42 + 44</span><span class="combo-cards"><a class="combo-card" href="card-42.html" title="42. 유산 상세 해설"><img src="../img_h/42.jpg" loading="lazy" alt="42. 유산"></a><a class="combo-card" href="card-44.html" title="44. 명성 상세 해설"><img src="../img_h/44.jpg" loading="lazy" alt="44. 명성"></a></span></td><td>지지와 명성으로 인정받음</td><td><span class='field'>대인관계</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">48 + 2</span><span class="combo-cards"><a class="combo-card" href="card-48.html" title="48. 보호 상세 해설"><img src="../img_h/48.jpg" loading="lazy" alt="48. 보호"></a><a class="combo-card" href="card-02.html" title="2. 여자의 생각 상세 해설"><img src="../img_h/02.jpg" loading="lazy" alt="2. 여자의 생각"></a></span></td><td>보호와 여성적 사고가 조화를 이루어 안정을 제공함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">4 + 9</span><span class="combo-cards"><a class="combo-card" href="card-04.html" title="4. 개화(꽃) 상세 해설"><img src="../img_h/04.jpg" loading="lazy" alt="4. 개화(꽃)"></a><a class="combo-card" href="card-09.html" title="9. 선물 상세 해설"><img src="../img_h/09.jpg" loading="lazy" alt="9. 선물"></a></span></td><td>번영과 선물이 관계에 신선함을 가져다줌</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">14 + 45</span><span class="combo-cards"><a class="combo-card" href="card-14.html" title="14. 악마 상세 해설"><img src="../img_h/14.jpg" loading="lazy" alt="14. 악마"></a><a class="combo-card" href="card-45.html" title="45. 행복 상세 해설"><img src="../img_h/45.jpg" loading="lazy" alt="45. 행복"></a></span></td><td>도전과 열정이 관계에 긴장감을 부여함</td><td><span class='field'>환경</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">6 + 50</span><span class="combo-cards"><a class="combo-card" href="card-06.html" title="6. 보상 상세 해설"><img src="../img_h/06.jpg" loading="lazy" alt="6. 보상"></a><a class="combo-card" href="card-50.html" title="50. 장애 상세 해설"><img src="../img_h/50.jpg" loading="lazy" alt="50. 장애"></a></span></td><td>보상이 예상되지만 금융 장애가 있으므로 주의 깊게 접근해야 함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">11 + 25</span><span class="combo-cards"><a class="combo-card" href="card-11.html" title="11. 출발 상세 해설"><img src="../img_h/11.jpg" loading="lazy" alt="11. 출발"></a><a class="combo-card" href="card-25.html" title="25. 진정 상세 해설"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정"></a></span></td><td>재정적으로 새 시작을 할 때, 협상을 통해 해결해야 할 문제가 있음</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">16 + 46</span><span class="combo-cards"><a class="combo-card" href="card-16.html" title="16. 물 상세 해설"><img src="../img_h/16.jpg" loading="lazy" alt="16. 물"></a><a class="combo-card" href="card-46.html" title="46. 고독 상세 해설"><img src="../img_h/46.jpg" loading="lazy" alt="46. 고독"></a></span></td><td>재정적으로 독립적인 경로를 모색하며, 혼자서 결정을 내려야 함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">22 + 31</span><span class="combo-cards"><a class="combo-card" href="card-22.html" title="22. 까치 상세 해설"><img src="../img_h/22.jpg" loading="lazy" alt="22. 까치"></a><a class="combo-card" href="card-31.html" title="31. 마녀 상세 해설"><img src="../img_h/31.jpg" loading="lazy" alt="31. 마녀"></a></span></td><td>재정적 기회가 있지만, 속임수 또는 기만의 가능성을 조심해야 함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">28 + 52</span><span class="combo-cards"><a class="combo-card" href="card-28.html" title="28. 결합 상세 해설"><img src="../img_h/28.jpg" loading="lazy" alt="28. 결합"></a><a class="combo-card" href="card-52.html" title="52. 미로 상세 해설"><img src="../img_h/52.jpg" loading="lazy" alt="52. 미로"></a></span></td><td>파트너십에서 금융 혼란이 예상되며, 해결책을 찾기 어려움</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">32 + 8</span><span class="combo-cards"><a class="combo-card" href="card-32.html" title="32. 열정 상세 해설"><img src="../img_h/32.jpg" loading="lazy" alt="32. 열정"></a><a class="combo-card" href="card-08.html" title="8. 명예 상세 해설"><img src="../img_h/08.jpg" loading="lazy" alt="8. 명예"></a></span></td><td>열정적인 투자가 성과를 거두나, 명예와 관련된 위험을 감수해야 함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">35 + 12</span><span class="combo-cards"><a class="combo-card" href="card-35.html" title="35. 협상 상세 해설"><img src="../img_h/35.jpg" loading="lazy" alt="35. 협상"></a><a class="combo-card" href="card-12.html" title="12. 발견(폭로) 상세 해설"><img src="../img_h/12.jpg" loading="lazy" alt="12. 발견(폭로)"></a></span></td><td>협상을 통해 중대한 금융 정보가 드러나며, 중요한 결정을 초래함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">41 + 19</span><span class="combo-cards"><a class="combo-card" href="card-41.html" title="41. 지혜 상세 해설"><img src="../img_h/41.jpg" loading="lazy" alt="41. 지혜"></a><a class="combo-card" href="card-19.html" title="19. 빛 상세 해설"><img src="../img_h/19.jpg" loading="lazy" alt="19. 빛"></a></span></td><td>현명한 결정이 큰 변화를 가져오며, 장기적인 이익을 목표로 함</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">43 + 13</span><span class="combo-cards"><a class="combo-card" href="card-43.html" title="43. 기회 상세 해설"><img src="../img_h/43.jpg" loading="lazy" alt="43. 기회"></a><a class="combo-card" href="card-13.html" title="13. 웰빙 상세 해설"><img src="../img_h/13.jpg" loading="lazy" alt="13. 웰빙"></a></span></td><td>금융 기회가 주어지며, 전반적인 재정 상태를 개선할 수 있음</td><td><span class='field'>금전</span></td></tr><tr><td class="combo-cell"><span class="combo-numbers">48 + 26</span><span class="combo-cards"><a class="combo-card" href="card-48.html" title="48. 보호 상세 해설"><img src="../img_h/48.jpg" loading="lazy" alt="48. 보호"></a><a class="combo-card" href="card-26.html" title="26. 기쁨(즐거움) 상세 해설"><img src="../img_h/26.jpg" loading="lazy" alt="26. 기쁨(즐거움)"></a></span></td><td>재정적 보호가 필요한 시기, 조심스럽게 접근하면 기쁜 결과를 기대할 수 있음</td><td><span class='field'>금전</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">같은 조합이라도 질문과 상황에 따라 리딩이 달라지고, 긍정·부정 카드의 배치에 따라 흐름과 기운이 바뀝니다.
+    표는 '정답'이 아니라 <b>해석의 출발점</b>으로 쓰세요.</div>
+  </div>
+</section>
+</main>
+
+
+
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

@@ -811,10 +811,11 @@ function renderCard(index) {
     let scrollTimer = null;
     let pointerInBar = false;
     let pointerNearBottom = false;
+    let keyboardInteraction = false;
 
     function scheduleHide() {
         clearTimeout(scrollTimer);
-        if (pointerInBar || pointerNearBottom || navBar.contains(document.activeElement)) return;
+        if (pointerInBar || pointerNearBottom || (keyboardInteraction && navBar.contains(document.activeElement))) return;
         scrollTimer = setTimeout(function() {
             navBar.classList.remove('nav-visible');
         }, 3000);
@@ -841,7 +842,19 @@ function renderCard(index) {
         pointerInBar = false;
         scheduleHide();
     });
-    navBar.addEventListener('pointerdown', showNav);
+    document.addEventListener('keydown', function(event) {
+        if (event.key !== 'Tab') return;
+        keyboardInteraction = true;
+        if (navBar.contains(document.activeElement)) showNav();
+    });
+    document.addEventListener('pointerdown', function() {
+        keyboardInteraction = false;
+        scheduleHide();
+    }, { passive: true });
+    navBar.addEventListener('pointerdown', function() {
+        keyboardInteraction = false;
+        showNav();
+    });
     navBar.addEventListener('focusin', showNav);
     navBar.addEventListener('focusout', function() {
         // 포커스가 다음 버튼으로 이동한 뒤 숨김 여부를 확인합니다.
