@@ -1,9 +1,8 @@
 :root{--ink:#302e2a;--muted:#60594d;--line:#e2d8c6;--gold:#80652f;--bg:#faf6ec;--card:#fffdf8;--study-paper:#faf6ec;--study-ink:#302e2a;--study-muted:#60594d;--study-line:#e2d8c6}
 html{scroll-padding-top:88px}
 body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:#faf6ec;color:#302e2a;font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
-a:focus-visible,button:focus-visible{outline:3px solid #80652f;outline-offset:4px}
+a:not(.back-btn):not(.study-back):focus-visible,button:not(.viewer-back):focus-visible{outline:3px solid #80652f;outline-offset:4px}
 .back-btn:focus,.viewer-back:focus,.study-back:focus{outline:none;box-shadow:none}
-.back-btn:focus-visible,.viewer-back:focus-visible,.study-back:focus-visible{border-color:#80652f}
 .top-header,.vbar{background:#faf6ecf5;border-bottom:1px solid #e2d8c6;box-shadow:none;backdrop-filter:blur(12px)}
 .top-header{padding-top:calc(10px + env(safe-area-inset-top))}.header-title{font-size:15px;max-width:calc(100% - 130px);overflow:hidden;text-overflow:ellipsis}
 .back-btn,.btn{border-radius:12px;background:#fffdf8;border-color:#e0d7c7;box-shadow:none}.back-btn:hover,.btn:hover{background:#f0e9dc;box-shadow:none;transform:none}
