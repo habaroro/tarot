@@ -14,3 +14,6 @@
 .detail-page .memo-card:hover{color:var(--gold)}
 .detail-page .memo-card:hover img{border-color:var(--gold)}
 .detail-page .memo-example p{white-space:normal;overflow-wrap:anywhere}
+
+/* Keep focused controls free of the brown outer ring. */
+a:focus,button:focus,input:focus,[tabindex]:focus{outline:none!important}

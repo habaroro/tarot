@@ -82,3 +82,6 @@ body.guide-page.has-arcana-nav{padding-top:calc(90px + env(safe-area-inset-top))
 .guide-page .polarity-card:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:5px}
 .guide-page #polarity .panel .polarity-cards{display:flex;flex-wrap:wrap;gap:16px}
 .guide-page #polarity .panel .polarity-card{width:96px}
+
+/* Keep focused controls free of the brown outer ring. */
+a:focus,button:focus,input:focus,[tabindex]:focus{outline:none!important}

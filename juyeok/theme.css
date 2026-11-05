@@ -36,7 +36,6 @@ body.juyeok-detail .card{background:#fffdf8;border:1px solid var(--line);border-
 .card-body{gap:36px;margin-top:28px}.card figure{padding:0;border:0;background:#fff}.card figure img{background:#fff;border-radius:8px;box-shadow:0 8px 24px #4a39121a;mix-blend-mode:normal}
 .content .lead{font:600 17px/1.8 'Noto Serif KR',serif;color:var(--night)}
 .desc,.kw,.rtext,.hv{font:14px/1.9 'Noto Serif KR',serif;color:var(--ink2);word-break:keep-all;overflow-wrap:anywhere}
-.juyeok-detail .desc,.juyeok-detail .kw,.juyeok-detail .rtext,.juyeok-detail .hv{font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;color:#514b3e}
 .kw{border:1px solid var(--line);border-radius:10px;background:#f5f0e5;padding:18px}
 .heart{border-color:var(--line);border-radius:10px;background:#f5f0e5;padding:18px}
 .rlabel,.read dt{font:700 12px/1.8 'Noto Sans KR',sans-serif;color:var(--gold);letter-spacing:.04em;margin-bottom:8px}
@@ -62,3 +61,10 @@ body.juyeok-detail .card{background:#fffdf8;border:1px solid var(--line);border-
 }
 @media(prefers-reduced-motion:reduce){.entry{transition:none}.entry:hover{transform:none}}
 @media print{body.juyeok-detail .card{box-shadow:none;margin-top:0}}
+
+/* Match Horoscope body typography while preserving the original layout. */
+.juyeok-detail .content .lead,
+.juyeok-detail .desc,
+.juyeok-detail .kw,
+.juyeok-detail .rtext,
+.juyeok-detail .hv{font-family:'Noto Serif KR',serif}
