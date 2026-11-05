@@ -141,8 +141,39 @@
     .btn{padding:8px 9px;font-size:12px}
   }
 </style>
+<link rel="stylesheet" href="archive-ui.css">
+<style>
+  /* Color-chip navigation belongs to this index only. */
+  .color-index .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .color-index .grid .card{display:grid;grid-template-columns:76px minmax(0,1fr) 16px;align-items:center;gap:20px;padding:22px;border-radius:16px}
+  .color-index .grid .card:hover{transform:translateY(-2px)}
+  .color-index .grid .card .swatch{width:76px;height:76px;border:1px solid #302e2a20;border-radius:20px;padding:0;box-shadow:inset 0 0 0 4px #ffffff25}
+  .color-index .grid .card .body{min-width:0;padding:0;gap:7px}
+  .color-index .grid .card .ch{font-size:18px;line-height:1.5;gap:2px 8px;justify-content:flex-start;text-align:left;align-self:stretch}
+  .color-index .grid .card .ch .en{font-size:12px;letter-spacing:.03em}
+  .color-index .grid .card .tag{font-size:14px;line-height:1.65;border:0;padding:0;margin:0;color:#60594d}
+  .color-index .grid .card .kw{display:flex;flex-wrap:wrap;gap:4px 5px;margin:1px 0 0;word-break:keep-all}
+  .color-index .grid .card .kw span{font-size:13px;line-height:1.65;padding:2px 7px;border:1px solid #e8decc;border-radius:6px;background:#f7f1e5;color:#655b49}
+  .color-index .grid .card .pages{font-size:12px;line-height:1.6;margin:2px 0 0;color:#82796b}
+  .color-index .grid .card .card-arrow{width:16px;height:16px;fill:none;stroke:#95866b;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  @media(max-width:720px){
+    .color-index .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .color-index .grid .card{grid-template-columns:minmax(0,1fr) 52px;grid-template-rows:auto;align-content:start;align-items:start;gap:8px 6px;padding:12px 10px;text-align:left}
+    .color-index .grid .card .swatch{grid-column:2;grid-row:1;width:52px;height:52px;border-radius:14px;box-shadow:inset 0 0 0 2px #ffffff25}
+    .color-index .grid .card .body{display:contents}
+    .color-index .grid .card .ch{grid-column:1;grid-row:1;font-size:15px;align-self:center;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:1px}
+    .color-index .grid .card .ch .en{font-size:11px;overflow-wrap:anywhere}
+    .color-index .grid .card .tag,.color-index .grid .card .kw,.color-index .grid .card .pages{grid-column:1 / -1}
+    .color-index .grid .card .tag{font-size:13px;word-break:keep-all;overflow-wrap:break-word}
+    .color-index .grid .card .kw{gap:4px}
+    .color-index .grid .card .kw span{font-size:12px;padding:2px 5px}
+    .color-index .grid .card .pages{font-size:11px;margin:0;padding:0}
+    .color-index .grid .card .card-arrow{display:none}
+  }
+</style>
+<script src="archive-ui.js" defer></script>
 </head>
-<body>
+<body class="color-index">
 <header class="top-header">
   <a href="../index.html" class="back-btn" aria-label="상위 페이지로 이동" title="상위 페이지로 이동">
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -246,16 +277,16 @@ function bg(d){
 function render(list){
   filtered = list;
   grid.innerHTML = list.map((d,i)=>`
-    <article class="card" data-i="${i}">
-      <div class="swatch" style="background:${bg(d)}">
-        <span class="ch"><span>${d.ko}</span><span class="en">${d.en.toUpperCase()}</span></span>
-      </div>
+    <a class="card" href="${d.f}" data-i="${i}">
+      <div class="swatch" aria-hidden="true" style="background:${d.en === 'Various' ? 'url(assets/various-card.png) center 25% / cover' : d.en === 'White' ? '#fff' : d.en === 'Translucence' ? 'linear-gradient(135deg,#d4ebe680,#7fbfb650),repeating-conic-gradient(#fff 0% 25%,#e2ded5 0% 50%) 0 / 16px 16px' : bg(d)}"></div>
       <div class="body">
-        <p class="tag">“ ${d.tag} ”</p>
+        <span class="ch"><span>${d.ko}</span><span class="en">${d.en.toUpperCase()}</span></span>
+        <p class="tag">${d.tag}</p>
         <div class="kw">${d.kw.map(k=>`<span>${k}</span>`).join("")}</div>
-        <p class="pages">📖 ${d.p}</p>
+        <p class="pages">챕터 ${d.ch} · ${d.p}</p>
       </div>
-    </article>`).join("");
+      <svg class="card-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+    </a>`).join("");
 }
 
 /* ===== 뷰어 ===== */
@@ -274,6 +305,7 @@ function openView(i,list=filtered){
   frame.src = d.f;
   document.getElementById("direct").href = d.f;
   viewer.classList.add("on");
+  document.getElementById("viewerBack").focus();
   document.body.style.overflow = "hidden";
   document.getElementById("fallback").style.display = "none";
 }
@@ -281,10 +313,14 @@ function closeView(){
   viewer.classList.remove("on"); frame.src="about:blank";
   document.getElementById("viewerBack").hidden = true;
   document.body.style.overflow="";
+  const selected=grid.querySelector(`[data-i="${cur}"]`);
+  if(selected) selected.focus({preventScroll:true});
 }
 
 grid.addEventListener("click", e=>{
   const card = e.target.closest(".card"); if(!card) return;
+  if(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
   openView(+card.dataset.i);
 });
 

@@ -40,3 +40,86 @@ html { scroll-padding-top: calc(80px + env(safe-area-inset-top)); }
   body.has-arcana-nav { padding-top: calc(78px + env(safe-area-inset-top)); }
 }
 @media print { body.has-arcana-nav { padding-top: 0; } }
+
+/* Shared warm archive styling for card detail headers. */
+body.has-arcana-nav:not(.arcana-index-page) .arcana-nav {
+  background: #faf6ecf5; border-bottom-color: #e5dccb;
+  color: #262725; backdrop-filter: blur(12px);
+}
+body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn {
+  background: #fffdf8; border-color: #e0d7c7; border-radius: 12px;
+  color: #302e2a; transition: background .18s, border-color .18s;
+}
+body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:hover {
+  background: #f0e9dc; border-color: #c9b892;
+}
+body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:focus-visible {
+  outline: 3px solid #80652f; outline-offset: 4px;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover {
+  isolation: isolate; background: #fffdf8; color: #302e2a;
+  border: 1px solid #e2d8c6; border-radius: 18px;
+  padding: 44px 36px; box-shadow: 0 4px 18px #49391c04;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover::before {
+  inset: auto; left: -55px; top: 20px; width: 340px; height: 170px;
+  border: 1px solid #a8842c26; border-radius: 50%;
+  transform: rotate(-18deg); background: none; pointer-events: none; z-index: -1;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover::after {
+  content: "✦"; position: absolute; top: 22px; left: 28px;
+  color: #967638; font-size: 18px; line-height: 1; pointer-events: none;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover-inner { gap: 28px; }
+body.has-arcana-nav:not(.arcana-index-page) .cover-text { min-width: 0; }
+body.has-arcana-nav:not(.arcana-index-page) .cover-num { gap: 14px; }
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .zero { color: #80652f; }
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .title {
+  color: #262725; font-size: clamp(1.6rem, 4vw, 2.7rem);
+  letter-spacing: .025em; overflow-wrap: anywhere;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover h1 {
+  color: #262725; font-size: 1.25rem; line-height: 1.65; letter-spacing: -.025em;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover .sub {
+  font-family: 'Noto Sans KR', sans-serif; color: #60594d;
+  font-size: .95rem; line-height: 1.9; text-align: left;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover .src {
+  color: #716451; border-top-color: #e2d8c6;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover-kicker { color: #80652f; }
+body.has-arcana-nav:not(.arcana-index-page) .cover-card {
+  border: 1px solid #d8cdb9; border-radius: 12px;
+  box-shadow: 0 8px 20px #49391c0d;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover-card figcaption {
+  background: #f2ebde; color: #6d5831;
+  font-family: 'Noto Sans KR', sans-serif; font-size: .65rem;
+  line-height: 1.7; letter-spacing: .06em; padding: 9px 6px;
+}
+@media (max-width: 720px) {
+  body.has-arcana-nav:not(.arcana-index-page) .cover { padding: 30px 20px 26px; border-radius: 16px; }
+  body.has-arcana-nav:not(.arcana-index-page) .cover-inner { gap: 24px; }
+  body.has-arcana-nav:not(.arcana-index-page) .cover::before { width: 260px; height: 140px; top: auto; bottom: 45px; }
+  body.has-arcana-nav:not(.arcana-index-page) .cover h1 { font-size: 1.1rem; }
+  body.has-arcana-nav:not(.arcana-index-page) .cover .sub { font-size: .875rem; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn { transition: none; }
+}
+
+.arcana-top {
+  position: fixed; right: max(20px, env(safe-area-inset-right));
+  bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 110;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: 48px; height: 48px; padding: 12px; border: 1px solid #d8cdb9;
+  border-radius: 99px; background: #fffdf8; color: #51432d;
+  font: 600 13px/1.5 'Noto Sans KR', sans-serif;
+  box-shadow: 0 4px 18px #49391c18; cursor: pointer;
+}
+.arcana-top[hidden] { display: none; }
+.arcana-top svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.arcana-top:hover { background: #f0e9dc; border-color: #bca575; }
+.arcana-top:focus-visible { outline: 3px solid #80652f; outline-offset: 4px; }
+@media print { .arcana-top { display: none; } }
