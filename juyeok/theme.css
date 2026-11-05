@@ -14,13 +14,15 @@ button,input{font:inherit}
 #result-count{font-size:12px}.collection{gap:20px 18px}
 .entry{border-color:var(--gold-soft);background:#fffdf6;transition:transform .18s,box-shadow .18s}
 .entry:hover{transform:translateY(-4px);box-shadow:0 8px 24px #4a39121a}
+.entry:target,.entry:focus-visible{outline:none}
+.entry:focus-visible{border-color:var(--gold)}
 .entry figure{margin:0;padding:0;aspect-ratio:362/600;overflow:hidden;background:#fff}
 .entry figure img{display:block;width:100%;height:100%;aspect-ratio:auto;object-fit:contain;background:#fff}
 .entry-info{padding:12px 14px 16px;border-top:1px solid var(--line)}
 .entry .cno{font:600 20px/1.4 'Noto Serif KR',serif;color:var(--gold);letter-spacing:normal}
 .entry .badge{font:11px/1.5 'Noto Sans KR',sans-serif;border-radius:20px;padding:2px 9px;letter-spacing:normal}
 .entry h2{font:700 15px/1.5 'Noto Sans KR',sans-serif;color:var(--night);margin:8px 0 0}
-.entry p{font-size:11px;line-height:1.7;color:var(--muted);margin:10px 0 0}
+.entry p{font-size:13px;line-height:1.7;color:var(--muted);margin:10px 0 0}
 .juyeok-detail .wrap{max-width:1000px}
 body.juyeok-detail .card{background:#fffdf8;border:1px solid var(--line);border-radius:16px;margin-top:20px;padding:30px}
 .card-head{align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:24px}
