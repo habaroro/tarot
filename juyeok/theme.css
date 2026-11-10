@@ -1,19 +1,20 @@
-/* Visual foundations shared with the Horoscope Belline collection. */
-:root{--ink:#2b2418;--ink2:#514b3e;--night:#1e1c30;--gold:#a8842c;--gold-soft:#d9c48a;--paper:#faf6ec;--paper2:#f3eddf;--line:#e4dac4;--line2:#eae2d1;--muted:#6c6250;--vermilion:#a8842c}
-body{background:var(--paper);color:var(--ink);font:15px/1.8 'Noto Sans KR',sans-serif;letter-spacing:normal}
+/* Visual foundations aligned with arrange.html. */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+:root{--ink:#1e293b;--ink2:#475569;--night:#0f172a;--gold:#7c3aed;--gold-soft:#e2e8f0;--paper:#f4f6f8;--paper2:#f1f5f9;--line:#e2e8f0;--line2:#e2e8f0;--muted:#64748b;--vermilion:#7c3aed}
+body{background:var(--paper);color:var(--ink);font:15px/1.8 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:normal}
 button,input{font:inherit}
 .cover{text-align:center;padding:28px 12px 30px;margin-bottom:28px;border-bottom:1px solid var(--gold-soft)}
-.cover .eyebrow{font:600 12px/1.8 'Noto Sans KR',sans-serif;letter-spacing:.2em;color:var(--gold);margin:0 0 14px}
-.cover h1{font:700 clamp(24px,3vw,32px)/1.5 'Noto Sans KR',sans-serif;letter-spacing:-.04em;color:var(--night);margin:0 0 14px}
-.cover .lede{font:14px/1.9 'Noto Serif KR',serif;color:var(--muted);margin:0 auto;max-width:760px;word-break:keep-all}
-.actions{justify-content:center}.action{font-size:13px;border-color:var(--gold-soft);color:var(--gold);background:#fffdf8}.action:hover{background:#f4eedf}
-.tools{border-radius:14px;margin:20px 0 28px;background:#fffdf8;padding:20px}
+.cover .eyebrow{font:600 12px/1.8 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:.2em;color:var(--gold);margin:0 0 14px}
+.cover h1{font:700 clamp(24px,3vw,32px)/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:-.04em;color:var(--night);margin:0 0 14px}
+.cover .lede{font:14px/1.9 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--muted);margin:0 auto;max-width:760px;word-break:keep-all}
+.actions{justify-content:center}.action{font-size:13px;border-color:var(--gold-soft);color:var(--gold);background:#ffffff}.action:hover{background:#f1f5f9}
+.tools{border-radius:14px;margin:20px 0 28px;background:#ffffff;padding:20px}
 .tools label{font-size:13px;font-weight:600;margin-bottom:9px}
-.tools input{font-size:14px;border-color:#d8ccb0;background:#fff;padding:12px;color:var(--ink)}
-.filters{gap:8px;margin:16px 0}.filters button{font-size:13px;padding:9px 16px;border-color:#ded4bf;background:#fffdf8}.filters button:hover{background:#f5efdf}.filters button[aria-pressed=true]{background:var(--night);border-color:var(--night);color:#fff}
+.tools input{font-size:14px;border-color:#cbd5e1;background:#fff;padding:12px;color:var(--ink)}
+.filters{gap:8px;margin:16px 0}.filters button{font-size:13px;padding:9px 16px;border-color:#e2e8f0;background:#ffffff}.filters button:hover{background:#f1f5f9}.filters button[aria-pressed=true]{background:var(--night);border-color:var(--night);color:#fff}
 #result-count{font-size:12px}.collection{gap:20px 18px}
-.entry{border-color:var(--gold-soft);background:#fffdf6;transition:transform .18s,box-shadow .18s}
-.entry:hover{transform:translateY(-4px);box-shadow:0 8px 24px #4a39121a}
+.entry{border-color:var(--gold-soft);background:#ffffff;transition:transform .18s,box-shadow .18s}
+.entry:hover{transform:translateY(-4px);box-shadow:0 8px 24px #0f172a0d}
 .entry:target,.entry:focus-visible{outline:none}
 .entry:focus-visible{border-color:var(--gold)}
 .entry figure{margin:0;padding:0;aspect-ratio:362/600;overflow:hidden;background:#fff}
@@ -23,34 +24,34 @@ button,input{font:inherit}
 .entry-meta .cno{flex:0 0 auto;margin:0}
 .entry-badges{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px;min-width:0;padding-top:2px}
 .entry-badges .badge{padding:2px 6px;white-space:nowrap}
-.entry .cno{font:600 20px/1.4 'Noto Serif KR',serif;color:var(--gold);letter-spacing:normal}
-.entry .badge{font:11px/1.5 'Noto Sans KR',sans-serif;border-radius:20px;padding:2px 9px;letter-spacing:normal}
-.entry h2{font:700 15px/1.5 'Noto Sans KR',sans-serif;color:var(--night);margin:8px 0 0}
+.entry .cno{font:600 20px/1.4 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gold);letter-spacing:normal}
+.entry .badge{font:11px/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-radius:20px;padding:2px 9px;letter-spacing:normal}
+.entry h2{font:700 15px/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--night);margin:8px 0 0}
 .entry p{font-size:13px;line-height:1.7;color:var(--muted);margin:10px 0 0}
 .juyeok-detail .wrap{max-width:1000px}
-body.juyeok-detail .card{background:#fffdf8;border:1px solid var(--line);border-radius:16px;margin-top:20px;padding:30px}
+body.juyeok-detail .card{background:#ffffff;border:1px solid var(--line);border-radius:16px;margin-top:20px;padding:30px}
 .card-head{align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:24px}
-.card-head .cno{font:600 22px/1.5 'Noto Serif KR',serif;color:var(--gold);width:50px;height:50px;display:grid;place-items:center;background:#f3eddf;border-radius:10px;letter-spacing:normal;flex-shrink:0}
-.card-head .card-name{font:700 clamp(22px,3vw,30px)/1.5 'Noto Sans KR',sans-serif;color:var(--night);flex:1;min-width:0}
-.badge{font-family:'Noto Sans KR',sans-serif;border-radius:20px;letter-spacing:normal}
-.card-body{gap:36px;margin-top:28px}.card figure{padding:0;border:0;background:#fff}.card figure img{background:#fff;border-radius:8px;box-shadow:0 8px 24px #4a39121a;mix-blend-mode:normal}
-.content .lead{font:600 17px/1.8 'Noto Serif KR',serif;color:var(--night)}
-.desc,.kw,.rtext,.hv{font:14px/1.9 'Noto Serif KR',serif;color:var(--ink2);word-break:keep-all;overflow-wrap:anywhere}
-.kw{border:1px solid var(--line);border-radius:10px;background:#f5f0e5;padding:18px}
-.heart{border-color:var(--line);border-radius:10px;background:#f5f0e5;padding:18px}
-.rlabel,.read dt{font:700 12px/1.8 'Noto Sans KR',sans-serif;color:var(--gold);letter-spacing:.04em;margin-bottom:8px}
-.hk{font:12px/1.8 'Noto Sans KR',sans-serif;color:var(--muted)}
+.card-head .cno{font:600 22px/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gold);width:50px;height:50px;display:grid;place-items:center;background:#f1f5f9;border-radius:10px;letter-spacing:normal;flex-shrink:0}
+.card-head .card-name{font:700 clamp(22px,3vw,30px)/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--night);flex:1;min-width:0}
+.badge{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-radius:20px;letter-spacing:normal}
+.card-body{gap:36px;margin-top:28px}.card figure{padding:0;border:0;background:#fff}.card figure img{background:#fff;border-radius:8px;box-shadow:0 8px 24px #0f172a0d;mix-blend-mode:normal}
+.content .lead{font:600 17px/1.8 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--night)}
+.desc,.kw,.rtext,.hv{font:14px/1.9 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink2);word-break:keep-all;overflow-wrap:anywhere}
+.kw{border:1px solid var(--line);border-radius:10px;background:#f8fafc;padding:18px}
+.heart{border-color:var(--line);border-radius:10px;background:#f8fafc;padding:18px}
+.rlabel,.read dt{font:700 12px/1.8 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gold);letter-spacing:.04em;margin-bottom:8px}
+.hk{font:12px/1.8 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--muted)}
 .juyeok-guide section{padding:40px 0 32px;margin-top:0;border-bottom:1px solid var(--line);scroll-margin-top:85px}
 .juyeok-guide .wrap>section:first-of-type{margin-top:0;padding-top:20px}
 .sec-head{align-items:flex-start;gap:14px;border:0;padding:0;margin-bottom:24px}
-.sec-head .snum{font:600 16px/1.5 'Noto Serif KR',serif;color:var(--gold);padding-top:5px;letter-spacing:normal}
-.sec-head h2{font:700 clamp(21px,2.5vw,26px)/1.5 'Noto Sans KR',sans-serif;color:var(--night);letter-spacing:-.03em}
-.grade-table,.trig-table{background:#fffdf8;border:1px solid var(--line);border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:13px;line-height:1.8}
+.sec-head .snum{font:600 16px/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--gold);padding-top:5px;letter-spacing:normal}
+.sec-head h2{font:700 clamp(21px,2.5vw,26px)/1.5 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--night);letter-spacing:-.03em}
+.grade-table,.trig-table{background:#ffffff;border:1px solid var(--line);border-radius:12px;border-collapse:separate;border-spacing:0;overflow:hidden;font-size:13px;line-height:1.8}
 .grade-table th,.grade-table td,.trig-table th,.trig-table td{border-color:var(--line2);padding:13px 16px}
-.trig-table th{background:#f3eddf;color:var(--muted);font-size:12px;text-align:left}
-.grade-table .gn{font-family:'Noto Sans KR',sans-serif}.grade-table .gn img,.idx-thumb img{border-color:var(--line);border-radius:6px}
-.idx{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:24px}
-.idx-name{font:600 13px/1.6 'Noto Sans KR',sans-serif;color:var(--ink)}.idx-no,.idx-grade{font:11px/1.6 'Noto Sans KR',sans-serif;letter-spacing:normal}
+.trig-table th{background:#f1f5f9;color:var(--muted);font-size:12px;text-align:left}
+.grade-table .gn{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.grade-table .gn img,.idx-thumb img{border-color:var(--line);border-radius:6px}
+.idx{background:#ffffff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:24px}
+.idx-name{font:600 13px/1.6 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink)}.idx-no,.idx-grade{font:11px/1.6 'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:normal}
 @media(max-width:720px){
  .collection{gap:20px 12px}.entry-info{padding:12px 10px 16px}
  body.juyeok-detail .card{margin-top:20px;padding:18px}.card-head{gap:10px;padding-bottom:18px}.card-head .badges{margin-left:0}.card-body{gap:24px;margin-top:24px}
@@ -67,4 +68,218 @@ body.juyeok-detail .card{background:#fffdf8;border:1px solid var(--line);border-
 .juyeok-detail .desc,
 .juyeok-detail .kw,
 .juyeok-detail .rtext,
-.juyeok-detail .hv{font-family:'Noto Serif KR',serif}
+.juyeok-detail .hv{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* Shared surfaces, controls and navigation across all 64 readings and the guide. */
+:root{--g-dae:#059669;--g-so:#0f766e;--g-pyeong:#475569;--g-sohyung:#b45309;--g-daehyung:#be123c;--g-nan:#7c3aed}
+body{background-image:none;-webkit-font-smoothing:antialiased}
+.arcana-nav,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav{background:#ffffffbf;border-bottom-color:#ffffff99;color:var(--night);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 4px 24px #4f46e50f}
+.arcana-nav-title{background:linear-gradient(135deg,#4f46e5,#ec4899);background-clip:text;-webkit-background-clip:text;color:transparent;font-weight:800}
+.arcana-nav .arcana-btn,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn{background:#ffffffe6;border-color:#e2e8f0;color:var(--ink);border-radius:12px;box-shadow:0 2px 10px #00000008}
+.arcana-nav a:hover,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:hover{background:#f1f5f9;border-color:#cbd5e1}
+.category-switcher button.category-toggle{background:#ffffffe6;border-color:#e2e8f0;color:var(--ink)}
+.category-menu{background:#fff;border-color:#e2e8f0;color:var(--ink);box-shadow:0 12px 32px #0f172a14}
+.category-menu p{color:#7c3aed}.category-menu a{color:var(--ink)}.category-menu small{color:var(--muted)}
+.category-menu a[aria-current="page"]{background:#f5f3ff;color:#6d28d9}.category-menu .category-home{border-color:#e2e8f0}
+.cover,body.has-arcana-nav:not(.arcana-index-page) .cover{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 10px 40px -10px #0000000d;padding:30px 24px;margin-top:24px}
+.cover::before,.cover::after{display:none}
+.cover .eyebrow{color:#7c3aed}.cover h1{font-weight:800}
+.action{background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe;border-radius:12px;font-weight:600}.action:hover{background:#ede9fe}
+.tools{border-radius:24px;box-shadow:0 10px 40px -10px #0000000d;padding:24px}
+.tools input{background:#f8fafc;border-radius:12px;border-color:#e2e8f0;min-height:48px}.tools input:focus{background:#fff;border-color:#a78bfa}
+.filters{padding:8px;background:#e2e8f0;border-radius:20px;gap:6px}
+.filters button{border-color:transparent;background:transparent;color:var(--muted);font-weight:600}
+.filters button:hover{background:#f1f5f9;color:var(--ink)}
+.filters button[aria-pressed=true]{background:#fff;color:var(--night);border-color:transparent;box-shadow:0 2px 8px #0000001a}
+.entry{border-radius:18px;box-shadow:0 2px 8px #0f172a05}.entry:hover{border-color:#c4b5fd;box-shadow:0 10px 30px #0f172a0d}
+.entry .cno{color:#7c3aed;font-weight:700}.entry h2{font-weight:700}
+body.juyeok-detail .card{border-radius:24px;box-shadow:0 10px 40px -10px #0000000d;padding:30px}
+.card-head .cno{background:#f5f3ff;color:#7c3aed;border-radius:12px}
+.kw{background:#f8fafc;border-radius:16px;border-color:#e2e8f0}
+.heart{background:#f5f3ff;border:1px solid #ede9fe;border-radius:16px}
+.rlabel,.read dt{color:#7c3aed;font-weight:700}.badge.fate{background:#fffbeb;color:#b45309;border-color:#fcd34d}
+.grade-table,.trig-table,.idx{border-radius:20px;box-shadow:0 10px 40px -10px #0000000d}
+.trig-table th{background:#f1f5f9}.legend{border-radius:16px;overflow:hidden}.legend>div{background:#fff}.sym{background:#f1f5f9;border-radius:6px}
+.idx-item{border-radius:12px}.idx-item:hover{background:#f1f5f9}.idx-grade{font-weight:600}
+a:focus-visible,button:focus-visible,input:focus-visible,.entry:focus-visible{outline:3px solid #7c3aed;outline-offset:4px}
+@media(max-width:720px){.cover,body.has-arcana-nav:not(.arcana-index-page) .cover{padding:26px 18px;border-radius:20px;margin-top:18px}.tools{padding:18px;border-radius:20px}.filters{padding:6px;gap:4px}.filters button{padding:9px 12px}body.juyeok-detail .card{padding:18px;border-radius:20px}.entry{border-radius:14px}}
+@media print{.cover,body.juyeok-detail .card,.grade-table,.trig-table,.idx{box-shadow:none}}
+
+/* Back to top uses the same surface and accent as the collection controls. */
+.arcana-top{background:#fff;border-color:#e2e8f0;color:#7c3aed;box-shadow:0 4px 18px #0f172a12}
+.arcana-top:hover{background:#f5f3ff;border-color:#c4b5fd}
+.arcana-top:focus-visible{outline-color:#7c3aed}
+
+/* Use a soft focus highlight in place of the strong purple outline. */
+a:focus-visible,button:focus-visible,input:focus-visible,.entry:focus-visible,
+.arcana-nav a:focus-visible,
+body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:focus-visible,
+.category-switcher a:focus-visible,.category-switcher button:focus-visible,
+.arcana-top:focus-visible{outline:none;box-shadow:0 0 0 3px #94a3b833}
+.entry:focus-visible{border-color:#cbd5e1}
+.tools input:focus{border-color:#cbd5e1}
+
+/* Remove the remaining focus ring from selected controls. */
+a:focus-visible,button:focus-visible,input:focus-visible,.entry:focus-visible,
+.arcana-nav a:focus-visible,
+body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:focus-visible,
+.category-switcher a:focus-visible,.category-switcher button:focus-visible,
+.arcana-top:focus-visible{outline:none;box-shadow:none}
+
+/* Improve readability of explanatory copy throughout the collection. */
+.cover .lede{font-size:16px;line-height:1.9}
+.entry p{font-size:14px;line-height:1.8}
+.content .lead{font-size:19px;line-height:1.8}
+.desc,.kw,.rtext,.hv{font-size:16px;line-height:1.95}
+.hk{font-size:13px}
+.rlabel,.read dt{font-size:13px}
+.sec-note,.legend p,.juyeok-guide .desc{font-size:16px;line-height:1.9}
+.grade-table,.trig-table{font-size:15px;line-height:1.9}
+.gn,.grade-table .gn{font-size:14px;line-height:1.7}
+.idx-name{font-size:14px;line-height:1.7}
+
+/* Stronger text contrast on the light reading surfaces. */
+:root{--ink:#172033;--ink2:#334155;--muted:#475569}
+.cover .lede,.entry p,.sec-note,.legend p,
+.desc,.kw,.rtext,.hv,.hk,.idx-no,.idx-name,
+.grade-table,.trig-table,.trig-table th{color:#334155}
+#result-count,.tools input::placeholder{color:#475569;opacity:1}
+.filters button{color:#334155}
+.category-menu small{color:#475569}
+
+/* Give card boundaries clearer contrast against the page background. */
+.entry,body.juyeok-detail .card{border-color:#b8c4d3}
+.entry-info,.card-head{border-color:#cbd5e1}
+.entry:hover{border-color:#94a3b8}
+
+/* Violet and pink accents limited to the page background and guide action. */
+body{background-color:#f7f5fb;background-image:radial-gradient(ellipse at 0% 0%,#ede9fe 0,transparent 48%),radial-gradient(ellipse at 100% 0%,#fce7f3 0,transparent 48%);background-attachment:fixed}
+.action{background:linear-gradient(135deg,#6d28d9,#be185d);color:#fff;border-color:transparent;box-shadow:0 4px 14px #7c3aed20}
+.action:hover{background:linear-gradient(135deg,#5b21b6,#9d174d);color:#fff}
+@media print{body{background:#fff}}
+
+/* Slightly larger collection title without changing other navigation titles. */
+.arcana-nav .juyeok-index-title{font-size:18px}
+
+/* Serif typography for reading, with sans-serif navigation and controls. */
+.cover .lede,
+.content .lead,
+.desc,.kw,.rtext,.hv,
+.juyeok-detail .content .lead,
+.juyeok-detail .desc,
+.juyeok-detail .kw,
+.juyeok-detail .rtext,
+.juyeok-detail .hv,
+.entry p,.sec-note,.legend p,.glist{
+  font-family:'Noto Serif KR','Nanum Myeongjo',serif;
+}
+.entry .cno,.card-head .cno,.sec-head .snum{
+  font-family:'Noto Serif KR',serif;
+}
+
+/* Universal Waite search layout with the current Juyeok palette. */
+.tools{padding:24px;border-radius:18px;margin:24px 0 30px}
+.tools label{font-size:14px;margin-bottom:12px}
+.tools input{font-size:16px;line-height:1.6;padding:13px 16px 13px 44px;min-height:52px;background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='m16 16 4 4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:15px center;appearance:none}
+.filters{background:transparent;padding:0;gap:8px;margin:18px 0 14px;border-radius:0}
+.filters button{min-height:44px;padding:9px 14px;background:#fff;border:1px solid #cbd5e1;color:#334155;font-weight:600}
+.filters button span{display:inline-block;min-width:23px;margin-left:6px;padding:1px 5px;border-radius:6px;background:#e2e8f0;color:#334155;font-size:11px;font-variant-numeric:tabular-nums}
+.filters button:hover{background:#f1f5f9;border-color:#94a3b8}
+.filters button[aria-pressed=true]{background:#1e293b;color:#fff;border-color:#1e293b;box-shadow:none}
+.filters button[aria-pressed=true] span{background:#ffffff26;color:#fff}
+#result-count{font-size:13px}
+#empty{text-align:center;padding:28px;background:#fff;border:1px dashed #b8c4d3;border-radius:18px}
+#empty p{margin:8px 0 16px;color:#334155}
+#clear-search{min-height:44px;padding:9px 16px;border:1px solid #cbd5e1;border-radius:10px;background:#f1f5f9;color:#1e293b;cursor:pointer}
+@media(max-width:720px){.tools{padding:16px}.filters button{font-size:12px;padding:9px 11px}}
+
+/* Medium-weight serif copy for a clearer, compact reading rhythm. */
+.cover .lede,.entry p,.desc,.kw,.rtext,.hv,
+.juyeok-detail .desc,.juyeok-detail .kw,.juyeok-detail .rtext,.juyeok-detail .hv,
+.sec-note,.legend p,.juyeok-guide .desc,.glist{
+  font-size:14px;font-weight:500;
+}
+
+/* Collection introduction uses the original interface typeface. */
+.cover .lede{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px}
+
+/* Place each collection name directly beside its card number. */
+.entry-meta{align-items:center;gap:8px;flex-wrap:wrap}
+.entry-meta h2{flex:1 1 80px;min-width:0;margin:0}
+.entry-meta .entry-badges{margin-left:auto;padding-top:0}
+
+/* Emphasize collection names while keeping summaries compact. */
+.entry h2{font-size:16px}
+.entry p{font-size:13px}
+
+/* Serif card names paired with sans-serif collection summaries. */
+.entry h2{font-family:'Noto Serif KR','Nanum Myeongjo',serif}
+.entry p{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* Black-weight Noto Serif KR for collection card names. */
+.entry h2{font-family:'Noto Serif KR',serif;font-weight:900;font-size:18px}
+
+/* Collection heading uses the same serif family as card names. */
+.cover h1{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:800;background:linear-gradient(135deg,#4f46e5,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* Detail titles in serif, with sans-serif explanatory text. */
+.juyeok-detail .card-head .card-name,
+.juyeok-detail .arcana-nav-title{font-family:'Noto Serif KR',serif;font-weight:900}
+.juyeok-detail .content .lead,
+.juyeok-detail .desc,
+.juyeok-detail .kw,
+.juyeok-detail .rtext,
+.juyeok-detail .hv,
+.juyeok-detail .hk{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+
+/* Larger explanatory text on card detail pages. */
+.juyeok-detail .content .lead{font-size:21px}
+.juyeok-detail .desc,
+.juyeok-detail .kw,
+.juyeok-detail .rtext,
+.juyeok-detail .hv{font-size:16px}
+.juyeok-detail .hk,
+.juyeok-detail .rlabel,
+.juyeok-detail .read dt{font-size:15px}
+
+/* Larger card name in the detail navigation. */
+.juyeok-detail .arcana-nav-title{font-size:17px}
+@media(max-width:480px){.juyeok-detail .arcana-nav-title{font-size:15px}}
+
+/* Match soulnum.html's header-title typography and gradient exactly. */
+.arcana-nav .juyeok-index-title{
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:20px;
+  font-weight:800;
+  line-height:1.5;
+  letter-spacing:-0.3px;
+  -webkit-font-smoothing:auto;
+  background:linear-gradient(135deg,#4f46e5,#ec4899);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  color:transparent;
+}
+
+/* Pretendard for the centered detail-page card name. */
+body.juyeok-detail .arcana-nav .juyeok-card-title{
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-weight:900;
+  font-synthesis:none;
+}
+
+/* Match the birthday page hero title's size and gradient stops. */
+.cover h1{
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:28.8px;font-weight:800;line-height:1.3;
+  margin-bottom:8px;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 50%,#ec4899 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* Subtle artwork boundaries against white detail-card surfaces. */
+.juyeok-detail .card figure img{
+  border:1px solid #e0e4ea;
+  border-radius:16px;
+  box-shadow:0 2px 5px #0f172a14,0 10px 24px #0f172a12;
+}

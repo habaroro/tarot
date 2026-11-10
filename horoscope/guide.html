@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>:root{
   --ink:#181a1d; --ink-soft:#3c4046; --ink-mute:#6c7178;
   --paper:#f7f4ee; --paper-2:#fffdf8; --line:#ddd6c8; --line-soft:#e9e3d7;
@@ -19,10 +19,10 @@
 html{scroll-behavior:smooth}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font-family:"Pretendard","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-family:"Pretendard","Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
 }
-.serif{font-family:"Noto Serif KR",Georgia,"Nanum Myeongjo",serif}
+.serif{font-family:"Pretendard",Georgia,"Nanum Myeongjo",serif}
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
 
 /* ---------- hero ---------- */
@@ -43,7 +43,7 @@ body{
   font-size:12px; letter-spacing:.34em; text-transform:uppercase; color:#c9a869; margin:0 0 20px;
 }
 .hero h1{
-  font-family:"Noto Serif KR",Georgia,serif;
+  font-family:"Pretendard",Georgia,serif;
   font-size:clamp(30px,4.4vw,54px); line-height:1.24; margin:0 0 18px; font-weight:600;
   letter-spacing:-.01em;
 }
@@ -95,15 +95,15 @@ section{padding:64px 0 8px; border-bottom:1px solid var(--line-soft)}
 section:last-of-type{border-bottom:none}
 .sec-head{display:flex; align-items:baseline; gap:16px; margin-bottom:26px}
 .sec-num{
-  font-family:"Noto Serif KR",Georgia,serif; font-size:13px; letter-spacing:.2em;
+  font-family:"Pretendard",Georgia,serif; font-size:13px; letter-spacing:.2em;
   color:var(--terracotta); font-weight:600; padding-top:6px; white-space:nowrap;
 }
 .sec-head h2{
-  font-family:"Noto Serif KR",Georgia,serif; font-size:clamp(22px,2.6vw,31px);
+  font-family:"Pretendard",Georgia,serif; font-size:clamp(22px,2.6vw,31px);
   margin:0; font-weight:600; letter-spacing:-.01em; line-height:1.35;
 }
 .sec-head .sub{color:var(--ink-mute); font-size:14px; margin:6px 0 0}
-h3{font-family:"Noto Serif KR",Georgia,serif; font-size:19px; margin:34px 0 12px; font-weight:600}
+h3{font-family:"Pretendard",Georgia,serif; font-size:19px; margin:34px 0 12px; font-weight:600}
 p{margin:0 0 14px}
 .lead-2{font-size:17px; color:var(--ink-soft); max-width:760px}
 .small{font-size:13.5px; color:var(--ink-mute)}
@@ -115,9 +115,9 @@ p{margin:0 0 14px}
   background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:24px 26px;
   box-shadow:var(--shadow);
 }
-.panel h4{margin:0 0 10px; font-size:15.5px; font-family:"Noto Serif KR",Georgia,serif}
+.panel h4{margin:0 0 10px; font-size:15.5px; font-family:"Pretendard",Georgia,serif}
 .panel p:last-child{margin-bottom:0}
-.panel .num{font-family:"Noto Serif KR",Georgia,serif; font-size:12px; color:var(--gold); letter-spacing:.18em; display:block; margin-bottom:8px}
+.panel .num{font-family:"Pretendard",Georgia,serif; font-size:12px; color:var(--gold); letter-spacing:.18em; display:block; margin-bottom:8px}
 
 .steps{counter-reset:step; list-style:none; padding:0; margin:18px 0 0; display:grid; gap:12px}
 .steps li{
@@ -126,14 +126,14 @@ p{margin:0 0 14px}
 }
 .steps li::before{
   content:counter(step,decimal-leading-zero); position:absolute; left:20px; top:15px;
-  font-family:"Noto Serif KR",Georgia,serif; font-size:19px; color:var(--terracotta); opacity:.85;
+  font-family:"Pretendard",Georgia,serif; font-size:19px; color:var(--terracotta); opacity:.85;
 }
 .steps li b{display:block; font-size:15px; margin-bottom:2px}
 .steps li span{font-size:14px; color:var(--ink-mute)}
 
 .quote{
   border-left:3px solid var(--gold); padding:6px 0 6px 20px; margin:26px 0;
-  font-family:"Noto Serif KR",Georgia,serif; font-size:17px; color:var(--ink-soft);
+  font-family:"Pretendard",Georgia,serif; font-size:17px; color:var(--ink-soft);
 }
 .note{
   background:#f0ece0; border:1px solid var(--line); border-radius:12px; padding:16px 20px;
@@ -151,7 +151,7 @@ thead th{
 }
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:#faf7f0}
-td.planet{font-family:"Noto Serif KR",Georgia,serif; font-weight:600; white-space:nowrap}
+td.planet{font-family:"Pretendard",Georgia,serif; font-weight:600; white-space:nowrap}
 td.planet span{font-size:17px; margin-right:8px; color:var(--terracotta)}
 td.kw{color:var(--ink-soft); font-size:13.5px}
 td.zodiac{white-space:nowrap; color:var(--ink-mute); font-size:13px}
@@ -169,14 +169,14 @@ td.zodiac{white-space:nowrap; color:var(--ink-mute); font-size:13px}
 }
 .cnum{
   flex:0 0 auto; width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
-  background:var(--ink); color:#f7f4ee; font-family:"Noto Serif KR",Georgia,serif; font-size:16px;
+  background:var(--ink); color:#f7f4ee; font-family:"Pretendard",Georgia,serif; font-size:16px;
   font-weight:600; font-variant-numeric:tabular-nums;
 }
 .card-sheet.pos .cnum{background:var(--pos)}
 .card-sheet.mid .cnum{background:var(--mid)}
 .card-sheet.neg .cnum{background:var(--neg)}
 .ctitle{flex:1 1 auto; min-width:0}
-.cname{font-family:"Noto Serif KR",Georgia,serif; font-size:18px; font-weight:600; line-height:1.35; margin:0}
+.cname{font-family:"Pretendard",Georgia,serif; font-size:18px; font-weight:600; line-height:1.35; margin:0}
 .cen{font-size:12px; letter-spacing:.06em; color:var(--ink-mute); text-transform:uppercase; margin-top:2px; display:block}
 .pol{
   flex:0 0 auto; font-size:11.5px; letter-spacing:.06em; padding:4px 9px; border-radius:999px;
@@ -220,8 +220,8 @@ body.flash .card-sheet.open::after{content:"탭하여 접기"}
 /* ---------- polarity map ---------- */
 .polmap{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px}
 .polcol{background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:20px 22px}
-.polcol h4{margin:0 0 4px; font-family:"Noto Serif KR",Georgia,serif; font-size:16px}
-.polcol .n{font-family:"Noto Serif KR",Georgia,serif; font-size:28px; line-height:1.1; margin-bottom:10px}
+.polcol h4{margin:0 0 4px; font-family:"Pretendard",Georgia,serif; font-size:16px}
+.polcol .n{font-family:"Pretendard",Georgia,serif; font-size:28px; line-height:1.1; margin-bottom:10px}
 .polcol.pos .n{color:var(--pos)} .polcol.mid .n{color:var(--mid)} .polcol.neg .n{color:var(--neg)}
 .mini{display:flex; flex-wrap:wrap; gap:5px}
 .mini span{font-size:11.5px; color:var(--ink-soft); background:#f4efe3; border-radius:5px; padding:2px 7px}
@@ -229,7 +229,7 @@ body.flash .card-sheet.open::after{content:"탭하여 접기"}
 
 /* ---------- spreads ---------- */
 .spread{background:var(--paper-2); border:1px solid var(--line); border-radius:14px; padding:22px 24px; box-shadow:var(--shadow)}
-.spread h4{margin:0 0 6px; font-family:"Noto Serif KR",Georgia,serif; font-size:16px}
+.spread h4{margin:0 0 6px; font-family:"Pretendard",Georgia,serif; font-size:16px}
 .spread .desc{font-size:13.5px; color:var(--ink-mute); margin:0 0 14px}
 .diagram{display:flex; gap:10px; align-items:flex-end; margin:6px 0 12px; flex-wrap:wrap}
 .slot{
@@ -237,7 +237,7 @@ body.flash .card-sheet.open::after{content:"탭하여 접기"}
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
   font-size:10px; color:var(--ink-mute); text-align:center; line-height:1.3; box-shadow:0 2px 0 #e7e0d2;
 }
-.slot b{font-family:"Noto Serif KR",Georgia,serif; font-size:12px; color:var(--terracotta)}
+.slot b{font-family:"Pretendard",Georgia,serif; font-size:12px; color:var(--terracotta)}
 .slot.dark{background:#1b1d21; border-color:#1b1d21; color:#cfc7b7}
 .slot.dark b{color:#e0b877}
 .rules{list-style:none; padding:0; margin:10px 0 0; font-size:13.5px}
@@ -252,7 +252,7 @@ body.flash .card-sheet.open::after{content:"탭하여 접기"}
   border-radius:10px; font-size:14px; align-items:baseline;
 }
 .combo-item .cn{
-  font-family:"Noto Serif KR",Georgia,serif; font-size:13px; color:var(--terracotta); white-space:nowrap;
+  font-family:"Pretendard",Georgia,serif; font-size:13px; color:var(--terracotta); white-space:nowrap;
   font-variant-numeric:tabular-nums; flex:0 0 auto; min-width:76px;
 }
 .combo-item .cr{color:var(--ink-soft); line-height:1.6}
@@ -266,9 +266,9 @@ footer{
   background:#14161a; color:#a9a294; padding:46px 0 54px; font-size:13px; line-height:1.8;
 }
 footer .wrap{display:flex; justify-content:space-between; gap:30px; flex-wrap:wrap}
-footer b{color:#efe8db; font-family:"Noto Serif KR",Georgia,serif; font-size:15px; display:block; margin-bottom:6px}
+footer b{color:#efe8db; font-family:"Pretendard",Georgia,serif; font-size:15px; display:block; margin-bottom:6px}
 footer a{color:#c9a869; text-decoration:none}
-footer .sig{font-family:"Noto Serif KR",Georgia,serif; font-style:italic; color:#e0b877}
+footer .sig{font-family:"Pretendard",Georgia,serif; font-style:italic; color:#e0b877}
 
 @media (max-width:900px){
   .grid-2,.grid-3,.dex-grid,.polmap,.combo-list{grid-template-columns:1fr}
@@ -314,7 +314,7 @@ body.flash .cardimg{width:132px; border-color:#2c2f35}
 
 .diagram.grid3{display:grid; grid-template-columns:repeat(3,56px); gap:10px; justify-content:start}
 </style>
-<link rel="stylesheet" href="../uni/study-nav.css"><style>body.has-arcana-nav{padding-top:calc(58px + env(safe-area-inset-top))}.toolbar{top:calc(58px + env(safe-area-inset-top))}</style><link rel="stylesheet" href="study.css?v=focus-2"><link rel="stylesheet" href="guide.css?v=focus-2"></head>
+<link rel="stylesheet" href="../uni/study-nav.css"><style>body.has-arcana-nav{padding-top:calc(58px + env(safe-area-inset-top))}.toolbar{top:calc(58px + env(safe-area-inset-top))}</style><link rel="stylesheet" href="study.css?v=focus-2"><link rel="stylesheet" href="guide.css?v=focus-2"><script src="../uni/study-top.js" defer></script><link rel="stylesheet" href="theme.css"></head>
 <body class="has-arcana-nav guide-page"><nav class="arcana-nav " aria-label="페이지 이동"><div class="arcana-nav-start"><a class="arcana-btn arcana-back" href="index.html" aria-label="카드 목록으로 돌아가기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></a></div><span class="arcana-nav-title">호로스코프벨린 학습 가이드</span><a class="arcana-btn" href="index.html">전체 카드</a></nav>
 
 <header class="study-title guide-title"><p class="kicker">HOROSCOPE BELLINE · LEARNING GUIDE</p><h1>호로스코프벨린 학습 가이드</h1><p>카드를 읽는 순서부터 행성의 의미와 조합까지.<br>52장의 이야기를 이해하고 나만의 리딩으로 연결해 보세요.</p><span class="title-rule" aria-hidden="true"></span></header>
@@ -456,7 +456,7 @@ body.flash .cardimg{width:132px; border-color:#2c2f35}
       <div class="panel"><span class="num">45번</span><div class="polarity-cards"><a class="polarity-card" href="card-45.html"><img src="../img_h/45.jpg" loading="lazy" alt="45. 행복 상세 해설"><span>45. 45. 행복 상세 해설</span></a></div><h4>행복 Felicity</h4><p>전체 카드 중 기운이 가장 좋은 카드.
       부정 카드를 중화시키는 최고의 카드로, 육각형 별은 '창조의 별'이라 불립니다.</p></div>
       <div class="panel"><span class="num">48번</span><div class="polarity-cards"><a class="polarity-card" href="card-48.html"><img src="../img_h/48.jpg" loading="lazy" alt="48. 보호 상세 해설"><span>48. 48. 보호 상세 해설</span></a></div><h4>보호 Protection</h4><p>신의 은총과 보호. 부정 카드가 나와도 그 기운을 중화시키는 강력한 방어 카드입니다.</p></div>
-      <div class="panel"><span class="num">25번</span><div class="polarity-cards"><a class="polarity-card" href="card-25.html"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정 상세 해설"><span>25. 25. 진정 상세 해설</span></a></div><div style="font-family:'Noto Serif KR',serif;font-size:15px;margin:0 0 6px">진정 Appeasement</div>
+      <div class="panel"><span class="num">25번</span><div class="polarity-cards"><a class="polarity-card" href="card-25.html"><img src="../img_h/25.jpg" loading="lazy" alt="25. 진정 상세 해설"><span>25. 25. 진정 상세 해설</span></a></div><div style="font-family:'Pretendard',sans-serif;font-size:15px;margin:0 0 6px">진정 Appeasement</div>
       <p>토성 계열 7장 중 유일하게 긍정 기운을 가진 카드. 부정 카드를 억누르고 중화시킵니다.</p></div>
     </div>
 

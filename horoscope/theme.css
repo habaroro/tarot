@@ -1,0 +1,75 @@
+/* Shared UI reference: UI-DESIGN-GUIDE.md and juyeok/theme.css. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--ink:#172033;--ink2:#334155;--ink-soft:#334155;--ink-mute:#475569;--night:#0f172a;--muted:#475569;--gold:#7c3aed;--gold-soft:#e2e8f0;--paper:#f7f5fb;--paper-2:#fff;--line:#e2e8f0;--line-soft:#e2e8f0}
+body,body.guide-page{--ink-soft:#334155;--ink-mute:#475569;--paper-2:#fff;--line-soft:#e2e8f0;--terracotta:#7c3aed;--shadow:0 10px 40px -10px #0000000d;background-color:#f7f5fb;background-image:radial-gradient(ellipse at 0% 0%,#ede9fe 0,transparent 48%),radial-gradient(ellipse at 100% 0%,#fce7f3 0,transparent 48%);background-attachment:fixed;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#172033;-webkit-font-smoothing:antialiased}
+.arcana-nav,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav{background:#ffffffbf;border-bottom-color:#ffffff99;backdrop-filter:blur(20px);box-shadow:0 4px 24px #4f46e50f;font-family:'Pretendard',sans-serif}
+.arcana-nav .arcana-btn,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn{background:#ffffffe6;border-color:#e2e8f0;color:#172033;border-radius:12px;box-shadow:0 2px 10px #00000008}
+.arcana-nav a:hover,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:hover{background:#f1f5f9;border-color:#cbd5e1}
+.arcana-nav-title{font-family:'Pretendard',sans-serif;font-weight:900;background:linear-gradient(135deg,#4f46e5,#ec4899);background-clip:text;-webkit-background-clip:text;color:transparent}
+.index-page .arcana-nav-title{font-size:20px;font-weight:800;line-height:1.5;letter-spacing:-.3px}
+.detail-page .arcana-nav-title{font-size:17px}
+.study-title{background:#fff;border:1px solid #e2e8f0;border-radius:24px;padding:30px 24px;margin-top:24px;box-shadow:0 10px 40px -10px #0000000d}
+.study-title h1{font-family:'Pretendard',sans-serif;font-size:28.8px;font-weight:800;line-height:1.3;letter-spacing:-.5px;margin-bottom:8px;background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 50%,#ec4899 100%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.study-title>p:not(.kicker){font-family:'Pretendard',sans-serif;font-size:15px;font-weight:500;color:#334155}
+.title-rule{display:none}.kicker{color:#7c3aed}
+.guide-callout{background:#fff;border-color:#e2e8f0;border-radius:18px}.guide-callout p{color:#334155;font-size:13px}
+.guide-callout>a{background:linear-gradient(135deg,#6d28d9,#be185d);color:#fff;border-radius:12px;padding:10px 16px;text-decoration:none;font-weight:600}
+.study-tools{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:24px;margin:24px 0 30px;box-shadow:0 10px 40px -10px #0000000d}
+.study-tools label{font-size:14px;margin-bottom:12px}
+input[type=search]{font:16px/1.6 'Pretendard',sans-serif;padding:13px 16px 13px 44px;min-height:52px;border-color:#cbd5e1;border-radius:12px;background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='m16 16 4 4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:15px center}
+input[type=search]::placeholder{color:#475569;opacity:1}
+.filters{gap:8px;margin:18px 0 14px}.filters button{min-height:44px;padding:9px 14px;background:#fff;border-color:#cbd5e1;color:#334155;font-weight:600}
+.filters button span{display:inline-block;min-width:23px;padding:1px 5px;border-radius:6px;background:#e2e8f0;color:#334155;font-size:11px;opacity:1;font-variant-numeric:tabular-nums}
+.filters button:hover{background:#f1f5f9;border-color:#94a3b8}.filters button[aria-pressed=true]{background:#1e293b;border-color:#1e293b;color:#fff}.filters button[aria-pressed=true] span{background:#ffffff26;color:#fff}
+#result-count{font-size:13px;color:#475569}#empty{background:#fff;border-color:#b8c4d3;border-radius:18px}#clear-search{background:#f1f5f9;border-color:#cbd5e1;color:#1e293b;border-radius:10px;min-height:44px}
+.entry{background:#fff;border-color:#b8c4d3;border-radius:18px;box-shadow:0 2px 8px #0f172a05}.entry:hover{border-color:#94a3b8;box-shadow:0 10px 30px #0f172a0d}
+.entry-meta{border-top:1px solid #cbd5e1}.entry-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.entry-top h2{flex:1 1 80px;min-width:0;margin:0;font:900 18px/1.5 'Pretendard',sans-serif}.entry-top .pol{margin-left:auto}.entry .number{font-family:'Pretendard',sans-serif;color:#7c3aed}.entry .keywords,.entry .en{font-family:'Pretendard',sans-serif;font-size:13px;color:#334155}
+.card-sheet{background:#fff;border:1px solid #b8c4d3;border-radius:24px;box-shadow:0 10px 40px -10px #0000000d}.card-top{border-color:#cbd5e1}
+.cname{font-family:'Pretendard',sans-serif;font-weight:900}.cnum{font-family:'Pretendard',sans-serif;background:#f5f3ff;color:#7c3aed;border-radius:12px}
+.cardimg{border:1px solid #e0e4ea;border-radius:16px;box-shadow:0 2px 5px #0f172a14,0 10px 24px #0f172a12}
+.blk p,.blk li{font-family:'Pretendard',sans-serif;font-size:16px;line-height:1.95;color:#334155;font-weight:500}.blk-t{font-size:15px;color:#7c3aed}.tag{background:#f8fafc;border-color:#e2e8f0;color:#334155}
+.figrow .blk,.talk,.combo{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px}.card-pagination>a{background:#fff;border-color:#cbd5e1;color:#334155}
+.guide-toc,.guide-page .panel,.guide-page .spread,.guide-page .polcol{background:#fff;border-color:#e2e8f0;border-radius:20px;box-shadow:0 10px 40px -10px #0000000d}
+.guide-toc a{background:#fff;border-color:#cbd5e1;color:#334155}.guide-toc a:hover{background:#1e293b;color:#fff}
+.guide-page .lead-2,.guide-page p,.guide-page li{font-family:'Pretendard',sans-serif;color:#334155;line-height:1.9}.guide-page .lead-2{font-size:16px}.guide-page .sec-head h2,.guide-page h3{font-family:'Pretendard',sans-serif;color:#0f172a}.guide-page table{background:#fff;border-color:#e2e8f0}.guide-page th{background:#f1f5f9;color:#334155}
+.arcana-top{background:#fff;border-color:#e2e8f0;color:#7c3aed;box-shadow:0 4px 18px #0f172a12}.arcana-top:hover{background:#f5f3ff;border-color:#c4b5fd}
+@media(max-width:720px){.study-title{padding:26px 18px;border-radius:20px;margin-top:18px}.study-title h1{font-size:28.8px}.study-tools{padding:16px}.filters button{font-size:12px;padding:9px 11px}.entry{border-radius:14px}.guide-callout{flex-wrap:wrap}.guide-callout>a{font-size:13px}}
+@media(max-width:480px){.detail-page .arcana-nav-title{font-size:15px}}
+@media print{body{background:#fff}.study-title h1,.arcana-nav-title{background:none;color:#172033}.card-sheet,.entry{box-shadow:none}}
+
+/* Neutral artwork surfaces without the former beige mat. */
+.entry figure,.entry figure img,.figrow,.cardimg{background:#fff}
+
+/* Fill collection artwork frames edge to edge without a white mat. */
+.index-page .entry figure{margin:0;padding:0;overflow:hidden}
+.index-page .entry figure img{display:block;width:100%;height:auto;object-fit:cover}
+
+/* Place the guide action inside the introduction, matching Juyeok. */
+.guide-actions{display:flex;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.guide-action{display:inline-block;padding:9px 16px;border:1px solid transparent;border-radius:12px;background:linear-gradient(135deg,#6d28d9,#be185d);color:#fff;font-size:13px;line-height:1.6;font-weight:600;text-decoration:none;box-shadow:0 4px 14px #7c3aed20}
+.guide-action:hover{background:linear-gradient(135deg,#5b21b6,#9d174d);color:#fff}
+
+/* Lavender emphasis replaces warm beige accents in the study guide. */
+.guide-page .note,.guide-page .quote{
+  background:#f5f3ff;border-color:#ddd6fe;color:#334155;
+}
+.guide-page .note strong,.guide-page .quote strong,
+.guide-page .steps li::before,.guide-page .combo-item .cn{color:#6d28d9}
+.guide-page .mini span,.guide-page .field,.guide-page .tag{
+  background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9;
+}
+.guide-page .panel,.guide-page .spread,.guide-page .polcol,
+.guide-page .steps li,.guide-page .combo-item,.guide-page .gallery,
+.guide-page .tbl-wrap{background:#fff;border-color:#e2e8f0}
+.guide-page thead th{background:#f5f3ff;color:#334155}
+.guide-page tbody tr:hover{background:#faf8ff}
+.guide-page .slot{border-color:#ddd6fe;box-shadow:0 2px 0 #ede9fe}
+
+/* Give guide emphasis blocks clearer separation from the page wash. */
+.guide-page .note,.guide-page .quote{
+  background:#ede5fa;border-color:#cbb6e8;color:#334155;
+}
+.guide-page .mini span,.guide-page .field,.guide-page .tag{
+  background:#e7dcf7;border-color:#c4abe5;color:#53258a;
+}
+.guide-page thead th{background:#e9dff6;color:#334155}

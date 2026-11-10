@@ -887,19 +887,22 @@
       }
     }
   </style>
+<link rel="stylesheet" href="uni/category-menu.css">
+<script src="uni/category-menu.js" defer></script>
+<style>.category-switcher { margin-left: 0; } </style>
 </head>
 
 <body>
 
   <!-- 상단 글래스모피즘 헤더 -->
-  <header class="top-header">
+  <header class="top-header category-header">
     <a href="index.html" class="back-btn" aria-label="메인 홈으로 이동">
       <svg viewBox="0 0 24 24">
         <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
       </svg>
     </a>
     <h1 class="header-title">운명의 생일수 타로</h1>
-    <div class="header-badge">Soul Number</div>
+    <div class="category-switcher"><button type="button" class="arcana-btn category-toggle" aria-label="카테고리 메뉴 열기" aria-expanded="false" aria-controls="category-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div id="category-menu" class="category-menu" hidden><p>카테고리 이동</p><a href="juyeok/index.html"><span>주역 타로</span><small>64괘 카드</small></a><a href="horoscope/index.html"><span>호로스코프벨린</span><small>52장 카드</small></a><a href="uni/index.html"><span>유니버셜 웨이트 타로</span><small>78장 카드</small></a><a href="color/index.html"><span>컬러 타로</span><small>색상별 카드</small></a><a href="arrange.html"><span>배열법</span><small>타로 배열법 가이드</small></a><a href="soulnum.html" aria-current="page"><span>생일수 보기</span><small>생일로 알아보는 타로</small></a><a class="category-home" href="index.html">메인으로</a></div></div>
   </header>
 
   <!-- 메인 레이아웃 -->

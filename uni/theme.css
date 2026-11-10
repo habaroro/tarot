@@ -1,0 +1,145 @@
+/* Universal Waite adaptation of UI-DESIGN-GUIDE.md. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--ink:#172033;--ink-soft:#334155;--paper:#f7f5fb;--paper-deep:#f1f5f9;--night:#0f172a;--night-2:#334155;--gold:#7c3aed;--gold-soft:#e2e8f0;--line:#e2e8f0;--wine:#be185d;--sage:#0f766e}
+body,body.arcana-index-page{background-color:#f7f5fb;background-image:radial-gradient(ellipse at 0% 0%,#ede9fe 0,transparent 48%),radial-gradient(ellipse at 100% 0%,#fce7f3 0,transparent 48%);background-attachment:fixed;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#172033;line-height:1.85}
+h1,h2,h3,h4,button,input{font-family:'Pretendard',sans-serif}
+.arcana-nav,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav{background:#ffffffbf;border-bottom-color:#ffffff99;color:#172033;backdrop-filter:blur(20px);box-shadow:0 4px 24px #4f46e50f;font-family:'Pretendard',sans-serif}
+.arcana-nav .arcana-btn,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn{background:#ffffffe6;border-color:#e2e8f0;color:#172033;border-radius:12px;box-shadow:0 2px 10px #00000008}
+.arcana-nav a:hover,body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:hover{background:#f1f5f9;border-color:#cbd5e1}
+.arcana-nav-title{font-family:'Pretendard',sans-serif;font-weight:900;font-size:17px;background:linear-gradient(135deg,#4f46e5,#ec4899);background-clip:text;-webkit-background-clip:text;color:transparent}
+.arcana-index-page .arcana-nav-title{font-size:20px;font-weight:800;line-height:1.5;letter-spacing:-.3px}
+.study-title{background:#fff;border:1px solid #e2e8f0;border-radius:24px;padding:30px 24px;margin-top:24px;box-shadow:0 10px 40px -10px #0000000d}
+.study-title::before,.study-title::after{display:none}
+.study-title h1{font:800 28.8px/1.3 'Pretendard',sans-serif;letter-spacing:-.5px;margin-bottom:8px;background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 50%,#ec4899 100%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.study-description{font-family:'Pretendard',sans-serif;color:#334155;font-size:15px}.study-kicker{color:#7c3aed}.study-title-rule{display:none}
+.study-tools{background:#fff;border-color:#e2e8f0;border-radius:18px;box-shadow:0 10px 40px -10px #0000000d}
+.search-field span{color:#172033;font-family:'Pretendard',sans-serif}
+input[type=search]{font-family:'Pretendard',sans-serif;background-color:#fff;border-color:#cbd5e1;color:#172033}
+input[type=search]::placeholder{color:#475569;opacity:1}
+.element-filters button{background:#fff;border-color:#cbd5e1;color:#334155;font-family:'Pretendard',sans-serif}
+.element-filters button span{background:#e2e8f0;color:#334155}.element-filters button:hover{background:#f1f5f9;border-color:#94a3b8}
+.element-filters button[aria-pressed=true]{background:#1e293b;border-color:#1e293b;color:#fff}.element-filters button[aria-pressed=true] span{background:#ffffff26;color:#fff}
+#result-count{color:#475569}#empty{background:#fff;border-color:#b8c4d3;border-radius:18px}#empty p{color:#334155}#clear-search{background:#f1f5f9;border-color:#cbd5e1;color:#1e293b}
+.entry{background:#fff;border-color:#b8c4d3;border-radius:18px;box-shadow:0 2px 8px #0f172a05}.entry:hover{border-color:#94a3b8;box-shadow:0 10px 30px #0f172a0d}
+.entry figure{margin:0;padding:0;background:#fff}.entry img{display:block;width:100%}.entry .meta{border-top:1px solid #cbd5e1}
+.entry h2{font:900 18px/1.5 'Noto Serif KR',serif;color:#0f172a}.entry .sum{font:500 13px/1.8 'Pretendard',sans-serif;color:#334155}.entry .en{font-family:'Pretendard',sans-serif;color:#475569}.entry .num .n{color:#7c3aed}.entry .num .roman{color:#475569}
+.sec-ko{font-family:'Pretendard',sans-serif;color:#0f172a}.sec-en{color:#475569}.sec-count{background:#f1f5f9;border-color:#e2e8f0;color:#475569}
+body.has-arcana-nav:not(.arcana-index-page) .cover{background:#fff;border:1px solid #b8c4d3;border-radius:24px;box-shadow:0 10px 40px -10px #0000000d;color:#172033}
+body.has-arcana-nav:not(.arcana-index-page) .cover::before,body.has-arcana-nav:not(.arcana-index-page) .cover::after{display:none}
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .title{font-family:'Noto Serif KR',serif;font-weight:900;color:#0f172a}
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .zero{background:#f5f3ff;color:#7c3aed;border-radius:12px}
+body.has-arcana-nav:not(.arcana-index-page) .cover h1{font-family:'Noto Serif KR',serif;font-weight:900;color:#0f172a}
+body.has-arcana-nav:not(.arcana-index-page) .cover .sub{font-family:'Pretendard',sans-serif;font-size:16px;line-height:1.95;color:#334155}
+body.has-arcana-nav:not(.arcana-index-page) .cover-card{border:1px solid #e0e4ea;border-radius:16px;box-shadow:0 2px 5px #0f172a14,0 10px 24px #0f172a12;background:#fff;overflow:hidden}
+body.has-arcana-nav:not(.arcana-index-page) .cover-card figcaption{background:#f1f5f9;color:#475569;font-family:'Pretendard',sans-serif}
+body.has-arcana-nav:not(.arcana-index-page) .cover .src{color:#475569;border-color:#e2e8f0}.cover-kicker{color:#7c3aed}
+body.has-arcana-nav:not(.arcana-index-page) section p,body.has-arcana-nav:not(.arcana-index-page) section li{font-family:'Pretendard',sans-serif;font-size:16px;line-height:1.95;color:#334155}
+.topic{background:#fff;border-color:#e2e8f0;border-radius:18px;box-shadow:0 4px 16px #0f172a05}.topic h3{color:#0f172a}
+blockquote.origin{background:#ede5fa;border-color:#cbb6e8;border-radius:16px;color:#334155}.origin .marker{color:#6d28d9;font-family:'Pretendard',sans-serif}
+section#general,section#reading{background:#fff;border:1px solid #b8c4d3;border-radius:20px;overflow:hidden;scroll-margin-top:85px}
+section#general>h2,section#reading>h2{background:#ede5fa;color:#4c1d95;border-bottom:1px solid #cbb6e8;border-radius:0;font-family:'Pretendard',sans-serif}
+section#general blockquote.origin,section#reading blockquote.origin{background:transparent;color:#334155}
+ol.advice li{background:#fff;border-color:#e2e8f0;border-radius:12px}ol.advice li::before{background:#f5f3ff;color:#6d28d9;font-family:'Pretendard',sans-serif}
+table{background:#fff;color:#334155}th{background:#ede5fa;color:#334155}td,th{border-color:#e2e8f0}
+.small{color:#475569}.arcana-top{background:#fff;border-color:#e2e8f0;color:#7c3aed;box-shadow:0 4px 18px #0f172a12}.arcana-top:hover{background:#f5f3ff;border-color:#c4b5fd}
+@media(max-width:720px){.study-title{padding:26px 18px;border-radius:20px;margin-top:18px}.study-title h1{font-size:28.8px}.entry{border-radius:14px}.entry h2{font-size:18px}.entry .sum{font-size:13px}}
+@media(max-width:480px){.arcana-nav-title{font-size:15px}.arcana-index-page .arcana-nav-title{font-size:20px}}
+@media print{body{background:#fff}.study-title h1{background:none;color:#172033}}
+
+/* White study accents with neutral borders and readable text. */
+blockquote.origin{background:#fff;border-color:#cbd5e1;border-left-color:#94a3b8}
+.origin .marker{color:#475569}
+section#general>h2,section#reading>h2{background:#fff;color:#172033;border-bottom-color:#cbd5e1}
+th{background:#fff;color:#334155}
+ol.advice li::before{background:#f1f5f9;color:#334155}
+.entry .num .n{color:#475569}
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .zero{background:#fff;color:#334155}
+body.has-arcana-nav:not(.arcana-index-page) .cover-kicker{color:#475569}
+
+/* Lavender headers and subtle pink row bands for readable study tables. */
+table{background:#fff;color:#334155}
+table th{background:#ede5fa;color:#3f285b;font-weight:700;border-color:#d9cce9}
+table td{border-color:#e5dfea;color:#334155}
+table tbody tr:nth-child(odd) td{background:#fff}
+table tbody tr:nth-child(even) td{background:#fff3f7}
+table tbody tr:hover td{background:#f3ecfc}
+
+/* Keep Roman card numbers at title scale with a violet accent. */
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .zero{
+  font-size:clamp(1.6rem,4vw,2.7rem);
+  line-height:1.4;color:#7c3aed;background:transparent;
+}
+.entry .num .roman{font-size:18px;line-height:1.5;color:#7c3aed}
+
+/* Reserve the leading numeral area for the 22 Major Arcana. */
+body.minor-card .cover-num .zero{display:none}
+
+/* Remove thick accent strokes from explanation boxes. */
+blockquote.origin{border-left-width:1px}
+.memo{border-left:0}
+.topic{border-top-width:1px;border-top-color:#e2e8f0}
+
+/* Tighter leading for explanatory copy in card readings. */
+body.has-arcana-nav:not(.arcana-index-page) section p,
+body.has-arcana-nav:not(.arcana-index-page) section li,
+body.has-arcana-nav:not(.arcana-index-page) .cover .sub,
+section#general blockquote.origin,
+section#reading blockquote.origin{line-height:1.5}
+
+/* Full-surface topic colors replace the former accent strokes. */
+.topic.love{background:#fff0f5;border-color:#ecc3d2}
+.topic.money{background:#fff8e5;border-color:#e7d5a1}
+.topic.pass{background:#edf8f1;border-color:#bad9c5}
+.topic.deal{background:#f2edfc;border-color:#cfc0e8}
+.topic.health{background:#eaf6f8;border-color:#b6d9df}
+.topic.career{background:#fff1e7;border-color:#e9c8af}
+
+/* Consistent, compact leading throughout Universal Waite pages. */
+body,body.arcana-index-page,
+body.has-arcana-nav:not(.arcana-index-page) section p,
+body.has-arcana-nav:not(.arcana-index-page) section li,
+body.has-arcana-nav:not(.arcana-index-page) .cover .sub,
+section#general blockquote.origin,section#reading blockquote.origin,
+blockquote.origin,.topic,.note,.memo,table,td,th,
+.entry .sum,.entry .en,.study-description{line-height:1.7}
+
+/* Halve vertical gaps between explanation boxes and sections. */
+body.has-arcana-nav:not(.arcana-index-page) section{margin-top:26px;margin-bottom:26px}
+.topic{margin-top:11px;margin-bottom:11px}
+blockquote.origin{margin-top:11px;margin-bottom:11px}
+.note,.memo{margin-top:10px;margin-bottom:10px}
+ol.advice li{margin-bottom:5px}
+section#general,section#reading{margin-top:27px;margin-bottom:27px}
+section#general blockquote.origin,section#reading blockquote.origin{margin-top:11px;margin-bottom:11px}
+@media(max-width:720px){
+ body.has-arcana-nav:not(.arcana-index-page) section{margin-top:18px;margin-bottom:18px}
+ section#general,section#reading{margin-top:20px;margin-bottom:20px}
+}
+
+/* Symbol tables: a clear label column and uncluttered explanations. */
+section#symbols table{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;border:1px solid #ddd6e8;border-radius:14px;overflow:hidden}
+section#symbols table th,section#symbols table td{padding:14px 18px;text-align:left;vertical-align:top;line-height:1.7;border:0;border-bottom:1px solid #e5dfea;overflow-wrap:anywhere;white-space:normal}
+section#symbols table th:first-child,section#symbols table td:first-child{width:25%;background:#f1ebfa;color:#432c60;font-weight:700}
+section#symbols table th:last-child,section#symbols table td:last-child{background:#fff;color:#334155}
+section#symbols table tr:hover td:first-child{background:#eae1f5}
+section#symbols table tr:hover td:last-child{background:#faf8fd}
+section#symbols table tr:last-child td{border-bottom:0}
+section#symbols td.sym .e{font-family:'Pretendard',sans-serif;color:#645176;font-size:12px;margin-top:4px}
+@media(max-width:720px){
+ section#symbols table th,section#symbols table td{padding:12px 10px}
+ section#symbols table th:first-child,section#symbols table td:first-child{width:30%;min-width:0}
+}
+
+/* Emphasize the primary card interpretation without tinting long copy. */
+section#general,section#reading{
+  background:#fff;border:1px solid #c4b5dc;
+  box-shadow:0 6px 22px #5b3b8012;
+}
+section#general>h2,section#reading>h2{
+  background:linear-gradient(135deg,#ede5fa,#fce7f0);
+  color:#53258a;border-bottom:1px solid #d8c7e7;font-weight:800;
+}
+body.has-arcana-nav:not(.arcana-index-page) section#general blockquote.origin:first-of-type>p:first-child,
+body.has-arcana-nav:not(.arcana-index-page) section#reading blockquote.origin:first-of-type>p:first-child{
+  font-size:18px;font-weight:700;line-height:1.7;color:#30213f;
+}

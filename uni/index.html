@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>유니버셜 웨이트 타로 카드 78장</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;600;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Noto+Sans+KR:wght@400;600;700&family=Noto+Serif+KR:wght@400;600;900&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#2b2418;--night:#1e1c30;--gold:#a8842c;--gold-soft:#d9c48a;--paper:#faf6ec}
 *{box-sizing:border-box}
@@ -54,14 +54,15 @@ body.arcana-index-page { padding-top: calc(75px + env(safe-area-inset-top)); }
 <link rel="stylesheet" href="study-index.css">
 <script src="study-index.js" defer></script>
 <script src="study-top.js" defer></script>
+<script src="category-menu.js" defer></script><link rel="stylesheet" href="theme.css">
 </head>
 <body class="has-arcana-nav arcana-index-page">
-<nav class="arcana-nav arcana-index-nav" aria-label="상위 페이지 이동">
+<nav class="category-header arcana-nav arcana-index-nav" aria-label="상위 페이지 이동">
   <div class="arcana-nav-start">
     <a class="arcana-btn arcana-back" href="../index.html" aria-label="메인 페이지로 돌아가기" title="메인 페이지로 돌아가기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></a>
   </div>
   <span class="arcana-nav-title">유니버셜 웨이트 타로</span>
-</nav>
+<div class="category-switcher"><button type="button" class="arcana-btn category-toggle" aria-label="카테고리 메뉴 열기" aria-expanded="false" aria-controls="category-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div id="category-menu" class="category-menu" hidden><p>카테고리 이동</p><a href="../juyeok/index.html"><span>주역 타로</span><small>64괘 카드</small></a><a href="../horoscope/index.html"><span>호로스코프벨린</span><small>52장 카드</small></a><a href="../uni/index.html" aria-current="page"><span>유니버셜 웨이트 타로</span><small>78장 카드</small></a><a href="../color/index.html"><span>컬러 타로</span><small>색상별 카드</small></a><a href="../arrange.html"><span>배열법</span><small>타로 배열법 가이드</small></a><a href="../soulnum.html"><span>생일수 보기</span><small>생일로 알아보는 타로</small></a><a class="category-home" href="../index.html">메인으로</a></div></div></nav>
 <header class="study-title">
   <p class="study-kicker">UNIVERSAL WAITE TAROT</p>
   <h1>유니버셜 웨이트 타로 카드</h1>

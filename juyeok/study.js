@@ -18,3 +18,11 @@ for (const button of filters) button.addEventListener('click', () => {
   for (const item of filters) item.setAttribute('aria-pressed', String(item === button));
   update();
 });
+
+ document.querySelector('#clear-search').addEventListener('click', () => {
+  search.value = '';
+  grade = 'all';
+  for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === 'all'));
+  update();
+  search.focus();
+});

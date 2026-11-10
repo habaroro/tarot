@@ -427,7 +427,74 @@
       .magic-main .spread-card-slot { width:70px; }
       .magic-main .slot-label { font-size:0.8rem; }
     }
-  </style>
+  /* ── 배열법 전용 추가 스타일 ── */
+.zone-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: -0.3px;
+  text-align: center;
+}
+
+.meaning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px 16px;
+  margin-top: 35px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.meaning-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--slot-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.meaning-item small {
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.meaning-num {
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--text-number);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.callout-box {
+  background: #f8fafc;
+  border-left: 4px solid #f43f5e;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-top: 30px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  word-break: keep-all;
+}
+
+    </style>
 </head>
 
 <body>
@@ -464,6 +531,9 @@
       <button class="spread-tab" data-spread="newyear">신년운세</button>
       <button class="spread-tab" data-spread="money">금전운</button>
       <button class="spread-tab" data-spread="magicseven">매직세븐</button>
+      <button class="spread-tab" data-spread="redsun-compat">궁합</button>
+      <button class="spread-tab" data-spread="redsun-pastlife">전생운</button>
+      <button class="spread-tab" data-spread="redsun-flower">플라워</button>
     </div>
 
     <!-- 배열법 컨텐츠 -->
@@ -1657,6 +1727,360 @@
         </div>
       </div>
 
+      <div class="spread-panel" id="spread-redsun-compat">
+        <div class="spread-info-box">
+          <h3>💕 궁합 배열법 (11장)</h3>
+          <p>궁합을 보기 위한 배열법. 중심을 기준으로 왼쪽(1·3·5·6·7·10번)은 남자가, 오른쪽(2·4·8·9·11번)은 여자가
+            뽑습니다. 남자가 1번을 뽑고 여자가 2번을, 다시 남자가 3번을 뽑는 식으로 번갈아 가며 순서대로 뽑습니다.</p>
+        </div>
+
+        <div class="spread-grid-wrapper">
+          <div class="spread-sub-title">💕 궁합 배열법 배치도 (11장)</div>
+
+          <div style="overflow-x:auto; padding-bottom:10px;">
+            <div style="display:flex; justify-content:center; min-width:620px;">
+
+              <!-- 남자 영역 (왼쪽) -->
+              <div style="display:flex; flex-direction:column; align-items:center; gap:18px; padding:16px 24px;">
+                <div style="display:flex; gap:14px;">
+                  <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                    <div class="slot-num" style="color:#2563eb;">3</div>
+                    <div class="slot-label">바라는 점<small>남자 → 여자</small></div>
+                  </div>
+                  <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                    <div class="slot-num" style="color:#2563eb;">1</div>
+                    <div class="slot-label">남자 속마음</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:14px;">
+                  <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                    <div class="slot-num" style="color:#2563eb;">10</div>
+                    <div class="slot-label">남자 성격</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:14px;">
+                  <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                    <div class="slot-num" style="color:#2563eb;">5</div>
+                    <div class="slot-label">과거<small>속궁합</small></div>
+                  </div>
+                  <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                    <div class="slot-num" style="color:#2563eb;">6</div>
+                    <div class="slot-label">현재<small>겉궁합</small></div>
+                  </div>
+                  <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                    <div class="slot-num" style="color:#2563eb;">7</div>
+                    <div class="slot-label">미래<small>종합 궁합</small></div>
+                  </div>
+                </div>
+                <div class="zone-label">👨 남자가 뽑는 카드 (1·3·5·6·7·10)</div>
+              </div>
+
+              <!-- 중앙 구분선 -->
+              <div style="border-left:2px dashed var(--border-color); margin:14px 0;"></div>
+
+              <!-- 여자 영역 (오른쪽) -->
+              <div style="display:flex; flex-direction:column; align-items:center; gap:18px; padding:16px 24px;">
+                <div style="display:flex; gap:14px;">
+                  <div class="spread-card-slot" style="background:rgba(244,63,94,0.05); border-color:#fda4af;">
+                    <div class="slot-num" style="color:#e11d48;">2</div>
+                    <div class="slot-label">여자 속마음</div>
+                  </div>
+                  <div class="spread-card-slot" style="background:rgba(244,63,94,0.05); border-color:#fda4af;">
+                    <div class="slot-num" style="color:#e11d48;">4</div>
+                    <div class="slot-label">바라는 점<small>여자 → 남자</small></div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:14px;">
+                  <div class="spread-card-slot" style="background:rgba(244,63,94,0.05); border-color:#fda4af;">
+                    <div class="slot-num" style="color:#e11d48;">11</div>
+                    <div class="slot-label">여자 성격</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:14px;">
+                  <div class="spread-card-slot highlight" style="background:#ecfdf5; border-color:#10b981;">
+                    <div class="slot-num" style="color:var(--accent-jade);">8</div>
+                    <div class="slot-label">마스터<br>조언</div>
+                  </div>
+                  <div class="spread-card-slot highlight" style="background:#ecfdf5; border-color:#10b981;">
+                    <div class="slot-num" style="color:var(--accent-jade);">9</div>
+                    <div class="slot-label">최종 결과</div>
+                  </div>
+                </div>
+                <div class="zone-label">👩 여자가 뽑는 카드 (2·4·8·9·11)</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="spread-legend">
+            <div class="legend-item" style="color:#2563eb;">■ 남자 카드 (1·3·5·6·7·10)</div>
+            <div class="legend-item" style="color:#e11d48;">■ 여자 카드 (2·4·8·9·11)</div>
+            <div class="legend-item" style="color:var(--accent-jade);">■ 조언·결과 (8·9)</div>
+          </div>
+
+          <div class="callout-box">
+            <p style="font-weight:700; color:#0f172a; margin:0 0 12px; font-size:1.05rem;">🚨 5·6·7번은 두 가지로 볼 수
+              있습니다</p>
+            <ul style="margin:0 0 15px; padding-left:20px; color:#334155;">
+              <li><strong style="color:#0f172a;">과거 → 현재 → 미래</strong> 상황 흐름으로 볼 수도 있고</li>
+              <li><strong style="color:#0f172a;">속궁합 → 겉궁합 → 종합 궁합</strong>으로 볼 수도 있습니다</li>
+            </ul>
+            <div
+              style="background:#ffffff; padding:10px 15px; border-radius:6px; font-size:0.9rem; color:#475569; border:1px solid var(--border-color);">
+              <strong style="color:#0f172a;">중요:</strong> 내담자의 나이나 상황을 고려하여, <u
+                style="text-decoration-color:#f43f5e; text-underline-offset:3px;">배열을 하기 전에 질문을 받으면서</u> 어떤 식으로 볼지
+              미리 결정해야 합니다.
+            </div>
+          </div>
+
+          <div class="meaning-grid">
+            <div class="meaning-item"><span class="meaning-num">1</span>남자 속마음</div>
+            <div class="meaning-item"><span class="meaning-num">2</span>여자 속마음</div>
+            <div class="meaning-item"><span class="meaning-num">3</span>남자가 여자에게 바라는 점</div>
+            <div class="meaning-item"><span class="meaning-num">4</span>여자가 남자에게 바라는 점</div>
+            <div class="meaning-item"><span class="meaning-num">5</span>과거 상황&nbsp;<small>(속궁합)</small></div>
+            <div class="meaning-item"><span class="meaning-num">6</span>현재 상황&nbsp;<small>(겉궁합)</small></div>
+            <div class="meaning-item"><span class="meaning-num">7</span>미래 상황&nbsp;<small>(종합 궁합)</small></div>
+            <div class="meaning-item"><span class="meaning-num">8</span>마스터 조언</div>
+            <div class="meaning-item"><span class="meaning-num">9</span>최종 결과</div>
+            <div class="meaning-item"><span class="meaning-num">10</span>남자 성격</div>
+            <div class="meaning-item"><span class="meaning-num">11</span>여자 성격</div>
+          </div>
+
+          <div class="spread-tip">💡 컬러타로는 <strong>11장</strong>을 함께 사용하며, 1번과 11번을 코트카드에서 뽑으면 성격을 분석하는 데
+            용이합니다. 카드는 <strong>남자 1번 → 여자 2번 → 남자 3번 → 여자 4번</strong> … 번갈아 가며 순서대로 뽑아 배치하세요.</div>
+        </div>
+      </div>
+
+      <!-- ═══════ 배열법 패널 ═══════ -->
+      <div class="spread-panel" id="spread-redsun-pastlife">
+        <div class="spread-info-box">
+          <h3>🌙 전생운 배열법 (12장)</h3>
+          <p>전생운과 평생운을 보기 위한 배열법. 1~4번은 코트카드로, 5~12번은 메이저 카드로만 뽑는 것이 좋습니다. 꼭 전생운만 볼 수 있는 것은
+            아니며, 현세의 평생운도 볼 수 있습니다.</p>
+        </div>
+
+        <div class="spread-grid-wrapper">
+          <div class="spread-sub-title">🌙 전생운 배열법 배치도 (12장)</div>
+
+          <div style="overflow-x:auto; padding-bottom:10px;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:18px; min-width:560px;">
+
+              <!-- 최상단 (12·11·10) -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">12</div>
+                  <div class="slot-label">다음 환생</div>
+                </div>
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">11</div>
+                  <div class="slot-label">현생에서<br>해야할 일</div>
+                </div>
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">10</div>
+                  <div class="slot-label">어떻게<br>죽었는가</div>
+                </div>
+              </div>
+
+              <!-- 중단 (9~5) -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">9</div>
+                  <div class="slot-label">현재 애인의<small>과거 관계</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">8</div>
+                  <div class="slot-label">주위 사람들이<small>보는 나</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">7</div>
+                  <div class="slot-label">나는<br>행복했는가</div>
+                </div>
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">6</div>
+                  <div class="slot-label">내가<small>추구하던 것</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:var(--card-bg); justify-self:center;">
+                  <div class="slot-num">5</div>
+                  <div class="slot-label">나의 직업</div>
+                </div>
+              </div>
+
+              <!-- 하단 (4~1) 코트카드 -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">4</div>
+                  <div class="slot-label">자녀 성격<small>나와의 관계</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">3</div>
+                  <div class="slot-label">배우자 성격<small>나와의 관계</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">2</div>
+                  <div class="slot-label">부모님 성격<small>나와의 관계</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">1</div>
+                  <div class="slot-label">나의 성격</div>
+                </div>
+              </div>
+
+              <div class="zone-label">뽑는 순서: 1번(오른쪽 아래)부터 오른쪽 → 왼쪽, 아래 → 위로 12장</div>
+
+            </div>
+          </div>
+
+          <div class="spread-legend">
+            <div class="legend-item" style="color:#b45309;">■ 코트카드 (1~4 · 나·부모·배우자·자녀의 성격)</div>
+            <div class="legend-item">■ 메이저 카드 (5~12 · 전생의 이야기)</div>
+          </div>
+
+          <div class="meaning-grid">
+            <div class="meaning-item"><span class="meaning-num">1</span>나의 성격</div>
+            <div class="meaning-item"><span class="meaning-num">2</span>부모님 성격&nbsp;<small>나와의 관계</small></div>
+            <div class="meaning-item"><span class="meaning-num">3</span>배우자 성격&nbsp;<small>나와의 관계</small></div>
+            <div class="meaning-item"><span class="meaning-num">4</span>자녀 성격&nbsp;<small>나와의 관계</small></div>
+            <div class="meaning-item"><span class="meaning-num">5</span>나의 직업</div>
+            <div class="meaning-item"><span class="meaning-num">6</span>내가 추구하던 것</div>
+            <div class="meaning-item"><span class="meaning-num">7</span>나는 행복했는가</div>
+            <div class="meaning-item"><span class="meaning-num">8</span>주위 사람들이 보는 나</div>
+            <div class="meaning-item"><span class="meaning-num">9</span>현재 애인의 과거 관계</div>
+            <div class="meaning-item"><span class="meaning-num">10</span>어떻게 죽었는가</div>
+            <div class="meaning-item"><span class="meaning-num">11</span>현생에서 해야할 일</div>
+            <div class="meaning-item"><span class="meaning-num">12</span>다음 환생</div>
+          </div>
+
+          <div class="spread-tip">💡 컬러타로는 <strong>12장</strong>을 순서대로 뽑습니다. 1번부터 4번까지는 <strong>코트카드</strong>로,
+            5번부터 12번까지는 <strong>메이저 카드</strong>로만 뽑는 것이 좋습니다. 전생운뿐 아니라 현세의 평생운을 볼 때에도 활용할 수 있습니다.</div>
+        </div>
+      </div>
+
+      <!-- ═══════ 배열법 패널 ═══════ -->
+      <div class="spread-panel" id="spread-redsun-flower">
+        <div class="spread-info-box">
+          <h3>🌸 플라워 배열법 (12장)</h3>
+          <p>신년운세·1년 운을 보는 데 탁월한 배열법. 윗줄 5장은 명리의 육친(비겁·식상·재성·관성·인성)에 맞춰 보고, 아래로 사계절과 조심할
+            사항·조언·결과가 이어집니다.</p>
+        </div>
+
+        <div class="spread-grid-wrapper">
+          <div class="spread-sub-title">🌸 플라워 배열법 배치도 (12장)</div>
+
+          <div style="overflow-x:auto; padding-bottom:10px;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:18px; min-width:560px;">
+
+              <!-- 1행: 육친 5장 -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                  <div class="slot-num" style="color:#2563eb;">1</div>
+                  <div class="slot-label">비겁<small>나 자신</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                  <div class="slot-num" style="color:#2563eb;">2</div>
+                  <div class="slot-label">식상<small>사회성·자녀운</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                  <div class="slot-num" style="color:#2563eb;">3</div>
+                  <div class="slot-label">재성<small>금전문제</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                  <div class="slot-num" style="color:#2563eb;">4</div>
+                  <div class="slot-label">관성<small>직장·배우자</small></div>
+                </div>
+                <div class="spread-card-slot" style="background:rgba(59,130,246,0.06); border-color:#93c5fd;">
+                  <div class="slot-num" style="color:#2563eb;">5</div>
+                  <div class="slot-label">인성<small>문서·매매·공부·인복</small></div>
+                </div>
+              </div>
+
+              <!-- 2행: 사계절 4장 -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">6</div>
+                  <div class="slot-label">봄</div>
+                </div>
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">7</div>
+                  <div class="slot-label">여름</div>
+                </div>
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">8</div>
+                  <div class="slot-label">가을</div>
+                </div>
+                <div class="spread-card-slot" style="background:#fffbeb; border-color:#fcd34d;">
+                  <div class="slot-num" style="color:#b45309;">9</div>
+                  <div class="slot-label">겨울</div>
+                </div>
+              </div>
+
+              <!-- 3행: 조심·조언 -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot" style="background:#f5f3ff; border-color:#c4b5fd;">
+                  <div class="slot-num" style="color:#7c3aed;">10</div>
+                  <div class="slot-label">가장 조심할 사항</div>
+                </div>
+                <div class="spread-card-slot" style="background:#f5f3ff; border-color:#c4b5fd;">
+                  <div class="slot-num" style="color:#7c3aed;">11</div>
+                  <div class="slot-label">마스터 조언</div>
+                </div>
+              </div>
+
+              <!-- 4행: 결과 -->
+              <div style="display:flex; gap:14px;">
+                <div class="spread-card-slot highlight">
+                  <div class="slot-num">12</div>
+                  <div class="slot-label">최종 결과</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="spread-legend">
+            <div class="legend-item" style="color:#2563eb;">■ 육친 (1~5)</div>
+            <div class="legend-item" style="color:#b45309;">■ 사계절 (6~9)</div>
+            <div class="legend-item" style="color:#7c3aed;">■ 조심·조언 (10·11)</div>
+            <div class="legend-item" style="color:var(--accent-jade);">■ 결과 (12)</div>
+          </div>
+
+          <div class="callout-box" style="border-left-color:#059669;">
+            <p style="font-weight:700; color:#0f172a; margin:0 0 12px; font-size:1.05rem;">🌿 명리를 몰라도 괜찮습니다</p>
+            <ul style="margin:0 0 15px; padding-left:20px; color:#334155;">
+              <li>1번부터 5번까지 <strong style="color:#0f172a;">명리(육친)를 할 수 있는 분</strong>은 육친에 맞게 보고</li>
+              <li><strong style="color:#0f172a;">모르는 분</strong>은 아래 의미로 해석하면 됩니다</li>
+            </ul>
+            <div
+              style="background:#ffffff; padding:10px 15px; border-radius:6px; font-size:0.9rem; color:#475569; border:1px solid var(--border-color);">
+              <div style="margin-bottom:4px;"><strong style="color:#0f172a;">1번:</strong> 나 자신</div>
+              <div style="margin-bottom:4px;"><strong style="color:#0f172a;">2번:</strong> 사회성, 자녀운</div>
+              <div style="margin-bottom:4px;"><strong style="color:#0f172a;">3번:</strong> 금전문제</div>
+              <div style="margin-bottom:4px;"><strong style="color:#0f172a;">4번:</strong> 직장, 배우자</div>
+              <div><strong style="color:#0f172a;">5번:</strong> 문서, 매매, 공부, 인복</div>
+            </div>
+          </div>
+
+          <div class="meaning-grid">
+            <div class="meaning-item"><span class="meaning-num">1</span>비겁&nbsp;<small>나 자신</small></div>
+            <div class="meaning-item"><span class="meaning-num">2</span>식상&nbsp;<small>사회성, 자녀운</small></div>
+            <div class="meaning-item"><span class="meaning-num">3</span>재성&nbsp;<small>금전문제</small></div>
+            <div class="meaning-item"><span class="meaning-num">4</span>관성&nbsp;<small>직장, 배우자</small></div>
+            <div class="meaning-item"><span class="meaning-num">5</span>인성&nbsp;<small>문서, 매매, 공부, 인복</small></div>
+            <div class="meaning-item"><span class="meaning-num">6</span>봄</div>
+            <div class="meaning-item"><span class="meaning-num">7</span>여름</div>
+            <div class="meaning-item"><span class="meaning-num">8</span>가을</div>
+            <div class="meaning-item"><span class="meaning-num">9</span>겨울</div>
+            <div class="meaning-item"><span class="meaning-num">10</span>가장 조심할 사항</div>
+            <div class="meaning-item"><span class="meaning-num">11</span>마스터 조언</div>
+            <div class="meaning-item"><span class="meaning-num">12</span>최종 결과</div>
+          </div>
+
+          <div class="spread-tip">💡 원래는 남녀에 따라 육친 구분이 달라지지만, 타로에서는 남녀 모두 <strong>같은 방식</strong>으로 보는 것이
+            좋습니다. 4번(관성)은 나온 카드에 따라 직장 문제인지 배우자 문제인지 구별이 필요한데, 해석하다 보면 자연스럽게 구별되니 겁 먹을
+            필요 없이 편안하게 하면 됩니다.</div>
+        </div>
+      </div>
+
     </div><!-- /spread-content -->
   </div><!-- /spread-section -->
 
@@ -1681,6 +2105,7 @@
     crossorigin="anonymous"></script>
 
 
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
 </body><whale-quicksearch translate="no" style="visibility: visible;"><template shadowrootmode="closed">
     <style>
       @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");

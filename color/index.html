@@ -6,7 +6,7 @@
 <title>레드썬 컬러타로 — 22색 스터디 노트</title>
 <style>
   :root{
-    --ink:#1d1d1f; --muted:#6b6b6f; --line:#e6e2dc; --gold:#b8860b;
+    --ink:#1d1d1f; --muted:#6b6b6f; --line:#e2e8f0; --gold:#b8860b;
     --bg:#faf8f5; --card:#ffffff;
   }
   *{box-sizing:border-box}
@@ -153,9 +153,9 @@
   .color-index .grid .card .body{min-width:0;padding:0;gap:7px}
   .color-index .grid .card .ch{font-size:18px;line-height:1.5;gap:2px 8px;justify-content:flex-start;text-align:left;align-self:stretch}
   .color-index .grid .card .ch .en{font-size:12px;letter-spacing:.03em}
-  .color-index .grid .card .tag{font-size:14px;line-height:1.65;border:0;padding:0;margin:0;color:#60594d}
+  .color-index .grid .card .tag{font-size:16px;font-weight:600;font-style:normal;line-height:1.75;border:0;padding:0;margin:0;color:#334155}
   .color-index .grid .card .kw{display:flex;flex-wrap:wrap;gap:4px 5px;margin:1px 0 0;word-break:keep-all}
-  .color-index .grid .card .kw span{font-size:13px;line-height:1.65;padding:2px 7px;border:1px solid #e8decc;border-radius:6px;background:#f7f1e5;color:#655b49}
+  .color-index .grid .card .kw span{font-size:13px;line-height:1.65;padding:2px 7px;border:1px solid #e2e8f0;border-radius:6px;background:#f1f3f5;color:#4b5563;border-color:#e2e5e9}
   .color-index .grid .card .pages{font-size:12px;line-height:1.6;margin:2px 0 0;color:#82796b}
   .color-index .grid .card .card-arrow{width:16px;height:16px;fill:none;stroke:#95866b;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
   @media(max-width:720px){
@@ -166,7 +166,7 @@
     .color-index .grid .card .ch{grid-column:1;grid-row:1;font-size:15px;align-self:center;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:1px}
     .color-index .grid .card .ch .en{font-size:11px;overflow-wrap:anywhere}
     .color-index .grid .card .tag,.color-index .grid .card .kw,.color-index .grid .card .pages{grid-column:1 / -1}
-    .color-index .grid .card .tag{font-size:13px;word-break:keep-all;overflow-wrap:break-word}
+    .color-index .grid .card .tag{font-size:15px;word-break:keep-all;overflow-wrap:break-word}
     .color-index .grid .card .kw{gap:4px}
     .color-index .grid .card .kw span{font-size:12px;padding:2px 5px}
     .color-index .grid .card .pages{font-size:11px;margin:0;padding:0}
@@ -174,23 +174,26 @@
   }
 </style>
 <script src="archive-ui.js" defer></script>
+<link rel="stylesheet" href="../uni/category-menu.css"><script src="../uni/category-menu.js" defer></script><link rel="stylesheet" href="theme.css">
 </head>
 <body class="color-index">
-<header class="top-header">
+<header class="top-header category-header">
   <a href="../index.html" class="back-btn" aria-label="상위 페이지로 이동" title="상위 페이지로 이동">
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
     </svg>
   </a>
   <h1 class="header-title">컬러타로 22색 스터디 노트</h1>
-</header>
+<div class="category-switcher"><button type="button" class="arcana-btn category-toggle" aria-label="카테고리 메뉴 열기" aria-expanded="false" aria-controls="category-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div id="category-menu" class="category-menu" hidden><p>카테고리 이동</p><a href="../juyeok/index.html"><span>주역 타로</span><small>64괘 카드</small></a><a href="../horoscope/index.html"><span>호로스코프벨린</span><small>52장 카드</small></a><a href="../uni/index.html"><span>유니버셜 웨이트 타로</span><small>78장 카드</small></a><a href="../color/index.html" aria-current="page"><span>컬러 타로</span><small>색상별 카드</small></a><a href="../arrange.html"><span>배열법</span><small>타로 배열법 가이드</small></a><a href="../soulnum.html"><span>생일수 보기</span><small>생일로 알아보는 타로</small></a><a class="category-home" href="../index.html">메인으로</a></div></div></header>
 <div class="wrap">
 
   <div class="cover">
     <p class="series">REDSUN COLOR TAROT · STUDY NOTES</p>
     <h1>컬러타로 22색 스터디 노트</h1>
     <p class="sub">쉽고 재미있는 레드썬의 컬러타로 — 챕터 1 ~ 22 통합본</p>
-    <span class="badge">읽고 싶은 컬러를 선택하세요</span>
+    <div class="health-summary-nav">
+      <a class="btn" href="color-health-signal.html">색상별 건강 신호 요약표 <span class="arrow" aria-hidden="true">→</span></a>
+    </div>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -235,7 +238,7 @@ const DATA = [
   tag:"오늘도 참는다", p:"105~118쪽", kw:["인내","희생","통찰","영적","마음고생"]},
  {ch:7, ko:"보라색", en:"Violet", f:"violet-tarot-study.html", g:"basic", c:"#8e24aa", c2:"#4a148c",
   tag:"고상한 불만투성이", p:"119~134쪽", kw:["불안","권력","신비","예술","정신세계"]},
- {ch:8, ko:"하늘색", en:"Sky", f:"sky-tarot-study.html", g:"derive", c:"#29b6f6", c2:"#0d47a1",
+ {ch:8, ko:"하늘색", en:"Sky", f:"sky-tarot-study.html", g:"derive", c:"#70d0fa", c2:"#29ace8",
   tag:"하늘은 알고 있다", p:"135~148쪽", kw:["진실","운명","명예","희망","자유"]},
  {ch:9, ko:"핑크색", en:"Pink", f:"pink-tarot-study.html", g:"derive", c:"#ec407a", c2:"#ad1457",
   tag:"사랑받고 싶어요", p:"149~161쪽", kw:["순수한 사랑","여성성","보호","귀인","다른 것"]},
@@ -280,7 +283,7 @@ function render(list){
   filtered = list;
   grid.innerHTML = list.map((d,i)=>`
     <a class="card" href="${d.f}" data-i="${i}">
-      <div class="swatch" aria-hidden="true" style="background:${d.en === 'Various' ? 'url(assets/various-card.png) center 25% / cover' : d.en === 'White' ? '#fff' : d.en === 'Translucence' ? 'linear-gradient(135deg,#d4ebe680,#7fbfb650),repeating-conic-gradient(#fff 0% 25%,#e2ded5 0% 50%) 0 / 16px 16px' : bg(d)}"></div>
+      <div class="swatch" aria-hidden="true" style="background:${d.en === 'Various' ? 'url(assets/various-card.png) center 25% / cover' : d.en === 'White' ? '#fff' : d.en === 'Translucence' ? 'url(assets/translucence-card.png) center 25% / cover' : bg(d)}"></div>
       <div class="body">
         <span class="ch"><span>${d.ko}</span><span class="en">${d.en.toUpperCase()}</span></span>
         <p class="tag">${d.tag}</p>

@@ -1,0 +1,67 @@
+/* Category navigation shared by the collection indexes. */
+.category-switcher { position: relative; flex: 0 0 auto; margin-left: auto; }
+.category-switcher button.category-toggle { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; border: 1px solid #e0d7c7; border-radius: 12px; background: #fffdf8; color: #302e2a; cursor: pointer; }
+.category-toggle:hover { background: #f0e9dc; }
+.category-switcher, .category-switcher * { box-sizing: border-box; }
+.category-switcher { line-height: 1.5; letter-spacing: normal; font-family: 'Noto Sans KR', sans-serif; }
+.category-switcher a:focus-visible, .category-switcher button:focus-visible { outline: 3px solid #80652f; outline-offset: 4px; }
+.category-toggle svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.category-menu { position: absolute; top: calc(100% + 12px); right: 0; width: min(270px, calc(100vw - 28px)); padding: 8px; border: 1px solid #e0d7c7; border-radius: 14px; background: #fffdf8; color: #302e2a; box-shadow: 0 12px 32px #49391c20; }
+.category-menu[hidden] { display: none; }
+.category-menu p { margin: 8px 12px; font-size: 11px; line-height: 1.5; font-weight: 600; color: #80652f; }
+.category-menu a { display: flex; flex-direction: column; gap: 2px; padding: 11px 12px; border-radius: 8px; color: #302e2a; text-decoration: none; font-size: 14px; line-height: 1.6; }
+.category-menu small { font-size: 11px; line-height: 1.5; color: #716451; }
+.category-menu a[aria-current="page"] { background: #f0e9dc; color: #80652f; font-weight: 700; }
+.category-menu .category-home { margin-top: 6px; border-top: 1px solid #e0d7c7; border-radius: 0 0 8px 8px; font-size: 13px; }
+
+/* Keep titles in the layout so navigation controls cannot overlap them. */
+.category-header { display: flex; align-items: center; gap: 10px; }
+.category-header > .arcana-nav-start,
+.category-header > .back-btn,
+.category-header > .arcana-btn,
+.category-header > .category-switcher { flex: 0 0 auto; }
+.category-header .arcana-nav-title,
+.category-header .header-title,
+.category-header .app-title {
+  position: static; left: auto; transform: none; flex: 1 1 0;
+  min-width: 0; max-width: none; margin: 0;
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  text-align: center;
+}
+.category-header > .category-switcher { margin-left: 0; }
+
+/* Shared Juyeok menu appearance across every category header. */
+body .category-header .category-switcher button.category-toggle{
+  background:#ffffffe6;border-color:#e2e8f0;color:#172033;
+  border-radius:12px;box-shadow:0 2px 10px #00000008;
+}
+body .category-header .category-menu{
+  background:#fff;border-color:#e2e8f0;color:#172033;
+  box-shadow:0 12px 32px #0f172a14;
+}
+body .category-header .category-menu p{color:#7c3aed}
+body .category-header .category-menu a{color:#172033}
+body .category-header .category-menu small{color:#475569}
+body .category-header .category-menu a[aria-current="page"]{background:#f5f3ff;color:#6d28d9}
+body .category-header .category-menu .category-home{border-color:#e2e8f0}
+body .category-header .category-switcher .category-menu a:hover,
+body .category-header .category-switcher button.category-toggle:hover{background:#f1f5f9;border-color:#cbd5e1}
+
+/* Let index titles fill the space between controls without a trailing gap. */
+body.color-index .category-header .header-title,
+body.arcana-index-page .category-header .arcana-nav-title{
+  flex:1 1 0;min-width:0;max-width:none;
+}
+body.color-index .category-header,
+body.arcana-index-page .category-header{
+  box-sizing:border-box;padding-left:14px;padding-right:14px;
+}
+body.color-index .category-header > .category-switcher,
+body.arcana-index-page .category-header > .category-switcher{
+  margin-left:auto;margin-right:0;
+}
+
+/* Apply the same edge alignment to the Horoscope index. */
+body.index-page .category-header .arcana-nav-title{flex:1 1 0;min-width:0;max-width:none}
+body.index-page .category-header{box-sizing:border-box;padding-left:14px;padding-right:14px}
+body.index-page .category-header > .category-switcher{margin-left:auto;margin-right:0}

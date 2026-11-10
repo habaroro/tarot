@@ -1,3 +1,4 @@
+@import url("category-menu.css");
 /* Navigation matches the color tarot viewer toolbar. */
 .arcana-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center;
@@ -41,19 +42,19 @@ html { scroll-padding-top: calc(80px + env(safe-area-inset-top)); }
 }
 @media print { body.has-arcana-nav { padding-top: 0; } }
 
-/* Shared warm archive styling for card detail headers. */
-body.has-arcana-nav:not(.arcana-index-page) .arcana-nav {
+/* Shared warm archive navigation for collection and card detail pages. */
+.arcana-nav {
   background: #faf6ecf5; border-bottom-color: #e5dccb;
   color: #262725; backdrop-filter: blur(12px);
 }
-body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn {
+.arcana-nav .arcana-btn {
   background: #fffdf8; border-color: #e0d7c7; border-radius: 12px;
   color: #302e2a; transition: background .18s, border-color .18s;
 }
-body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:hover {
+.arcana-nav a:hover {
   background: #f0e9dc; border-color: #c9b892;
 }
-body.has-arcana-nav:not(.arcana-index-page) .arcana-nav a:focus-visible {
+.arcana-nav a:focus-visible {
   outline: 3px solid #80652f; outline-offset: 4px;
 }
 body.has-arcana-nav:not(.arcana-index-page) .cover {
@@ -106,7 +107,7 @@ body.has-arcana-nav:not(.arcana-index-page) .cover-card figcaption {
   body.has-arcana-nav:not(.arcana-index-page) .cover .sub { font-size: .875rem; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  body.has-arcana-nav:not(.arcana-index-page) .arcana-nav .arcana-btn { transition: none; }
+  .arcana-nav .arcana-btn { transition: none; }
 }
 
 .arcana-top {

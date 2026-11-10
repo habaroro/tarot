@@ -1,0 +1,255 @@
+/* Color Tarot adaptation of UI-DESIGN-GUIDE.md. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{--ink:#172033;--muted:#475569;--line:#e2e8f0;--gold:#7c3aed;--bg:#f7f5fb;--card:#fff;--study-paper:#f7f5fb;--study-ink:#172033;--study-muted:#475569;--study-line:#e2e8f0}
+body{background-color:#f7f5fb;background-image:radial-gradient(ellipse at 0% 0%,#ede9fe 0,transparent 48%),radial-gradient(ellipse at 100% 0%,#fce7f3 0,transparent 48%);background-attachment:fixed;color:#172033;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.7}
+h1,h2,h3,h4,button,input{font-family:'Pretendard',sans-serif}
+.top-header,.vbar{background:#ffffffbf;border-bottom-color:#ffffff99;backdrop-filter:blur(20px);box-shadow:0 4px 24px #4f46e50f}
+.header-title{font:800 20px/1.5 'Pretendard',sans-serif;letter-spacing:-.3px;background:linear-gradient(135deg,#4f46e5,#ec4899);background-clip:text;-webkit-background-clip:text;color:transparent}
+.back-btn,.btn{background:#ffffffe6;border-color:#e2e8f0;border-radius:12px;color:#172033;box-shadow:0 2px 10px #00000008}.back-btn:hover,.btn:hover{background:#f1f5f9;box-shadow:none;transform:none}
+.color-index .cover,.color-detail .cover{background:#fff;color:#172033;border:1px solid #b8c4d3;border-radius:24px;box-shadow:0 10px 40px -10px #0000000d;padding:30px 24px}
+.color-index .cover::after{display:none}
+.color-index .cover h1{font:800 28.8px/1.3 'Pretendard',sans-serif;letter-spacing:-.5px;background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 50%,#ec4899 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:none}
+.color-detail .cover h1{font:800 28.8px/1.3 'Pretendard',sans-serif;color:#172033;letter-spacing:-.5px}
+.color-index .cover .series,.color-detail .cover .series{color:#7c3aed}.color-index .cover .sub,.color-detail .cover .sub{font-family:'Pretendard',sans-serif;font-size:15px;line-height:1.7;color:#334155}
+.color-index .cover .badge,.color-detail .cover .tagline{background:#f5f3ff;border-color:#ddd6fe;color:#5b21b6;border-radius:12px}
+.color-index .card{background:#fff;border-color:#b8c4d3;border-radius:18px;box-shadow:0 2px 8px #0f172a05}.color-index .card:hover{border-color:#94a3b8;box-shadow:0 10px 30px #0f172a0d}
+.color-index .card .ch{font-family:'Pretendard',sans-serif;font-size:18px;font-weight:800;color:#172033}.color-index .card .tag,.color-index .card .kw span{font-family:'Pretendard',sans-serif;font-size:13px;color:#334155}.color-index .card .pages{color:#475569}
+.color-detail .toc{background:#fff;border:1px solid #e2e8f0;border-radius:18px;box-shadow:0 4px 18px #0f172a05}.color-detail .toc h2{color:#172033}.color-detail .toc a{color:#334155}
+.color-detail .meta-strip{color:#475569}.color-detail .meta-strip span{background:#fff;color:#475569;border-color:#e2e8f0}
+.color-detail p,.color-detail li{font-family:'Pretendard',sans-serif;font-size:16px;line-height:1.7;color:#334155}
+.color-detail p{margin-top:.4em;margin-bottom:.75em}
+.color-detail h2.sec{font-family:'Pretendard',sans-serif;color:#0f172a;border-color:#cbd5e1;margin-top:28px;margin-bottom:16px}
+.color-detail h2.sec .no{color:#7c3aed}
+.color-detail .keyword-box,.color-detail .study-point,.color-detail .note-pen{border:1px solid #ddd6e8;border-radius:16px;box-shadow:0 4px 14px #0f172a05;padding:18px 20px;margin-top:12px;margin-bottom:12px;color:#334155}
+.color-detail .keyword-box{background:#fff}
+.color-detail .study-point{background:#ede5fa;border-color:#cbb6e8}
+.color-detail .note-pen{background:#fff1f6;border-color:#edccd9}
+.color-detail .label{font-family:'Pretendard',sans-serif;color:#53258a;font-weight:700}
+.color-detail .kw-chips span{background:#f8fafc;border-color:#cbd5e1;color:#334155;border-radius:8px}
+.color-detail table{background:#fff;color:#334155;line-height:1.7}
+.color-detail table th{background:#ede5fa;color:#3f285b;border-color:#d9cce9;font-weight:700;text-align:left}
+.color-detail table td{color:#334155;border-color:#e5dfea;padding:14px 18px;line-height:1.7}
+.color-detail table tbody tr:nth-child(odd) td{background:#fff}
+.color-detail table tbody tr:nth-child(even) td{background:#fff3f7}
+.color-detail table tbody tr:hover td{background:#f3ecfc}
+.color-detail table.card .cd img,.color-detail table.practical-reading .cd img{border:1px solid #e0e4ea;border-radius:16px;box-shadow:0 2px 5px #0f172a14,0 10px 24px #0f172a12}
+.color-top{background:#fff;color:#7c3aed;border-color:#e2e8f0;box-shadow:0 4px 18px #0f172a12}.color-top:hover{background:#f5f3ff;border-color:#c4b5fd}
+@media(max-width:720px){.color-index .cover,.color-detail .cover{padding:26px 18px;border-radius:20px}.color-index .cover h1,.color-detail .cover h1{font-size:28.8px}.color-index .card{border-radius:14px}.color-detail table td{padding:12px 10px}}
+@media print{body{background:#fff}.color-index .cover h1{background:none;color:#172033}.color-index .card,.color-detail .cover{box-shadow:none}}
+
+/* Match Universal Waite table spacing, borders and mobile layout. */
+.color-detail table{display:table;width:100%;max-width:100%;border-collapse:separate;border-spacing:0;border:1px solid #ddd6e8;border-radius:14px;overflow:hidden;font:15px/1.7 'Pretendard',sans-serif;white-space:normal}
+.color-detail table th,.color-detail table td{padding:14px 18px;text-align:left;vertical-align:top;border:0;border-bottom:1px solid #e5dfea;line-height:1.7;white-space:normal;overflow-wrap:anywhere}
+.color-detail table th{background:#ede5fa;color:#3f285b;border-bottom-color:#d9cce9}
+.color-detail table tr:last-child td{border-bottom:0}
+.color-detail table.two-column-study{table-layout:fixed}
+.color-detail table.two-column-study th:first-child,.color-detail table.two-column-study td:first-child{width:25%;background:#f1ebfa;color:#432c60;font-weight:700}
+.color-detail table.two-column-study th:last-child,.color-detail table.two-column-study td:last-child{background:#fff;color:#334155}
+.color-detail table.two-column-study tr:hover td:first-child{background:#eae1f5}
+.color-detail table.two-column-study tr:hover td:last-child{background:#faf8fd}
+@media(max-width:720px){
+ .color-detail table th,.color-detail table td{padding:12px 10px}
+ .color-detail table.two-column-study th:first-child,.color-detail table.two-column-study td:first-child{width:30%;min-width:0}
+}
+
+.color-index .health-summary-nav { margin-top: 20px; text-align: center; }
+.color-index .health-summary-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; height: auto; padding: 10px 18px; text-decoration: none; white-space: normal; }
+.color-index .health-summary-nav a {
+  gap: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #db2777);
+  border-color: #ffffff33;
+  box-shadow: 0 4px 14px #7c3aed40;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.color-index .health-summary-nav a:hover {
+  background: linear-gradient(135deg, #6d28d9, #be185d);
+  transform: translateY(-2px);
+  border-color: #ffffff55;
+  box-shadow: 0 8px 20px #7c3aed50;
+}
+.color-index .health-summary-nav a:active { transform: scale(.97); }
+.color-index .health-summary-nav .arrow { transition: transform .25s; }
+.color-index .health-summary-nav a:hover .arrow { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .color-index .health-summary-nav a,
+  .color-index .health-summary-nav .arrow { transition: none; }
+  .color-index .health-summary-nav a:hover,
+  .color-index .health-summary-nav a:active,
+  .color-index .health-summary-nav a:hover .arrow { transform: none; }
+}
+
+/* Center the complete cover heading across all color detail pages. */
+.color-detail .cover,
+.color-detail .cover p,
+.color-detail .cover h1 {
+  text-align: center;
+}
+
+/* Give memory summaries a compact label column and more room for explanations. */
+.color-detail table.section-memory th:first-child,
+.color-detail table.section-memory td:first-child {
+  width: 8em !important;
+}
+@media (max-width: 720px) {
+  .color-detail table.section-memory th:first-child,
+  .color-detail table.section-memory td:first-child {
+    width: 6em !important;
+  }
+}
+
+/* Neutral collection descriptions with lavender keyword chips. */
+.color-index .card .body{background:#fff;color:#334155}
+.color-index .card .kw span{background:#f1ebfa;border-color:#ddd6e8;color:#53258a}
+.color-index .card .ch .en,.color-index .card .pages{color:#475569}
+
+/* Keep color-tone labels consistent, including the Red intensity table. */
+.color-detail table.summary:not(.two-column-study) tr td:first-child,
+.color-detail table.two-column-study.conflict-intensity tr:nth-child(odd) td:first-child,
+.color-detail table.two-column-study.conflict-intensity tr:nth-child(even) td:first-child{
+  background:#f1ebfa;color:#432c60;font-weight:700;
+}
+.color-detail table.two-column-study.conflict-intensity tr:nth-child(odd) td:last-child,
+.color-detail table.two-column-study.conflict-intensity tr:nth-child(even) td:last-child{
+  background:#fff;color:#334155;
+}
+
+/* Consistent headers, subtle row stripes and no hover tint on every study table. */
+.color-detail table th {
+  background: #e1e5ea !important;
+  color: #303640 !important;
+  font-weight: 700;
+  border-bottom: 1px solid #dfe3e7 !important;
+}
+.color-detail table tbody tr:nth-child(odd) > td {
+  background: #fff !important;
+}
+.color-detail table tbody tr:nth-child(even) > td {
+  background: #f7f8f9 !important;
+}
+
+/* Neutral page surfaces and supporting explanations. */
+body.color-index, body.color-detail { background: #f5f6f8; }
+.color-detail table { border-color: #dfe3e7; box-shadow: none; }
+.color-detail table td { color: #303640; border-bottom-color: #dfe3e7; }
+.color-detail table .card-name,
+.color-detail table .cname { color: #303640; }
+.color-detail .keyword-box,
+.color-detail .study-point,
+.color-detail .note-pen {
+  background: #f5f6f7;
+  border-color: #dfe3e7;
+  color: #334155;
+  box-shadow: none;
+}
+.color-detail .label { color: #303640; }
+.color-detail .kw-chips span,
+.color-index .card .kw span {
+  background: #f5f6f7;
+  border-color: #dfe3e7;
+  color: #475569;
+}
+
+/* White content surfaces stand apart from the gray page background. */
+.color-detail .sw.sky {
+  background: linear-gradient(135deg, #70d0fa, #29ace8);
+}
+.color-detail .sw.trans {
+  background: url('assets/translucence-card.png') center 25% / cover;
+}
+body.color-detail[style*="--color-accent:#29b6f6"] .cover::before {
+  background: linear-gradient(135deg, #70d0fa, #29ace8);
+}
+body.color-detail[style*="--color-accent:#7fbfb6"] .cover::before {
+  background: url('assets/translucence-card.png') center 25% / cover;
+}
+
+.color-index .grid .card .kw span {
+  background: #f1f3f5;
+  color: #4b5563;
+  border-color: #e2e5e9;
+}
+
+.color-detail .cover,
+.color-detail .toc,
+.color-detail .keyword-box,
+.color-detail .study-point,
+.color-detail .note-pen,
+.color-detail .quote,
+.color-detail .poem,
+.color-index .cover,
+.color-index .card {
+  background: #fff;
+  border-color: #dfe3e7;
+}
+.color-detail table {
+  background: #fff;
+}
+
+/* Carry the index's neutral surfaces and readable text into detail pages. */
+.color-index .cover .series,
+.color-detail .cover .series {
+  color: #9ca3af;
+}
+
+.color-detail {
+  color: #172033;
+}
+.color-detail .cover .sub {
+  color: #334155;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.75;
+}
+.color-detail .cover .tagline,
+.color-detail .meta-strip span,
+.color-detail .kw-chips span,
+.color-detail h2.sec .no {
+  background: #f1f3f5;
+  color: #4b5563;
+  border-color: #e2e5e9;
+}
+.color-detail .keyword-box,
+.color-detail .study-point,
+.color-detail .note-pen,
+.color-detail .quote,
+.color-detail .poem {
+  background: #fff;
+  color: #334155;
+  border-color: #dfe3e7;
+}
+.color-detail p,
+.color-detail li,
+.color-detail .toc a {
+  color: #334155;
+}
+.color-detail h2.sec,
+.color-detail h3,
+.color-detail .toc h2,
+.color-detail .label {
+  color: #172033;
+}
+.color-detail h3::before { color: #6b7280; }
+.color-detail h2.sec .no {
+  background: #fff;
+  color: #4b5563;
+  border-color: #e2e5e9;
+}
+.color-detail .hl {
+  background: #fff200;
+  color: #303640;
+}
+.color-detail .note-pen {
+  background: #fff;
+  border: 1.5px dashed #c62828;
+  color: #9b1111;
+}
+.color-detail .note-pen p,
+.color-detail .note-pen li,
+.color-detail .note-pen .label {
+  color: #9b1111;
+}
+@media (max-width: 720px) {
+  .color-detail .cover .sub { font-size: 15px; }
+}
