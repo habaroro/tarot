@@ -296,3 +296,63 @@ body.has-arcana-nav:not(.arcana-index-page) .cover .cover-num .title {
   -webkit-background-clip: text;
   color: transparent;
 }
+
+/* Shared interpretation layout approved on the Fool card. */
+body.has-arcana-nav:not(.arcana-index-page) section > h2 {
+  font-size: 1.5rem;
+}
+body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret) {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret) > h2 {
+  background: transparent;
+  color: #172033;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  padding: 0 0 10px;
+  border-bottom: 2px solid var(--night);
+  border-radius: 0;
+}
+body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret) > h2::before {
+  display: none;
+}
+body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret) blockquote.origin {
+  background: #fff;
+  border: 1px solid #dfe3e7;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 18px 0;
+}
+@media (max-width: 720px) {
+  body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret) blockquote.origin {
+    padding: 18px 16px;
+  }
+}
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic-number {
+  background: #f3eefb;
+  color: #6d28d9;
+  border-color: #e4d9f3;
+}
+body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret):has(+ section#topics) {
+  margin-bottom: 0;
+}
+body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret):has(+ section#topics) blockquote.origin:last-child {
+  margin-bottom: 0;
+}
+body.has-arcana-nav:not(.arcana-index-page) section#topics {
+  margin-top: 20px;
+  display: flow-root;
+}
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic:first-child {
+  margin-top: 0;
+}
+@media (max-width: 720px) {
+  body.has-arcana-nav:not(.arcana-index-page) section > h2,
+  body.has-arcana-nav:not(.arcana-index-page) section:is(#general, #reading, #interpret) > h2 {
+    font-size: 1.24rem;
+  }
+}
