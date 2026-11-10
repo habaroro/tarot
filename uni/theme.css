@@ -143,3 +143,156 @@ body.has-arcana-nav:not(.arcana-index-page) section#general blockquote.origin:fi
 body.has-arcana-nav:not(.arcana-index-page) section#reading blockquote.origin:first-of-type>p:first-child{
   font-size:18px;font-weight:700;line-height:1.7;color:#30213f;
 }
+
+/* Shared neutral card theme, matching the approved Fool preview. */
+body.has-arcana-nav:not(.arcana-index-page) {
+  background: #f5f6f8;
+  --line: #dfe3e7;
+  --ink: #172033;
+  --ink-soft: #334155;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover,
+body.has-arcana-nav:not(.arcana-index-page) .topic,
+body.has-arcana-nav:not(.arcana-index-page) blockquote.origin,
+body.has-arcana-nav:not(.arcana-index-page) .profile .cell,
+body.has-arcana-nav:not(.arcana-index-page) .note,
+body.has-arcana-nav:not(.arcana-index-page) .memo,
+body.has-arcana-nav:not(.arcana-index-page) ol.advice li,
+body.has-arcana-nav:not(.arcana-index-page) section#general,
+body.has-arcana-nav:not(.arcana-index-page) section#reading {
+  background: #fff;
+  border-color: #dfe3e7;
+  box-shadow: none;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover-kicker { color: #9ca3af; }
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .zero {
+  background: #fff;
+  color: #4b5563;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover-num .title,
+body.has-arcana-nav:not(.arcana-index-page) .cover h1 {
+  font-family: 'Pretendard', sans-serif;
+  color: #172033;
+}
+body.has-arcana-nav:not(.arcana-index-page) .cover .sub {
+  font-weight: 600;
+  line-height: 1.75;
+}
+body.has-arcana-nav:not(.arcana-index-page) .sec-no,
+body.has-arcana-nav:not(.arcana-index-page) h2 .en,
+body.has-arcana-nav:not(.arcana-index-page) h3,
+body.has-arcana-nav:not(.arcana-index-page) .topic h3 .en,
+body.has-arcana-nav:not(.arcana-index-page) .origin .marker { color: #4b5563; }
+body.has-arcana-nav:not(.arcana-index-page) h3::before { color: #6b7280; }
+body.has-arcana-nav:not(.arcana-index-page) section#general > h2,
+body.has-arcana-nav:not(.arcana-index-page) section#reading > h2 {
+  background: #e1e5ea;
+  color: #303640;
+  border-bottom: 1px solid #dfe3e7;
+}
+body.has-arcana-nav:not(.arcana-index-page) table {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #dfe3e7;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+body.has-arcana-nav:not(.arcana-index-page) table th,
+body.has-arcana-nav:not(.arcana-index-page) table td {
+  padding: 14px 18px;
+  border: 0;
+  border-bottom: 1px solid #dfe3e7;
+  color: #303640;
+  line-height: 1.7;
+  vertical-align: top;
+}
+body.has-arcana-nav:not(.arcana-index-page) table th {
+  background: #e1e5ea !important;
+  color: #303640 !important;
+}
+body.has-arcana-nav:not(.arcana-index-page) table tbody tr:nth-child(odd) td {
+  background: #fff !important;
+}
+body.has-arcana-nav:not(.arcana-index-page) table tbody tr:nth-child(even) td {
+  background: #f7f8f9 !important;
+}
+body.has-arcana-nav:not(.arcana-index-page) table tr:last-child td { border-bottom: 0; }
+body.has-arcana-nav:not(.arcana-index-page) section#symbols td.sym .e { color: #6b7280; }
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic {
+  background: #fff;
+  border: 1px solid #dfe3e7;
+  border-radius: 16px;
+  padding: 22px 24px;
+  margin: 20px 0;
+  box-shadow: none;
+}
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2e5e9;
+  color: #172033;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic h3::before { display: none; }
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 30px;
+  padding: 0 6px;
+  border: 1px solid #e2e5e9;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic p {
+  font-size: 16px;
+  line-height: 1.85;
+  text-align: left;
+}
+body.has-arcana-nav:not(.arcana-index-page) #topics .topic > :last-child { margin-bottom: 0; }
+@media (max-width: 720px) {
+  body.has-arcana-nav:not(.arcana-index-page) #topics .topic { padding: 18px 16px; }
+}
+body.has-arcana-nav:not(.arcana-index-page) .hl {
+  background: #fff200;
+  color: inherit;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-weight: 700;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+body.has-arcana-nav:not(.arcana-index-page) .handwritten-ink,
+body.has-arcana-nav:not(.arcana-index-page) .handwritten-ink p,
+body.has-arcana-nav:not(.arcana-index-page) .handwritten-ink li {
+  color: #9b1111;
+  font-weight: 700;
+}
+body.has-arcana-nav:not(.arcana-index-page) .source-red-mark {
+  text-decoration: underline;
+  text-decoration-color: #c62828;
+  text-underline-offset: .18em;
+}
+@media (max-width: 720px) {
+  body.has-arcana-nav:not(.arcana-index-page) table th,
+  body.has-arcana-nav:not(.arcana-index-page) table td { padding: 12px 10px; }
+}
+
+/* Gradient accent for English card titles across all card pages. */
+body.has-arcana-nav:not(.arcana-index-page) .cover .cover-num .title {
+  background: linear-gradient(135deg, #4f46e5, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
