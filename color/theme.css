@@ -241,14 +241,17 @@ body.color-detail[style*="--color-accent:#7fbfb6"] .cover::before {
   color: #303640;
 }
 .color-detail .note-pen {
-  background: #fff;
-  border: 1.5px dashed #c62828;
-  color: #9b1111;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  color: #c62828;
 }
 .color-detail .note-pen p,
 .color-detail .note-pen li,
 .color-detail .note-pen .label {
-  color: #9b1111;
+  color: #c62828;
 }
 @media (max-width: 720px) {
   .color-detail .cover .sub { font-size: 15px; }
