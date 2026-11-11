@@ -306,7 +306,9 @@ function openView(i,list=filtered){
   const d = viewList[cur];
   document.getElementById("viewerBack").hidden = false;
   vtitle.textContent = `${d.ko} ${d.en}`;
-  vdot.style.background = bg(d);
+  vdot.style.background = d.en === 'Various'
+    ? 'url(assets/various-card.png) center 25% / cover'
+    : bg(d);
   frame.src = d.f;
   document.getElementById("direct").href = d.f;
   viewer.classList.add("on");

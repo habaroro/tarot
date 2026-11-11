@@ -295,3 +295,11 @@ body.color-detail[style*="--color-accent:#7fbfb6"] .cover::before {
     overflow-wrap: break-word;
   }
 }
+
+.color-detail.rainbow-detail .cover::before {
+  background: linear-gradient(90deg, #e53935, #fb8c00, #fdd835, #43a047, #1e88e5, #3949ab, #8e24aa);
+}
+.color-detail.rainbow-detail .cover .series,
+.color-detail.rainbow-detail .cover h1 {
+  text-shadow: none;
+}
