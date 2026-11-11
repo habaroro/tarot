@@ -256,3 +256,42 @@ body.color-detail[style*="--color-accent:#7fbfb6"] .cover::before {
 @media (max-width: 720px) {
   .color-detail .cover .sub { font-size: 15px; }
 }
+
+/* Highlight annotated keywords directly inside their chips. */
+.color-detail .kw-chips mark {
+  background: linear-gradient(transparent 25%, #fff200 25%, #fff200 90%, transparent 90%);
+  color: inherit;
+  padding: 0 2px;
+  font-weight: 700;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+@media (max-width: 720px) {
+  .color-detail table.health-table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    white-space: normal;
+  }
+  .color-detail table.health-table th:first-child,
+  .color-detail table.health-table td:first-child {
+    width: 38% !important;
+  }
+  .color-detail table.health-table th:last-child {
+    width: 62% !important;
+  }
+  .color-detail table.health-table th,
+  .color-detail table.health-table td {
+    padding: 10px 8px;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    vertical-align: top;
+  }
+  .color-detail table.health-table td.card-name {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+}
