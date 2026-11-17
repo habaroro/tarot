@@ -69,3 +69,13 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #8065
  .sec{gap:8px;margin:30px 0 16px}.sec-ko{font-size:17px}
 }
 @media(prefers-reduced-motion:reduce){.entry,.element-filters button{transition:none}.entry:hover{transform:none}}
+
+/* Quiet shortcut to the 78-card quick reference. */
+.arcana-index-page .summary-index-link {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; margin-top: 20px; padding: 9px 14px;
+  border: 1px solid #e5e7eb; border-radius: 8px; background: #f7f8f9;
+  color: #59616d; font-size: 13px; font-weight: 500; text-decoration: none;
+}
+.arcana-index-page .summary-index-link:hover { background: #eef0f3; border-color: #cbd0d7; }
+.arcana-index-page .summary-index-link:focus-visible { outline: 2px solid #667080; outline-offset: 3px; }
