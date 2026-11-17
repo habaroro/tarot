@@ -52,32 +52,31 @@ h1,h2,h3,h4,button,input{font-family:'Pretendard',sans-serif}
  .color-detail table.two-column-study th:first-child,.color-detail table.two-column-study td:first-child{width:30%;min-width:0}
 }
 
-.color-index .health-summary-nav { margin-top: 20px; text-align: center; }
-.color-index .health-summary-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; height: auto; padding: 10px 18px; text-decoration: none; white-space: normal; }
+.color-index .health-summary-nav {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin-top: 20px; text-align: center;
+}
 .color-index .health-summary-nav a {
-  gap: 10px;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, #7c3aed, #db2777);
-  border-color: #ffffff33;
-  box-shadow: 0 4px 14px #7c3aed40;
-  transition: transform .25s, box-shadow .25s, border-color .25s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; height: auto; padding: 9px 14px;
+  text-decoration: none; white-space: normal; font-size: 13px; font-weight: 500;
+  color: #59616d; background: #f7f8f9; border: 1px solid #e5e7eb;
+  border-radius: 8px; box-shadow: none; transform: none;
+  transition: background-color .15s, border-color .15s;
 }
 .color-index .health-summary-nav a:hover {
-  background: linear-gradient(135deg, #6d28d9, #be185d);
-  transform: translateY(-2px);
-  border-color: #ffffff55;
-  box-shadow: 0 8px 20px #7c3aed50;
+  color: #374151; background: #eef0f3; border-color: #cbd0d7;
+  box-shadow: none; transform: none;
 }
-.color-index .health-summary-nav a:active { transform: scale(.97); }
-.color-index .health-summary-nav .arrow { transition: transform .25s; }
-.color-index .health-summary-nav a:hover .arrow { transform: translateX(3px); }
+.color-index .health-summary-nav a:focus-visible {
+  outline: 2px solid #6b7280; outline-offset: 3px;
+}
+.color-index .health-summary-nav .arrow { color: #9ca3af; }
+@media (max-width: 480px) {
+  .color-index .health-summary-nav { flex-direction: column; align-items: stretch; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .color-index .health-summary-nav a,
-  .color-index .health-summary-nav .arrow { transition: none; }
-  .color-index .health-summary-nav a:hover,
-  .color-index .health-summary-nav a:active,
-  .color-index .health-summary-nav a:hover .arrow { transform: none; }
+  .color-index .health-summary-nav a { transition: none; }
 }
 
 /* Center the complete cover heading across all color detail pages. */
@@ -302,4 +301,9 @@ body.color-detail[style*="--color-accent:#7fbfb6"] .cover::before {
 .color-detail.rainbow-detail .cover .series,
 .color-detail.rainbow-detail .cover h1 {
   text-shadow: none;
+}
+
+/* Use the Various card artwork for its cover accent bar. */
+.color-detail.various-detail .cover::before {
+  background: url('assets/various-card.png') center 25% / cover;
 }

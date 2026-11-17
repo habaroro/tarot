@@ -190,8 +190,9 @@
   <div class="cover">
     <p class="series">REDSUN COLOR TAROT · STUDY NOTES</p>
     <h1>컬러타로 22색 스터디 노트</h1>
-    <p class="sub">쉽고 재미있는 레드썬의 컬러타로 — 챕터 1 ~ 22 통합본</p>
+    <p class="sub">쉽고 재미있는 레드썬의 컬러타로</p>
     <div class="health-summary-nav">
+      <a class="btn" href="color-interpretation-summary.html">색상별 컬러 해석 요약표 <span class="arrow" aria-hidden="true">→</span></a>
       <a class="btn" href="color-health-signal.html">색상별 건강 신호 요약표 <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
@@ -288,7 +289,6 @@ function render(list){
         <span class="ch"><span>${d.ko}</span><span class="en">${d.en.toUpperCase()}</span></span>
         <p class="tag">${d.tag}</p>
         <div class="kw">${d.kw.map(k=>`<span>${k}</span>`).join("")}</div>
-        <p class="pages">챕터 ${d.ch} · ${d.p}</p>
       </div>
       <svg class="card-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
     </a>`).join("");
@@ -299,6 +299,14 @@ const viewer=document.getElementById("viewer"), frame=document.getElementById("f
 const vtitle=document.getElementById("vtitle"), vdot=document.getElementById("vdot");
 let cur = 0;
 let viewList = filtered;
+const viewerParams = new URLSearchParams(window.location.search);
+const requestedColor = DATA.findIndex(d => d.f === viewerParams.get("color"));
+const returnToSummary = requestedColor !== -1 && viewerParams.get("from") === "summary";
+if (returnToSummary) {
+  const back = document.getElementById("viewerBack");
+  back.setAttribute("aria-label", "컬러 해석 요약표로 돌아가기");
+  back.title = "컬러 해석 요약표로 돌아가기";
+}
 
 function openView(i,list=filtered){
   viewList = list;
@@ -309,6 +317,11 @@ function openView(i,list=filtered){
   vdot.style.background = d.en === 'Various'
     ? 'url(assets/various-card.png) center 25% / cover'
     : bg(d);
+  if (returnToSummary) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("color", d.f);
+    window.history.replaceState(null, "", url);
+  }
   frame.src = d.f;
   document.getElementById("direct").href = d.f;
   viewer.classList.add("on");
@@ -317,6 +330,10 @@ function openView(i,list=filtered){
   document.getElementById("fallback").style.display = "none";
 }
 function closeView(){
+  if (returnToSummary) {
+    window.location.href = "color-interpretation-summary.html";
+    return;
+  }
   viewer.classList.remove("on"); frame.src="about:blank";
   document.getElementById("viewerBack").hidden = true;
   document.body.style.overflow="";
@@ -352,6 +369,7 @@ document.addEventListener("keydown", e=>{
 });
 
 render(DATA);
+if (requestedColor !== -1) openView(requestedColor, DATA);
 </script>
 </body>
 </html>

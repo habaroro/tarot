@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>색상 — 컬러 해석 요약표</title>
+<style>
+
+  :root {
+    --ac: #4a6b7c;
+    --ac-dark: #243b47;
+    --ac-mid: #38596a;
+    --ac-soft: #eef4f7;
+    --gold: #b8860b;
+    --ink: #1d1d1f;
+    --muted: #6b6b6f;
+    --line: #dbe6ec;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 72px 80px;
+    font-family: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", "Malgun Gothic", serif;
+    color: var(--ink);
+    line-height: 1.75;
+    background: #fbfcfd;
+  }
+  .cover {
+    background: linear-gradient(135deg, #9fb6c2 0%, #4a6b7c 45%, #243b47 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 46px 40px 40px;
+    margin: 0 0 28px;
+    box-shadow: 0 10px 30px rgba(36, 59, 71, .3);
+    text-align: center;
+  }
+  .cover .series { margin: 0 0 12px; }
+  .cover h1 { margin: 0 0 8px; }
+  .cover .sub { margin: 0; }
+  .cover .tagline {
+    display: inline-block; margin-top: 20px; padding: 6px 20px;
+    border: 1px solid rgba(255,255,255,.75); border-radius: 999px;
+    font-size: 13px; letter-spacing: 1px; background: rgba(0,0,0,.12);
+  }
+  .meta-strip { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 0 0 30px; }
+  .meta-strip span {
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 4px 14px; font-size: 13px; color: var(--muted);
+  }
+  .card-table-wrap { overflow-x: auto; margin: 16px 0; }
+  table.card {
+    width: 100%; border-collapse: collapse; font-size: 14px; background: #fff;
+    border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  table.card th { background: var(--ac-dark); color: #fff; padding: 11px 14px; text-align: left; font-size: 13px; }
+  table.card td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  table.card tr:nth-child(even) td { background: #f5f9fb; }
+
+  .cname { display: flex; align-items: center; gap: 9px; font-weight: 700; color: var(--ac-dark); white-space: nowrap; }
+  .sw {
+    display: inline-block; width: 20px; height: 20px; border-radius: 50%;
+    border: 1px solid rgba(0,0,0,.22); flex: 0 0 auto;
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,.14);
+  }
+  .sw.red       { background: linear-gradient(135deg,#ef5350,#b71c1c); }
+  .sw.orange    { background: linear-gradient(135deg,#ffb74d,#e65100); }
+  .sw.yellow    { background: linear-gradient(135deg,#fff176,#f9a825); }
+  .sw.green     { background: linear-gradient(135deg,#66bb6a,#1b5e20); }
+  .sw.blue      { background: linear-gradient(135deg,#64b5f6,#0d47a1); }
+  .sw.indigo    { background: linear-gradient(135deg,#5c6bc0,#1a237e); }
+  .sw.violet    { background: linear-gradient(135deg,#ba68c8,#4a148c); }
+  .sw.sky       { background: linear-gradient(135deg,#b3e5fc,#29b6f6); }
+  .sw.pink      { background: linear-gradient(135deg,#f8bbd0,#ec407a); }
+  .sw.white     { background: #fff; border-color: #9aa5ab; }
+  .sw.grey      { background: linear-gradient(135deg,#cfd8dc,#616161); }
+  .sw.black     { background: linear-gradient(135deg,#616161,#000); }
+  .sw.rainbow   { background: conic-gradient(#e53935,#fb8c00,#fdd835,#43a047,#1e88e5,#8e24aa,#e53935); }
+  .sw.various   { background: url("assets/various-card.png") center 25% / cover;  }
+  .sw.ocher     { background: linear-gradient(135deg,#c9a06a,#8d6e63); }
+  .sw.copper    { background: linear-gradient(135deg,#d98b5f,#8b4513); }
+  .sw.oldcopper { background: linear-gradient(135deg,#a97142,#3e2723); }
+  .sw.turquoise { background: linear-gradient(135deg,#4dd0e1,#00695c); }
+  .sw.vintage   { background: linear-gradient(135deg,#c8b69a,#6b5a42); }
+  .sw.trans     { background:
+                    repeating-linear-gradient(0deg, rgba(0,0,0,.55) 0 1px, transparent 1px 4px),
+                    repeating-linear-gradient(90deg, rgba(0,0,0,.55) 0 1px, transparent 1px 4px),
+                    #f4fbfb; }
+  .sw.gold      { background: linear-gradient(135deg,#f5df8a,#b8860b 60%,#8a6a10); }
+  .sw.silver    { background: linear-gradient(135deg,#eceff1,#90a4ae 60%,#546e7a); }
+
+  .pen { font-size: 12px; color: #c62828; font-weight: 700; }
+
+  .footer {
+    margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--muted); text-align: center;
+  }
+  @media (max-width: 720px) {
+    body { padding: 20px 16px 60px; }
+    .cover h1 { font-size: 26px; }
+    table.card { font-size: 13px; }
+    .cname { white-space: normal; }
+  }
+
+</style>
+<link rel="stylesheet" href="study-theme.css" />
+<link rel="stylesheet" href="archive-ui.css?v=back-focus-2">
+<script src="archive-ui.js" defer></script>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="../uni/category-menu.css">
+<script src="../uni/category-menu.js" defer></script>
+<style>
+  body.color-detail {
+    padding-top: 100px;
+  }
+  .top-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+  }
+  .top-header .back-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 38px; height: 44px; border: 1px solid #e2e8f0;
+  }
+  .top-header .back-btn svg { width: 22px; height: 22px; fill: currentColor; }
+  .color-detail .cover::before { display: none; }
+  .interpretation-table caption { text-align: left; color: var(--muted); padding: 0 0 10px; font-size: 13px; }
+  .color-detail table.interpretation-table { width: 100%; min-width: 0; table-layout: fixed; }
+  .color-detail table.interpretation-table th:first-child { width: 115px; }
+  .color-detail table.interpretation-table tbody th {
+    background: #fff; color: var(--ink); border-bottom: 1px solid #e5dfea;
+    vertical-align: top; font-size: 14px;
+  }
+  .color-detail table.interpretation-table tbody td { background: #fff; }
+  .color-detail table.interpretation-table tbody tr:nth-child(even) > td { background: #faf8fd; }
+  .color-detail table.interpretation-table tbody tr:last-child > * { border-bottom: 0; }
+  .color-detail table.interpretation-table thead th {
+    background: #e1e5ea !important; color: #303640; font-weight: 700;
+    border-bottom: 1px solid #b8bec7;
+  }
+  .color-detail table.interpretation-table tbody tr th {
+    background: #f3f4f6 !important; color: #334155;
+    border-right: 1px solid #e2e5e9;
+  }
+  .interpretation-table .reading-keywords { display: block; color: #6d28d9; font-size: 13px; margin-bottom: 6px; }
+  .interpretation-table .cname { text-decoration: none; min-height: 44px; }
+  .interpretation-table .cname:hover { text-decoration: underline; }
+  .interpretation-table .cname:focus-visible { outline: 2px solid #7c3aed; outline-offset: 4px; }
+  .card-table-wrap:focus-visible { outline: 2px solid #7c3aed; outline-offset: 4px; }
+  .color-detail .interpretation-table .sw { width: 20px; height: 20px; border-radius: 50%; }
+  @media (max-width: 720px) {
+    .color-detail .summary-note { font-size: 14px; }
+    .color-detail .header-title { font-size: clamp(14px, 4vw, 18px); }
+    .color-detail .cover h1 { font-size: clamp(22px, 6vw, 28px); }
+    .color-detail .meta-strip { gap: 8px; margin-bottom: 20px; }
+    .color-detail .meta-strip span { font-size: 12px; padding: 4px 10px; }
+    .color-detail .card-table-wrap { overflow-x: auto; }
+    .color-detail table.interpretation-table th:first-child { width: 76px; }
+    .color-detail table.interpretation-table th,
+    .color-detail table.interpretation-table td {
+      padding: 12px 10px; font-size: 14px; line-height: 1.8;
+      white-space: normal; word-break: normal; overflow-wrap: break-word;
+    }
+    .color-detail .interpretation-table .cname {
+      flex-direction: column; align-items: center; gap: 6px;
+      white-space: normal; word-break: keep-all; font-size: 13px;
+    }
+    .interpretation-table .reading-keywords { font-size: 12px; }
+  }
+
+</style>
+</head>
+<body class="color-detail" style="--color-accent:#4a6b7c">
+<header class="top-header category-header">
+  <a href="index.html" class="back-btn" aria-label="컬러 목록으로 이동" title="컬러 목록으로 이동">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+    </svg>
+  </a>
+  <div class="header-title">색상별 컬러 해석 요약표</div>
+<div class="category-switcher"><button type="button" class="arcana-btn category-toggle" aria-label="카테고리 메뉴 열기" aria-expanded="false" aria-controls="category-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div id="category-menu" class="category-menu" hidden><p>카테고리 이동</p><a href="../juyeok/index.html"><span>주역 타로</span><small>64괘 카드</small></a><a href="../horoscope/index.html"><span>호로스코프벨린</span><small>52장 카드</small></a><a href="../uni/index.html"><span>유니버셜 웨이트 타로</span><small>78장 카드</small></a><a href="../color/index.html" aria-current="page"><span>컬러 타로</span><small>색상별 카드</small></a><a href="../arrange.html"><span>배열법</span><small>타로 배열법 가이드</small></a><a href="../soulnum.html"><span>생일수 보기</span><small>생일로 알아보는 타로</small></a><a class="category-home" href="../index.html">메인으로</a></div></div></header>
+
+<div class="cover">
+  <p class="series">REDSUN COLOR TAROT · STUDY NOTES</p>
+  <h1>색상 — 컬러 해석 요약표</h1>
+  <p class="sub">22색의 핵심 의미와 리딩 포인트를 한눈에</p>
+</div>
+
+<div class="meta-strip">
+  <span>🎨 22색</span><span>색상 이름을 누르면 상세 해설로 이동</span>
+</div>
+
+<p class="summary-note">기존 컬러타로 학습 내용을 간추린 표입니다. 색의 밝기·카드의 위치·함께 나온 타로에 따라 세부 해석이 달라집니다.</p>
+<div class="card-table-wrap" role="region" aria-label="22색 컬러 해석 요약표" tabindex="0">
+<table class="card interpretation-table">
+  <caption>색상별 핵심 키워드와 간단한 타로 해석</caption>
+  <thead><tr><th scope="col">색상</th><th scope="col">핵심 키워드 · 간단 해석</th></tr></thead>
+  <tbody>
+  <tr><th scope="row"><a class="cname" href="index.html?color=red-tarot-study.html&amp;from=summary"><span class="sw red" aria-hidden="true"></span>빨강</a></th><td><strong class="reading-keywords">열정 · 다툼 · 경고</strong>강한 열정과 함께 갈등·스트레스·필요한 지출을 뜻합니다. 미래에 나오면 지금의 흐름을 바꾸라는 경고로 읽습니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=orange-tarot-study.html&amp;from=summary"><span class="sw orange" aria-hidden="true"></span>오렌지</a></th><td><strong class="reading-keywords">즐거움 · 만족 · 욕망</strong>즐거운 만남과 활동, 만족스러운 소비를 뜻합니다. 짙은 톤은 겉보기와 다른 불만족이나 지나친 욕심을 살핍니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=yellow-tarot-study.html&amp;from=summary"><span class="sw yellow" aria-hidden="true"></span>노랑</a></th><td><strong class="reading-keywords">지혜 · 현실 · 풍요</strong>현실적인 판단과 경제적 안정을 뜻합니다. 짙은 톤에서는 시기·배신·현실적인 장애물을 확인합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=green-tarot-study.html&amp;from=summary"><span class="sw green" aria-hidden="true"></span>녹색</a></th><td><strong class="reading-keywords">조화 · 성장 · 안정</strong>관계와 일이 조화롭게 시작되고 자라는 흐름입니다. 짙은 톤은 균형이 깨진 상태이므로 꾸준한 관리가 필요합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=blue-tarot-study.html&amp;from=summary"><span class="sw blue" aria-hidden="true"></span>파랑</a></th><td><strong class="reading-keywords">신뢰 · 책임 · 냉정</strong>책임감과 믿음을 바탕으로 자연스럽게 이어지는 흐름입니다. 짙은 톤이나 부정 카드에서는 소통과 신뢰, 지출을 점검합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=indigo-tarot-study.html&amp;from=summary"><span class="sw indigo" aria-hidden="true"></span>남색</a></th><td><strong class="reading-keywords">인내 · 희생 · 고민</strong>마음고생을 감수하며 기다리는 시기입니다. 당장의 성과보다 준비와 노력을 쌓는 장기적인 관점으로 읽습니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=violet-tarot-study.html&amp;from=summary"><span class="sw violet" aria-hidden="true"></span>보라</a></th><td><strong class="reading-keywords">불안 · 불만 · 꼬인 문제</strong>오래 쌓인 불안과 해결되지 않은 문제를 뜻합니다. 긍정 카드와 함께여도 문제의 원인부터 차근차근 풀어야 합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=sky-tarot-study.html&amp;from=summary"><span class="sw sky" aria-hidden="true"></span>하늘색</a></th><td><strong class="reading-keywords">진실 · 운명 · 노력</strong>숨겨진 진실이 드러나고 노력에 따른 결과를 얻는 흐름입니다. 운명적인 인연·일을 뜻하며, 결과는 동반 카드로 살핍니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=pink-tarot-study.html&amp;from=summary"><span class="sw pink" aria-hidden="true"></span>핑크</a></th><td><strong class="reading-keywords">순수한 사랑 · 보호 · 귀인</strong>보호받는 사랑과 주변의 도움을 뜻합니다. 동시에 다른 사람·다른 일에 마음이 향하는지 앞뒤 카드를 확인합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=white-tarot-study.html&amp;from=summary"><span class="sw white" aria-hidden="true"></span>흰색</a></th><td><strong class="reading-keywords">시작 · 순수 · 전환</strong>아직 채워지지 않은 도화지처럼 새로운 시작과 전환점입니다. 결과는 동반 카드와 앞으로의 노력에 따라 달라집니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=grey-tarot-study.html&amp;from=summary"><span class="sw grey" aria-hidden="true"></span>회색</a></th><td><strong class="reading-keywords">불확실 · 숨김 · 지연</strong>상황이나 속마음이 잘 보이지 않아 답답한 상태입니다. 빠른 결론보다 사실을 확인하며 신중하게 기다립니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=black-tarot-study.html&amp;from=summary"><span class="sw black" aria-hidden="true"></span>검정</a></th><td><strong class="reading-keywords">중단 · 휴식 · 재충전</strong>일·관계·돈의 흐름이 멈추는 시기입니다. 당장 밀어붙이기보다 쉬면서 다음 단계를 준비하는 의미로 읽습니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=rainbow-tarot-study.html&amp;from=summary"><span class="sw rainbow" aria-hidden="true"></span>무지개</a></th><td><strong class="reading-keywords">극복 · 조화 · 행운</strong>어려움을 지나 좋은 흐름으로 바뀌는 신호입니다. 다양한 요소가 조화를 이루며 재도전과 관계의 발전을 뜻합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=various-tarot-study.html&amp;from=summary"><span class="sw various" aria-hidden="true"></span>다채색</a></th><td><strong class="reading-keywords">호기심 · 산만 · 미완성</strong>생각과 관심이 여러 방향으로 흩어져 마무리가 어려운 상태입니다. 일과 지출을 단순하게 정리하고 하나에 집중합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=ocher-tarot-study.html&amp;from=summary"><span class="sw ocher" aria-hidden="true"></span>황토</a></th><td><strong class="reading-keywords">안정 · 원칙 · 부동산</strong>원칙과 경험을 바탕으로 소박하지만 안정적인 결과를 뜻합니다. 큰 성과보다는 현실적인 규모와 동반 카드의 흐름을 봅니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=copper-tarot-study.html&amp;from=summary"><span class="sw copper" aria-hidden="true"></span>구리</a></th><td><strong class="reading-keywords">소통 · 교류 · 유통</strong>마음과 정보, 돈이 잘 통하는지가 핵심입니다. 긍정 카드면 원활한 교류, 부정 카드면 소통 단절과 흐름의 막힘을 읽습니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=oldcopper-tarot-study.html&amp;from=summary"><span class="sw oldcopper" aria-hidden="true"></span>고동</a></th><td><strong class="reading-keywords">오랜 기다림 · 끈기 · 전통</strong>성과까지 오랜 시간과 인내가 필요한 흐름입니다. 버틸 여건과 미래 카드를 함께 살피며 장기적인 결실을 판단합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=turquoise-tarot-study.html&amp;from=summary"><span class="sw turquoise" aria-hidden="true"></span>터키옥</a></th><td><strong class="reading-keywords">행운 · 가족 · 도움</strong>가족과 가까운 사람의 도움으로 기회가 열리는 흐름입니다. 부정 카드에서는 지인과의 거래·관계로 생기는 문제를 살핍니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=vintage-tarot-study.html&amp;from=summary"><span class="sw vintage" aria-hidden="true"></span>빈티지</a></th><td><strong class="reading-keywords">재회 · 향수 · 재발견</strong>예전 인연·꿈·물건의 가치를 다시 발견하는 흐름입니다. 재회와 재도전, 오래 묵혀 둔 것의 가치 상승을 뜻합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=translucence-tarot-study.html&amp;from=summary"><span class="sw trans" aria-hidden="true"></span>반투명</a></th><td><strong class="reading-keywords">연결 · 인연 · 가족</strong>가족·조직·과거의 인연과 이어지는 흐름입니다. 꾸준한 관계와 고정적인 수입을 뜻하며, 동반 카드로 인연의 성격을 봅니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=gold-tarot-study.html&amp;from=summary"><span class="sw gold" aria-hidden="true"></span>금색</a></th><td><strong class="reading-keywords">풍요 · 성공 · 완성</strong>성취와 풍요, 시간이 갈수록 나아지는 흐름입니다. 매매·합격의 성사 여부는 함께 나온 카드로 확인합니다.</td></tr>
+  <tr><th scope="row"><a class="cname" href="index.html?color=silver-tarot-study.html&amp;from=summary"><span class="sw silver" aria-hidden="true"></span>은색</a></th><td><strong class="reading-keywords">그리움 · 가족 · 불만족</strong>상황은 나쁘지 않아도 기대만큼 만족하지 못하는 마음입니다. 과거와 가족에 대한 그리움, 기대와 현실의 차이를 살핍니다.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="footer">
+  색상 — 컬러 해석 요약표 · 22색 핵심 해석 정리<br>
+  개인 학습용
+</div>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
